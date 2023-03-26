@@ -1,13 +1,11 @@
 package DAO;
 
-import java.sql.Connection;
+import java.sql.*;
 
 /**
  *
  * @author LeAnhQuan
  */
 public class MonAn_DAO {
-    private Connection con;
-    
     
 }
