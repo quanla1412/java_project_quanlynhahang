@@ -8,6 +8,7 @@ import java.sql.DriverManager;
  * @author LeAnhQuan
  */
 public class ConnectDatabase {    
+    
     public static Connection openConnection() {
         try {
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
