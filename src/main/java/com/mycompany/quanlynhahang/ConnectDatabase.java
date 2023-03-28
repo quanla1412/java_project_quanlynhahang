@@ -2,6 +2,7 @@ package com.mycompany.quanlynhahang;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.SQLException;
 
 /**
  *
@@ -12,13 +13,13 @@ public class ConnectDatabase {
     public static Connection openConnection() {
         try {
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-            String dbUrl = "jdbc:sqlserver://localhost:1433;DatabaseName=QuanLyNhaHang";
-            String username = "admin"; 
-            String password= "admin";
+            String dbUrl = "jdbc:sqlserver://localhost:1433;DatabaseName=QuanLyNhaHang;encrypt=true;trustServerCertificate=true;";
+            String username = "sa"; 
+            String password= "sa";
             Connection con = DriverManager.getConnection(dbUrl, username,password);
             return con;
-        } catch(Exception ex){
-            ex.printStackTrace();
+        } catch(SQLException | ClassNotFoundException ex){
+            System.out.println(ex);
             return null;
         }
     }
@@ -27,8 +28,8 @@ public class ConnectDatabase {
         try{
             if(con != null) 
                 con.close();
-        } catch(Exception ex){
-            ex.printStackTrace();
+        } catch(SQLException ex){
+            System.out.println(ex);
         }
     }
 }

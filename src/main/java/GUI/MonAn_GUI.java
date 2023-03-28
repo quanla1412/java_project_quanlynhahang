@@ -1,5 +1,9 @@
 package GUI;
 
+import DAO.LoaiMonAn_DAO;
+import DTO.LoaiMonAn_DTO;
+import java.util.ArrayList;
+
 /**
  *
  * @author LeAnhQuan
@@ -11,6 +15,15 @@ public class MonAn_GUI extends javax.swing.JFrame {
      */
     public MonAn_GUI() {
         initComponents();
+        
+        LoaiMonAn_DAO loaiMonAn_DAO = new LoaiMonAn_DAO();
+        ArrayList<LoaiMonAn_DTO> loaiMonAn_DTOs = loaiMonAn_DAO.getAllLoaiMonAn();
+        
+        for (LoaiMonAn_DTO loaiMonAn_DTO : loaiMonAn_DTOs) {
+            jComboBox1.addItem(loaiMonAn_DTO.getTen());
+        }
+        
+        
     }
 
     /**
@@ -23,10 +36,13 @@ public class MonAn_GUI extends javax.swing.JFrame {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
+        jComboBox1 = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jLabel1.setText("Món Ăn");
+
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -35,14 +51,18 @@ public class MonAn_GUI extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(168, 168, 168)
                 .addComponent(jLabel1)
-                .addContainerGap(190, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 112, Short.MAX_VALUE)
+                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(35, 35, 35)
-                .addComponent(jLabel1)
-                .addContainerGap(249, Short.MAX_VALUE))
+                .addGap(32, 32, 32)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(246, Short.MAX_VALUE))
         );
 
         pack();
@@ -84,6 +104,7 @@ public class MonAn_GUI extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     // End of variables declaration//GEN-END:variables
 }
