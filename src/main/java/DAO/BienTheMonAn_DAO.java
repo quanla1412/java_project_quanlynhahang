@@ -2,7 +2,6 @@ package DAO;
 
 import DTO.MonAn.BienTheMonAn_DTO;
 import DTO.MonAn.CreateBienTheMonAn_DTO;
-import DTO.MonAn.OptionValueFull_DTO;
 import DTO.MonAn.OptionValue_DTO;
 import DTO.MonAn.TinhTrangBTMA_DTO;
 import DTO.MonAn.UpdateBienTheMonAn_DTO;
@@ -126,6 +125,30 @@ public class BienTheMonAn_DAO {
             preparedStatementForBTMA.setInt(2, data.getGia());
             preparedStatementForBTMA.setInt(3, data.getIdMonAn());
             preparedStatementForBTMA.setInt(4, data.getIdBTMA());
+
+            if(preparedStatementForBTMA.executeUpdate() > 1)
+                result = true;                
+        } catch (SQLException ex) {
+            System.out.println(ex);
+        } finally {
+            ConnectDatabase.closeConnection(con);
+        }   
+        return result;
+    }
+    
+    public boolean changeTinhTrangBTMA(int idMA, int idBTMA, int idTinhTrangBTMA){
+        Connection con = ConnectDatabase.openConnection();
+        boolean result = true;
+        
+        try{
+            String sql = "UPDATE BienTheMonAn"
+                + "SET TTBT_ID = ?"
+                + "WHERE MA_ID = ? AND BTMA_ID = ?" ;
+
+            PreparedStatement preparedStatementForBTMA = con.prepareStatement(sql);
+            preparedStatementForBTMA.setInt(1, idTinhTrangBTMA);
+            preparedStatementForBTMA.setInt(2, idMA);
+            preparedStatementForBTMA.setInt(3, idBTMA);
 
             if(preparedStatementForBTMA.executeUpdate() > 1)
                 result = true;                
