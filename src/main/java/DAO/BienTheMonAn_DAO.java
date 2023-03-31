@@ -142,14 +142,14 @@ public class BienTheMonAn_DAO {
         boolean result = true;
         
         try{
-            String sql = "DELETE FROM BienTheMonAn WHERE MA_ID = ? AND BTMA_ID = ?" ;
+            String sql = "DELETE FROM BTMA_value WHERE MA_ID = ? AND BTMA_ID = ?" ;
 
             PreparedStatement preparedStatementForBTMA = con.prepareStatement(sql);
             preparedStatementForBTMA.setInt(1, idMonAn);
             preparedStatementForBTMA.setInt(2, idBTMA);
 
             if(preparedStatementForBTMA.executeUpdate() > 1){
-                sql = "DELETE FROM BTMA_value WHERE MA_ID = ? AND BTMA_ID = ?" ;
+                sql = "DELETE FROM BienTheMonAn WHERE MA_ID = ? AND BTMA_ID = ?" ;
             
                 preparedStatementForBTMA = con.prepareStatement(sql);
                 preparedStatementForBTMA.setInt(1, idMonAn);
