@@ -168,22 +168,31 @@ public class MonAn_DAO {
     public boolean deleteMonAn(int id){
         Connection con = ConnectDatabase.openConnection();
         boolean result = false;
-        try {            
-            String sql = "DELETE FROM BienTheMonAn WHERE MA_ID = ?";
+        try {       
             
-            PreparedStatement preparedStatement = con.prepareStatement(sql);
-            preparedStatement.setInt(1, id);
+            String sql = "DELETE FROM BTMA_value WHERE MA_ID = ?" ;
+
+            PreparedStatement preparedStatementForBTMA = con.prepareStatement(sql);
+            preparedStatementForBTMA.setInt(1, id);
+
+            if(preparedStatementForBTMA.executeUpdate() > 1){
+                sql = "DELETE FROM BienTheMonAn WHERE MA_ID = ?";
             
-            if(preparedStatement.executeUpdate() > 1){
-                String sqlForMonAn = "DELETE FROM MonAn WHERE MA_ID = ?";
-            
-                PreparedStatement preparedStatementForMonAn = con.prepareStatement(sqlForMonAn);
-                preparedStatementForMonAn.setInt(1, id);
-                
-                if(preparedStatementForMonAn.executeUpdate() > 1)
-                    result = true;
-                
+                PreparedStatement preparedStatement = con.prepareStatement(sql);
+                preparedStatement.setInt(1, id);
+
+                if(preparedStatement.executeUpdate() > 1){
+                    String sqlForMonAn = "DELETE FROM MonAn WHERE MA_ID = ?";
+
+                    PreparedStatement preparedStatementForMonAn = con.prepareStatement(sqlForMonAn);
+                    preparedStatementForMonAn.setInt(1, id);
+
+                    if(preparedStatementForMonAn.executeUpdate() > 1)
+                        result = true;
+
+                }
             }
+            
             
         } catch (SQLException ex) {
             System.out.println(ex);
