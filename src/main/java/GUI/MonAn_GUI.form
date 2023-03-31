@@ -33,6 +33,8 @@
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
               <Component id="jTabbedPane1" min="-2" pref="100" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="82" max="-2" attributes="0"/>
+              <Component id="jButton1" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="32767" attributes="0"/>
           </Group>
       </Group>
@@ -45,8 +47,16 @@
                   <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jComboBox1" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace min="-2" pref="45" max="-2" attributes="0"/>
-              <Component id="jTabbedPane1" min="-2" pref="100" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" attributes="0">
+                      <EmptySpace min="-2" pref="45" max="-2" attributes="0"/>
+                      <Component id="jTabbedPane1" min="-2" pref="100" max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace min="-2" pref="93" max="-2" attributes="0"/>
+                      <Component id="jButton1" min="-2" max="-2" attributes="0"/>
+                  </Group>
+              </Group>
               <EmptySpace pref="148" max="32767" attributes="0"/>
           </Group>
       </Group>
@@ -123,5 +133,15 @@
         </Container>
       </SubComponents>
     </Container>
+    <Component class="javax.swing.JButton" name="jButton1">
+      <Properties>
+        <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+          <Connection code="&quot;&lt;html&gt;\n&quot; +&#xd;&#xa;&quot;&lt;p&gt;B&#xe0;n 1&lt;/p&gt;\n&quot; +&#xd;&#xa;&quot;&lt;p&gt;Vu&#xf4;ng 2&lt;/p&gt;\n&quot; +&#xd;&#xa;&quot;&lt;/html&gt;&quot;" type="code"/>
+        </Property>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton1ActionPerformed"/>
+      </Events>
+    </Component>
   </SubComponents>
 </Form>

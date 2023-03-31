@@ -1,36 +1,21 @@
-package DTO;
-
-
-import DTO.LoaiMonAn_DTO;
-
+package DTO.MonAn;
 
 /**
  *
  * @author LeAnhQuan
  */
-public class UpdateMonAn_DTO {
-    private int id;
+public class CreateMonAn_DTO {
     private String ten;
     private String hinhAnh;
-    private String idLoaiMonAn;
+    private int idLoaiMonAn;
 
-    public UpdateMonAn_DTO() {
+    public CreateMonAn_DTO() {
     }
-    
 
-    public UpdateMonAn_DTO(int id, String ten, LoaiMonAn_DTO loaiMonAn, String hinhAnh, String idLoaiMonAn) {
-        this.id = id;
+    public CreateMonAn_DTO(String ten, String hinhAnh, int idLoaiMonAn) {
         this.ten = ten;
         this.hinhAnh = hinhAnh;
         this.idLoaiMonAn = idLoaiMonAn;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public String getTen() {
@@ -49,11 +34,11 @@ public class UpdateMonAn_DTO {
         this.hinhAnh = hinhAnh;
     }
 
-    public String getIdLoaiMonAn() {
+    public int getIdLoaiMonAn() {
         return idLoaiMonAn;
     }
 
-    public void setIdLoaiMonAn(String idLoaiMonAn) {
+    public void setIdLoaiMonAn(int idLoaiMonAn) {
         this.idLoaiMonAn = idLoaiMonAn;
-    }
+    }    
 }

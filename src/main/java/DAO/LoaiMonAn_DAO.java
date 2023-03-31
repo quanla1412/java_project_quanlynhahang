@@ -1,6 +1,7 @@
 package DAO;
 
-import DTO.LoaiMonAn_DTO;
+import DTO.MonAn.LoaiMonAnFull_DTO;
+import DTO.MonAn.LoaiMonAn_DTO;
 import com.mycompany.quanlynhahang.ConnectDatabase;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -58,6 +59,28 @@ public class LoaiMonAn_DAO {
         return loaiMonAn_DTO;
     }
     
+    public LoaiMonAnFull_DTO getLoaiMonAnFullById(String id){
+        Connection con = ConnectDatabase.openConnection();
+        LoaiMonAnFull_DTO loaiMonAnFull_DTO = new LoaiMonAnFull_DTO();
+        MonAn_DAO monAn_DAO = new MonAn_DAO();
+        try {
+            
+            Statement statement = con.createStatement();
+            ResultSet resultSet = statement.executeQuery("SELECT * FROM LoaiMonAn WHERE LMA_ID=" + id);
+        
+            resultSet.next();                
+            loaiMonAnFull_DTO.setId(resultSet.getInt("LMA_ID"));
+            loaiMonAnFull_DTO.setTen(resultSet.getNString("LMA_Ten"));  
+            loaiMonAnFull_DTO.setListMonAn(monAn_DAO.getMonAnByLoaiMonAn(id));
+            
+        } catch (SQLException ex) {
+            System.out.println(ex);
+        } finally {
+            ConnectDatabase.closeConnection(con); 
+        }
+        return loaiMonAnFull_DTO;
+    }
+    
     public boolean addLoaiMonAn(String tenLoaiMonAn){
         Connection con = ConnectDatabase.openConnection();
         boolean result = false;
@@ -79,7 +102,7 @@ public class LoaiMonAn_DAO {
         return result;
     }
     
-    public boolean updateLoaiMonAn(LoaiMonAn_DTO loaiMonAn_DTO){
+    public boolean createLoaiMonAn(LoaiMonAn_DTO loaiMonAn_DTO){
         Connection con = ConnectDatabase.openConnection();
         boolean result = false;
         try {

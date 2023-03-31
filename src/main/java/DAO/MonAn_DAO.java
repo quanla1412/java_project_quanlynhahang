@@ -1,7 +1,9 @@
 package DAO;
 
-import DTO.UpdateMonAn_DTO;
-import DTO.MonAn_DTO;
+import DTO.MonAn.UpdateMonAn_DTO;
+import DTO.MonAn.MonAn_DTO;
+import DTO.MonAn.CreateMonAn_DTO;
+import DTO.MonAn.OptionValueFull_DTO;
 import com.mycompany.quanlynhahang.ConnectDatabase;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -28,7 +30,7 @@ public class MonAn_DAO {
                 
                 monAn_DTO.setId(resultSet.getInt("MA_ID"));
                 monAn_DTO.setTen(resultSet.getNString("MA_Ten"));
-                monAn_DTO.setTen(resultSet.getNString("MA_HinhAnh"));
+                monAn_DTO.setHinhAnh(resultSet.getNString("MA_HinhAnh"));
                 
                 result.add(monAn_DTO);
             }
@@ -40,7 +42,7 @@ public class MonAn_DAO {
         return result;
     }
     
-    public MonAn_DTO getMonAnById(String id){
+    public MonAn_DTO getMonAnById(int id){
         Connection con = ConnectDatabase.openConnection();
         MonAn_DTO monAn_DTO = new MonAn_DTO();
         try {
@@ -49,9 +51,9 @@ public class MonAn_DAO {
             ResultSet resultSet = statement.executeQuery("SELECT * FROM LoaiMonAn WHERE LMA_ID=" + id);
         
             resultSet.next();                
-            monAn_DTO.setId(resultSet.getInt("LMA_ID"));
+            monAn_DTO.setId(id);
             monAn_DTO.setTen(resultSet.getNString("LMA_Ten")); 
-            monAn_DTO.setTen(resultSet.getNString("MA_HinhAnh")); 
+            monAn_DTO.setHinhAnh(resultSet.getNString("MA_HinhAnh")); 
             
         } catch (SQLException ex) {
             System.out.println(ex);
@@ -73,7 +75,7 @@ public class MonAn_DAO {
                 
                 monAn_DTO.setId(resultSet.getInt("MA_ID"));
                 monAn_DTO.setTen(resultSet.getNString("MA_Ten"));
-                monAn_DTO.setTen(resultSet.getNString("MA_HinhAnh"));
+                monAn_DTO.setHinhAnh(resultSet.getNString("MA_HinhAnh"));
                 
                 result.add(monAn_DTO);
             }
@@ -83,49 +85,77 @@ public class MonAn_DAO {
             ConnectDatabase.closeConnection(con); 
         }
         return result;
+    }   
+    
+    public ArrayList<OptionValueFull_DTO> getAllOptionsValuesByMA(int idMonAn) {
+        Connection con = ConnectDatabase.openConnection();
+        ArrayList<OptionValueFull_DTO> result = new ArrayList<>();
+        OptionValue_DAO optionValue_DAO = new OptionValue_DAO();
+        try {
+            Statement statement = con.createStatement();
+            ResultSet resultSet = statement.executeQuery("SELECT DISTINCT OPT_ID, VAL_ID FROM BTMA_Value WHERE MA_ID = " + idMonAn);
+
+        
+            while(resultSet.next()){
+                OptionValueFull_DTO optionValueFull_DTO = new OptionValueFull_DTO();
+                
+                int option_id = resultSet.getInt(1);
+                int val_id = resultSet.getInt(2);
+                
+                optionValueFull_DTO.setOption(optionValue_DAO.getOptionByIdOption(option_id));
+                optionValueFull_DTO.setValue(optionValue_DAO.getValueById(option_id, val_id));
+                
+                result.add(optionValueFull_DTO);
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex);
+        } finally {
+            ConnectDatabase.closeConnection(con); 
+        }
+        return result;
     }
     
-    public boolean addLoaiMonAn(UpdateMonAn_DTO updateMonAn_DTO){
+    public int createMonAn(CreateMonAn_DTO data){
         Connection con = ConnectDatabase.openConnection();
-        boolean result = false;
         try {
             
             String sql = "INSERT INTO MonAn VALUES(?, ?, ?)";
             
             PreparedStatement preparedStatement = con.prepareStatement(sql);
-            preparedStatement.setNString(1, updateMonAn_DTO.getIdLoaiMonAn());
-            preparedStatement.setNString(2, updateMonAn_DTO.getTen());
-            preparedStatement.setNString(3, updateMonAn_DTO.getHinhAnh());
+            preparedStatement.setInt(1, data.getIdLoaiMonAn());
+            preparedStatement.setNString(2, data.getTen());
+            preparedStatement.setNString(3, data.getHinhAnh());
             
             
-            if(preparedStatement.executeUpdate() > 1)
-                result = true;
-            
+            if(preparedStatement.executeUpdate() > 1){
+                return getNewestNoMonAn();     
+            }
         } catch (SQLException ex) {
             System.out.println(ex);
         } finally {
             ConnectDatabase.closeConnection(con); 
         }
-        return result;
+        return -1;
     }
     
-    public boolean updateLoaiMonAn(UpdateMonAn_DTO updateMonAn_DTO){
+    public boolean UpdateMonAn(UpdateMonAn_DTO data){
         Connection con = ConnectDatabase.openConnection();
         boolean result = false;
         try {
             
-            String sql = "UPDATE LoaiMonAn "
+            String sql = "UPDATE MonAn"
                     + "SET LMA_ID = ?, MA_Ten = ?, MA_HinhAnh = ?"
-                    + "WHERE LMA_ID = " + updateMonAn_DTO.getId();
+                    + "WHERE MA_ID = " + data.getId();
             
             PreparedStatement preparedStatement = con.prepareStatement(sql);
-            preparedStatement.setNString(1, updateMonAn_DTO.getIdLoaiMonAn());
-            preparedStatement.setNString(2, updateMonAn_DTO.getTen());
-            preparedStatement.setNString(3, updateMonAn_DTO.getHinhAnh());
+            preparedStatement.setInt(1, data.getIdLoaiMonAn());
+            preparedStatement.setNString(2, data.getTen());
+            preparedStatement.setNString(3, data.getHinhAnh());
             
             
-            if(preparedStatement.executeUpdate() > 1)
-                result = true;
+            if(preparedStatement.executeUpdate() > 1){
+                result = true;                
+            }
             
         } catch (SQLException ex) {
             System.out.println(ex);
@@ -135,23 +165,68 @@ public class MonAn_DAO {
         return result;
     }
     
-    public boolean deleteLoaiMonAn(String id){
+    public boolean deleteMonAn(int id){
         Connection con = ConnectDatabase.openConnection();
         boolean result = false;
-        try {
-            
-            String sql = "DELETE FROM MonAn WHERE LMA_ID=" + id ;
+        try {            
+            String sql = "DELETE FROM BienTheMonAn WHERE MA_ID = ?";
             
             PreparedStatement preparedStatement = con.prepareStatement(sql);
+            preparedStatement.setInt(1, id);
             
-            if(preparedStatement.executeUpdate() > 1)
-                result = true;
+            if(preparedStatement.executeUpdate() > 1){
+                String sqlForMonAn = "DELETE FROM MonAn WHERE MA_ID = ?";
+            
+                PreparedStatement preparedStatementForMonAn = con.prepareStatement(sqlForMonAn);
+                preparedStatementForMonAn.setInt(1, id);
+                
+                if(preparedStatementForMonAn.executeUpdate() > 1)
+                    result = true;
+                
+            }
             
         } catch (SQLException ex) {
             System.out.println(ex);
         } finally {
             ConnectDatabase.closeConnection(con); 
         }
+        return result;
+    }
+    
+    public boolean hasBienThe(String id){
+        Connection con = ConnectDatabase.openConnection();
+        boolean result = false;
+        try {
+            
+            Statement statement = con.createStatement();
+            ResultSet resultSet = statement.executeQuery("SELECT * FROM BienTheMonAn WHERE MA_ID = " + id);
+        
+            result = resultSet.next();
+        } catch (SQLException ex) {
+            System.out.println(ex);
+        } finally {
+            ConnectDatabase.closeConnection(con); 
+        }
+        return result;
+    }
+    
+    private int getNewestNoMonAn(){
+        Connection con = ConnectDatabase.openConnection();
+        int result = -1;
+        try {            
+            Statement statement = con.createStatement();
+            String sql = "SELECT MAX(MA_ID) as MA_ID FROM MonAn";
+            ResultSet rs = statement.executeQuery(sql);
+            
+            rs.next();
+            result = rs.getInt("MA_ID");
+            
+        } catch (SQLException ex) {
+            System.out.println(ex);
+        } finally {
+            ConnectDatabase.closeConnection(con);
+        }
+        
         return result;
     }
 }
