@@ -18,7 +18,7 @@ import java.util.ArrayList;
  * @author LeAnhQuan
  */
 public class BienTheMonAn_DAO {
-    public BienTheMonAn_DTO getBienTheMonAn(String idMonAn, ArrayList<OptionValue_DTO> listOptionValues){
+    public BienTheMonAn_DTO getBienTheMonAn(int idMonAn, ArrayList<OptionValue_DTO> listOptionValues){
         Connection con = ConnectDatabase.openConnection();
         BienTheMonAn_DTO bienTheMonAn_DTO = new BienTheMonAn_DTO();
         try {
@@ -43,8 +43,34 @@ public class BienTheMonAn_DAO {
             rs = statement.executeQuery(sql);
             
             rs.next();
+            bienTheMonAn_DTO.setIdMonAn(idMonAn);
+            bienTheMonAn_DTO.setIdBTMA(btma_id);
             bienTheMonAn_DTO.setGia(rs.getInt("BTMA_Gia"));
             bienTheMonAn_DTO.setTinhTrang(getTinhTrangBTMA(rs.getInt("TTBT_ID")));
+            
+        } catch (SQLException ex) {
+            System.out.println(ex);
+        } finally {
+            ConnectDatabase.closeConnection(con);
+        }
+        
+        return bienTheMonAn_DTO;
+    }
+    
+    public BienTheMonAn_DTO getBienTheMonAnById(int idMonAn, int idBTMA){
+        Connection con = ConnectDatabase.openConnection();
+        BienTheMonAn_DTO bienTheMonAn_DTO = new BienTheMonAn_DTO();
+        try {
+            String sql = "SELECT * FROM BienTheMonAn WHERE MA_ID = " + idMonAn + " AND BTMA_ID = " + idBTMA;
+            Statement statement = con.createStatement();
+            ResultSet rs = statement.executeQuery(sql);
+            
+            if(rs.next()){
+                bienTheMonAn_DTO.setIdMonAn(idMonAn);
+                bienTheMonAn_DTO.setIdBTMA(idBTMA);
+                bienTheMonAn_DTO.setGia(rs.getInt("BTMA_Gia"));
+                bienTheMonAn_DTO.setTinhTrang(getTinhTrangBTMA(rs.getInt("TTBT_ID")));                
+            }
             
         } catch (SQLException ex) {
             System.out.println(ex);

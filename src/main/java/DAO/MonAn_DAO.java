@@ -23,7 +23,7 @@ public class MonAn_DAO {
         try {
             
             Statement statement = con.createStatement();
-            ResultSet resultSet = statement.executeQuery("SELECT * FROM LoaiMonAn");
+            ResultSet resultSet = statement.executeQuery("SELECT * FROM MonAn");
         
             while(resultSet.next()){
                 MonAn_DTO monAn_DTO = new MonAn_DTO();
@@ -42,13 +42,14 @@ public class MonAn_DAO {
         return result;
     }
     
+    
     public MonAn_DTO getMonAnById(int id){
         Connection con = ConnectDatabase.openConnection();
         MonAn_DTO monAn_DTO = new MonAn_DTO();
         try {
             
             Statement statement = con.createStatement();
-            ResultSet resultSet = statement.executeQuery("SELECT * FROM LoaiMonAn WHERE LMA_ID=" + id);
+            ResultSet resultSet = statement.executeQuery("SELECT * FROM MonAn WHERE MA_ID=" + id);
         
             resultSet.next();                
             monAn_DTO.setId(id);
@@ -63,6 +64,31 @@ public class MonAn_DAO {
         return monAn_DTO;
     }
     
+     public ArrayList<MonAn_DTO> getMonAnByName(String name) {
+        Connection con = ConnectDatabase.openConnection();
+        ArrayList<MonAn_DTO> result = new ArrayList<>();
+        try {
+            
+            Statement statement = con.createStatement();
+            ResultSet resultSet = statement.executeQuery("SELECT * FROM MonAn WHERE MA_Ten LIKE '%" + name + "%'");
+        
+            while(resultSet.next()){
+                MonAn_DTO monAn_DTO = new MonAn_DTO();
+                
+                monAn_DTO.setId(resultSet.getInt("MA_ID"));
+                monAn_DTO.setTen(resultSet.getNString("MA_Ten"));
+                monAn_DTO.setHinhAnh(resultSet.getNString("MA_HinhAnh"));
+                
+                result.add(monAn_DTO);
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex);
+        } finally {
+            ConnectDatabase.closeConnection(con); 
+        }
+        return result;
+    }
+     
     public ArrayList<MonAn_DTO> getMonAnByLoaiMonAn(String id) {
         Connection con = ConnectDatabase.openConnection();
         ArrayList<MonAn_DTO> result = new ArrayList<>();
