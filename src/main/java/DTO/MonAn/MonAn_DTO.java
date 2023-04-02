@@ -1,19 +1,22 @@
-package DTO;
+package DTO.MonAn;
 
 /**
  *
  * @author LeAnhQuan
  */
-public class LoaiMonAn_DTO {
+public class MonAn_DTO {
     private int id;
     private String ten;
+    private String hinhAnh;
 
-    public LoaiMonAn_DTO() {
+    public MonAn_DTO() {
     }
+    
 
-    public LoaiMonAn_DTO(int id, String ten) {
+    public MonAn_DTO(int id, String ten, LoaiMonAn_DTO loaiMonAn, String hinhAnh) {
         this.id = id;
         this.ten = ten;
+        this.hinhAnh = hinhAnh;
     }
 
     public int getId() {
@@ -32,10 +35,12 @@ public class LoaiMonAn_DTO {
         this.ten = ten;
     }
 
-    @Override
-    public String toString() {
-        return "LoaiMonAn_DTO{" + "id=" + id + ", ten=" + ten + '}';
+    public String getHinhAnh() {
+        return hinhAnh;
     }
-    
+
+    public void setHinhAnh(String hinhAnh) {
+        this.hinhAnh = hinhAnh;
+    }
     
 }
