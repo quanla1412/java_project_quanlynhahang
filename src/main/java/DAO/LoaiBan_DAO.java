@@ -42,6 +42,31 @@ public class LoaiBan_DAO {
         return result;
     }
     
+    public LoaiBan_DTO getLoaiBanByID(int id){
+        Connection con = ConnectDatabase.openConnection();
+        LoaiBan_DTO loaiBan = new LoaiBan_DTO();
+        
+        try {
+            String sql = "SELECT * FROM LoaiBan WHERE LB_ID = " + id ;
+            Statement statement = con.createStatement();
+            
+            ResultSet rs = statement.executeQuery(sql);
+            if(rs.next()){
+                
+                loaiBan.setId(rs.getInt(1));
+                loaiBan.setTen(rs.getNString(2));
+                loaiBan.setSoLuongCho(rs.getInt(3));;
+            } else 
+                return null;
+        } catch (SQLException ex) {
+            System.out.println(ex);
+        } finally {
+            ConnectDatabase.closeConnection(con);
+        }
+        
+        return loaiBan;
+    }
+    
     public boolean createLoaiBan(CreateLoaiBan_DTO data){
         Connection con = ConnectDatabase.openConnection();
         boolean result = false;
@@ -53,7 +78,7 @@ public class LoaiBan_DAO {
             statement.setNString(1, data.getTen());
             statement.setInt(2, data.getSoLuongCho());
             
-            while(statement.executeUpdate() > 1){
+            if(statement.executeUpdate() >= 1){
                 result = true;
             }            
         } catch (SQLException ex) {
@@ -77,7 +102,7 @@ public class LoaiBan_DAO {
             statement.setInt(2, data.getSoLuongCho());
             statement.setInt(3, data.getId());
             
-            while(statement.executeUpdate() > 1){
+            if(statement.executeUpdate() >= 1){
                 result = true;
             }            
         } catch (SQLException ex) {
@@ -99,9 +124,51 @@ public class LoaiBan_DAO {
             
             statement.setInt(1, idLoaiBan);
             
-            while(statement.executeUpdate() > 1){
+            while(statement.executeUpdate() >= 1){
                 result = true;
             }            
+        } catch (SQLException ex) {
+            System.out.println(ex);
+        } finally {
+            ConnectDatabase.closeConnection(con);
+        }
+        
+        return result;
+    }
+    
+    public int deleteNhieuLoaiBan(ArrayList<Integer> listIDLoaiBan){
+        Connection con = ConnectDatabase.openConnection();
+        int result = 0;
+        
+        try {
+            String sql = "DELETE FROM LoaiBan WHERE LB_ID = ?";
+            PreparedStatement statement = con.prepareStatement(sql);            
+            
+            for(int id : listIDLoaiBan) {
+                statement.setInt(1, id);
+                
+                if(statement.executeUpdate() >= 1)
+                    result++;
+            }
+                       
+        } catch (SQLException ex) {
+            System.out.println(ex);
+        } finally {
+            ConnectDatabase.closeConnection(con);
+        }
+        
+        return result;
+    }
+    
+    public boolean alreadyHasName(String name){
+        Connection con = ConnectDatabase.openConnection();
+        boolean result = true;
+        try {
+            String sql = "Select * from LoaiBan where LOWER(LB_Ten) = LOWER(N'" + name + "') ";
+            Statement statement = con.createStatement();
+            
+            ResultSet rs = statement.executeQuery(sql);
+            result = rs.next();
         } catch (SQLException ex) {
             System.out.println(ex);
         } finally {

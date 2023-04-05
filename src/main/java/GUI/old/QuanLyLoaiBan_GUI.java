@@ -2,19 +2,43 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package GUI;
+package GUI.old;
+
+import BUS.LoaiBan_BUS;
+import DTO.Ban.CreateLoaiBan_DTO;
+import DTO.Ban.LoaiBan_DTO;
+import java.util.ArrayList;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
  * @author tuant
  */
 public class QuanLyLoaiBan_GUI extends javax.swing.JFrame {
-
+    private LoaiBan_BUS loaiBan_BUS;
     /**
      * Creates new form QuanLyLoaiBan_GUI
      */
     public QuanLyLoaiBan_GUI() {
+        loaiBan_BUS = new LoaiBan_BUS();
         initComponents();
+        
+        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        
+        loadTableLoaiBan();
+    }
+    
+    private void loadTableLoaiBan(){
+        ArrayList<LoaiBan_DTO> listLoaiBan = loaiBan_BUS.getAllLoaiBan();
+        String col[] = {"ID", "Tên loại bàn", "Số chỗ ngồi"};
+        DefaultTableModel tableModel = new DefaultTableModel(col, 0);
+        tblLoaiBan.setModel(tableModel);
+        for(LoaiBan_DTO row : listLoaiBan){
+            Object[] data = {row.getId(), row.getTen(), row.getSoLuongCho()};
+            tableModel.addRow(data);
+        }
     }
 
     /**
@@ -36,9 +60,9 @@ public class QuanLyLoaiBan_GUI extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
-        jTextField3 = new javax.swing.JTextField();
+        txtIDLoaiBan = new javax.swing.JTextField();
+        txtTenLoaiBan = new javax.swing.JTextField();
+        txtSoChoNgoi = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
@@ -57,7 +81,7 @@ public class QuanLyLoaiBan_GUI extends javax.swing.JFrame {
         jPanel7 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tblLoaiBan = new javax.swing.JTable();
         jPanel8 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jScrollPane3 = new javax.swing.JScrollPane();
@@ -75,7 +99,7 @@ public class QuanLyLoaiBan_GUI extends javax.swing.JFrame {
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 584, Short.MAX_VALUE)
+            .addGap(0, 661, Short.MAX_VALUE)
         );
 
         getContentPane().add(jPanel1, java.awt.BorderLayout.LINE_START);
@@ -90,7 +114,7 @@ public class QuanLyLoaiBan_GUI extends javax.swing.JFrame {
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 863, Short.MAX_VALUE)
+            .addGap(0, 903, Short.MAX_VALUE)
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -127,17 +151,20 @@ public class QuanLyLoaiBan_GUI extends javax.swing.JFrame {
         jLabel7.setText("Số chỗ ngồi");
         jLabel7.setName("lblSoLoaiBan"); // NOI18N
 
-        jTextField1.setText("jTextField1");
-        jTextField1.setName("txtIDLoaiBan"); // NOI18N
+        txtIDLoaiBan.setToolTipText("");
+        txtIDLoaiBan.setEnabled(false);
 
-        jTextField2.setText("jTextField1");
-        jTextField2.setName("txttenLoaiBan"); // NOI18N
+        txtTenLoaiBan.setName("txttenLoaiBan"); // NOI18N
 
-        jTextField3.setText("jTextField1");
-        jTextField3.setName("txtSoChoNgoi"); // NOI18N
+        txtSoChoNgoi.setName("txtSoChoNgoi"); // NOI18N
 
         jButton1.setText("Thêm loại bàn");
         jButton1.setName("btnThemLoaiBan"); // NOI18N
+        jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton1MouseClicked(evt);
+            }
+        });
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -167,9 +194,9 @@ public class QuanLyLoaiBan_GUI extends javax.swing.JFrame {
                                     .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jTextField1)
-                                    .addComponent(jTextField2, javax.swing.GroupLayout.DEFAULT_SIZE, 229, Short.MAX_VALUE)
-                                    .addComponent(jTextField3, javax.swing.GroupLayout.DEFAULT_SIZE, 229, Short.MAX_VALUE)))
+                                    .addComponent(txtIDLoaiBan)
+                                    .addComponent(txtTenLoaiBan, javax.swing.GroupLayout.DEFAULT_SIZE, 229, Short.MAX_VALUE)
+                                    .addComponent(txtSoChoNgoi, javax.swing.GroupLayout.DEFAULT_SIZE, 229, Short.MAX_VALUE)))
                             .addGroup(jPanel9Layout.createSequentialGroup()
                                 .addComponent(jLabel3)
                                 .addGap(0, 0, Short.MAX_VALUE)))
@@ -191,15 +218,15 @@ public class QuanLyLoaiBan_GUI extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtIDLoaiBan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtTenLoaiBan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(16, 16, 16)
                 .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtSoChoNgoi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
@@ -318,7 +345,7 @@ public class QuanLyLoaiBan_GUI extends javax.swing.JFrame {
                     .addComponent(jButton4)
                     .addComponent(jButton5)
                     .addComponent(jButton6))
-                .addContainerGap(22, Short.MAX_VALUE))
+                .addContainerGap(47, Short.MAX_VALUE))
         );
 
         jPanel5.add(jPanel10, java.awt.BorderLayout.CENTER);
@@ -338,7 +365,7 @@ public class QuanLyLoaiBan_GUI extends javax.swing.JFrame {
 
         jScrollPane1.setName(""); // NOI18N
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tblLoaiBan.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null},
                 {null, null, null},
@@ -349,8 +376,8 @@ public class QuanLyLoaiBan_GUI extends javax.swing.JFrame {
                 "ID", "Tên loại bàn", "Số chỗ ngồi"
             }
         ));
-        jTable1.setName("tblLoaiBan"); // NOI18N
-        jScrollPane1.setViewportView(jTable1);
+        tblLoaiBan.setName("tblLoaiBan"); // NOI18N
+        jScrollPane1.setViewportView(tblLoaiBan);
 
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
@@ -359,8 +386,8 @@ public class QuanLyLoaiBan_GUI extends javax.swing.JFrame {
             .addGroup(jPanel7Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1)
-                .addContainerGap(415, Short.MAX_VALUE))
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
+                .addContainerGap(455, Short.MAX_VALUE))
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 533, Short.MAX_VALUE)
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -368,7 +395,8 @@ public class QuanLyLoaiBan_GUI extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         jPanel6.add(jPanel7, java.awt.BorderLayout.PAGE_START);
@@ -402,21 +430,21 @@ public class QuanLyLoaiBan_GUI extends javax.swing.JFrame {
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel8Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel2)
-                .addContainerGap(362, Short.MAX_VALUE))
-            .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 493, Short.MAX_VALUE))
+                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel8Layout.createSequentialGroup()
+                        .addComponent(jLabel2)
+                        .addGap(0, 396, Short.MAX_VALUE))
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 521, Short.MAX_VALUE))
+                .addContainerGap())
         );
         jPanel8Layout.setVerticalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel8Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel2)
-                .addContainerGap(183, Short.MAX_VALUE))
-            .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel8Layout.createSequentialGroup()
-                    .addGap(0, 44, Short.MAX_VALUE)
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanel6.add(jPanel8, java.awt.BorderLayout.CENTER);
@@ -445,6 +473,33 @@ public class QuanLyLoaiBan_GUI extends javax.swing.JFrame {
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton6ActionPerformed
+
+    private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
+        // TODO add your handling code here:
+        String tenLoaiBan = txtTenLoaiBan.getText().trim();
+        int soChoNgoi;
+        try{            
+            soChoNgoi = Integer.parseInt(txtSoChoNgoi.getText());
+        } catch (NumberFormatException ex) {
+            JOptionPane.showMessageDialog(this, "Nhập sai định dạng số chỗ ngồi","Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        
+        if(soChoNgoi <= 0){
+            JOptionPane.showMessageDialog(this, "Số chỗ ngồi phải lớn hơn 0","Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        
+        CreateLoaiBan_DTO data = new CreateLoaiBan_DTO(tenLoaiBan, soChoNgoi);
+        
+        boolean result = loaiBan_BUS.createLoaiBan(data);
+        if(result)            
+            JOptionPane.showMessageDialog(this, "Thêm loại bàn mới thành công","Thông báo", JOptionPane.INFORMATION_MESSAGE);
+        else
+            JOptionPane.showMessageDialog(this, "Thêm loại bàn mới thất bại","Error", JOptionPane.ERROR_MESSAGE);
+        
+        loadTableLoaiBan();
+    }//GEN-LAST:event_jButton1MouseClicked
 
     /**
      * @param args the command line arguments
@@ -510,13 +565,13 @@ public class QuanLyLoaiBan_GUI extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JTable jTable1;
     private javax.swing.JTable jTable3;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
     private javax.swing.JTextField jTextField4;
     private javax.swing.JTextField jTextField5;
     private javax.swing.JTextField jTextField6;
+    private javax.swing.JTable tblLoaiBan;
+    private javax.swing.JTextField txtIDLoaiBan;
+    private javax.swing.JTextField txtSoChoNgoi;
+    private javax.swing.JTextField txtTenLoaiBan;
     // End of variables declaration//GEN-END:variables
 }
