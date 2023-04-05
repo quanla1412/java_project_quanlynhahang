@@ -1,5 +1,6 @@
 package DAO;
 
+import DTO.Ban.BanFull_DTO;
 import DTO.Ban.Ban_DTO;
 import DTO.Ban.CreateBan_DTO;
 import DTO.Ban.CreateLoaiBan_DTO;
@@ -19,31 +20,81 @@ import java.util.ArrayList;
  * @author LeAnhQuan
  */
 public class Ban_DAO {
-    public ArrayList<Ban_DTO> getAllLoaiBan(){
+    public ArrayList<Ban_DTO> getAllBan(){
         Connection con = ConnectDatabase.openConnection();
         ArrayList<Ban_DTO> result = new ArrayList<>();
         
         try {
-            String sql = "SELECT B_ID, B.TTB_ID, TTB.TTB_Ten, B.LB_ID, LB_Ten, LB_SoLuongCho "
+            String sql = "SELECT B_ID, TTB.TTB_Ten, LB_Ten "
                     + "FROM Ban B, TinhTrangBan TTB, LoaiBan LB "
                     + "WHERE B.TTB_ID = TTB.TTB_ID AND B.LB_ID = LB.LB_ID";
             Statement statement = con.createStatement();
             
             ResultSet rs = statement.executeQuery(sql);
             while(rs.next()){
+                Ban_DTO ban = new Ban_DTO();  
+                ban.setId(rs.getInt("B_ID"));
+                ban.setLoaiBan(rs.getNString("LB_Ten"));
+                ban.setTinhTrangBan(rs.getNString("TTB_Ten"));
+                
+                result.add(ban);
+            }            
+        } catch (SQLException ex) {
+            System.out.println(ex);
+        } finally {
+            ConnectDatabase.closeConnection(con);
+        }
+        
+        return result;
+    }
+    
+    public BanFull_DTO getBanFullById(int id){
+        Connection con = ConnectDatabase.openConnection();
+        BanFull_DTO result = new BanFull_DTO();
+        
+        try {
+            String sql = "SELECT B_ID, B.TTB_ID, TTB.TTB_Ten, B.LB_ID, LB_Ten, LB_SoLuongCho "
+                    + "FROM Ban B, TinhTrangBan TTB, LoaiBan LB "
+                    + "WHERE B.TTB_ID = TTB.TTB_ID AND B.LB_ID = LB.LB_ID AND B_ID = " + id;
+            Statement statement = con.createStatement();
+            
+            ResultSet rs = statement.executeQuery(sql);
+            if(rs.next()){
                 LoaiBan_DTO loaiBan = new LoaiBan_DTO();
                 loaiBan.setId(rs.getInt("LB_ID"));
                 loaiBan.setTen(rs.getNString("LB_Ten"));
                 loaiBan.setSoLuongCho(rs.getInt("LB_SoLuongCho"));
                 
-                TinhTrangBan_DTO ttb = new TinhTrangBan_DTO();                
-                ttb.setId(rs.getInt("TTB_ID"));
-                ttb.setTen(rs.getNString("TTB_Ten"));
-
-                Ban_DTO ban = new Ban_DTO();  
-                ban.setId(rs.getInt("B_ID"));
-                ban.setLoaiBan(loaiBan);
-                ban.setTinhTrangBan(ttb);
+                TinhTrangBan_DTO tinhTrang = new TinhTrangBan_DTO();
+                tinhTrang.setId(rs.getInt("TTB_ID"));
+                tinhTrang.setTen(rs.getNString("TTB_Ten"));
+                
+                result.setId(rs.getInt("B_ID"));
+                result.setLoaiBan(loaiBan);
+                result.setTinhTrangBan(tinhTrang);
+            }            
+        } catch (SQLException ex) {
+            System.out.println(ex);
+        } finally {
+            ConnectDatabase.closeConnection(con);
+        }
+        
+        return result;
+    }
+    
+    public ArrayList<TinhTrangBan_DTO> getAllTinhTrangBan(){
+        Connection con = ConnectDatabase.openConnection();
+        ArrayList<TinhTrangBan_DTO> result = new ArrayList<>();
+        
+        try {
+            String sql = "SELECT * FROM TinhTrangBan ";
+            Statement statement = con.createStatement();
+            
+            ResultSet rs = statement.executeQuery(sql);
+            while(rs.next()){
+                TinhTrangBan_DTO ban = new TinhTrangBan_DTO();  
+                ban.setId(rs.getInt("TTB_ID"));
+                ban.setTen(rs.getNString("TTB_Ten"));
                 
                 result.add(ban);
             }            
@@ -67,7 +118,7 @@ public class Ban_DAO {
             statement.setInt(1, data.getIdTinhTrangBan());
             statement.setInt(2, data.getIdLoaiBan());
             
-            while(statement.executeUpdate() > 1){
+            if(statement.executeUpdate() >= 1){
                 result = true;
             }            
         } catch (SQLException ex) {
@@ -91,7 +142,7 @@ public class Ban_DAO {
             statement.setInt(2, data.getIdLoaiBan());
             statement.setInt(3, data.getIdBan());
             
-            while(statement.executeUpdate() > 1){
+            if(statement.executeUpdate() >= 1){
                 result = true;
             }            
         } catch (SQLException ex) {
@@ -136,9 +187,33 @@ public class Ban_DAO {
             
             statement.setInt(1, idBan);
             
-            while(statement.executeUpdate() > 1){
+            if(statement.executeUpdate() >= 1){
                 result = true;
             }            
+        } catch (SQLException ex) {
+            System.out.println(ex);
+        } finally {
+            ConnectDatabase.closeConnection(con);
+        }
+        
+        return result;
+    }
+    
+    public int deleteNhieuBan(ArrayList<Integer> listId){
+        Connection con = ConnectDatabase.openConnection();
+        int result = 0;
+        
+        try {
+            String sql = "DELETE FROM Ban WHERE B_ID = ?";
+            PreparedStatement statement = con.prepareStatement(sql);
+            
+            for(int id : listId){
+                statement.setInt(1, id);
+                
+                if(statement.executeUpdate() >= 1){
+                    result++;
+                }   
+            }       
         } catch (SQLException ex) {
             System.out.println(ex);
         } finally {
