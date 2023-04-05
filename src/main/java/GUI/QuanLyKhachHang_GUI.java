@@ -8,12 +8,12 @@ package GUI;
  *
  * @author tuant
  */
-public class QuanLyHoaDon_GUI extends javax.swing.JFrame {
+public class QuanLyKhachHang_GUI extends javax.swing.JFrame {
 
     /**
      * Creates new form QuanLyHoaDon_GUI
      */
-    public QuanLyHoaDon_GUI() {
+    public QuanLyKhachHang_GUI() {
         initComponents();
     }
 

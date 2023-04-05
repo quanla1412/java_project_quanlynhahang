@@ -66,7 +66,7 @@ public class LoaiMonAn_DAO {
         try {
             
             Statement statement = con.createStatement();
-            ResultSet resultSet = statement.executeQuery("SELECT * FROM LoaiMonAn WHERE LMA_ID=" + id);
+            ResultSet resultSet = statement.executeQuery("SELECT * FROM LoaiMonAn WHERE LMA_ID = " + id);
         
             resultSet.next();                
             loaiMonAnFull_DTO.setId(resultSet.getInt("LMA_ID"));

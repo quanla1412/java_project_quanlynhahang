@@ -193,6 +193,11 @@ public class QuanLyHoaDon_GUI extends javax.swing.JFrame {
 
         jTextField1.setText("jTextField1");
         jTextField1.setName("txtNhapID"); // NOI18N
+        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField1ActionPerformed(evt);
+            }
+        });
 
         jButton1.setText("Tìm kiếm");
         jButton1.setName("btnTimKiem"); // NOI18N
@@ -295,6 +300,10 @@ public class QuanLyHoaDon_GUI extends javax.swing.JFrame {
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField1ActionPerformed
 
     /**
      * @param args the command line arguments
