@@ -2,18 +2,20 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package GUI;
+package GUI.old;
+
+import GUI.old.QuanLyHoaDon_GUI;
 
 /**
  *
  * @author tuant
  */
-public class QuanLyNhanVien_GUI extends javax.swing.JFrame {
+public class QuanLyKhachHang_GUI extends javax.swing.JFrame {
 
     /**
      * Creates new form QuanLyHoaDon_GUI
      */
-    public QuanLyNhanVien_GUI() {
+    public QuanLyKhachHang_GUI() {
         initComponents();
     }
 
@@ -76,8 +78,6 @@ public class QuanLyNhanVien_GUI extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new java.awt.BorderLayout(10, 0));
 
-        jPanel1.setName("pnlMenu"); // NOI18N
-
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -92,8 +92,6 @@ public class QuanLyNhanVien_GUI extends javax.swing.JFrame {
         getContentPane().add(jPanel1, java.awt.BorderLayout.LINE_START);
 
         jPanel2.setLayout(new java.awt.BorderLayout(0, 10));
-
-        jPanel3.setName("pnlHeader"); // NOI18N
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -120,7 +118,6 @@ public class QuanLyNhanVien_GUI extends javax.swing.JFrame {
         jLabel7.setText("Chức năng khác");
 
         jButton3.setText("Quản lý chức vụ");
-        jButton3.setName("btnQLChucVu"); // NOI18N
         jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton3ActionPerformed(evt);
@@ -128,10 +125,8 @@ public class QuanLyNhanVien_GUI extends javax.swing.JFrame {
         });
 
         jButton4.setText("Import");
-        jButton4.setName("btnImport"); // NOI18N
 
         jButton5.setText("Export");
-        jButton5.setName("btnExport"); // NOI18N
 
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
@@ -197,7 +192,6 @@ public class QuanLyNhanVien_GUI extends javax.swing.JFrame {
         jLabel16.setText("Địa chỉ");
 
         jComboBox3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jComboBox3.setName("cmbTinhTrang"); // NOI18N
         jComboBox3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jComboBox3ActionPerformed(evt);
@@ -205,25 +199,18 @@ public class QuanLyNhanVien_GUI extends javax.swing.JFrame {
         });
 
         jTextField2.setText("jTextField1");
-        jTextField2.setName("txtMaNV"); // NOI18N
 
         jTextField3.setText("jTextField1");
-        jTextField3.setName("tctHoTen"); // NOI18N
 
         jTextField4.setText("jTextField1");
-        jTextField4.setName("txtNgaySinh"); // NOI18N
 
         jTextField5.setText("jTextField1");
-        jTextField5.setName("txtEmail"); // NOI18N
 
         jTextField6.setText("jTextField1");
-        jTextField6.setName("txtSDT"); // NOI18N
 
         jTextField7.setText("jTextField1");
-        jTextField7.setName("txtDiaChi"); // NOI18N
 
         jComboBox4.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jComboBox4.setName("cmbChucVuNV"); // NOI18N
         jComboBox4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jComboBox4ActionPerformed(evt);
@@ -231,7 +218,6 @@ public class QuanLyNhanVien_GUI extends javax.swing.JFrame {
         });
 
         jComboBox5.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jComboBox5.setName("cmbGioiTinhNV"); // NOI18N
         jComboBox5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jComboBox5ActionPerformed(evt);
@@ -239,7 +225,6 @@ public class QuanLyNhanVien_GUI extends javax.swing.JFrame {
         });
 
         jButton6.setText("Thêm nhân viên mới");
-        jButton6.setName("btnThemNV"); // NOI18N
         jButton6.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton6ActionPerformed(evt);
@@ -247,10 +232,8 @@ public class QuanLyNhanVien_GUI extends javax.swing.JFrame {
         });
 
         jButton7.setText("Sửa");
-        jButton7.setName("btnSua"); // NOI18N
 
         jButton8.setText("Xóa");
-        jButton8.setName("btnXoa"); // NOI18N
         jButton8.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton8ActionPerformed(evt);
@@ -375,10 +358,8 @@ public class QuanLyNhanVien_GUI extends javax.swing.JFrame {
         jLabel2.setText("Nhập ID");
 
         jTextField1.setText("jTextField1");
-        jTextField1.setName("txtNhapID"); // NOI18N
 
         jButton1.setText("Tìm kiếm");
-        jButton1.setName("btnTimKiem"); // NOI18N
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel3.setText("Giới tính");
@@ -387,10 +368,9 @@ public class QuanLyNhanVien_GUI extends javax.swing.JFrame {
         jLabel4.setText("Chức vụ");
 
         jButton2.setText("Lọc theo điều kiện");
-        jButton2.setName("btnLoc"); // NOI18N
 
         jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel6.setText("Danh sách nhân viên");
+        jLabel6.setText("Danh sách hóa đơn");
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -400,17 +380,14 @@ public class QuanLyNhanVien_GUI extends javax.swing.JFrame {
                 {null, null, null, null, null}
             },
             new String [] {
-                "ID", "Tên nhân viên", "Số điện thoại", "Chức vụ", "Tình trạng"
+                "ID", "Mã nhân viên", "Mã khách hàng", "Ngày giờ", "Tổng giá"
             }
         ));
-        jTable1.setName("tblDSNhanVien"); // NOI18N
         jScrollPane1.setViewportView(jTable1);
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jComboBox1.setName("cmbGioiTinh"); // NOI18N
 
         jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jComboBox2.setName("cmbChucVu"); // NOI18N
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
@@ -420,31 +397,33 @@ public class QuanLyNhanVien_GUI extends javax.swing.JFrame {
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel6Layout.createSequentialGroup()
                         .addGap(27, 27, 27)
-                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
+                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(jPanel6Layout.createSequentialGroup()
+                                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 242, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel6Layout.createSequentialGroup()
                                 .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel6Layout.createSequentialGroup()
-                                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, 131, Short.MAX_VALUE)))
+                            .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(jPanel6Layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 289, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel6Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 289, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
             .addComponent(jScrollPane1)
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -485,14 +464,6 @@ public class QuanLyNhanVien_GUI extends javax.swing.JFrame {
     private void jComboBox3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox3ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jComboBox3ActionPerformed
-
-    private void jComboBox4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox4ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jComboBox4ActionPerformed
-
-    private void jComboBox5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox5ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jComboBox5ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
         // TODO add your handling code here:
