@@ -20,7 +20,7 @@ import javax.swing.table.TableModel;
  *
  * @author LeAnhQuan
  */
-public class QuanLyLoaiBanVaBan extends javax.swing.JFrame {
+public class QuanLyLoaiBanVaBan_GUI extends javax.swing.JFrame {
 
     private final LoaiBan_BUS loaiBan_BUS;
     private final Ban_BUS ban_BUS;
@@ -33,7 +33,7 @@ public class QuanLyLoaiBanVaBan extends javax.swing.JFrame {
     /**
      * Creates new form Test
      */
-    public QuanLyLoaiBanVaBan() {
+    public QuanLyLoaiBanVaBan_GUI() {
         initComponents();
         this.setLocationRelativeTo(null);
         
@@ -173,7 +173,15 @@ public class QuanLyLoaiBanVaBan extends javax.swing.JFrame {
             new String [] {
                 "ID", "Tên loại bàn", "Số chỗ ngồi"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return false;
+            }
+        });
         tblLoaiBan.setMaximumSize(new java.awt.Dimension(2147483647, 2147483647));
         tblLoaiBan.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -327,7 +335,15 @@ public class QuanLyLoaiBanVaBan extends javax.swing.JFrame {
             new String [] {
                 "ID", "Tên loại bàn", "Tình trạng"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return false;
+            }
+        });
         tblBan.setMaximumSize(new java.awt.Dimension(2147483647, 2147483647));
         tblBan.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -467,6 +483,9 @@ public class QuanLyLoaiBanVaBan extends javax.swing.JFrame {
     private void btnLuuLoaiBanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLuuLoaiBanMouseClicked
         // TODO add your handling code here:
         String tenLoaiBan = txtTenLoaiBan.getText().trim();
+        if(tenLoaiBan.isBlank())
+            JOptionPane.showMessageDialog(this, "Tên bàn không được để trống","Error", JOptionPane.ERROR_MESSAGE);
+            
         int soChoNgoi;
         try{            
             soChoNgoi = Integer.parseInt(txtSoChoNgoi.getText());
@@ -474,7 +493,6 @@ public class QuanLyLoaiBanVaBan extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Nhập sai định dạng số chỗ ngồi","Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
-
         if(soChoNgoi <= 0){
             JOptionPane.showMessageDialog(this, "Số chỗ ngồi phải lớn hơn 0","Error", JOptionPane.ERROR_MESSAGE);
             return;
@@ -815,21 +833,23 @@ public class QuanLyLoaiBanVaBan extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(QuanLyLoaiBanVaBan.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(QuanLyLoaiBanVaBan_GUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(QuanLyLoaiBanVaBan.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(QuanLyLoaiBanVaBan_GUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(QuanLyLoaiBanVaBan.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(QuanLyLoaiBanVaBan_GUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(QuanLyLoaiBanVaBan.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(QuanLyLoaiBanVaBan_GUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new QuanLyLoaiBanVaBan().setVisible(true);
+                new QuanLyLoaiBanVaBan_GUI().setVisible(true);
             }
         });
     }

@@ -81,7 +81,7 @@ public class LoaiMonAn_DAO {
         return loaiMonAnFull_DTO;
     }
     
-    public boolean addLoaiMonAn(String tenLoaiMonAn){
+    public boolean createLoaiMonAn(String tenLoaiMonAn){
         Connection con = ConnectDatabase.openConnection();
         boolean result = false;
         try {
@@ -91,7 +91,7 @@ public class LoaiMonAn_DAO {
             PreparedStatement preparedStatement = con.prepareStatement(sql);
             preparedStatement.setNString(1, tenLoaiMonAn);
             
-            if(preparedStatement.executeUpdate() > 1)
+            if(preparedStatement.executeUpdate() >= 1)
                 result = true;
             
         } catch (SQLException ex) {
@@ -102,7 +102,7 @@ public class LoaiMonAn_DAO {
         return result;
     }
     
-    public boolean createLoaiMonAn(LoaiMonAn_DTO loaiMonAn_DTO){
+    public boolean updateLoaiMonAn(LoaiMonAn_DTO loaiMonAn_DTO){
         Connection con = ConnectDatabase.openConnection();
         boolean result = false;
         try {
@@ -112,7 +112,7 @@ public class LoaiMonAn_DAO {
             PreparedStatement preparedStatement = con.prepareStatement(sql);
             preparedStatement.setNString(1, loaiMonAn_DTO.getTen());
             
-            if(preparedStatement.executeUpdate() > 1)
+            if(preparedStatement.executeUpdate() >= 1)
                 result = true;
             
         } catch (SQLException ex) {
@@ -123,7 +123,7 @@ public class LoaiMonAn_DAO {
         return result;
     }
     
-    public boolean deleteLoaiMonAn(String id){
+    public boolean deleteLoaiMonAn(int id){
         Connection con = ConnectDatabase.openConnection();
         boolean result = false;
         try {
@@ -132,9 +132,31 @@ public class LoaiMonAn_DAO {
             
             PreparedStatement preparedStatement = con.prepareStatement(sql);
             
-            if(preparedStatement.executeUpdate() > 1)
+            if(preparedStatement.executeUpdate() >= 1)
                 result = true;
             
+        } catch (SQLException ex) {
+            System.out.println(ex);
+        } finally {
+            ConnectDatabase.closeConnection(con); 
+        }
+        return result;
+    }
+    
+    public int deleteNhieuLoaiMonAn(ArrayList<Integer> listId){
+        Connection con = ConnectDatabase.openConnection();
+        int result = 0;
+        try {
+            
+            String sql = "DELETE FROM LoaiMonAn WHERE LMA_ID = ?" ;
+            
+            PreparedStatement preparedStatement = con.prepareStatement(sql);
+            
+            for(int id : listId){
+                preparedStatement.setInt(1, id);
+                if(preparedStatement.executeUpdate() >= 1)
+                    result++;
+            }
         } catch (SQLException ex) {
             System.out.println(ex);
         } finally {
@@ -158,6 +180,24 @@ public class LoaiMonAn_DAO {
         } finally {
             ConnectDatabase.closeConnection(con); 
         }
+        return result;
+    }
+    
+    public boolean alreadyHasName(String name){
+        Connection con = ConnectDatabase.openConnection();
+        boolean result = true;
+        try {
+            String sql = "Select * from LoaiMonAn where LOWER(LMA_Ten) = LOWER(N'" + name + "') ";
+            Statement statement = con.createStatement();
+            
+            ResultSet rs = statement.executeQuery(sql);
+            result = rs.next();
+        } catch (SQLException ex) {
+            System.out.println(ex);
+        } finally {
+            ConnectDatabase.closeConnection(con);
+        }
+        
         return result;
     }
 }
