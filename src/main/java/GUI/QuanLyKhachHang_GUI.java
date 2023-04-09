@@ -8,12 +8,12 @@ package GUI;
  *
  * @author tuant
  */
-public class QuanLyNhanVien_GUI extends javax.swing.JFrame {
+public class QuanLyKhachHang_GUI extends javax.swing.JFrame {
 
     /**
-     * Creates new form QuanLyNhanVien_GUI
+     * Creates new form QuanLyKhachHang_GUI
      */
-    public QuanLyNhanVien_GUI() {
+    public QuanLyKhachHang_GUI() {
         initComponents();
     }
 
@@ -390,20 +390,20 @@ public class QuanLyNhanVien_GUI extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(QuanLyNhanVien_GUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(QuanLyKhachHang_GUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(QuanLyNhanVien_GUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(QuanLyKhachHang_GUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(QuanLyNhanVien_GUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(QuanLyKhachHang_GUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(QuanLyNhanVien_GUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(QuanLyKhachHang_GUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new QuanLyNhanVien_GUI().setVisible(true);
+                new QuanLyKhachHang_GUI().setVisible(true);
             }
         });
     }
