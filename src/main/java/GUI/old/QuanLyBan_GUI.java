@@ -1,4 +1,4 @@
-package GUI;
+package GUI.old;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -16,6 +16,9 @@ public class QuanLyBan_GUI extends javax.swing.JFrame {
      */
     public QuanLyBan_GUI() {
         initComponents();
+        
+        
+        
     }
 
     /**
@@ -34,10 +37,10 @@ public class QuanLyBan_GUI extends javax.swing.JFrame {
         jPanel4 = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
         jButton7 = new javax.swing.JButton();
         jButton8 = new javax.swing.JButton();
         jButton9 = new javax.swing.JButton();
@@ -144,10 +147,6 @@ public class QuanLyBan_GUI extends javax.swing.JFrame {
         jButton2.setName("btnBan2"); // NOI18N
         jPanel4.add(jButton2);
 
-        jButton3.setText("<html> <p> thanh nè</p>  <p> thanh nè</p> <p> thanh nè</p> </html>");
-        jButton3.setName("btnBan3"); // NOI18N
-        jPanel4.add(jButton3);
-
         jButton4.setText("<html> <p> thanh nè</p>  <p> thanh nè</p> <p> thanh nè</p> </html>");
         jButton4.setName("btnBan4"); // NOI18N
         jPanel4.add(jButton4);
@@ -164,6 +163,10 @@ public class QuanLyBan_GUI extends javax.swing.JFrame {
         jButton6.setText("<html> <p> thanh nè</p>  <p> thanh nè</p> <p> thanh nè</p> </html>");
         jButton6.setName("btnBan6"); // NOI18N
         jPanel4.add(jButton6);
+
+        jButton3.setText("<html> <p> thanh nè</p>  <p> thanh nè</p> <p> thanh nè</p> </html>");
+        jButton3.setName("btnBan3"); // NOI18N
+        jPanel4.add(jButton3);
 
         jButton7.setText("jButton7");
         jButton7.setName("btnBan7"); // NOI18N
@@ -340,7 +343,7 @@ public class QuanLyBan_GUI extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextField3, javax.swing.GroupLayout.DEFAULT_SIZE, 90, Short.MAX_VALUE))
+                        .addComponent(jTextField3))
                     .addGroup(jPanel28Layout.createSequentialGroup()
                         .addGroup(jPanel28Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel28Layout.createSequentialGroup()
@@ -404,7 +407,7 @@ public class QuanLyBan_GUI extends javax.swing.JFrame {
             .addGroup(jPanel29Layout.createSequentialGroup()
                 .addGap(177, 177, 177)
                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(180, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel29Layout.setVerticalGroup(
             jPanel29Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -438,7 +441,7 @@ public class QuanLyBan_GUI extends javax.swing.JFrame {
             .addGroup(jPanel32Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 300, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -493,7 +496,7 @@ public class QuanLyBan_GUI extends javax.swing.JFrame {
                         .addComponent(jButton20)
                         .addGap(29, 29, 29)
                         .addComponent(jButton21)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jButton22)
                         .addGap(26, 26, 26))))
         );
