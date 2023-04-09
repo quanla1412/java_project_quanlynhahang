@@ -3,6 +3,7 @@ package DAO;
 import DTO.MonAn.UpdateMonAn_DTO;
 import DTO.MonAn.MonAn_DTO;
 import DTO.MonAn.CreateMonAn_DTO;
+import DTO.MonAn.LoaiMonAn_DTO;
 import DTO.MonAn.OptionValueFull_DTO;
 import com.mycompany.quanlynhahang.ConnectDatabase;
 import java.sql.Connection;
@@ -23,7 +24,9 @@ public class MonAn_DAO {
         try {
             
             Statement statement = con.createStatement();
-            ResultSet resultSet = statement.executeQuery("SELECT * FROM MonAn");
+            ResultSet resultSet = statement.executeQuery("SELECT MA_ID, MA_Ten, MA_HinhAnh, MonAn.LMA_ID, LMA_Ten "
+                                                    + "FROM MonAn, LoaiMonAn "
+                                                    + "WHERE MonAn.LMA_ID = LoaiMonAn.LMA_ID");
         
             while(resultSet.next()){
                 MonAn_DTO monAn_DTO = new MonAn_DTO();
@@ -31,6 +34,12 @@ public class MonAn_DAO {
                 monAn_DTO.setId(resultSet.getInt("MA_ID"));
                 monAn_DTO.setTen(resultSet.getNString("MA_Ten"));
                 monAn_DTO.setHinhAnh(resultSet.getNString("MA_HinhAnh"));
+                
+                LoaiMonAn_DTO loaiMonAn_DTO = new LoaiMonAn_DTO();
+                loaiMonAn_DTO.setId(resultSet.getInt("LMA_ID"));
+                loaiMonAn_DTO.setTen(resultSet.getNString("LMA_Ten"));
+                
+                monAn_DTO.setLoaiMonAn_DTO(loaiMonAn_DTO);
                 
                 result.add(monAn_DTO);
             }
