@@ -13,7 +13,7 @@ public class ConnectDatabase {
     public static Connection openConnection() {
         try {
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-            String dbUrl = "jdbc:sqlserver://localhost:1433;DatabaseName=QuanLyNhaHang;encrypt=true;trustServerCertificate=true;";
+            String dbUrl = " jdbc:sqlserver://localhost:1433;DatabaseName=QuanLyNhaHang;encrypt=true;trustServerCertificate=true;";
             String username = "sa"; 
             String password= "sa";
             Connection con = DriverManager.getConnection(dbUrl, username,password);
