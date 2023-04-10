@@ -1,13 +1,5 @@
 package GUI;
 
-import DAO.LoaiMonAn_DAO;
-import DTO.HoaDon.ChiTietHoaDon_DTO;
-import DTO.MonAn.LoaiMonAn_DTO;
-import com.microsoft.sqlserver.jdbc.StringUtils;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.util.ArrayList;
-
 /**
  *
  * @author LeAnhQuan
@@ -19,7 +11,7 @@ public class Main {
     public static void main(String[] args) {
         // TODO code application logic here
         
-        QuanLyOptionValue_GUI monAn_GUI = new QuanLyOptionValue_GUI();
+        TrangChu_GUI monAn_GUI = new TrangChu_GUI();
         monAn_GUI.setVisible(true);
     }
     
