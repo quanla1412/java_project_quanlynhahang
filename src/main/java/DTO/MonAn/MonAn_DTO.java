@@ -8,18 +8,23 @@ public class MonAn_DTO {
     private int id;
     private String ten;
     private String hinhAnh;
-    private LoaiMonAn_DTO loaiMonAn_DTO;
+    private String loaiMonAn;
+    private int gia;
+    private int giaKhuyenMai;
+    private String tinhTrangMonAn;
 
-    public MonAn_DTO() {
-    }
-    
-
-    public MonAn_DTO(int id, String ten, String hinhAnh, LoaiMonAn_DTO loaiMonAn) {
+    public MonAn_DTO(int id, String ten, String hinhAnh, String loaiMonAn, int gia, int giaKhuyenMai, String tinhTrangMonAn) {
         this.id = id;
         this.ten = ten;
         this.hinhAnh = hinhAnh;
-        this.loaiMonAn_DTO = loaiMonAn;
-    }
+        this.loaiMonAn = loaiMonAn;
+        this.gia = gia;
+        this.giaKhuyenMai = giaKhuyenMai;
+        this.tinhTrangMonAn = tinhTrangMonAn;
+    }    
+
+    public MonAn_DTO() {
+    }  
 
     public int getId() {
         return id;
@@ -45,11 +50,35 @@ public class MonAn_DTO {
         this.hinhAnh = hinhAnh;
     }
 
-    public LoaiMonAn_DTO getLoaiMonAn_DTO() {
-        return loaiMonAn_DTO;
+    public String getLoaiMonAn() {
+        return loaiMonAn;
     }
 
-    public void setLoaiMonAn_DTO(LoaiMonAn_DTO loaiMonAn_DTO) {
-        this.loaiMonAn_DTO = loaiMonAn_DTO;
+    public void setLoaiMonAn(String loaiMonAn) {
+        this.loaiMonAn = loaiMonAn;
+    }
+
+    public int getGia() {
+        return gia;
+    }
+
+    public void setGia(int gia) {
+        this.gia = gia;
+    }
+
+    public int getGiaKhuyenMai() {
+        return giaKhuyenMai;
+    }
+
+    public void setGiaKhuyenMai(int giaKhuyenMai) {
+        this.giaKhuyenMai = giaKhuyenMai;
+    }
+
+    public String getTinhTrangMonAn() {
+        return tinhTrangMonAn;
+    }
+
+    public void setTinhTrangMonAn(String tinhTrangMonAn) {
+        this.tinhTrangMonAn = tinhTrangMonAn;
     }
 }

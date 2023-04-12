@@ -56,11 +56,13 @@ public class QuanLyBienTheMonAn_GUI extends javax.swing.JFrame {
         jComboBox2 = new javax.swing.JComboBox<>();
         jLabel5 = new javax.swing.JLabel();
         jSlider1 = new javax.swing.JSlider();
-        jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jSlider2 = new javax.swing.JSlider();
         jLabel8 = new javax.swing.JLabel();
         jComboBox3 = new javax.swing.JComboBox<>();
+        jLabel17 = new javax.swing.JLabel();
+        jLabel18 = new javax.swing.JLabel();
+        jLabel19 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
@@ -75,8 +77,6 @@ public class QuanLyBienTheMonAn_GUI extends javax.swing.JFrame {
         jPanel5.setLayout(new java.awt.GridBagLayout());
 
         jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder("Thêm/ sửa chi tiết món ăn"));
-        jPanel4.setMinimumSize(null);
-        jPanel4.setPreferredSize(null);
         jPanel4.setLayout(new java.awt.GridBagLayout());
 
         jLabel9.setText("ID Món ăn");
@@ -234,125 +234,170 @@ public class QuanLyBienTheMonAn_GUI extends javax.swing.JFrame {
         jPanel5.add(jPanel4, gridBagConstraints);
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Tìm kiếm và bộ lọc"));
-        jPanel2.setMinimumSize(null);
-        jPanel2.setPreferredSize(null);
         jPanel2.setLayout(new java.awt.GridBagLayout());
 
         jLabel1.setText("Nhập id hoặc tên");
-        jLabel1.setMaximumSize(new java.awt.Dimension(100, 22));
-        jLabel1.setMinimumSize(new java.awt.Dimension(100, 22));
-        jLabel1.setPreferredSize(new java.awt.Dimension(100, 22));
+        jLabel1.setMaximumSize(new java.awt.Dimension(100, 24));
+        jLabel1.setMinimumSize(new java.awt.Dimension(100, 24));
+        jLabel1.setPreferredSize(new java.awt.Dimension(100, 24));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.insets = new java.awt.Insets(5, 20, 5, 10);
         jPanel2.add(jLabel1, gridBagConstraints);
 
         jTextField1.setText("jTextField1");
-        jTextField1.setMinimumSize(new java.awt.Dimension(200, 22));
-        jTextField1.setPreferredSize(new java.awt.Dimension(200, 22));
+        jTextField1.setMinimumSize(new java.awt.Dimension(320, 24));
+        jTextField1.setPreferredSize(new java.awt.Dimension(320, 24));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 0;
         gridBagConstraints.ipadx = 20;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(5, 0, 5, 0);
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.insets = new java.awt.Insets(5, 8, 5, 0);
         jPanel2.add(jTextField1, gridBagConstraints);
 
         jLabel2.setText("Lọc theo:");
+        jLabel2.setMinimumSize(new java.awt.Dimension(100, 24));
+        jLabel2.setPreferredSize(new java.awt.Dimension(100, 24));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 1;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(5, 20, 5, 10);
         jPanel2.add(jLabel2, gridBagConstraints);
 
         jPanel3.setLayout(new java.awt.GridBagLayout());
 
         jLabel3.setText("Option");
+        jLabel3.setMinimumSize(new java.awt.Dimension(88, 24));
+        jLabel3.setPreferredSize(new java.awt.Dimension(88, 24));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
-        gridBagConstraints.insets = new java.awt.Insets(5, 20, 5, 10);
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.insets = new java.awt.Insets(5, 0, 5, 0);
         jPanel3.add(jLabel3, gridBagConstraints);
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBox1.setMinimumSize(new java.awt.Dimension(250, 24));
+        jComboBox1.setPreferredSize(new java.awt.Dimension(250, 24));
+        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox1ActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 0;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 10);
+        gridBagConstraints.gridwidth = 3;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.insets = new java.awt.Insets(5, 0, 5, 0);
         jPanel3.add(jComboBox1, gridBagConstraints);
 
         jLabel4.setText("Value");
+        jLabel4.setMaximumSize(new java.awt.Dimension(52, 24));
+        jLabel4.setMinimumSize(new java.awt.Dimension(52, 24));
+        jLabel4.setPreferredSize(new java.awt.Dimension(52, 24));
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 2;
-        gridBagConstraints.gridy = 0;
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 1;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
+        gridBagConstraints.insets = new java.awt.Insets(5, 0, 5, 0);
         jPanel3.add(jLabel4, gridBagConstraints);
 
         jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 3;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
-        jPanel3.add(jComboBox2, gridBagConstraints);
-
-        jLabel5.setText("Khoảng giá:");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 1;
-        gridBagConstraints.insets = new java.awt.Insets(5, 20, 5, 10);
-        jPanel3.add(jLabel5, gridBagConstraints);
-
-        jSlider1.setValue(0);
-        jSlider1.setMinimumSize(new java.awt.Dimension(200, 20));
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 2;
-        gridBagConstraints.gridwidth = 2;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(1, 0, 0, 0);
-        jPanel3.add(jSlider1, gridBagConstraints);
-
-        jLabel6.setText("0 ~ 1.000.000 VNĐ");
+        jComboBox2.setMinimumSize(new java.awt.Dimension(120, 24));
+        jComboBox2.setPreferredSize(new java.awt.Dimension(250, 24));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 1;
-        jPanel3.add(jLabel6, gridBagConstraints);
+        gridBagConstraints.gridwidth = 3;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.insets = new java.awt.Insets(5, 0, 5, 0);
+        jPanel3.add(jComboBox2, gridBagConstraints);
+
+        jLabel5.setText("Khoảng giá:");
+        jLabel5.setMinimumSize(new java.awt.Dimension(88, 24));
+        jLabel5.setPreferredSize(new java.awt.Dimension(88, 24));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.insets = new java.awt.Insets(5, 0, 5, 0);
+        jPanel3.add(jLabel5, gridBagConstraints);
+
+        jSlider1.setValue(0);
+        jSlider1.setMinimumSize(new java.awt.Dimension(120, 24));
+        jSlider1.setPreferredSize(new java.awt.Dimension(120, 24));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 3;
+        gridBagConstraints.insets = new java.awt.Insets(1, 0, 0, 0);
+        jPanel3.add(jSlider1, gridBagConstraints);
 
         jLabel7.setText("~");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
-        gridBagConstraints.gridy = 2;
+        gridBagConstraints.gridy = 3;
         jPanel3.add(jLabel7, gridBagConstraints);
 
         jSlider2.setValue(100);
-        jSlider2.setMinimumSize(new java.awt.Dimension(200, 20));
+        jSlider2.setMinimumSize(new java.awt.Dimension(120, 24));
+        jSlider2.setPreferredSize(new java.awt.Dimension(120, 24));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 3;
-        gridBagConstraints.gridy = 2;
+        gridBagConstraints.gridy = 3;
         jPanel3.add(jSlider2, gridBagConstraints);
 
         jLabel8.setText("Tình trạng món");
+        jLabel8.setMinimumSize(new java.awt.Dimension(88, 24));
+        jLabel8.setPreferredSize(new java.awt.Dimension(88, 24));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 3;
-        gridBagConstraints.insets = new java.awt.Insets(5, 20, 5, 10);
+        gridBagConstraints.gridy = 4;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.insets = new java.awt.Insets(5, 0, 5, 0);
         jPanel3.add(jLabel8, gridBagConstraints);
 
         jComboBox3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBox3.setMinimumSize(new java.awt.Dimension(120, 24));
+        jComboBox3.setPreferredSize(new java.awt.Dimension(250, 24));
+        jComboBox3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox3ActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 3;
-        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
+        gridBagConstraints.gridy = 4;
+        gridBagConstraints.gridwidth = 3;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.insets = new java.awt.Insets(5, 0, 5, 0);
         jPanel3.add(jComboBox3, gridBagConstraints);
 
+        jLabel17.setText("~");
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 2;
+        jPanel3.add(jLabel17, gridBagConstraints);
+
+        jLabel18.setText("8.000.000 VNĐ");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 3;
+        gridBagConstraints.gridy = 2;
+        jPanel3.add(jLabel18, gridBagConstraints);
+
+        jLabel19.setText("0 VNĐ");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 2;
+        jPanel3.add(jLabel19, gridBagConstraints);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 1;
         gridBagConstraints.gridwidth = 2;
         jPanel2.add(jPanel3, gridBagConstraints);
 
@@ -365,8 +410,6 @@ public class QuanLyBienTheMonAn_GUI extends javax.swing.JFrame {
         jPanel5.add(jPanel2, gridBagConstraints);
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Danh sách biến thể món ăn"));
-        jPanel1.setMinimumSize(null);
-        jPanel1.setPreferredSize(null);
         jPanel1.setLayout(new java.awt.GridBagLayout());
 
         jScrollPane1.setMinimumSize(new java.awt.Dimension(200, 200));
@@ -409,6 +452,14 @@ public class QuanLyBienTheMonAn_GUI extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jComboBox1ActionPerformed
+
+    private void jComboBox3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox3ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jComboBox3ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -466,11 +517,13 @@ public class QuanLyBienTheMonAn_GUI extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel17;
+    private javax.swing.JLabel jLabel18;
+    private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;

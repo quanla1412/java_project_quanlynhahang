@@ -11,7 +11,7 @@ public class Main {
     public static void main(String[] args) {
         // TODO code application logic here
         
-        TrangChu_GUI monAn_GUI = new TrangChu_GUI();
+        QuanLyMonAn_GUI monAn_GUI = new QuanLyMonAn_GUI();
         monAn_GUI.setVisible(true);
     }
     

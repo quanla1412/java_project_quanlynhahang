@@ -3,7 +3,7 @@ package DAO;
 import DTO.MonAn.BienTheMonAn_DTO;
 import DTO.MonAn.CreateBienTheMonAn_DTO;
 import DTO.MonAn.OptionValue_DTO;
-import DTO.MonAn.TinhTrangBTMA_DTO;
+import DTO.MonAn.TinhTrangMonAn_DTO;
 import DTO.MonAn.UpdateBienTheMonAn_DTO;
 import com.mycompany.quanlynhahang.ConnectDatabase;
 import java.sql.Connection;
@@ -81,9 +81,9 @@ public class BienTheMonAn_DAO {
         return bienTheMonAn_DTO;
     }
     
-    public TinhTrangBTMA_DTO getTinhTrangBTMA(int id){
+    public TinhTrangMonAn_DTO getTinhTrangBTMA(int id){
         Connection con = ConnectDatabase.openConnection();
-        TinhTrangBTMA_DTO tinhTrangBTMA_DTO = new TinhTrangBTMA_DTO();
+        TinhTrangMonAn_DTO tinhTrangBTMA_DTO = new TinhTrangMonAn_DTO();
         try {            
             Statement statement = con.createStatement();
             String sql = "SELECT TTBT_Ten FROM TinhTrangBTMA WHERE TTBT_ID = " + id;

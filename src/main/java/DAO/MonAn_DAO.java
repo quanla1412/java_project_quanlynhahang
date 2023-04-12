@@ -5,6 +5,8 @@ import DTO.MonAn.MonAn_DTO;
 import DTO.MonAn.CreateMonAn_DTO;
 import DTO.MonAn.LoaiMonAn_DTO;
 import DTO.MonAn.OptionValueFull_DTO;
+import DTO.MonAn.TinhTrangMonAn_DTO;
+import DTO.Search.SearchMonAn_DTO;
 import com.mycompany.quanlynhahang.ConnectDatabase;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -24,9 +26,9 @@ public class MonAn_DAO {
         try {
             
             Statement statement = con.createStatement();
-            ResultSet resultSet = statement.executeQuery("SELECT MA_ID, MA_Ten, MA_HinhAnh, MonAn.LMA_ID, LMA_Ten "
-                                                    + "FROM MonAn, LoaiMonAn "
-                                                    + "WHERE MonAn.LMA_ID = LoaiMonAn.LMA_ID");
+            ResultSet resultSet = statement.executeQuery("SELECT MA_ID, MA_Ten, MA_HinhAnh, LMA_Ten, MA_Gia, MA_GiaKhuyenMai, TTMA_Ten "
+                                                    + "FROM MonAn, LoaiMonAn, TinhTrangMonAn TTMA "
+                                                    + "WHERE MonAn.LMA_ID = LoaiMonAn.LMA_ID AND MonAn.TTMA_ID = TTMA.TTMA_ID AND MonAn.TTMA_ID != 3");
         
             while(resultSet.next()){
                 MonAn_DTO monAn_DTO = new MonAn_DTO();
@@ -34,12 +36,10 @@ public class MonAn_DAO {
                 monAn_DTO.setId(resultSet.getInt("MA_ID"));
                 monAn_DTO.setTen(resultSet.getNString("MA_Ten"));
                 monAn_DTO.setHinhAnh(resultSet.getNString("MA_HinhAnh"));
-                
-                LoaiMonAn_DTO loaiMonAn_DTO = new LoaiMonAn_DTO();
-                loaiMonAn_DTO.setId(resultSet.getInt("LMA_ID"));
-                loaiMonAn_DTO.setTen(resultSet.getNString("LMA_Ten"));
-                
-                monAn_DTO.setLoaiMonAn_DTO(loaiMonAn_DTO);
+                monAn_DTO.setLoaiMonAn(resultSet.getNString("LMA_Ten"));
+                monAn_DTO.setGia(resultSet.getInt("MA_Gia"));
+                monAn_DTO.setGiaKhuyenMai(resultSet.getInt("MA_GiaKhuyenMai"));
+                monAn_DTO.setTinhTrangMonAn(resultSet.getNString("TTMA_Ten"));
                 
                 result.add(monAn_DTO);
             }
@@ -47,6 +47,82 @@ public class MonAn_DAO {
             System.out.println(ex);
         } finally {
             ConnectDatabase.closeConnection(con); 
+        }
+        return result;
+    } 
+    
+    public ArrayList<MonAn_DTO> searchMonAn(SearchMonAn_DTO searchData){
+        Connection con = ConnectDatabase.openConnection();
+        ArrayList<MonAn_DTO> result = new ArrayList<>();
+        try {
+            StringBuilder sql = new StringBuilder("SELECT MA_ID, MA_Ten, MA_HinhAnh, LMA_Ten, MA_Gia, MA_GiaKhuyenMai, TTMA_Ten "
+                                                    + "FROM MonAn, LoaiMonAn, TinhTrangMonAn TTMA "
+                                                    + "WHERE MonAn.LMA_ID = LoaiMonAn.LMA_ID AND MonAn.TTMA_ID = TTMA.TTMA_ID ");
+            
+            if(searchData.getIdOrName() != null && !searchData.getIdOrName().isBlank())
+                sql.append(" AND (MA_Ten LIKE '%").append(searchData.getIdOrName()).append("%' OR MA_ID LIKE '%").append(searchData.getIdOrName()).append("%') ");
+            
+            if(searchData.getIdLoaiMonAn() > 0)
+                sql.append(" AND MonAn.LMA_ID = ").append(searchData.getIdLoaiMonAn());
+            
+            if (searchData.getMinPrice() > 0) {
+                sql.append(" AND MA_Gia > ").append(searchData.getMinPrice());
+            }
+            
+            if (searchData.getMaxPrice() > 0) {
+                sql.append(" AND MA_Gia < ").append(searchData.getMaxPrice());
+            }
+            
+            if(searchData.getIdTTMA()> 0)
+                sql.append(" AND ( MonAn.TTMA_ID = 3 OR MonAn.TTMA_ID = ").append(searchData.getIdTTMA()).append(") ");
+            else 
+                sql.append(" AND MonAn.TTMA_ID = 3 ");
+            
+            Statement statement = con.createStatement();
+            ResultSet resultSet = statement.executeQuery(sql.toString());
+        
+            
+            while(resultSet.next()){
+                MonAn_DTO monAn_DTO = new MonAn_DTO();
+                
+                monAn_DTO.setId(resultSet.getInt("MA_ID"));
+                monAn_DTO.setTen(resultSet.getNString("MA_Ten"));
+                monAn_DTO.setHinhAnh(resultSet.getNString("MA_HinhAnh"));
+                monAn_DTO.setLoaiMonAn(resultSet.getNString("LMA_Ten"));
+                monAn_DTO.setGia(resultSet.getInt("MA_Gia"));
+                monAn_DTO.setGiaKhuyenMai(resultSet.getInt("MA_GiaKhuyenMai"));
+                monAn_DTO.setTinhTrangMonAn(resultSet.getNString("TTMA_Ten"));
+                
+                result.add(monAn_DTO);
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex);
+        } finally {
+            ConnectDatabase.closeConnection(con); 
+        }
+        return result;
+    }
+    
+    public ArrayList<TinhTrangMonAn_DTO> getAllTinhTrangMA(){
+        Connection con = ConnectDatabase.openConnection();
+        ArrayList<TinhTrangMonAn_DTO> result = new ArrayList<>();
+        try {            
+            Statement statement = con.createStatement();
+            String sql = "SELECT * FROM TinhTrangMonAn";
+            ResultSet rs = statement.executeQuery(sql);
+            
+            while(rs.next()){
+                TinhTrangMonAn_DTO tinhTrangMonAn_DTO = new TinhTrangMonAn_DTO();
+                
+                tinhTrangMonAn_DTO.setId(rs.getInt("TTMA_ID"));
+                tinhTrangMonAn_DTO.setTen(rs.getNString("TTMA_Ten"));
+                
+                result.add(tinhTrangMonAn_DTO);
+            }            
+        } catch (SQLException ex) {
+            System.out.println(ex);
+        } finally {
+            ConnectDatabase.closeConnection(con);
         }
         return result;
     }
@@ -73,7 +149,7 @@ public class MonAn_DAO {
         return monAn_DTO;
     }
     
-     public ArrayList<MonAn_DTO> getMonAnByName(String name) {
+    public ArrayList<MonAn_DTO> getMonAnByName(String name) {
         Connection con = ConnectDatabase.openConnection();
         ArrayList<MonAn_DTO> result = new ArrayList<>();
         try {
@@ -98,12 +174,16 @@ public class MonAn_DAO {
         return result;
     }
      
-    public ArrayList<MonAn_DTO> getMonAnByLoaiMonAn(String id) {
+    public ArrayList<MonAn_DTO> getListMonAnByIdAndName(String query) {
         Connection con = ConnectDatabase.openConnection();
         ArrayList<MonAn_DTO> result = new ArrayList<>();
         try {
+            String sql = "SELECT MA_ID, MA_Ten, MA_HinhAnh, MonAn.LMA_ID, LMA_Ten "
+                    + " FROM MonAn, LoaiMonAn "
+                    + "WHERE MonAn.LMA_ID = LoaiMonAn.LMA_ID AND (MA_Ten LIKE '%" + query + "%' OR MA_ID LIKE '%" + query + "%')";
             Statement statement = con.createStatement();
-            ResultSet resultSet = statement.executeQuery("SELECT * FROM LoaiMonAn WHERE LMA_ID = " + id);
+            
+            ResultSet resultSet = statement.executeQuery(sql);
         
             while(resultSet.next()){
                 MonAn_DTO monAn_DTO = new MonAn_DTO();
@@ -111,6 +191,44 @@ public class MonAn_DAO {
                 monAn_DTO.setId(resultSet.getInt("MA_ID"));
                 monAn_DTO.setTen(resultSet.getNString("MA_Ten"));
                 monAn_DTO.setHinhAnh(resultSet.getNString("MA_HinhAnh"));
+                
+                LoaiMonAn_DTO loaiMonAn_DTO = new LoaiMonAn_DTO();
+                loaiMonAn_DTO.setId(resultSet.getInt("LMA_ID"));
+                loaiMonAn_DTO.setTen(resultSet.getNString("LMA_Ten"));
+                
+                monAn_DTO.setLoaiMonAn_DTO(loaiMonAn_DTO);
+                
+                result.add(monAn_DTO);
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex);
+        } finally {
+            ConnectDatabase.closeConnection(con); 
+        }
+        return result;
+    }     
+     
+    public ArrayList<MonAn_DTO> getListMonAnByLoaiMonAn(int id) {
+        Connection con = ConnectDatabase.openConnection();
+        ArrayList<MonAn_DTO> result = new ArrayList<>();
+        try {
+            Statement statement = con.createStatement();
+            ResultSet resultSet = statement.executeQuery("SELECT MA_ID, MA_Ten, MA_HinhAnh, MonAn.LMA_ID, LMA_Ten "
+                    + " FROM MonAn, LoaiMonAn "
+                    + "WHERE MonAn.LMA_ID = LoaiMonAn.LMA_ID AND MonAn.LMA_ID = " + id);
+        
+            while(resultSet.next()){
+                MonAn_DTO monAn_DTO = new MonAn_DTO();
+                
+                monAn_DTO.setId(resultSet.getInt("MA_ID"));
+                monAn_DTO.setTen(resultSet.getNString("MA_Ten"));
+                monAn_DTO.setHinhAnh(resultSet.getNString("MA_HinhAnh"));
+                
+                LoaiMonAn_DTO loaiMonAn_DTO = new LoaiMonAn_DTO();
+                loaiMonAn_DTO.setId(resultSet.getInt("LMA_ID"));
+                loaiMonAn_DTO.setTen(resultSet.getNString("LMA_Ten"));
+                
+                monAn_DTO.setLoaiMonAn_DTO(loaiMonAn_DTO);
                 
                 result.add(monAn_DTO);
             }
@@ -121,6 +239,41 @@ public class MonAn_DAO {
         }
         return result;
     }   
+    
+    public ArrayList<MonAn_DTO> getListMonAnByIdNameAndLMA(String idName, int LMA_id) {
+        Connection con = ConnectDatabase.openConnection();
+        ArrayList<MonAn_DTO> result = new ArrayList<>();
+        try {
+            String sql = "SELECT MA_ID, MA_Ten, MA_HinhAnh, MonAn.LMA_ID, LMA_Ten "
+                    + " FROM MonAn, LoaiMonAn "
+                    + "WHERE MonAn.LMA_ID = LoaiMonAn.LMA_ID AND "
+                        + "(MA_Ten LIKE '%" + idName + "%' OR MA_ID LIKE '%" + idName + "%') AND MonAn.LMA_ID = " + LMA_id;
+            Statement statement = con.createStatement();
+            
+            ResultSet resultSet = statement.executeQuery(sql);
+        
+            while(resultSet.next()){
+                MonAn_DTO monAn_DTO = new MonAn_DTO();
+                
+                monAn_DTO.setId(resultSet.getInt("MA_ID"));
+                monAn_DTO.setTen(resultSet.getNString("MA_Ten"));
+                monAn_DTO.setHinhAnh(resultSet.getNString("MA_HinhAnh"));
+                
+                LoaiMonAn_DTO loaiMonAn_DTO = new LoaiMonAn_DTO();
+                loaiMonAn_DTO.setId(resultSet.getInt("LMA_ID"));
+                loaiMonAn_DTO.setTen(resultSet.getNString("LMA_Ten"));
+                
+                monAn_DTO.setLoaiMonAn_DTO(loaiMonAn_DTO);
+                
+                result.add(monAn_DTO);
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex);
+        } finally {
+            ConnectDatabase.closeConnection(con); 
+        }
+        return result;
+    } 
     
     public ArrayList<OptionValueFull_DTO> getAllOptionsValuesByMA(int idMonAn) {
         Connection con = ConnectDatabase.openConnection();

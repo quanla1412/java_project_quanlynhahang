@@ -17,6 +17,7 @@ public class TrangChu_GUI extends javax.swing.JFrame {
     private QuanLyNhanVien_GUI quanLyNhanVien_GUI;
     private QuanLyKhachHang_GUI quanLyKhachHang_GUI;
     private QuanLyQuyen_GUI quanLyQuyen_GUI;
+    private QuanLyTaiKhoan_GUI quanLyTaiKhoan_GUI;
     
     /**
      * Creates new form TrangChu_GUI
@@ -350,6 +351,11 @@ public class TrangChu_GUI extends javax.swing.JFrame {
 
     private void jButton8MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton8MouseClicked
         // TODO add your handling code here:
+        if(quanLyTaiKhoan_GUI == null){
+            quanLyTaiKhoan_GUI = new QuanLyTaiKhoan_GUI();
+            quanLyTaiKhoan_GUI.setVisible(true);
+        } else {
+        }
     }//GEN-LAST:event_jButton8MouseClicked
 
     private void jButton9MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton9MouseClicked

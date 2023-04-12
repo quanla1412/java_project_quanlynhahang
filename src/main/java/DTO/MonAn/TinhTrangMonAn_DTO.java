@@ -4,14 +4,14 @@ package DTO.MonAn;
  *
  * @author LeAnhQuan
  */
-public class TinhTrangBTMA_DTO {
+public class TinhTrangMonAn_DTO {
     private int id;
     private String ten;
 
-    public TinhTrangBTMA_DTO() {
+    public TinhTrangMonAn_DTO() {
     }
 
-    public TinhTrangBTMA_DTO(int id, String ten) {
+    public TinhTrangMonAn_DTO(int id, String ten) {
         this.id = id;
         this.ten = ten;
     }
