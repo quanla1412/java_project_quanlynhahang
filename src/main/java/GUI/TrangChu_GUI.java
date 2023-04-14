@@ -4,6 +4,11 @@
  */
 package GUI;
 
+import com.formdev.flatlaf.FlatDarkLaf;
+import com.formdev.flatlaf.FlatIntelliJLaf;
+import com.formdev.flatlaf.themes.FlatMacLightLaf;
+import javax.swing.UIManager;
+
 /**
  *
  * @author tuant
@@ -45,17 +50,18 @@ public class TrangChu_GUI extends javax.swing.JFrame {
         jPanel5 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
         jButton7 = new javax.swing.JButton();
         jButton8 = new javax.swing.JButton();
-        jButton9 = new javax.swing.JButton();
         jButton10 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Trang chủ");
+        setMinimumSize(new java.awt.Dimension(900, 520));
+        setPreferredSize(new java.awt.Dimension(900, 520));
 
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         jPanel1.setLayout(new java.awt.BorderLayout());
@@ -100,7 +106,7 @@ public class TrangChu_GUI extends javax.swing.JFrame {
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 485, Short.MAX_VALUE)
+            .addGap(0, 518, Short.MAX_VALUE)
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -114,7 +120,6 @@ public class TrangChu_GUI extends javax.swing.JFrame {
         jPanel2.setLayout(new java.awt.GridBagLayout());
 
         jButton1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jButton1.setIcon(new javax.swing.ImageIcon("D:\\Anh_Quan\\Tai_lieu\\Java\\Doan\\QuanLyNhaHang\\src\\main\\java\\resources\\icon\\896044504cb590ebc9a46.jpg")); // NOI18N
         jButton1.setText("<html> <p style =\"margin-top:60px;\"> Quản lý phục vụ</p> </html>");
         jButton1.setActionCommand("<html> <p style =\"margin-top:40px;\"> Quản lý phục vụ</p> </html>");
         jButton1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -127,11 +132,24 @@ public class TrangChu_GUI extends javax.swing.JFrame {
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.insets = new java.awt.Insets(10, 20, 0, 10);
+        gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
         jPanel2.add(jButton1, gridBagConstraints);
 
+        jButton4.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jButton4.setText("<html>\n<p style =\"margin-top:60px;\">Quản lý bàn </p>\n</html>");
+        jButton4.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButton4.setMinimumSize(new java.awt.Dimension(200, 130));
+        jButton4.setPreferredSize(new java.awt.Dimension(200, 130));
+        jButton4.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton4MouseClicked(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
+        jPanel2.add(jButton4, gridBagConstraints);
+
         jButton2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jButton2.setIcon(new javax.swing.ImageIcon("D:\\Anh_Quan\\Tai_lieu\\Java\\Doan\\QuanLyNhaHang\\src\\main\\java\\resources\\icon\\restaurant_menu_FILL0_wght400_GRAD0_opsz48.png")); // NOI18N
         jButton2.setText("<html>\n<p style =\"margin-top:60px;\">Quản lý món ăn </p>\n</html>");
         jButton2.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButton2.setMinimumSize(new java.awt.Dimension(200, 130));
@@ -147,41 +165,10 @@ public class TrangChu_GUI extends javax.swing.JFrame {
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.insets = new java.awt.Insets(10, 0, 0, 10);
+        gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
         jPanel2.add(jButton2, gridBagConstraints);
 
-        jButton3.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jButton3.setIcon(new javax.swing.ImageIcon("D:\\Anh_Quan\\Tai_lieu\\Java\\Doan\\QuanLyNhaHang\\src\\main\\java\\resources\\icon\\296c0d4a05afd9f180be8.jpg")); // NOI18N
-        jButton3.setText("<html>\n<p style =\"margin-top:60px;\"> Quản lý biến thể món ăn</p>\n</html>");
-        jButton3.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButton3.setMinimumSize(new java.awt.Dimension(200, 130));
-        jButton3.setPreferredSize(new java.awt.Dimension(200, 130));
-        jButton3.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jButton3MouseClicked(evt);
-            }
-        });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.insets = new java.awt.Insets(10, 0, 0, 10);
-        jPanel2.add(jButton3, gridBagConstraints);
-
-        jButton4.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jButton4.setIcon(new javax.swing.ImageIcon("D:\\Anh_Quan\\Tai_lieu\\Java\\Doan\\QuanLyNhaHang\\src\\main\\java\\resources\\icon\\table_restaurant_FILL0_wght400_GRAD0_opsz48.png")); // NOI18N
-        jButton4.setText("<html>\n<p style =\"margin-top:60px;\">Quản lý bàn </p>\n</html>");
-        jButton4.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButton4.setMinimumSize(new java.awt.Dimension(200, 130));
-        jButton4.setPreferredSize(new java.awt.Dimension(200, 130));
-        jButton4.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jButton4MouseClicked(evt);
-            }
-        });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.insets = new java.awt.Insets(10, 0, 0, 10);
-        jPanel2.add(jButton4, gridBagConstraints);
-
         jButton5.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jButton5.setIcon(new javax.swing.ImageIcon("D:\\Anh_Quan\\Tai_lieu\\Java\\Doan\\QuanLyNhaHang\\src\\main\\java\\resources\\icon\\27fddeded63b0a65532a5.jpg")); // NOI18N
         jButton5.setText("<html>\n<p style =\"margin-top:60px;\"> Quản lý hóa đơn</p>\n</html>");
         jButton5.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButton5.setMinimumSize(new java.awt.Dimension(200, 130));
@@ -191,14 +178,9 @@ public class TrangChu_GUI extends javax.swing.JFrame {
                 jButton5MouseClicked(evt);
             }
         });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 1;
-        gridBagConstraints.insets = new java.awt.Insets(10, 20, 0, 10);
-        jPanel2.add(jButton5, gridBagConstraints);
+        jPanel2.add(jButton5, new java.awt.GridBagConstraints());
 
         jButton6.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jButton6.setIcon(new javax.swing.ImageIcon("D:\\Anh_Quan\\Tai_lieu\\Java\\Doan\\QuanLyNhaHang\\src\\main\\java\\resources\\icon\\601d3c2a34cfe891b1de4.jpg")); // NOI18N
         jButton6.setText("<html>\n<p style =\"margin-top:60px;\">Quản lý nhân viên</p>\n</html>");
         jButton6.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButton6.setMinimumSize(new java.awt.Dimension(200, 130));
@@ -209,16 +191,15 @@ public class TrangChu_GUI extends javax.swing.JFrame {
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 1;
-        gridBagConstraints.insets = new java.awt.Insets(10, 0, 0, 10);
+        gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
         jPanel2.add(jButton6, gridBagConstraints);
 
         jButton7.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jButton7.setIcon(new javax.swing.ImageIcon("D:\\Anh_Quan\\Tai_lieu\\Java\\Doan\\QuanLyNhaHang\\src\\main\\java\\resources\\icon\\8fbe75837d66a138f8777.jpg")); // NOI18N
         jButton7.setText("<html>\n<p style =\"margin-top:60px;\">Quản lý khách hàng</p>\n</html>");
         jButton7.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButton7.setMinimumSize(new java.awt.Dimension(180, 100));
+        jButton7.setMinimumSize(new java.awt.Dimension(200, 130));
         jButton7.setPreferredSize(new java.awt.Dimension(200, 130));
         jButton7.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -226,13 +207,12 @@ public class TrangChu_GUI extends javax.swing.JFrame {
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 1;
-        gridBagConstraints.insets = new java.awt.Insets(10, 0, 0, 10);
+        gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
         jPanel2.add(jButton7, gridBagConstraints);
 
         jButton8.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jButton8.setIcon(new javax.swing.ImageIcon("D:\\Anh_Quan\\Tai_lieu\\Java\\Doan\\QuanLyNhaHang\\src\\main\\java\\resources\\icon\\account_circle_FILL0_wght400_GRAD0_opsz48.png")); // NOI18N
         jButton8.setText("<html>\n<p style =\"margin-top:60px;\">Quản lý tài khoản</p>\n</html>");
         jButton8.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButton8.setMinimumSize(new java.awt.Dimension(200, 130));
@@ -243,38 +223,20 @@ public class TrangChu_GUI extends javax.swing.JFrame {
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 3;
+        gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 1;
-        gridBagConstraints.insets = new java.awt.Insets(10, 0, 0, 10);
+        gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
         jPanel2.add(jButton8, gridBagConstraints);
 
-        jButton9.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jButton9.setIcon(new javax.swing.ImageIcon("D:\\Anh_Quan\\Tai_lieu\\Java\\Doan\\QuanLyNhaHang\\src\\main\\java\\resources\\icon\\lock_FILL0_wght400_GRAD0_opsz48.png")); // NOI18N
-        jButton9.setText("<html>\n<p style =\"margin-top:60px;\"> Quản lý quyền</p>\n</html>");
-        jButton9.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButton9.setMinimumSize(new java.awt.Dimension(200, 130));
-        jButton9.setPreferredSize(new java.awt.Dimension(200, 130));
-        jButton9.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jButton9MouseClicked(evt);
-            }
-        });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 2;
-        gridBagConstraints.insets = new java.awt.Insets(10, 20, 10, 10);
-        jPanel2.add(jButton9, gridBagConstraints);
-
         jButton10.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jButton10.setIcon(new javax.swing.ImageIcon("D:\\Anh_Quan\\Tai_lieu\\Java\\Doan\\QuanLyNhaHang\\src\\main\\java\\resources\\icon\\93c2330e3bebe7b5befa2.jpg")); // NOI18N
         jButton10.setText("<html>\n<p style =\"margin-top:60px;\"> Báo cáo & Thống kê</p>\n</html>");
         jButton10.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButton10.setMinimumSize(new java.awt.Dimension(200, 130));
         jButton10.setPreferredSize(new java.awt.Dimension(200, 130));
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 2;
-        gridBagConstraints.insets = new java.awt.Insets(10, 0, 10, 10);
+        gridBagConstraints.gridx = 3;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
         jPanel2.add(jButton10, gridBagConstraints);
 
         getContentPane().add(jPanel2, java.awt.BorderLayout.CENTER);
@@ -303,15 +265,6 @@ public class TrangChu_GUI extends javax.swing.JFrame {
         } else {
         }
     }//GEN-LAST:event_jButton2MouseClicked
-
-    private void jButton3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton3MouseClicked
-        // TODO add your handling code here:
-        if(quanLyBienTheMonAn_GUI == null){
-            quanLyBienTheMonAn_GUI = new QuanLyBienTheMonAn_GUI();
-            quanLyBienTheMonAn_GUI.setVisible(true);
-        } else {
-        }
-    }//GEN-LAST:event_jButton3MouseClicked
 
     private void jButton4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton4MouseClicked
         // TODO add your handling code here:
@@ -358,43 +311,12 @@ public class TrangChu_GUI extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jButton8MouseClicked
 
-    private void jButton9MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton9MouseClicked
-        // TODO add your handling code here:
-        if(quanLyQuyen_GUI == null){
-            quanLyQuyen_GUI = new QuanLyQuyen_GUI();
-            quanLyQuyen_GUI.setVisible(true);
-        } else {
-        }
-    }//GEN-LAST:event_jButton9MouseClicked
-
     /**
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(TrangChu_GUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(TrangChu_GUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(TrangChu_GUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(TrangChu_GUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
+        
+      
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new TrangChu_GUI().setVisible(true);
@@ -406,13 +328,11 @@ public class TrangChu_GUI extends javax.swing.JFrame {
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton10;
     private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
     private javax.swing.JButton jButton8;
-    private javax.swing.JButton jButton9;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

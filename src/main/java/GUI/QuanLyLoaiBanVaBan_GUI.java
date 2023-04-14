@@ -111,6 +111,9 @@ public class QuanLyLoaiBanVaBan_GUI extends javax.swing.JFrame {
     private void initComponents() {
         java.awt.GridBagConstraints gridBagConstraints;
 
+        filler1 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 0), new java.awt.Dimension(32767, 32767));
+        jCheckBoxMenuItem1 = new javax.swing.JCheckBoxMenuItem();
+        jMenu1 = new javax.swing.JMenu();
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
@@ -129,7 +132,6 @@ public class QuanLyLoaiBanVaBan_GUI extends javax.swing.JFrame {
         txtSoChoNgoi = new javax.swing.JTextField();
         btnResetLoaiBan = new javax.swing.JButton();
         btnLuuLoaiBan = new javax.swing.JButton();
-        filler1 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 10), new java.awt.Dimension(0, 10), new java.awt.Dimension(0, 10));
         jPanel5 = new javax.swing.JPanel();
         jPanel6 = new javax.swing.JPanel();
         jScrollPane4 = new javax.swing.JScrollPane();
@@ -149,11 +151,19 @@ public class QuanLyLoaiBanVaBan_GUI extends javax.swing.JFrame {
         cmbLoaiBan = new javax.swing.JComboBox<>();
         cmbTinhTrangBan = new javax.swing.JComboBox<>();
 
+        jCheckBoxMenuItem1.setSelected(true);
+        jCheckBoxMenuItem1.setText("jCheckBoxMenuItem1");
+
+        jMenu1.setText("jMenu1");
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Quản lý bàn và loại bàn");
+        setMinimumSize(new java.awt.Dimension(695, 560));
+        setPreferredSize(new java.awt.Dimension(695, 560));
         getContentPane().setLayout(new javax.swing.BoxLayout(getContentPane(), javax.swing.BoxLayout.Y_AXIS));
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Quản lý loại bàn\n"));
+        jPanel1.setMinimumSize(new java.awt.Dimension(685, 253));
         jPanel1.setLayout(new javax.swing.BoxLayout(jPanel1, javax.swing.BoxLayout.LINE_AXIS));
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Danh sách loại bàn\n"));
@@ -161,27 +171,9 @@ public class QuanLyLoaiBanVaBan_GUI extends javax.swing.JFrame {
         jPanel2.setLayout(new java.awt.BorderLayout());
 
         jScrollPane2.setMaximumSize(new java.awt.Dimension(2147483647, 2147483647));
+        jScrollPane2.setMinimumSize(new java.awt.Dimension(387, 197));
         jScrollPane2.setPreferredSize(new java.awt.Dimension(387, 197));
 
-        tblLoaiBan.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
-            },
-            new String [] {
-                "ID", "Tên loại bàn", "Số chỗ ngồi"
-            }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, false
-            };
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return false;
-            }
-        });
         tblLoaiBan.setMaximumSize(new java.awt.Dimension(2147483647, 2147483647));
         tblLoaiBan.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -197,6 +189,7 @@ public class QuanLyLoaiBanVaBan_GUI extends javax.swing.JFrame {
         jPanel4.setLayout(new javax.swing.BoxLayout(jPanel4, javax.swing.BoxLayout.PAGE_AXIS));
 
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("Chức năng cho loại bàn\n"));
+        jPanel3.setMaximumSize(new java.awt.Dimension(32767, 56));
 
         btnThemLoaiBan.setText("Thêm");
         btnThemLoaiBan.setEnabled(false);
@@ -231,58 +224,89 @@ public class QuanLyLoaiBanVaBan_GUI extends javax.swing.JFrame {
         jPanel4.add(jPanel3);
 
         pnlThemSuaLoaiBan.setBorder(javax.swing.BorderFactory.createTitledBorder("Thêm loại bàn mới\n"));
+        pnlThemSuaLoaiBan.setToolTipText("");
+        pnlThemSuaLoaiBan.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        pnlThemSuaLoaiBan.setMaximumSize(new java.awt.Dimension(2147483647, 2147483647));
         pnlThemSuaLoaiBan.setName(""); // NOI18N
-        pnlThemSuaLoaiBan.setLayout(new java.awt.GridBagLayout());
+        java.awt.GridBagLayout pnlThemSuaLoaiBanLayout = new java.awt.GridBagLayout();
+        pnlThemSuaLoaiBanLayout.columnWidths = new int[] {0, 5, 0, 5, 0};
+        pnlThemSuaLoaiBanLayout.rowHeights = new int[] {0, 5, 0, 5, 0, 5, 0};
+        pnlThemSuaLoaiBan.setLayout(pnlThemSuaLoaiBanLayout);
 
+        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel4.setText("ID");
+        jLabel4.setToolTipText("");
+        jLabel4.setMaximumSize(new java.awt.Dimension(80, 24));
+        jLabel4.setMinimumSize(new java.awt.Dimension(80, 24));
+        jLabel4.setPreferredSize(new java.awt.Dimension(80, 24));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
-        gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
         pnlThemSuaLoaiBan.add(jLabel4, gridBagConstraints);
 
+        txtIDLoaiBan.setHorizontalAlignment(javax.swing.JTextField.LEFT);
+        txtIDLoaiBan.setToolTipText("");
+        txtIDLoaiBan.setActionCommand("null");
+        txtIDLoaiBan.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         txtIDLoaiBan.setEnabled(false);
-        txtIDLoaiBan.setPreferredSize(new java.awt.Dimension(128, 22));
+        txtIDLoaiBan.setMaximumSize(new java.awt.Dimension(160, 24));
+        txtIDLoaiBan.setMinimumSize(new java.awt.Dimension(160, 24));
+        txtIDLoaiBan.setPreferredSize(new java.awt.Dimension(160, 24));
         txtIDLoaiBan.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtIDLoaiBanActionPerformed(evt);
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 0;
-        gridBagConstraints.gridwidth = 2;
-        gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 10);
+        gridBagConstraints.gridwidth = 3;
         pnlThemSuaLoaiBan.add(txtIDLoaiBan, gridBagConstraints);
 
+        jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel5.setText("Tên loại bàn");
+        jLabel5.setMaximumSize(new java.awt.Dimension(80, 24));
+        jLabel5.setMinimumSize(new java.awt.Dimension(80, 24));
+        jLabel5.setPreferredSize(new java.awt.Dimension(80, 24));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 1;
-        gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
+        gridBagConstraints.gridy = 2;
         pnlThemSuaLoaiBan.add(jLabel5, gridBagConstraints);
 
-        txtTenLoaiBan.setMinimumSize(new java.awt.Dimension(128, 22));
-        txtTenLoaiBan.setPreferredSize(new java.awt.Dimension(128, 22));
+        txtTenLoaiBan.setHorizontalAlignment(javax.swing.JTextField.LEFT);
+        txtTenLoaiBan.setToolTipText("");
+        txtTenLoaiBan.setActionCommand("null");
+        txtTenLoaiBan.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        txtTenLoaiBan.setMaximumSize(new java.awt.Dimension(160, 24));
+        txtTenLoaiBan.setMinimumSize(new java.awt.Dimension(160, 24));
+        txtTenLoaiBan.setPreferredSize(new java.awt.Dimension(160, 24));
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 1;
-        gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.gridwidth = 3;
         pnlThemSuaLoaiBan.add(txtTenLoaiBan, gridBagConstraints);
 
+        jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel6.setText("Số chỗ ngồi");
+        jLabel6.setMaximumSize(new java.awt.Dimension(80, 24));
+        jLabel6.setMinimumSize(new java.awt.Dimension(80, 24));
+        jLabel6.setPreferredSize(new java.awt.Dimension(80, 24));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 2;
-        gridBagConstraints.insets = new java.awt.Insets(10, 0, 10, 0);
+        gridBagConstraints.gridy = 4;
         pnlThemSuaLoaiBan.add(jLabel6, gridBagConstraints);
 
-        txtSoChoNgoi.setMinimumSize(new java.awt.Dimension(128, 22));
-        txtSoChoNgoi.setPreferredSize(new java.awt.Dimension(128, 22));
+        txtSoChoNgoi.setHorizontalAlignment(javax.swing.JTextField.LEFT);
+        txtSoChoNgoi.setToolTipText("");
+        txtSoChoNgoi.setActionCommand("null");
+        txtSoChoNgoi.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        txtSoChoNgoi.setMaximumSize(new java.awt.Dimension(160, 24));
+        txtSoChoNgoi.setMinimumSize(new java.awt.Dimension(160, 24));
+        txtSoChoNgoi.setPreferredSize(new java.awt.Dimension(160, 24));
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 2;
-        gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 4;
+        gridBagConstraints.gridwidth = 3;
         pnlThemSuaLoaiBan.add(txtSoChoNgoi, gridBagConstraints);
 
         btnResetLoaiBan.setText("Reset");
@@ -292,9 +316,8 @@ public class QuanLyLoaiBanVaBan_GUI extends javax.swing.JFrame {
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 3;
-        gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 6;
         pnlThemSuaLoaiBan.add(btnResetLoaiBan, gridBagConstraints);
 
         btnLuuLoaiBan.setText("Lưu");
@@ -304,9 +327,9 @@ public class QuanLyLoaiBanVaBan_GUI extends javax.swing.JFrame {
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 2;
-        gridBagConstraints.gridy = 3;
-        gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
+        gridBagConstraints.gridx = 4;
+        gridBagConstraints.gridy = 6;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
         pnlThemSuaLoaiBan.add(btnLuuLoaiBan, gridBagConstraints);
 
         jPanel4.add(pnlThemSuaLoaiBan);
@@ -314,15 +337,17 @@ public class QuanLyLoaiBanVaBan_GUI extends javax.swing.JFrame {
         jPanel1.add(jPanel4);
 
         getContentPane().add(jPanel1);
-        getContentPane().add(filler1);
 
         jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder("Quản lý bàn\n"));
+        jPanel5.setMinimumSize(new java.awt.Dimension(685, 253));
+        jPanel5.setName(""); // NOI18N
         jPanel5.setLayout(new javax.swing.BoxLayout(jPanel5, javax.swing.BoxLayout.X_AXIS));
 
         jPanel6.setBorder(javax.swing.BorderFactory.createTitledBorder("Danh sách bàn\n"));
         jPanel6.setLayout(new java.awt.BorderLayout());
 
         jScrollPane4.setMaximumSize(new java.awt.Dimension(2147483647, 2147483647));
+        jScrollPane4.setMinimumSize(new java.awt.Dimension(387, 197));
         jScrollPane4.setPreferredSize(new java.awt.Dimension(387, 197));
 
         tblBan.setModel(new javax.swing.table.DefaultTableModel(
@@ -359,6 +384,7 @@ public class QuanLyLoaiBanVaBan_GUI extends javax.swing.JFrame {
         jPanel11.setLayout(new javax.swing.BoxLayout(jPanel11, javax.swing.BoxLayout.PAGE_AXIS));
 
         jPanel12.setBorder(javax.swing.BorderFactory.createTitledBorder("Chức năng cho bàn\n"));
+        jPanel12.setMaximumSize(new java.awt.Dimension(32767, 56));
 
         btnThemBan.setText("Thêm");
         btnThemBan.setEnabled(false);
@@ -388,42 +414,58 @@ public class QuanLyLoaiBanVaBan_GUI extends javax.swing.JFrame {
         jPanel11.add(jPanel12);
 
         pnlThemSuaBan.setBorder(javax.swing.BorderFactory.createTitledBorder("Thêm loại bàn mới\n"));
+        pnlThemSuaBan.setMinimumSize(new java.awt.Dimension(250, 118));
         pnlThemSuaBan.setName(""); // NOI18N
-        pnlThemSuaBan.setLayout(new java.awt.GridBagLayout());
+        pnlThemSuaBan.setPreferredSize(new java.awt.Dimension(250, 118));
+        java.awt.GridBagLayout pnlThemSuaBanLayout = new java.awt.GridBagLayout();
+        pnlThemSuaBanLayout.columnWidths = new int[] {0, 5, 0, 5, 0, 5, 0};
+        pnlThemSuaBanLayout.rowHeights = new int[] {0, 5, 0, 5, 0, 5, 0};
+        pnlThemSuaBan.setLayout(pnlThemSuaBanLayout);
 
+        jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel7.setText("ID");
+        jLabel7.setMaximumSize(new java.awt.Dimension(80, 24));
+        jLabel7.setMinimumSize(new java.awt.Dimension(80, 24));
+        jLabel7.setPreferredSize(new java.awt.Dimension(80, 24));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
-        gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
         pnlThemSuaBan.add(jLabel7, gridBagConstraints);
 
         txtIdBan.setEnabled(false);
-        txtIdBan.setPreferredSize(new java.awt.Dimension(128, 22));
+        txtIdBan.setMaximumSize(new java.awt.Dimension(160, 24));
+        txtIdBan.setMinimumSize(new java.awt.Dimension(160, 24));
+        txtIdBan.setPreferredSize(new java.awt.Dimension(160, 24));
         txtIdBan.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtIdBanActionPerformed(evt);
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 0;
-        gridBagConstraints.gridwidth = 2;
-        gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 10);
+        gridBagConstraints.gridwidth = 3;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         pnlThemSuaBan.add(txtIdBan, gridBagConstraints);
 
+        jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel8.setText("Tên loại bàn");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 1;
-        gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
-        pnlThemSuaBan.add(jLabel8, gridBagConstraints);
-
-        jLabel9.setText("Tình trạng bàn");
+        jLabel8.setMaximumSize(new java.awt.Dimension(80, 24));
+        jLabel8.setMinimumSize(new java.awt.Dimension(80, 24));
+        jLabel8.setPreferredSize(new java.awt.Dimension(80, 24));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 2;
-        gridBagConstraints.insets = new java.awt.Insets(10, 0, 10, 0);
+        pnlThemSuaBan.add(jLabel8, gridBagConstraints);
+
+        jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel9.setText("Tình trạng bàn");
+        jLabel9.setMaximumSize(new java.awt.Dimension(80, 24));
+        jLabel9.setMinimumSize(new java.awt.Dimension(80, 24));
+        jLabel9.setPreferredSize(new java.awt.Dimension(80, 24));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 4;
         pnlThemSuaBan.add(jLabel9, gridBagConstraints);
 
         btnResetBan.setText("Reset");
@@ -436,9 +478,9 @@ public class QuanLyLoaiBanVaBan_GUI extends javax.swing.JFrame {
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 3;
-        gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 6;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         pnlThemSuaBan.add(btnResetBan, gridBagConstraints);
 
         btnLuuBan.setText("Lưu");
@@ -448,23 +490,29 @@ public class QuanLyLoaiBanVaBan_GUI extends javax.swing.JFrame {
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 2;
-        gridBagConstraints.gridy = 3;
-        gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
+        gridBagConstraints.gridx = 4;
+        gridBagConstraints.gridy = 6;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
         pnlThemSuaBan.add(btnLuuBan, gridBagConstraints);
 
-        cmbLoaiBan.setPreferredSize(new java.awt.Dimension(128, 22));
+        cmbLoaiBan.setMaximumSize(new java.awt.Dimension(160, 24));
+        cmbLoaiBan.setMinimumSize(new java.awt.Dimension(160, 24));
+        cmbLoaiBan.setPreferredSize(new java.awt.Dimension(160, 24));
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 1;
-        gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.gridwidth = 5;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         pnlThemSuaBan.add(cmbLoaiBan, gridBagConstraints);
 
-        cmbTinhTrangBan.setPreferredSize(new java.awt.Dimension(128, 22));
+        cmbTinhTrangBan.setMaximumSize(new java.awt.Dimension(160, 24));
+        cmbTinhTrangBan.setMinimumSize(new java.awt.Dimension(160, 24));
+        cmbTinhTrangBan.setPreferredSize(new java.awt.Dimension(160, 24));
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 2;
-        gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 4;
+        gridBagConstraints.gridwidth = 5;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         pnlThemSuaBan.add(cmbTinhTrangBan, gridBagConstraints);
 
         jPanel11.add(pnlThemSuaBan);
@@ -731,9 +779,51 @@ public class QuanLyLoaiBanVaBan_GUI extends javax.swing.JFrame {
         loadTableBan();       
     }//GEN-LAST:event_btnXoaBanMouseClicked
 
-    private void txtIdBanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtIdBanActionPerformed
+    private void btnThemLoaiBanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemLoaiBanActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtIdBanActionPerformed
+    }//GEN-LAST:event_btnThemLoaiBanActionPerformed
+
+    private void btnLuuBanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLuuBanMouseClicked
+        // TODO add your handling code here:
+        int indexLoaiBan = cmbLoaiBan.getSelectedIndex();
+        if(indexLoaiBan < 0)
+        JOptionPane.showMessageDialog(this, "Chưa chọn loại bàn","Error", JOptionPane.ERROR_MESSAGE);
+
+        int indexTinhTrangBan = cmbTinhTrangBan.getSelectedIndex();
+        if(indexTinhTrangBan < 0)
+        JOptionPane.showMessageDialog(this, "Chưa chọn tình trạng bàn","Error", JOptionPane.ERROR_MESSAGE);
+
+        int idLoaiBan = listLoaiBan.get(indexLoaiBan).getId();
+        int idTinhTrangBan = listTinhTrangBan.get(indexTinhTrangBan).getId();
+        if (dangThemBan){
+            CreateBan_DTO data = new CreateBan_DTO(idLoaiBan, idTinhTrangBan);
+
+            boolean result = ban_BUS.createBan(data);
+            if(result){
+                JOptionPane.showMessageDialog(this, "Thêm bàn mới thành công","Thông báo", JOptionPane.INFORMATION_MESSAGE);
+                clearTextViewBan();
+                loadTableBan();
+            }
+            else
+            JOptionPane.showMessageDialog(this, "Thêm bàn mới thất bại","Error", JOptionPane.ERROR_MESSAGE);
+        } else {
+            int idBan = Integer.parseInt(txtIdBan.getText());
+            UpdateBan_DTO data = new UpdateBan_DTO(idBan, idTinhTrangBan, idLoaiBan);
+
+            boolean result = ban_BUS.updateBan(data);
+            if(result){
+                JOptionPane.showMessageDialog(this, "Sửa bàn thành công","Thông báo", JOptionPane.INFORMATION_MESSAGE);
+                clearTextViewBan();
+                loadTableBan();
+            }
+            else
+            JOptionPane.showMessageDialog(this, "Sửa bàn thất bại","Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_btnLuuBanMouseClicked
+
+    private void btnResetBanMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnResetBanMouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnResetBanMouseEntered
 
     private void btnResetBanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnResetBanMouseClicked
         // TODO add your handling code here:
@@ -751,12 +841,12 @@ public class QuanLyLoaiBanVaBan_GUI extends javax.swing.JFrame {
             int indexLoaiBan = -1;
             for (int i = 0; i < listLoaiBan.size(); i++) {
                 if(result.getLoaiBan().getId() == listLoaiBan.get(i).getId())
-                    indexLoaiBan = i;
+                indexLoaiBan = i;
             }
             int indexTinhTrangBan = -1;
             for (int i = 0; i < listTinhTrangBan.size(); i++) {
                 if(result.getTinhTrangBan().getId() == listTinhTrangBan.get(i).getId())
-                    indexTinhTrangBan = i;
+                indexTinhTrangBan = i;
             }
 
             if(indexLoaiBan == -1 || indexTinhTrangBan == -1){
@@ -770,51 +860,9 @@ public class QuanLyLoaiBanVaBan_GUI extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnResetBanMouseClicked
 
-    private void btnLuuBanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLuuBanMouseClicked
+    private void txtIdBanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtIdBanActionPerformed
         // TODO add your handling code here:
-        int indexLoaiBan = cmbLoaiBan.getSelectedIndex();
-        if(indexLoaiBan < 0)
-            JOptionPane.showMessageDialog(this, "Chưa chọn loại bàn","Error", JOptionPane.ERROR_MESSAGE);
-
-        int indexTinhTrangBan = cmbTinhTrangBan.getSelectedIndex();
-        if(indexTinhTrangBan < 0)
-            JOptionPane.showMessageDialog(this, "Chưa chọn tình trạng bàn","Error", JOptionPane.ERROR_MESSAGE);         
-
-        int idLoaiBan = listLoaiBan.get(indexLoaiBan).getId();
-        int idTinhTrangBan = listTinhTrangBan.get(indexTinhTrangBan).getId();
-        if (dangThemBan){
-            CreateBan_DTO data = new CreateBan_DTO(idLoaiBan, idTinhTrangBan);
-
-            boolean result = ban_BUS.createBan(data);
-            if(result){
-                JOptionPane.showMessageDialog(this, "Thêm bàn mới thành công","Thông báo", JOptionPane.INFORMATION_MESSAGE);
-                clearTextViewBan();  
-                loadTableBan();
-            }            
-            else
-                JOptionPane.showMessageDialog(this, "Thêm bàn mới thất bại","Error", JOptionPane.ERROR_MESSAGE);
-        } else {
-            int idBan = Integer.parseInt(txtIdBan.getText());
-            UpdateBan_DTO data = new UpdateBan_DTO(idBan, idTinhTrangBan, idLoaiBan);
-            
-            boolean result = ban_BUS.updateBan(data);
-            if(result){
-                JOptionPane.showMessageDialog(this, "Sửa bàn thành công","Thông báo", JOptionPane.INFORMATION_MESSAGE);
-                clearTextViewBan();  
-                loadTableBan();
-            }            
-            else
-                JOptionPane.showMessageDialog(this, "Sửa bàn thất bại","Error", JOptionPane.ERROR_MESSAGE);
-        }
-    }//GEN-LAST:event_btnLuuBanMouseClicked
-
-    private void btnThemLoaiBanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemLoaiBanActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnThemLoaiBanActionPerformed
-
-    private void btnResetBanMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnResetBanMouseEntered
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnResetBanMouseEntered
+    }//GEN-LAST:event_txtIdBanActionPerformed
 
     /**
      * @param args the command line arguments
@@ -868,12 +916,14 @@ public class QuanLyLoaiBanVaBan_GUI extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> cmbLoaiBan;
     private javax.swing.JComboBox<String> cmbTinhTrangBan;
     private javax.swing.Box.Filler filler1;
+    private javax.swing.JCheckBoxMenuItem jCheckBoxMenuItem1;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JMenu jMenu1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel11;
     private javax.swing.JPanel jPanel12;
