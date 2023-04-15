@@ -3,12 +3,14 @@ package DAO;
 import DTO.Ban.CreateDonGoi_DTO;
 import DTO.Ban.DonGoi_DTO;
 import DTO.Ban.UpdateDonGoi_DTO;
+import DTO.MonAn.MonAn_DTO;
 import com.mycompany.quanlynhahang.ConnectDatabase;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Types;
 import java.util.ArrayList;
 
 /**
@@ -19,22 +21,22 @@ public class DonGoi_DAO {
     public ArrayList<DonGoi_DTO> getAllDonGoiByIdBan(int idBan){
         Connection con = ConnectDatabase.openConnection();
         ArrayList<DonGoi_DTO> result = new ArrayList<>();
-        BienTheMonAn_DAO bienTheMonAn_DAO = new BienTheMonAn_DAO();
+        MonAn_DAO monAn_DAO = new MonAn_DAO();
         try {
-            String sql = "SELECT * FROM DonGoi_BTMA WHERE B_ID = " + idBan;
+            String sql = "select B_ID, MA_ID, DG_SoLuong, DG_GhiChu from DonGoi WHERE B_ID = " + idBan;
             Statement statement = con.createStatement();
             
             ResultSet rs = statement.executeQuery(sql);
             while(rs.next()){
                 DonGoi_DTO donGoi = new DonGoi_DTO();
                 
-                int idMA = rs.getInt("MA_ID");
-                int idBTMA = rs.getInt("BTMA_ID");
+                donGoi.setIdBan(rs.getInt("B_ID"));
                 
-                donGoi.setBtma(bienTheMonAn_DAO.getBienTheMonAnById(idMA, idBTMA));
-                donGoi.setGhiChu(rs.getNString("DGB_GhiChu"));
-                donGoi.setSoLuong(rs.getInt("DGB_SoLuong"));
-                donGoi.setNgayGio(rs.getTimestamp("DGB_NgayGio"));
+                MonAn_DTO monAn = monAn_DAO.getMonAnById(rs.getInt("MA_ID"));
+                donGoi.setMonAn(monAn);
+                
+                donGoi.setGhiChu(rs.getNString("DG_GhiChu"));
+                donGoi.setSoLuong(rs.getInt("DG_SoLuong"));
                 
                 result.add(donGoi);
             }
@@ -47,21 +49,52 @@ public class DonGoi_DAO {
         return result;
     }
     
+    public DonGoi_DTO getDonGoiById(int idBan, int idMonAn){
+        Connection con = ConnectDatabase.openConnection();
+        DonGoi_DTO donGoi = new DonGoi_DTO();
+        MonAn_DAO monAn_DAO = new MonAn_DAO();
+        try {
+            String sql = "select B_ID, MA_ID, DG_SoLuong, DG_GhiChu from DonGoi WHERE B_ID = " + idBan + " AND MA_ID = " + idMonAn; 
+            Statement statement = con.createStatement();
+            
+            ResultSet rs = statement.executeQuery(sql);
+            if(rs.next()){
+                
+                donGoi.setIdBan(rs.getInt("B_ID"));
+                
+                MonAn_DTO monAn = monAn_DAO.getMonAnById(rs.getInt("MA_ID"));
+                donGoi.setMonAn(monAn);
+                
+                donGoi.setGhiChu(rs.getNString("DG_GhiChu"));
+                donGoi.setSoLuong(rs.getInt("DG_SoLuong"));
+            }
+        } catch (SQLException ex ){
+            System.out.println(ex);
+        } finally {
+            ConnectDatabase.closeConnection(con);
+        }
+        
+        return donGoi;
+    }
+    
     public boolean createDonGoi(CreateDonGoi_DTO data){
         Connection con = ConnectDatabase.openConnection();
         boolean result = false;
         try {
-            String sql = "INSERT INTO DonGoi_BTMA VALUES( ?, ?, ?, ?, ?, ?)";
+            String sql = "INSERT INTO DonGoi VALUES( ?, ?, ?, ?)";
             PreparedStatement statement = con.prepareStatement(sql);
             
             statement.setInt(1, data.getIdBan());            
-            statement.setInt(2, data.getIdMA());
-            statement.setInt(3, data.getIdBTMA());            
-            statement.setInt(4, data.getSoLuong());
-            statement.setTimestamp(5, data.getNgayGio());            
-            statement.setNString(6, data.getGhiChu());
+            statement.setInt(2, data.getIdMA()); 
+            if(data.getSoLuong() <= 0)
+                return false;
+            statement.setInt(3, data.getSoLuong());   
+            if(data.getGhiChu() != null && !data.getGhiChu().isBlank())
+                statement.setNString(4, data.getGhiChu());
+            else
+                statement.setNull(4, Types.NVARCHAR);
 
-            if(statement.executeUpdate() > 1)
+            if(statement.executeUpdate() >= 1)
                 result = true;
         } catch (SQLException ex ){
             System.out.println(ex);
@@ -139,5 +172,25 @@ public class DonGoi_DAO {
         }
         
         return result;
+    }
+    
+    public boolean daTonTai(int idBan, int idMonAn){Connection con = ConnectDatabase.openConnection();
+        boolean result = false;
+        try {
+            String sql = "SELECT B_ID, MA_ID FROM DonGoi WHERE B_ID = " + idBan + " AND MA_ID = " + idMonAn;
+            Statement statement = con.createStatement();
+            
+            ResultSet rs = statement.executeQuery(sql);
+            if(rs.next())
+                result = true;
+            
+        } catch (SQLException ex ){
+            System.out.println(ex);
+        } finally {
+            ConnectDatabase.closeConnection(con);
+        }
+        
+        return result;
+        
     }
 }

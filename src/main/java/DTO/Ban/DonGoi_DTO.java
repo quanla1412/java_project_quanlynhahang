@@ -1,34 +1,41 @@
 package DTO.Ban;
 
-import DTO.MonAn.BienTheMonAn_DTO;
-import java.sql.Timestamp;
+import DTO.MonAn.MonAn_DTO;
 
 /**
  *
  * @author LeAnhQuan
  */
 public class DonGoi_DTO {
-    private BienTheMonAn_DTO btma;
+    private int idBan;
+    private MonAn_DTO monAn;
     private int soLuong;
-    private Timestamp ngayGio;
     private String ghiChu;
 
     public DonGoi_DTO() {
     }
 
-    public DonGoi_DTO(BienTheMonAn_DTO btma, int soLuong, Timestamp ngayGio, String ghiChu) {
-        this.btma = btma;
+    public DonGoi_DTO(int idBan, MonAn_DTO monAn, int soLuong, String ghiChu) {
+        this.idBan = idBan;
+        this.monAn = monAn;
         this.soLuong = soLuong;
-        this.ngayGio = ngayGio;
         this.ghiChu = ghiChu;
     }
 
-    public BienTheMonAn_DTO getBtma() {
-        return btma;
+    public MonAn_DTO getMonAn() {
+        return monAn;
     }
 
-    public void setBtma(BienTheMonAn_DTO btma) {
-        this.btma = btma;
+    public int getIdBan() {
+        return idBan;
+    }
+
+    public void setIdBan(int idBan) {
+        this.idBan = idBan;
+    }
+
+    public void setMonAn(MonAn_DTO monAn) {
+        this.monAn = monAn;
     }
 
     public int getSoLuong() {
@@ -37,14 +44,6 @@ public class DonGoi_DTO {
 
     public void setSoLuong(int soLuong) {
         this.soLuong = soLuong;
-    }
-
-    public Timestamp getNgayGio() {
-        return ngayGio;
-    }
-
-    public void setNgayGio(Timestamp ngayGio) {
-        this.ngayGio = ngayGio;
     }
 
     public String getGhiChu() {

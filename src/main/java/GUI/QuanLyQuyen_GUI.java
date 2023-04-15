@@ -28,10 +28,6 @@ public class QuanLyQuyen_GUI extends javax.swing.JFrame {
         java.awt.GridBagConstraints gridBagConstraints;
 
         pnlDanhSachQuyen = new javax.swing.JPanel();
-        pnlBoLocTimKiem = new javax.swing.JPanel();
-        lblNhapID = new javax.swing.JLabel();
-        txtNhapID = new javax.swing.JTextField();
-        btnTimKiem = new javax.swing.JButton();
         scrDanhSachTaiKhoan = new javax.swing.JScrollPane();
         tblDanhSachTaiKhoan = new javax.swing.JTable();
         pnlChucNang = new javax.swing.JPanel();
@@ -59,44 +55,6 @@ public class QuanLyQuyen_GUI extends javax.swing.JFrame {
         getContentPane().setLayout(new javax.swing.BoxLayout(getContentPane(), javax.swing.BoxLayout.LINE_AXIS));
 
         pnlDanhSachQuyen.setLayout(new javax.swing.BoxLayout(pnlDanhSachQuyen, javax.swing.BoxLayout.Y_AXIS));
-
-        pnlBoLocTimKiem.setBorder(javax.swing.BorderFactory.createTitledBorder("Bộ lọc tìm kiếm"));
-        pnlBoLocTimKiem.setMaximumSize(new java.awt.Dimension(400, 60));
-        pnlBoLocTimKiem.setMinimumSize(new java.awt.Dimension(400, 60));
-        pnlBoLocTimKiem.setPreferredSize(new java.awt.Dimension(400, 60));
-        pnlBoLocTimKiem.setLayout(new java.awt.GridBagLayout());
-
-        lblNhapID.setText("Nhập ID");
-        lblNhapID.setPreferredSize(new java.awt.Dimension(60, 16));
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 11);
-        pnlBoLocTimKiem.add(lblNhapID, gridBagConstraints);
-
-        txtNhapID.setMaximumSize(new java.awt.Dimension(160, 24));
-        txtNhapID.setMinimumSize(new java.awt.Dimension(160, 24));
-        txtNhapID.setPreferredSize(new java.awt.Dimension(160, 24));
-        txtNhapID.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtNhapIDActionPerformed(evt);
-            }
-        });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 3;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.insets = new java.awt.Insets(4, 8, 4, 8);
-        pnlBoLocTimKiem.add(txtNhapID, gridBagConstraints);
-
-        btnTimKiem.setText("Tìm kiếm");
-        btnTimKiem.setMaximumSize(new java.awt.Dimension(80, 24));
-        btnTimKiem.setMinimumSize(new java.awt.Dimension(80, 24));
-        btnTimKiem.setPreferredSize(new java.awt.Dimension(80, 24));
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 5;
-        gridBagConstraints.gridy = 0;
-        pnlBoLocTimKiem.add(btnTimKiem, gridBagConstraints);
-
-        pnlDanhSachQuyen.add(pnlBoLocTimKiem);
 
         scrDanhSachTaiKhoan.setBorder(javax.swing.BorderFactory.createTitledBorder("Danh sách quyền"));
         scrDanhSachTaiKhoan.setPreferredSize(new java.awt.Dimension(200, 200));
@@ -327,10 +285,6 @@ public class QuanLyQuyen_GUI extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txtNhapIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNhapIDActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtNhapIDActionPerformed
-
     private void tblDanhSachTaiKhoanAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_tblDanhSachTaiKhoanAncestorAdded
         // TODO add your handling code here:
     }//GEN-LAST:event_tblDanhSachTaiKhoanAncestorAdded
@@ -392,7 +346,6 @@ public class QuanLyQuyen_GUI extends javax.swing.JFrame {
     private javax.swing.JButton btnSua;
     private javax.swing.JButton btnTaoLai;
     private javax.swing.JButton btnThem;
-    private javax.swing.JButton btnTimKiem;
     private javax.swing.JCheckBox chkBaoCaoThongKe;
     private javax.swing.JCheckBox chkQuanLyHoaDon;
     private javax.swing.JCheckBox chkQuanLyKhachHang;
@@ -403,9 +356,7 @@ public class QuanLyQuyen_GUI extends javax.swing.JFrame {
     private javax.swing.JCheckBox chkQuanLyTaiKhoan;
     private javax.swing.JLabel lblChucNang;
     private javax.swing.JLabel lblID;
-    private javax.swing.JLabel lblNhapID;
     private javax.swing.JLabel lblQuyen;
-    private javax.swing.JPanel pnlBoLocTimKiem;
     private javax.swing.JPanel pnlChucNang;
     private javax.swing.JPanel pnlDanhSachQuyen;
     private javax.swing.JPanel pnlThemQuyenMoi;
@@ -413,7 +364,6 @@ public class QuanLyQuyen_GUI extends javax.swing.JFrame {
     private javax.swing.JScrollPane scrDanhSachTaiKhoan;
     private javax.swing.JTable tblDanhSachTaiKhoan;
     private javax.swing.JTextField txtID;
-    private javax.swing.JTextField txtNhapID;
     private javax.swing.JTextField txtQuyen;
     // End of variables declaration//GEN-END:variables
 }

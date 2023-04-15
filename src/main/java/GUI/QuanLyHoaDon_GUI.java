@@ -96,6 +96,7 @@ public class QuanLyHoaDon_GUI extends javax.swing.JFrame {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 5;
         gridBagConstraints.gridy = 0;
+        gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 10);
         pnlBoLocTimKiem.add(btnTimKiem, gridBagConstraints);
 
         btnLocQuyen.setText("Lọc");
@@ -106,6 +107,7 @@ public class QuanLyHoaDon_GUI extends javax.swing.JFrame {
         gridBagConstraints.gridx = 5;
         gridBagConstraints.gridy = 1;
         gridBagConstraints.gridheight = 2;
+        gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 10);
         pnlBoLocTimKiem.add(btnLocQuyen, gridBagConstraints);
 
         cmbChonQuyen.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));

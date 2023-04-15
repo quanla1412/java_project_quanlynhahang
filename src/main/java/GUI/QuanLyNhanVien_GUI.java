@@ -4,6 +4,23 @@
  */
 package GUI;
 
+import BUS.ChucVu_BUS;
+import BUS.NhanVien_BUS;
+import BUS.TinhTrangNhanVien_BUS;
+import DTO.NhanVien.ChucVu_DTO;
+import DTO.NhanVien.CreateNhanVien_DTO;
+import DTO.NhanVien.NhanVienFull_DTO;
+import DTO.NhanVien.NhanVien_DTO;
+import DTO.NhanVien.TinhTrangNhanVien_DTO;
+import DTO.NhanVien.UpdateNhanVien_DTO;
+import java.sql.Date;
+import java.sql.Timestamp;
+import java.util.ArrayList;
+import javax.swing.BorderFactory;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
+
 
 /**
  *
@@ -11,12 +28,75 @@ package GUI;
  */
 public class QuanLyNhanVien_GUI extends javax.swing.JFrame {
 
-    /**
-     * Creates new form QuanLyNhanVien_GUI
-     */
+    private final NhanVien_BUS nhanVien_BUS;
+    private final ChucVu_BUS   chucVu_BUS;
+    private final TinhTrangNhanVien_BUS tinhTrangNhanVien_BUS;
+    private boolean dangThemNhanVien = true;
+    
+    
+ 
+    private ArrayList<ChucVu_DTO> listChucVu;
+    private ArrayList<TinhTrangNhanVien_DTO> listTinhTrangNhanVien;
+    
     public QuanLyNhanVien_GUI() {
         initComponents();
+        
+        nhanVien_BUS = new NhanVien_BUS();
+        chucVu_BUS = new ChucVu_BUS();
+        tinhTrangNhanVien_BUS = new TinhTrangNhanVien_BUS();
+        
+        loadtableNhanVien();
+        loadComboBoxChucVu();
+        loadComboBoxTinhTrangNhanVien();
     }
+    
+    public void loadtableNhanVien (){
+        ArrayList<NhanVien_DTO> listNhanVien = nhanVien_BUS.getAllNhanVien();
+        String col[] = {"Mã", "Tên nhân viên", "SDT", "Chức Vụ", "Tình trạng"};
+        DefaultTableModel tableModel = new DefaultTableModel(col, 0);
+        tblDanhSachNV.setModel(tableModel);
+        for(NhanVien_DTO row : listNhanVien){
+            Object[] data = {row.getMa(), row.getHoTen(), row.getSdt(), row.getTenChucVu(), row.getTinhTrangNhanVien()};
+            tableModel.addRow(data);
+        }
+    }
+    
+    
+    private void loadComboBoxChucVu(){
+        listChucVu = chucVu_BUS.getAllChucVu();
+        
+        for (ChucVu_DTO cv : listChucVu)
+        {
+            cmbThemChucVu.addItem(cv.getTen());
+            cmblocchucvu.addItem(cv.getTen());
+           
+        }
+        cmblocchucvu.setSelectedIndex(-1);
+    }
+    
+    private void loadComboBoxTinhTrangNhanVien(){
+        listTinhTrangNhanVien = tinhTrangNhanVien_BUS.getAllLTinhTrangNhanVien();
+        
+        for(TinhTrangNhanVien_DTO ttnv : listTinhTrangNhanVien){
+            cmbTinhTrangNV.addItem(ttnv.getTen());
+        }        
+        
+        cmbTinhTrangNV.setSelectedIndex(-1);
+    }
+    
+    private void clearTextViewNhanVien(){
+        txtMaNV.setText("");
+        txtDiaChiNV.setText("");
+        txtEmailNV.setText("");
+        txtHoTenNV.setText("");
+        txtSDTNV.setText("");
+        ngaysinhnhanvien.getDate();
+        cmbTinhTrangNV.setSelectedIndex(-1);
+        cmblocchucvu.setSelectedIndex(-1);
+        cmbGioiTinhNV.setSelectedIndex(-1);
+        
+    } 
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -35,7 +115,7 @@ public class QuanLyNhanVien_GUI extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         txtTenNhanVien = new javax.swing.JTextField();
         cmbGioiTinhNhanVien = new javax.swing.JComboBox<>();
-        cmbChucVu = new javax.swing.JComboBox<>();
+        cmblocchucvu = new javax.swing.JComboBox<>();
         btnTimKiemNhanVien = new javax.swing.JButton();
         btnLocNhanVien = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
@@ -46,7 +126,7 @@ public class QuanLyNhanVien_GUI extends javax.swing.JFrame {
         btnThemNV = new javax.swing.JButton();
         btnSuaNV = new javax.swing.JButton();
         btnXoaNV = new javax.swing.JButton();
-        jPanel6 = new javax.swing.JPanel();
+        pnlThemNhanVien = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
@@ -57,7 +137,6 @@ public class QuanLyNhanVien_GUI extends javax.swing.JFrame {
         txtMaNV = new javax.swing.JTextField();
         txtSDTNV = new javax.swing.JTextField();
         txtHoTenNV = new javax.swing.JTextField();
-        txtNgaySinhNV = new javax.swing.JTextField();
         txtEmailNV = new javax.swing.JTextField();
         txtDiaChiNV = new javax.swing.JTextField();
         cmbTinhTrangNV = new javax.swing.JComboBox<>();
@@ -67,6 +146,7 @@ public class QuanLyNhanVien_GUI extends javax.swing.JFrame {
         jLabel12 = new javax.swing.JLabel();
         cmbThemChucVu = new javax.swing.JComboBox<>();
         cmbGioiTinhNV = new javax.swing.JComboBox<>();
+        ngaysinhnhanvien = new com.toedter.calendar.JDateChooser();
         jPanel7 = new javax.swing.JPanel();
         btnQuanLyChucVu = new javax.swing.JButton();
         btnImportNV = new javax.swing.JButton();
@@ -113,6 +193,7 @@ public class QuanLyNhanVien_GUI extends javax.swing.JFrame {
         gridBagConstraints.insets = new java.awt.Insets(10, 0, 10, 0);
         jPanel2.add(txtTenNhanVien, gridBagConstraints);
 
+        cmbGioiTinhNhanVien.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Nam ", "Nữ" }));
         cmbGioiTinhNhanVien.setPreferredSize(new java.awt.Dimension(100, 22));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
@@ -120,11 +201,11 @@ public class QuanLyNhanVien_GUI extends javax.swing.JFrame {
         gridBagConstraints.insets = new java.awt.Insets(10, 0, 10, 0);
         jPanel2.add(cmbGioiTinhNhanVien, gridBagConstraints);
 
-        cmbChucVu.setPreferredSize(new java.awt.Dimension(100, 22));
+        cmblocchucvu.setPreferredSize(new java.awt.Dimension(100, 22));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 3;
         gridBagConstraints.gridy = 1;
-        jPanel2.add(cmbChucVu, gridBagConstraints);
+        jPanel2.add(cmblocchucvu, gridBagConstraints);
 
         btnTimKiemNhanVien.setText("Tìm kiếm");
         btnTimKiemNhanVien.setPreferredSize(new java.awt.Dimension(121, 23));
@@ -155,10 +236,18 @@ public class QuanLyNhanVien_GUI extends javax.swing.JFrame {
                 {null, null, null, null, null}
             },
             new String [] {
-                "ID", "Tên nhân viên", "Số diện thoại", "Chức vụ", "Tính trạng"
+                "ID", "Tên nhân viên", "Số diện thoại", "Chức vụ", "Tình trạng"
             }
         ));
+        tblDanhSachNV.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblDanhSachNVMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tblDanhSachNV);
+        if (tblDanhSachNV.getColumnModel().getColumnCount() > 0) {
+            tblDanhSachNV.getColumnModel().getColumn(1).setPreferredWidth(200);
+        }
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -166,7 +255,7 @@ public class QuanLyNhanVien_GUI extends javax.swing.JFrame {
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 600, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 607, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
@@ -188,27 +277,42 @@ public class QuanLyNhanVien_GUI extends javax.swing.JFrame {
 
         btnThemNV.setText("Thêm ");
         btnThemNV.setEnabled(false);
+        btnThemNV.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnThemNVMouseClicked(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
         jPanel5.add(btnThemNV, gridBagConstraints);
 
         btnSuaNV.setText("Sửa");
+        btnSuaNV.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnSuaNVMouseClicked(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
         jPanel5.add(btnSuaNV, gridBagConstraints);
 
         btnXoaNV.setText("Xóa");
+        btnXoaNV.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnXoaNVMouseClicked(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
         jPanel5.add(btnXoaNV, gridBagConstraints);
 
         jPanel4.add(jPanel5);
 
-        jPanel6.setBorder(javax.swing.BorderFactory.createTitledBorder("Thêm nhân viên"));
-        jPanel6.setLayout(new java.awt.GridBagLayout());
+        pnlThemNhanVien.setBorder(javax.swing.BorderFactory.createTitledBorder("Thêm nhân viên"));
+        pnlThemNhanVien.setLayout(new java.awt.GridBagLayout());
 
         jLabel4.setText("Mã nhân viên");
-        jPanel6.add(jLabel4, new java.awt.GridBagConstraints());
+        pnlThemNhanVien.add(jLabel4, new java.awt.GridBagConstraints());
 
         jLabel5.setText("Tình trạng");
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -216,7 +320,7 @@ public class QuanLyNhanVien_GUI extends javax.swing.JFrame {
         gridBagConstraints.gridy = 1;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.insets = new java.awt.Insets(0, 10, 10, 10);
-        jPanel6.add(jLabel5, gridBagConstraints);
+        pnlThemNhanVien.add(jLabel5, gridBagConstraints);
 
         jLabel6.setText("Chức vụ");
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -224,7 +328,7 @@ public class QuanLyNhanVien_GUI extends javax.swing.JFrame {
         gridBagConstraints.gridy = 2;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.insets = new java.awt.Insets(0, 10, 10, 10);
-        jPanel6.add(jLabel6, gridBagConstraints);
+        pnlThemNhanVien.add(jLabel6, gridBagConstraints);
 
         jLabel7.setText("Ngày sinh");
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -232,7 +336,7 @@ public class QuanLyNhanVien_GUI extends javax.swing.JFrame {
         gridBagConstraints.gridy = 4;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.insets = new java.awt.Insets(0, 10, 10, 10);
-        jPanel6.add(jLabel7, gridBagConstraints);
+        pnlThemNhanVien.add(jLabel7, gridBagConstraints);
 
         jLabel8.setText("Họ tên");
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -240,7 +344,7 @@ public class QuanLyNhanVien_GUI extends javax.swing.JFrame {
         gridBagConstraints.gridy = 3;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.insets = new java.awt.Insets(0, 10, 10, 10);
-        jPanel6.add(jLabel8, gridBagConstraints);
+        pnlThemNhanVien.add(jLabel8, gridBagConstraints);
 
         jLabel9.setText("Giới tính");
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -248,7 +352,7 @@ public class QuanLyNhanVien_GUI extends javax.swing.JFrame {
         gridBagConstraints.gridy = 5;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.insets = new java.awt.Insets(0, 10, 10, 10);
-        jPanel6.add(jLabel9, gridBagConstraints);
+        pnlThemNhanVien.add(jLabel9, gridBagConstraints);
 
         jLabel10.setText("Email");
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -256,7 +360,7 @@ public class QuanLyNhanVien_GUI extends javax.swing.JFrame {
         gridBagConstraints.gridy = 6;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.insets = new java.awt.Insets(0, 10, 10, 10);
-        jPanel6.add(jLabel10, gridBagConstraints);
+        pnlThemNhanVien.add(jLabel10, gridBagConstraints);
 
         txtMaNV.setEnabled(false);
         txtMaNV.setPreferredSize(new java.awt.Dimension(150, 22));
@@ -270,7 +374,7 @@ public class QuanLyNhanVien_GUI extends javax.swing.JFrame {
         gridBagConstraints.gridy = 0;
         gridBagConstraints.gridwidth = 2;
         gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 0);
-        jPanel6.add(txtMaNV, gridBagConstraints);
+        pnlThemNhanVien.add(txtMaNV, gridBagConstraints);
 
         txtSDTNV.setPreferredSize(new java.awt.Dimension(150, 22));
         txtSDTNV.addActionListener(new java.awt.event.ActionListener() {
@@ -283,7 +387,7 @@ public class QuanLyNhanVien_GUI extends javax.swing.JFrame {
         gridBagConstraints.gridy = 7;
         gridBagConstraints.gridwidth = 2;
         gridBagConstraints.insets = new java.awt.Insets(0, 10, 10, 0);
-        jPanel6.add(txtSDTNV, gridBagConstraints);
+        pnlThemNhanVien.add(txtSDTNV, gridBagConstraints);
 
         txtHoTenNV.setMinimumSize(new java.awt.Dimension(72, 22));
         txtHoTenNV.setPreferredSize(new java.awt.Dimension(150, 22));
@@ -292,15 +396,7 @@ public class QuanLyNhanVien_GUI extends javax.swing.JFrame {
         gridBagConstraints.gridy = 3;
         gridBagConstraints.gridwidth = 2;
         gridBagConstraints.insets = new java.awt.Insets(0, 10, 10, 0);
-        jPanel6.add(txtHoTenNV, gridBagConstraints);
-
-        txtNgaySinhNV.setPreferredSize(new java.awt.Dimension(150, 22));
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 4;
-        gridBagConstraints.gridwidth = 2;
-        gridBagConstraints.insets = new java.awt.Insets(0, 10, 10, 0);
-        jPanel6.add(txtNgaySinhNV, gridBagConstraints);
+        pnlThemNhanVien.add(txtHoTenNV, gridBagConstraints);
 
         txtEmailNV.setPreferredSize(new java.awt.Dimension(150, 22));
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -308,7 +404,7 @@ public class QuanLyNhanVien_GUI extends javax.swing.JFrame {
         gridBagConstraints.gridy = 6;
         gridBagConstraints.gridwidth = 2;
         gridBagConstraints.insets = new java.awt.Insets(0, 10, 10, 0);
-        jPanel6.add(txtEmailNV, gridBagConstraints);
+        pnlThemNhanVien.add(txtEmailNV, gridBagConstraints);
 
         txtDiaChiNV.setPreferredSize(new java.awt.Dimension(150, 22));
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -316,7 +412,7 @@ public class QuanLyNhanVien_GUI extends javax.swing.JFrame {
         gridBagConstraints.gridy = 8;
         gridBagConstraints.gridwidth = 2;
         gridBagConstraints.insets = new java.awt.Insets(0, 10, 10, 0);
-        jPanel6.add(txtDiaChiNV, gridBagConstraints);
+        pnlThemNhanVien.add(txtDiaChiNV, gridBagConstraints);
 
         cmbTinhTrangNV.setPreferredSize(new java.awt.Dimension(150, 22));
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -324,21 +420,31 @@ public class QuanLyNhanVien_GUI extends javax.swing.JFrame {
         gridBagConstraints.gridy = 1;
         gridBagConstraints.gridwidth = 2;
         gridBagConstraints.insets = new java.awt.Insets(0, 10, 10, 0);
-        jPanel6.add(cmbTinhTrangNV, gridBagConstraints);
+        pnlThemNhanVien.add(cmbTinhTrangNV, gridBagConstraints);
 
         btnResetThemNV.setText("Reset");
+        btnResetThemNV.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnResetThemNVMouseClicked(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 9;
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 10, 0);
-        jPanel6.add(btnResetThemNV, gridBagConstraints);
+        pnlThemNhanVien.add(btnResetThemNV, gridBagConstraints);
 
         btnLuu.setText("Lưu");
+        btnLuu.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnLuuMouseClicked(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 9;
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 10, 0);
-        jPanel6.add(btnLuu, gridBagConstraints);
+        pnlThemNhanVien.add(btnLuu, gridBagConstraints);
 
         jLabel11.setText("Địa chỉ");
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -346,7 +452,7 @@ public class QuanLyNhanVien_GUI extends javax.swing.JFrame {
         gridBagConstraints.gridy = 8;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.insets = new java.awt.Insets(0, 10, 10, 10);
-        jPanel6.add(jLabel11, gridBagConstraints);
+        pnlThemNhanVien.add(jLabel11, gridBagConstraints);
 
         jLabel12.setText("SDT");
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -354,7 +460,7 @@ public class QuanLyNhanVien_GUI extends javax.swing.JFrame {
         gridBagConstraints.gridy = 7;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.insets = new java.awt.Insets(0, 10, 10, 10);
-        jPanel6.add(jLabel12, gridBagConstraints);
+        pnlThemNhanVien.add(jLabel12, gridBagConstraints);
 
         cmbThemChucVu.setPreferredSize(new java.awt.Dimension(150, 22));
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -362,17 +468,26 @@ public class QuanLyNhanVien_GUI extends javax.swing.JFrame {
         gridBagConstraints.gridy = 2;
         gridBagConstraints.gridwidth = 2;
         gridBagConstraints.insets = new java.awt.Insets(0, 10, 10, 0);
-        jPanel6.add(cmbThemChucVu, gridBagConstraints);
+        pnlThemNhanVien.add(cmbThemChucVu, gridBagConstraints);
 
+        cmbGioiTinhNV.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Nam ", "Nữ" }));
         cmbGioiTinhNV.setPreferredSize(new java.awt.Dimension(150, 22));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 5;
         gridBagConstraints.gridwidth = 2;
         gridBagConstraints.insets = new java.awt.Insets(0, 10, 10, 0);
-        jPanel6.add(cmbGioiTinhNV, gridBagConstraints);
+        pnlThemNhanVien.add(cmbGioiTinhNV, gridBagConstraints);
 
-        jPanel4.add(jPanel6);
+        ngaysinhnhanvien.setPreferredSize(new java.awt.Dimension(150, 22));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 4;
+        gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.insets = new java.awt.Insets(0, 10, 10, 0);
+        pnlThemNhanVien.add(ngaysinhnhanvien, gridBagConstraints);
+
+        jPanel4.add(pnlThemNhanVien);
 
         jPanel7.setBorder(javax.swing.BorderFactory.createTitledBorder("Chức năng khác"));
         jPanel7.setLayout(new java.awt.GridBagLayout());
@@ -423,9 +538,217 @@ public class QuanLyNhanVien_GUI extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnQuanLyChucVuActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
+    private void tblDanhSachNVMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblDanhSachNVMouseClicked
+        // TODO add your handling code here:
+        if(dangThemNhanVien){
+           return;
+        }
+           
+        int index = tblDanhSachNV.getSelectedRow();
+        TableModel model = tblDanhSachNV.getModel();
+        
+        String ma = model.getValueAt(index, 0).toString().trim();
+        NhanVienFull_DTO result = nhanVien_BUS.getNhanVienbyMa(ma);
+        
+        if(result == null){
+            JOptionPane.showMessageDialog(this, "Không tìm thấy dữ liệu","Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        int indexChucVu = -1;
+        for (int i = 0; i < listChucVu.size(); i++) {
+            if(result.getChucVu().getId() == listChucVu.get(i).getId())
+                indexChucVu = i;
+        }
+        int indexTinhTrangNhanVien = -1;
+        for (int i = 0; i < listTinhTrangNhanVien.size(); i++) {
+            if(result.getTinhTrangNhanVien().getId() == listTinhTrangNhanVien.get(i).getId())
+                indexTinhTrangNhanVien = i;
+        }
+        
+        if(indexChucVu == -1 || indexTinhTrangNhanVien == -1){
+            JOptionPane.showMessageDialog(this, "Dữ liệu bị lỗi","Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        
+        int gioitinh = 1;
+        
+        txtMaNV.setText(result.getMa());
+        txtHoTenNV.setText(result.getHoTen());
+        txtDiaChiNV.setText(result.getDiaChi());
+        txtEmailNV.setText(result.getEmail());
+        txtSDTNV.setText(result.getSoDienThoai());
+        ngaysinhnhanvien.setDate(result.getNgaySinh());
+        if (result.isGioiTinhNam())
+        {
+            gioitinh = 0;
+        }
+        cmbGioiTinhNV.setSelectedIndex(gioitinh);
+        cmbThemChucVu.setSelectedIndex(indexChucVu);
+        cmbTinhTrangNV.setSelectedIndex(indexTinhTrangNhanVien);
+        
+    }//GEN-LAST:event_tblDanhSachNVMouseClicked
+
+    private void btnThemNVMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnThemNVMouseClicked
+        // TODO add your handling code here:
+        btnThemNV.setEnabled(false);
+        btnSuaNV.setEnabled(true);
+        dangThemNhanVien = true;
+        pnlThemNhanVien.setBorder(BorderFactory.createTitledBorder("Thêm nhân viên mới"));
+        pnlThemNhanVien.repaint();
+        clearTextViewNhanVien();
+    }//GEN-LAST:event_btnThemNVMouseClicked
+
+    private void btnSuaNVMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSuaNVMouseClicked
+        // TODO add your handling code here:
+        btnThemNV.setEnabled(true);
+        btnSuaNV.setEnabled(false);
+        dangThemNhanVien = false;
+        cmbGioiTinhNV.setEnabled(false);
+        pnlThemNhanVien.setBorder(BorderFactory.createTitledBorder("Sửa nhân viên "));
+        pnlThemNhanVien.repaint();
+        clearTextViewNhanVien();
+    }//GEN-LAST:event_btnSuaNVMouseClicked
+
+    private void btnResetThemNVMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnResetThemNVMouseClicked
+        // TODO add your handling code here:
+          if(dangThemNhanVien){
+            loadComboBoxChucVu();
+            loadComboBoxTinhTrangNhanVien();
+        } else {
+            String ma = txtMaNV.getText();
+            NhanVienFull_DTO result = nhanVien_BUS.getNhanVienbyMa(ma);
+
+            if(result == null){
+                JOptionPane.showMessageDialog(this, "Không tìm thấy dữ liệu","Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            int indexChucVu = -1;
+        for (int i = 0; i < listChucVu.size(); i++) {
+            if(result.getChucVu().getId() == listChucVu.get(i).getId())
+                indexChucVu = i;
+        }
+        int indexTinhTrangNhanVien = -1;
+        for (int i = 0; i < listTinhTrangNhanVien.size(); i++) {
+            if(result.getTinhTrangNhanVien().getId() == listTinhTrangNhanVien.get(i).getId())
+                indexTinhTrangNhanVien = i;
+        }
+        
+        if(indexChucVu == -1 || indexTinhTrangNhanVien == -1){
+            JOptionPane.showMessageDialog(this, "Dữ liệu bị lỗi","Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        int gioitinh = 1;
+        
+        txtMaNV.setText(result.getMa());
+        txtHoTenNV.setText(result.getHoTen());
+        txtDiaChiNV.setText(result.getDiaChi());
+        txtEmailNV.setText(result.getEmail());
+        txtSDTNV.setText(result.getSoDienThoai());
+        if (result.isGioiTinhNam())
+        {
+            gioitinh = 0;
+        }
+        cmbGioiTinhNV.setSelectedIndex(gioitinh);
+        cmbThemChucVu.setSelectedIndex(indexChucVu);
+        cmbTinhTrangNV.setSelectedIndex(indexTinhTrangNhanVien);
+        }
+    }//GEN-LAST:event_btnResetThemNVMouseClicked
+
+    private void btnLuuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLuuMouseClicked
+        // TODO add your handling code here:
+        int indexChucVu = cmbThemChucVu.getSelectedIndex();
+        if(indexChucVu < 0)
+            JOptionPane.showMessageDialog(this, "Chưa chọn chức vụ","Error", JOptionPane.ERROR_MESSAGE);
+
+        int indexTinhTrangNhanVien = cmbTinhTrangNV.getSelectedIndex();
+        if(indexTinhTrangNhanVien < 0)
+            JOptionPane.showMessageDialog(this, "Chưa chọn tình trạng nhân viên","Error", JOptionPane.ERROR_MESSAGE);         
+
+        int idChucVu = listChucVu.get(indexChucVu).getId();
+        int idTinhTrangNhanVien = listTinhTrangNhanVien.get(indexTinhTrangNhanVien).getId();
+        
+        String ma = txtMaNV.getText().trim();
+        if(ma.isBlank())
+            JOptionPane.showMessageDialog(this, "Tên nhân viên không được để trống","Error", JOptionPane.ERROR_MESSAGE);
+        String HoTen = txtHoTenNV.getText().trim();
+        if(HoTen.isBlank())
+            JOptionPane.showMessageDialog(this, "Tên nhân viên không được để trống","Error", JOptionPane.ERROR_MESSAGE);
+        String DiaChi = txtDiaChiNV.getText().trim();
+        if(DiaChi.isBlank())
+            JOptionPane.showMessageDialog(this, "Địa chỉ không được để trống","Error", JOptionPane.ERROR_MESSAGE);
+        String email = txtEmailNV.getText().trim();
+        if(email.isBlank())
+            JOptionPane.showMessageDialog(this, "Email không được để trống","Error", JOptionPane.ERROR_MESSAGE);
+        String sdt = txtSDTNV.getText().trim();
+        if(sdt.isBlank())
+            JOptionPane.showMessageDialog(this, "SDT không được để trống","Error", JOptionPane.ERROR_MESSAGE);
+        
+        boolean gioitinh = false;
+        if (cmbGioiTinhNV.getSelectedIndex() == 0){
+            gioitinh = true;
+        }
+        Date ngaySinh;
+        ngaySinh = new Date(ngaysinhnhanvien.getDate().getTime());
+        
+        
+        if (dangThemNhanVien){
+            CreateNhanVien_DTO data = new CreateNhanVien_DTO(ma, idTinhTrangNhanVien, idChucVu, HoTen, ngaySinh, gioitinh, email, sdt, DiaChi);
+
+            boolean result = nhanVien_BUS.createNhanVien(data);
+            if(result){
+                JOptionPane.showMessageDialog(this, "Thêm nhân viên mới thành công","Thông báo", JOptionPane.INFORMATION_MESSAGE);
+                clearTextViewNhanVien();  
+                loadtableNhanVien();
+            }            
+            else
+                JOptionPane.showMessageDialog(this, "Thêm nhân viên mới thất bại","Error", JOptionPane.ERROR_MESSAGE);
+        } else {
+            String idnv = txtMaNV.getText();
+            UpdateNhanVien_DTO data = new UpdateNhanVien_DTO(idnv, idTinhTrangNhanVien, idChucVu, HoTen, ngaySinh, email, sdt, DiaChi);
+            
+            boolean result = nhanVien_BUS.updateNhanVien(data);
+            if(result){
+                JOptionPane.showMessageDialog(this, "Sửa nhân viên thành công","Thông báo", JOptionPane.INFORMATION_MESSAGE);
+                clearTextViewNhanVien();  
+                loadtableNhanVien();
+            }            
+            else
+                JOptionPane.showMessageDialog(this, "Sửa nhân viên thất bại","Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_btnLuuMouseClicked
+
+    private void btnXoaNVMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnXoaNVMouseClicked
+        // TODO add your handling code here:
+         int total = tblDanhSachNV.getSelectedRowCount();
+        TableModel model = tblDanhSachNV.getModel();
+        if(total < 1)
+            JOptionPane.showMessageDialog(this, "Bạn chưa chọn nhân viên muốn xóa","Error", JOptionPane.ERROR_MESSAGE);
+        
+        int confirm = JOptionPane.showConfirmDialog(null, 
+                "Bạn có chắc chắn muốn xóa " + total + " nhân viên không ?", "Xóa dữ liệu nhân viên!", JOptionPane.OK_CANCEL_OPTION);
+        
+        if(confirm == JOptionPane.CANCEL_OPTION)
+            return;
+        
+        if(total == 1){
+            int index = tblDanhSachNV.getSelectedRow();
+
+            String ma = model.getValueAt(index, 0).toString();
+
+            boolean result = nhanVien_BUS.deleteNhanVien(ma);
+            if(result){
+                JOptionPane.showMessageDialog(this, "Xóa 1 nhân viên thành công","Thông báo", JOptionPane.INFORMATION_MESSAGE);
+                
+            }            
+            else
+                JOptionPane.showMessageDialog(this, "Xóa thất bại","Error", JOptionPane.ERROR_MESSAGE);
+        } 
+        clearTextViewNhanVien();  
+        loadtableNhanVien();
+    }//GEN-LAST:event_btnXoaNVMouseClicked
+
+    
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -469,11 +792,11 @@ public class QuanLyNhanVien_GUI extends javax.swing.JFrame {
     private javax.swing.JButton btnThemNV;
     private javax.swing.JButton btnTimKiemNhanVien;
     private javax.swing.JButton btnXoaNV;
-    private javax.swing.JComboBox<String> cmbChucVu;
     private javax.swing.JComboBox<String> cmbGioiTinhNV;
     private javax.swing.JComboBox<String> cmbGioiTinhNhanVien;
     private javax.swing.JComboBox<String> cmbThemChucVu;
     private javax.swing.JComboBox<String> cmbTinhTrangNV;
+    private javax.swing.JComboBox<String> cmblocchucvu;
     private javax.swing.Box.Filler filler1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
@@ -492,15 +815,15 @@ public class QuanLyNhanVien_GUI extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
-    private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JScrollPane jScrollPane1;
+    private com.toedter.calendar.JDateChooser ngaysinhnhanvien;
+    private javax.swing.JPanel pnlThemNhanVien;
     private javax.swing.JTable tblDanhSachNV;
     private javax.swing.JTextField txtDiaChiNV;
     private javax.swing.JTextField txtEmailNV;
     private javax.swing.JTextField txtHoTenNV;
     private javax.swing.JTextField txtMaNV;
-    private javax.swing.JTextField txtNgaySinhNV;
     private javax.swing.JTextField txtSDTNV;
     private javax.swing.JTextField txtTenNhanVien;
     // End of variables declaration//GEN-END:variables

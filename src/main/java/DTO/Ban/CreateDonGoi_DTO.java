@@ -1,6 +1,5 @@
 package DTO.Ban;
 
-import java.sql.Timestamp;
 
 /**
  *
@@ -9,20 +8,16 @@ import java.sql.Timestamp;
 public class CreateDonGoi_DTO {
     private int idBan;
     private int idMA;
-    private int idBTMA;
     private int soLuong;
-    private Timestamp ngayGio;
     private String ghiChu;
 
     public CreateDonGoi_DTO() {
     }
 
-    public CreateDonGoi_DTO(int idBan, int idMA, int idBTMA, int soLuong, Timestamp ngayGio, String ghiChu) {
+    public CreateDonGoi_DTO(int idBan, int idMA,  int soLuong, String ghiChu) {
         this.idBan = idBan;
         this.idMA = idMA;
-        this.idBTMA = idBTMA;
         this.soLuong = soLuong;
-        this.ngayGio = ngayGio;
         this.ghiChu = ghiChu;
     }
 
@@ -42,28 +37,12 @@ public class CreateDonGoi_DTO {
         this.idMA = idMA;
     }
 
-    public int getIdBTMA() {
-        return idBTMA;
-    }
-
-    public void setIdBTMA(int idBTMA) {
-        this.idBTMA = idBTMA;
-    }
-
     public int getSoLuong() {
         return soLuong;
     }
 
     public void setSoLuong(int soLuong) {
         this.soLuong = soLuong;
-    }
-
-    public Timestamp getNgayGio() {
-        return ngayGio;
-    }
-
-    public void setNgayGio(Timestamp ngayGio) {
-        this.ngayGio = ngayGio;
     }
 
     public String getGhiChu() {

@@ -9,17 +9,24 @@ public class UpdateMonAn_DTO {
     private String ten;
     private String hinhAnh;
     private int idLoaiMonAn;
+    private int gia;
+    private int giaKhuyenMai;
+    private int idTtinhTrangMonAn;
+    private String noiDung;
 
-    public UpdateMonAn_DTO() {
-    }
-    
-
-    public UpdateMonAn_DTO(int id, String ten, LoaiMonAn_DTO loaiMonAn, String hinhAnh, int idLoaiMonAn) {
+    public UpdateMonAn_DTO(int id, String ten, String hinhAnh, int idLoaiMonAn, int gia, int giaKhuyenMai, int idTtinhTrangMonAn, String noiDung) {
         this.id = id;
         this.ten = ten;
         this.hinhAnh = hinhAnh;
         this.idLoaiMonAn = idLoaiMonAn;
+        this.gia = gia;
+        this.giaKhuyenMai = giaKhuyenMai;
+        this.idTtinhTrangMonAn = idTtinhTrangMonAn;
+        this.noiDung = noiDung;
     }
+    
+    public UpdateMonAn_DTO() {
+    }  
 
     public int getId() {
         return id;
@@ -41,8 +48,24 @@ public class UpdateMonAn_DTO {
         return hinhAnh;
     }
 
-    public void setHinhAnh(String hinhAnh) { 
+    public void setHinhAnh(String hinhAnh) {
         this.hinhAnh = hinhAnh;
+    }
+    
+    public int getGia() {
+        return gia;
+    }
+
+    public void setGia(int gia) {
+        this.gia = gia;
+    }
+
+    public int getGiaKhuyenMai() {
+        return giaKhuyenMai;
+    }
+
+    public void setGiaKhuyenMai(int giaKhuyenMai) {
+        this.giaKhuyenMai = giaKhuyenMai;
     }
 
     public int getIdLoaiMonAn() {
@@ -52,4 +75,22 @@ public class UpdateMonAn_DTO {
     public void setIdLoaiMonAn(int idLoaiMonAn) {
         this.idLoaiMonAn = idLoaiMonAn;
     }
+
+    public int getIdTtinhTrangMonAn() {
+        return idTtinhTrangMonAn;
+    }
+
+    public void setIdTtinhTrangMonAn(int idTtinhTrangMonAn) {
+        this.idTtinhTrangMonAn = idTtinhTrangMonAn;
+    }
+
+    public String getNoiDung() {
+        return noiDung;
+    }
+
+    public void setNoiDung(String noiDung) {
+        this.noiDung = noiDung;
+    }
+
+    
 }
