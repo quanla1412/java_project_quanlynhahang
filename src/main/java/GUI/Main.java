@@ -18,9 +18,9 @@ public class Main {
         } catch(Exception ex){
             System.out.println(ex);
         }
-        
-        
+
         QuanLyPhucVu_GUI monAn_GUI = new QuanLyPhucVu_GUI();
+
         monAn_GUI.setVisible(true);
     }
     

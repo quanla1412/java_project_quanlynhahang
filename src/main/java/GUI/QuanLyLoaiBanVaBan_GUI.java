@@ -594,7 +594,7 @@ public class QuanLyLoaiBanVaBan_GUI extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(this, "Không tìm thấy dữ liệu","Error", JOptionPane.ERROR_MESSAGE);
                 return;
             }
-;
+
             txtTenLoaiBan.setText(result.getTen());
             txtSoChoNgoi.setText(Integer.toString(result.getSoLuongCho()));
         }        
