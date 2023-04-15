@@ -41,7 +41,7 @@ public class OptionValue_DAO {
         return result;
     }
     
-    public ArrayList<Value_DTO> getAllValuesByOptionId(String idOption){
+    public ArrayList<Value_DTO> getAllValuesByOptionId(int idOption){
         Connection con = ConnectDatabase.openConnection();
         ArrayList<Value_DTO> result = new ArrayList<>();
         

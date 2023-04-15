@@ -1,10 +1,18 @@
 package GUI;
 
+import BUS.LoaiMonAn_BUS;
 import BUS.MonAn_BUS;
+import BUS.OptionValue_BUS;
+import DTO.MonAn.CreateMonAn_DTO;
 import DTO.MonAn.LoaiMonAn_DTO;
 import DTO.MonAn.MonAn_DTO;
+import DTO.MonAn.TinhTrangMonAn_DTO;
+import DTO.Search.SearchMonAn_DTO;
+import java.io.File;
 import java.util.ArrayList;
-import javax.swing.ImageIcon;
+import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -13,27 +21,118 @@ import javax.swing.table.DefaultTableModel;
  */
 public class QuanLyMonAn_GUI extends javax.swing.JFrame {
     private MonAn_BUS monAn_BUS;
+    private LoaiMonAn_BUS loaiMonAn_BUS;
+    ArrayList<MonAn_DTO> listMonAn;
+    ArrayList<LoaiMonAn_DTO> loaiMonAnSearchBox;
+    ArrayList<LoaiMonAn_DTO> loaiMonAnUpdate;
+    
+    String linkHinhAnh = "";
+    ArrayList<TinhTrangMonAn_DTO> listTTMA;
+    
+    
     /**
      * Creates new form QuanLyMonAn
      */
     public QuanLyMonAn_GUI() {
         initComponents();
         monAn_BUS = new MonAn_BUS();
+        loaiMonAn_BUS = new LoaiMonAn_BUS();
         
         loadTableMonAn();
+        loadLoaiMonAnSearchBox();
+        loadLoaiMonAnUpdate();
+        loadTTMASearch();
     }
     
     private void loadTableMonAn(){
-        ArrayList<MonAn_DTO> result = monAn_BUS.getAllMonAn();
+        listMonAn = monAn_BUS.getAllMonAn();
         
-        String col[] = {"Hình ảnh", "ID", "Tên món ăn", "Tên loại món ăn"};
+        String col[] = {"ID", "Tên món ăn", "Loại món ăn", "Giá", "Tình trạng món ăn"};
         DefaultTableModel tableModel = new DefaultTableModel(col, 0);
         tblMonAn.setModel(tableModel);
-        for(MonAn_DTO row : result){
-            ImageIcon imageIcon = new ImageIcon("../resources/" + row.getHinhAnh());
-            Object[] data = {imageIcon.getImage(),row.getId(), row.getTen(), row.getLoaiMonAn_DTO().getTen()};
+        for(MonAn_DTO row : listMonAn){
+            Object[] data = {row.getId(), row.getTen(), row.getLoaiMonAn(), row.getGia(), row.getTinhTrangMonAn()};
             tableModel.addRow(data);
         }
+    }
+    
+    private void loadTableMonAn(ArrayList<MonAn_DTO> dataTable){
+        listMonAn = dataTable;
+        
+        String col[] = {"ID", "Tên món ăn", "Loại món ăn", "Giá", "Tình trạng món ăn"};
+        DefaultTableModel tableModel = new DefaultTableModel(col, 0);
+        tblMonAn.setModel(tableModel);
+        for(MonAn_DTO row : listMonAn){
+            Object[] data = {row.getId(), row.getTen(), row.getLoaiMonAn(), row.getGia(), row.getTinhTrangMonAn()};
+            tableModel.addRow(data);
+        }
+    }
+    
+    private void loadLoaiMonAnSearchBox(){
+        loaiMonAnSearchBox = loaiMonAn_BUS.getAllLoaiMonAn();        
+        
+        for(LoaiMonAn_DTO loaiBan : loaiMonAnSearchBox){
+            cmbLMASearchBox.addItem(loaiBan.getTen());
+        }      
+        
+        cmbLMASearchBox.setSelectedIndex(0);
+    }
+    
+    private void loadLoaiMonAnUpdate(){
+        loaiMonAnUpdate = loaiMonAn_BUS.getAllLoaiMonAn();        
+        
+        for(LoaiMonAn_DTO loaiBan : loaiMonAnUpdate){
+            cmbLMAForm.addItem(loaiBan.getTen());
+        }      
+        
+        cmbLMAForm.setSelectedIndex(-1);
+    }
+    
+    private void loadTTMASearch(){      
+        listTTMA = monAn_BUS.getAllTinhTrangMA();
+        
+        cmbTTMASearch.addItem("Tất cả");
+        for(TinhTrangMonAn_DTO value : listTTMA){           
+            if (value.getId() != monAn_BUS.TTMA_DA_XOA) {
+                cmbTTMASearch.addItem(value.getTen());
+                cmbTTMAForm.addItem(value.getTen());                
+            }
+        } 
+        
+        cmbTTMASearch.setSelectedIndex(0);
+        cmbTTMAForm.setSelectedIndex(0);
+    }
+    
+    private String formatPrice(int price){
+        String str = Integer.toString(price);
+        
+        StringBuilder result = new StringBuilder();
+        
+        int count = 0;
+        for(int i = str.length() - 1; i >= 0; i--){
+            if(count % 3 == 0 && count > 0)
+                result.append('.');
+            result.append(str.charAt(i));
+            count++;
+        }
+        
+        result.reverse();
+        result.append(" VNĐ");
+        
+        return result.toString();
+    }
+    
+    private void resetTable(){
+        loadTableMonAn();
+        txtSearchIdName.setText("");
+        cmbLMASearchBox.setSelectedIndex(0);
+        
+        sldMinPrice.setValue(sldMinPrice.getMinimum());
+        lblMinPrice.setText(formatPrice(sldMinPrice.getValue()));
+        sldMaxPrice.setValue(sldMaxPrice.getMaximum());
+        lblMaxPrice.setText(formatPrice(sldMaxPrice.getValue()));
+        
+        cmbTTMASearch.setSelectedIndex(0);
     }
 
     /**
@@ -55,35 +154,43 @@ public class QuanLyMonAn_GUI extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
-        jTextField3 = new javax.swing.JTextField();
-        jComboBox2 = new javax.swing.JComboBox<>();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
-        jLabel7 = new javax.swing.JLabel();
-        jLabel14 = new javax.swing.JLabel();
-        jCheckBox1 = new javax.swing.JCheckBox();
+        lblIdMonAn = new javax.swing.JTextField();
+        txtTenMonAn = new javax.swing.JTextField();
+        cmbLMAForm = new javax.swing.JComboBox<>();
+        btnResetForm = new javax.swing.JButton();
+        btnLuu = new javax.swing.JButton();
+        btnHinhAnh = new javax.swing.JButton();
+        lblTenHinhAnh = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
-        jTextField6 = new javax.swing.JTextField();
-        jComboBox6 = new javax.swing.JComboBox<>();
+        txtGia = new javax.swing.JTextField();
+        cmbTTMAForm = new javax.swing.JComboBox<>();
         jLabel11 = new javax.swing.JLabel();
-        jComboBox5 = new javax.swing.JComboBox<>();
-        jLabel13 = new javax.swing.JLabel();
-        jComboBox4 = new javax.swing.JComboBox<>();
-        jLabel12 = new javax.swing.JLabel();
-        jComboBox3 = new javax.swing.JComboBox<>();
-        jLabel8 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        txtGiaKhuyenMai = new javax.swing.JTextField();
+        jLabel9 = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        txaNoiDung = new javax.swing.JTextArea();
         jPanel4 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        txtSearchIdName = new javax.swing.JTextField();
+        btnTimKiem = new javax.swing.JButton();
+        cmbLMASearchBox = new javax.swing.JComboBox<>();
+        jPanel3 = new javax.swing.JPanel();
+        jLabel10 = new javax.swing.JLabel();
+        sldMinPrice = new javax.swing.JSlider();
+        jLabel16 = new javax.swing.JLabel();
+        sldMaxPrice = new javax.swing.JSlider();
+        jLabel17 = new javax.swing.JLabel();
+        cmbTTMASearch = new javax.swing.JComboBox<>();
+        jLabel18 = new javax.swing.JLabel();
+        lblMaxPrice = new javax.swing.JLabel();
+        lblMinPrice = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblMonAn = new javax.swing.JTable();
         jButton8 = new javax.swing.JButton();
+        resetTableButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new java.awt.GridBagLayout());
@@ -91,6 +198,7 @@ public class QuanLyMonAn_GUI extends javax.swing.JFrame {
         jPanel6.setBorder(javax.swing.BorderFactory.createTitledBorder("Chức năng"));
 
         jButton5.setText("Thêm");
+        jButton5.setEnabled(false);
         jPanel6.add(jButton5);
 
         jButton6.setText("Sửa");
@@ -136,147 +244,125 @@ public class QuanLyMonAn_GUI extends javax.swing.JFrame {
         gridBagConstraints.insets = new java.awt.Insets(5, 20, 5, 10);
         jPanel5.add(jLabel6, gridBagConstraints);
 
-        jTextField2.setEnabled(false);
-        jTextField2.setPreferredSize(new java.awt.Dimension(100, 22));
+        lblIdMonAn.setEnabled(false);
+        lblIdMonAn.setPreferredSize(new java.awt.Dimension(100, 22));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 0;
         gridBagConstraints.gridwidth = 2;
-        jPanel5.add(jTextField2, gridBagConstraints);
+        jPanel5.add(lblIdMonAn, gridBagConstraints);
 
-        jTextField3.setPreferredSize(new java.awt.Dimension(100, 22));
+        txtTenMonAn.setPreferredSize(new java.awt.Dimension(100, 22));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 2;
         gridBagConstraints.gridwidth = 2;
-        jPanel5.add(jTextField3, gridBagConstraints);
+        jPanel5.add(txtTenMonAn, gridBagConstraints);
 
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jComboBox2.setPreferredSize(new java.awt.Dimension(100, 22));
+        cmbLMAForm.setPreferredSize(new java.awt.Dimension(100, 22));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 1;
         gridBagConstraints.gridwidth = 2;
-        jPanel5.add(jComboBox2, gridBagConstraints);
+        jPanel5.add(cmbLMAForm, gridBagConstraints);
 
-        jButton2.setText("Reset");
+        btnResetForm.setText("Reset");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 11;
+        gridBagConstraints.gridy = 9;
         gridBagConstraints.insets = new java.awt.Insets(5, 10, 5, 10);
-        jPanel5.add(jButton2, gridBagConstraints);
+        jPanel5.add(btnResetForm, gridBagConstraints);
 
-        jButton3.setText("Lưu");
+        btnLuu.setText("Lưu");
+        btnLuu.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnLuuMouseClicked(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
-        gridBagConstraints.gridy = 11;
+        gridBagConstraints.gridy = 9;
         gridBagConstraints.insets = new java.awt.Insets(5, 10, 5, 10);
-        jPanel5.add(jButton3, gridBagConstraints);
+        jPanel5.add(btnLuu, gridBagConstraints);
 
-        jButton4.setText("Chọn file");
+        btnHinhAnh.setText("Chọn file");
+        btnHinhAnh.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnHinhAnhMouseClicked(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 3;
         gridBagConstraints.gridwidth = 2;
-        jPanel5.add(jButton4, gridBagConstraints);
+        jPanel5.add(btnHinhAnh, gridBagConstraints);
 
-        jLabel7.setText("Chưa chọn file");
+        lblTenHinhAnh.setText("Chưa chọn file");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 4;
         gridBagConstraints.gridwidth = 2;
         gridBagConstraints.insets = new java.awt.Insets(5, 0, 5, 0);
-        jPanel5.add(jLabel7, gridBagConstraints);
-
-        jLabel14.setText("Món ăn có biến thể");
-        jLabel14.setMaximumSize(new java.awt.Dimension(110, 16));
-        jLabel14.setPreferredSize(new java.awt.Dimension(110, 16));
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 5;
-        gridBagConstraints.insets = new java.awt.Insets(5, 20, 5, 5);
-        jPanel5.add(jLabel14, gridBagConstraints);
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 5;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
-        jPanel5.add(jCheckBox1, gridBagConstraints);
+        jPanel5.add(lblTenHinhAnh, gridBagConstraints);
 
         jLabel15.setText("Giá");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 10;
+        gridBagConstraints.gridy = 5;
         gridBagConstraints.insets = new java.awt.Insets(5, 10, 5, 5);
         jPanel5.add(jLabel15, gridBagConstraints);
 
-        jTextField6.setPreferredSize(new java.awt.Dimension(100, 22));
+        txtGia.setPreferredSize(new java.awt.Dimension(100, 22));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 10;
+        gridBagConstraints.gridy = 5;
         gridBagConstraints.gridwidth = 2;
-        jPanel5.add(jTextField6, gridBagConstraints);
+        jPanel5.add(txtGia, gridBagConstraints);
 
-        jComboBox6.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jComboBox6.setPreferredSize(new java.awt.Dimension(100, 22));
+        cmbTTMAForm.setPreferredSize(new java.awt.Dimension(100, 22));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 9;
+        gridBagConstraints.gridy = 7;
         gridBagConstraints.gridwidth = 2;
-        jPanel5.add(jComboBox6, gridBagConstraints);
+        jPanel5.add(cmbTTMAForm, gridBagConstraints);
 
         jLabel11.setText("Tình trạng");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 9;
+        gridBagConstraints.gridy = 7;
         gridBagConstraints.insets = new java.awt.Insets(5, 20, 5, 10);
         jPanel5.add(jLabel11, gridBagConstraints);
 
-        jComboBox5.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jComboBox5.setPreferredSize(new java.awt.Dimension(100, 22));
+        jLabel7.setText("Giá khuyến mãi");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 6;
+        jPanel5.add(jLabel7, gridBagConstraints);
+
+        txtGiaKhuyenMai.setMinimumSize(new java.awt.Dimension(100, 22));
+        txtGiaKhuyenMai.setPreferredSize(new java.awt.Dimension(100, 22));
+        txtGiaKhuyenMai.setRequestFocusEnabled(false);
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 6;
         gridBagConstraints.gridwidth = 2;
-        jPanel5.add(jComboBox5, gridBagConstraints);
+        jPanel5.add(txtGiaKhuyenMai, gridBagConstraints);
 
-        jLabel13.setText("Size");
+        jLabel9.setText("Nội dung");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 6;
-        gridBagConstraints.insets = new java.awt.Insets(5, 20, 5, 10);
-        jPanel5.add(jLabel13, gridBagConstraints);
+        gridBagConstraints.gridy = 8;
+        jPanel5.add(jLabel9, gridBagConstraints);
 
-        jComboBox4.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jComboBox4.setMinimumSize(new java.awt.Dimension(100, 22));
-        jComboBox4.setPreferredSize(new java.awt.Dimension(100, 22));
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 7;
-        gridBagConstraints.gridwidth = 2;
-        jPanel5.add(jComboBox4, gridBagConstraints);
+        txaNoiDung.setColumns(20);
+        txaNoiDung.setRows(5);
+        jScrollPane2.setViewportView(txaNoiDung);
 
-        jLabel12.setText("Đế");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 7;
-        gridBagConstraints.insets = new java.awt.Insets(5, 20, 5, 10);
-        jPanel5.add(jLabel12, gridBagConstraints);
-
-        jComboBox3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jComboBox3.setPreferredSize(new java.awt.Dimension(100, 22));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 8;
         gridBagConstraints.gridwidth = 2;
-        jPanel5.add(jComboBox3, gridBagConstraints);
-
-        jLabel8.setText("Loại nước");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 8;
-        gridBagConstraints.insets = new java.awt.Insets(5, 20, 5, 10);
-        jPanel5.add(jLabel8, gridBagConstraints);
+        jPanel5.add(jScrollPane2, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
@@ -300,30 +386,137 @@ public class QuanLyMonAn_GUI extends javax.swing.JFrame {
         gridBagConstraints.insets = new java.awt.Insets(0, 20, 0, 0);
         jPanel4.add(jLabel2, gridBagConstraints);
 
-        jTextField1.setPreferredSize(new java.awt.Dimension(150, 22));
+        txtSearchIdName.setPreferredSize(new java.awt.Dimension(150, 22));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 10);
-        jPanel4.add(jTextField1, gridBagConstraints);
+        jPanel4.add(txtSearchIdName, gridBagConstraints);
 
-        jButton1.setText("Tìm kiếm");
-        jButton1.setPreferredSize(new java.awt.Dimension(100, 50));
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnTimKiem.setText("Tìm kiếm");
+        btnTimKiem.setPreferredSize(new java.awt.Dimension(100, 50));
+        btnTimKiem.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnTimKiemMouseClicked(evt);
+            }
+        });
+        btnTimKiem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnTimKiemActionPerformed(evt);
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridheight = 2;
         gridBagConstraints.insets = new java.awt.Insets(10, 0, 10, 20);
-        jPanel4.add(jButton1, gridBagConstraints);
+        jPanel4.add(btnTimKiem, gridBagConstraints);
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jComboBox1.setPreferredSize(new java.awt.Dimension(150, 22));
+        cmbLMASearchBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tất cả" }));
+        cmbLMASearchBox.setPreferredSize(new java.awt.Dimension(150, 22));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 1;
         gridBagConstraints.insets = new java.awt.Insets(10, 0, 10, 0);
-        jPanel4.add(jComboBox1, gridBagConstraints);
+        jPanel4.add(cmbLMASearchBox, gridBagConstraints);
+
+        jPanel3.setLayout(new java.awt.GridBagLayout());
+
+        jLabel10.setText("Khoảng giá:");
+        jLabel10.setMinimumSize(new java.awt.Dimension(88, 24));
+        jLabel10.setPreferredSize(new java.awt.Dimension(88, 24));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.insets = new java.awt.Insets(5, 0, 5, 0);
+        jPanel3.add(jLabel10, gridBagConstraints);
+
+        sldMinPrice.setMaximum(8000000);
+        sldMinPrice.setValue(0);
+        sldMinPrice.setMinimumSize(new java.awt.Dimension(120, 24));
+        sldMinPrice.setPreferredSize(new java.awt.Dimension(120, 24));
+        sldMinPrice.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseDragged(java.awt.event.MouseEvent evt) {
+                sldMinPriceMouseDragged(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 3;
+        gridBagConstraints.insets = new java.awt.Insets(1, 0, 0, 0);
+        jPanel3.add(sldMinPrice, gridBagConstraints);
+
+        jLabel16.setText("~");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 3;
+        jPanel3.add(jLabel16, gridBagConstraints);
+
+        sldMaxPrice.setMaximum(500000);
+        sldMaxPrice.setToolTipText("");
+        sldMaxPrice.setValue(500000);
+        sldMaxPrice.setMinimumSize(new java.awt.Dimension(120, 24));
+        sldMaxPrice.setPreferredSize(new java.awt.Dimension(120, 24));
+        sldMaxPrice.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseDragged(java.awt.event.MouseEvent evt) {
+                sldMaxPriceMouseDragged(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 3;
+        gridBagConstraints.gridy = 3;
+        jPanel3.add(sldMaxPrice, gridBagConstraints);
+
+        jLabel17.setText("Tình trạng món ăn");
+        jLabel17.setMinimumSize(new java.awt.Dimension(88, 24));
+        jLabel17.setPreferredSize(new java.awt.Dimension(88, 24));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 4;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.insets = new java.awt.Insets(5, 0, 5, 0);
+        jPanel3.add(jLabel17, gridBagConstraints);
+
+        cmbTTMASearch.setMinimumSize(new java.awt.Dimension(120, 24));
+        cmbTTMASearch.setPreferredSize(new java.awt.Dimension(250, 24));
+        cmbTTMASearch.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                cmbTTMASearchMouseClicked(evt);
+            }
+        });
+        cmbTTMASearch.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbTTMASearchActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 4;
+        gridBagConstraints.gridwidth = 3;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.insets = new java.awt.Insets(5, 0, 5, 0);
+        jPanel3.add(cmbTTMASearch, gridBagConstraints);
+
+        jLabel18.setText("~");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 2;
+        jPanel3.add(jLabel18, gridBagConstraints);
+
+        lblMaxPrice.setText("500.000 VNĐ");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 3;
+        gridBagConstraints.gridy = 2;
+        jPanel3.add(lblMaxPrice, gridBagConstraints);
+
+        lblMinPrice.setText("0 VNĐ");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 2;
+        jPanel3.add(lblMinPrice, gridBagConstraints);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.gridwidth = 3;
+        jPanel4.add(jPanel3, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -341,15 +534,23 @@ public class QuanLyMonAn_GUI extends javax.swing.JFrame {
 
         tblMonAn.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "Hình ảnh", "ID", "Tên món ăn", "Tên loại món ăn"
+                "ID", "Tên món ăn", "Tên loại món ăn", "Giá", "Tình trạng món ăn"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jScrollPane1.setViewportView(tblMonAn);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -359,7 +560,6 @@ public class QuanLyMonAn_GUI extends javax.swing.JFrame {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 1;
-        gridBagConstraints.gridheight = 2;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTH;
         gridBagConstraints.insets = new java.awt.Insets(5, 10, 10, 10);
         getContentPane().add(jPanel1, gridBagConstraints);
@@ -370,12 +570,158 @@ public class QuanLyMonAn_GUI extends javax.swing.JFrame {
         gridBagConstraints.gridy = 2;
         getContentPane().add(jButton8, gridBagConstraints);
 
+        resetTableButton.setText("Reset bảng");
+        resetTableButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                resetTableButtonMouseClicked(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHEAST;
+        gridBagConstraints.insets = new java.awt.Insets(5, 10, 10, 10);
+        getContentPane().add(resetTableButton, gridBagConstraints);
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btnTimKiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTimKiemActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_btnTimKiemActionPerformed
+
+    private void btnTimKiemMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnTimKiemMouseClicked
+        // TODO add your handling code here:
+        SearchMonAn_DTO searchMonAn_DTO = new SearchMonAn_DTO();
+        
+        String idOrName = txtSearchIdName.getText();
+        if(!idOrName.isBlank()){
+            searchMonAn_DTO.setIdOrName(idOrName.trim());
+        }
+        
+        int idLoaiMonAn = cmbLMASearchBox.getSelectedIndex();
+        if(idLoaiMonAn > 0){
+            searchMonAn_DTO.setIdLoaiMonAn(loaiMonAnSearchBox.get(idLoaiMonAn - 1).getId());
+        }
+        
+        int minPrice = sldMinPrice.getValue();
+        int maxPrice = sldMaxPrice.getValue();
+        if(minPrice > maxPrice){
+            JOptionPane.showMessageDialog(this, "Giá tối thiểu phải nhỏ hơn giá tối đa","Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        } else {
+            searchMonAn_DTO.setMinPrice(minPrice);
+            searchMonAn_DTO.setMaxPrice(maxPrice);
+        }
+            
+        int idTTMA = cmbTTMASearch.getSelectedIndex();
+        if(idTTMA > 0){
+            searchMonAn_DTO.setIdTTMA(listTTMA.get(idTTMA - 1).getId());
+        }
+        
+        ArrayList<MonAn_DTO> result = monAn_BUS.searchMonAn(searchMonAn_DTO);
+        loadTableMonAn(result);
+    }//GEN-LAST:event_btnTimKiemMouseClicked
+
+    private void resetTableButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_resetTableButtonMouseClicked
+        // TODO add your handling code here:
+        resetTable();
+    }//GEN-LAST:event_resetTableButtonMouseClicked
+
+    private void btnHinhAnhMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnHinhAnhMouseClicked
+        // TODO add your handling code here:
+        JFileChooser fc = new JFileChooser("D:\\");
+        FileNameExtensionFilter imageFilter = new FileNameExtensionFilter("Image", "jpg", "png");
+        fc.setFileFilter(imageFilter);
+        fc.setMultiSelectionEnabled(false);        
+        
+        int returnVal = fc.showOpenDialog(QuanLyMonAn_GUI.this);
+
+        if (returnVal == JFileChooser.APPROVE_OPTION) {
+            File file = fc.getSelectedFile();
+            //This is where a real application would open the file.
+            lblTenHinhAnh.setText(file.getName());
+            linkHinhAnh = file.getAbsolutePath();
+        } else {
+            lblTenHinhAnh.setText("Lỗi khi chọn file");
+        }
+    }//GEN-LAST:event_btnHinhAnhMouseClicked
+
+    private void cmbTTMASearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbTTMASearchActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cmbTTMASearchActionPerformed
+
+    private void cmbTTMASearchMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cmbTTMASearchMouseClicked
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_cmbTTMASearchMouseClicked
+
+    private void sldMinPriceMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_sldMinPriceMouseDragged
+        // TODO add your handling code here:
+        lblMinPrice.setText(formatPrice(sldMinPrice.getValue()));
+    }//GEN-LAST:event_sldMinPriceMouseDragged
+
+    private void sldMaxPriceMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_sldMaxPriceMouseDragged
+        // TODO add your handling code here:
+        lblMaxPrice.setText(formatPrice(sldMaxPrice.getValue()));
+    }//GEN-LAST:event_sldMaxPriceMouseDragged
+
+    private void btnLuuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLuuMouseClicked
+        // TODO add your handling code here:
+        CreateMonAn_DTO createMonAn_DTO = new CreateMonAn_DTO();
+        
+        int indexLoaiMonAn = cmbLMAForm.getSelectedIndex();
+        if(indexLoaiMonAn < 0){
+            JOptionPane.showMessageDialog(this, "Chưa chọn loại món ăn","Error", JOptionPane.ERROR_MESSAGE);            
+            return;
+        } else 
+            createMonAn_DTO.setIdLoaiMonAn(loaiMonAnUpdate.get(indexLoaiMonAn).getId());
+        
+        String tenMonAn = txtTenMonAn.getText().trim();
+        if(tenMonAn.isBlank()){
+            JOptionPane.showMessageDialog(this, "Chưa nhập tên món ăn","Error", JOptionPane.ERROR_MESSAGE);            
+            return;
+        } else 
+            createMonAn_DTO.setTen(tenMonAn);
+        
+        if (!linkHinhAnh.isEmpty()) {
+            createMonAn_DTO.setHinhAnh(linkHinhAnh);
+        }
+       
+        String giaString = txtGia.getText();
+        if(giaString.isEmpty()){
+            JOptionPane.showMessageDialog(this, "Chưa nhập giá","Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        try {
+           int gia = Integer.parseInt(giaString);
+            if (gia < 1000 && gia % 100 == 0) 
+                throw new NumberFormatException();
+            else 
+                createMonAn_DTO.setGia(gia);
+        } catch (NumberFormatException ex){
+            JOptionPane.showMessageDialog(this, "Nhập giá không đúng định dạng, giá phải từ 1000đ trở lên và chia hết cho 100","Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        
+        String giaKhuyenMaiString = txtGiaKhuyenMai.getText();
+        if(!giaKhuyenMaiString.isEmpty()){
+            try {
+                int giaKhuyenMai = Integer.parseInt(giaKhuyenMaiString);
+                if (giaKhuyenMai < 1000 && giaKhuyenMai % 100 == 0 && giaKhuyenMai < createMonAn_DTO.getGia()) 
+                    throw new NumberFormatException();
+                else 
+                    createMonAn_DTO.setGiaKhuyenMai(giaKhuyenMai);
+            } catch (NumberFormatException ex){
+                JOptionPane.showMessageDialog(this, "Nhập giá không đúng định dạng, giá phải từ 1000đ trở lên, nhỏ hơn giá gốc và chia hết cho 100","Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+        
+        int idTinhTrang = cmbTTMAForm.getSelectedIndex();
+        createMonAn_DTO.setIdTtinhTrangMonAn(idTinhTrang);
+        
+        
+    }//GEN-LAST:event_btnLuuMouseClicked
 
     /**
      * @param args the command line arguments
@@ -414,43 +760,51 @@ public class QuanLyMonAn_GUI extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
+    private javax.swing.JButton btnHinhAnh;
+    private javax.swing.JButton btnLuu;
+    private javax.swing.JButton btnResetForm;
+    private javax.swing.JButton btnTimKiem;
+    private javax.swing.JComboBox<String> cmbLMAForm;
+    private javax.swing.JComboBox<String> cmbLMASearchBox;
+    private javax.swing.JComboBox<String> cmbTTMAForm;
+    private javax.swing.JComboBox<String> cmbTTMASearch;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
     private javax.swing.JButton jButton8;
-    private javax.swing.JCheckBox jCheckBox1;
-    private javax.swing.JComboBox<String> jComboBox1;
-    private javax.swing.JComboBox<String> jComboBox2;
-    private javax.swing.JComboBox<String> jComboBox3;
-    private javax.swing.JComboBox<String> jComboBox4;
-    private javax.swing.JComboBox<String> jComboBox5;
-    private javax.swing.JComboBox<String> jComboBox6;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel13;
-    private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel17;
+    private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField6;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTextField lblIdMonAn;
+    private javax.swing.JLabel lblMaxPrice;
+    private javax.swing.JLabel lblMinPrice;
+    private javax.swing.JLabel lblTenHinhAnh;
+    private javax.swing.JButton resetTableButton;
+    private javax.swing.JSlider sldMaxPrice;
+    private javax.swing.JSlider sldMinPrice;
     private javax.swing.JTable tblMonAn;
+    private javax.swing.JTextArea txaNoiDung;
+    private javax.swing.JTextField txtGia;
+    private javax.swing.JTextField txtGiaKhuyenMai;
+    private javax.swing.JTextField txtSearchIdName;
+    private javax.swing.JTextField txtTenMonAn;
     // End of variables declaration//GEN-END:variables
 }

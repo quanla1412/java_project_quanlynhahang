@@ -7,13 +7,13 @@ package DTO.MonAn;
 public class BienTheMonAn_DTO {
     private int idMonAn;
     private int idBTMA;
-    private TinhTrangBTMA_DTO tinhTrang;
+    private TinhTrangMonAn_DTO tinhTrang;
     private int gia;
 
     public BienTheMonAn_DTO() {
     }
 
-    public BienTheMonAn_DTO(int idMonAn, int idBTMA, TinhTrangBTMA_DTO tinhTrang, int gia) {
+    public BienTheMonAn_DTO(int idMonAn, int idBTMA, TinhTrangMonAn_DTO tinhTrang, int gia) {
         this.idMonAn = idMonAn;
         this.idBTMA = idBTMA;
         this.tinhTrang = tinhTrang;
@@ -36,7 +36,7 @@ public class BienTheMonAn_DTO {
         this.idBTMA = idBTMA;
     }
 
-    public TinhTrangBTMA_DTO getTinhTrang() {
+    public TinhTrangMonAn_DTO getTinhTrang() {
         return tinhTrang;
     }
 
@@ -44,7 +44,7 @@ public class BienTheMonAn_DTO {
         return gia;
     }
 
-    public void setTinhTrang(TinhTrangBTMA_DTO tinhTrang) {
+    public void setTinhTrang(TinhTrangMonAn_DTO tinhTrang) {
         this.tinhTrang = tinhTrang;
     }
 

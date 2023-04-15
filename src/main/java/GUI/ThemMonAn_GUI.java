@@ -27,178 +27,131 @@ public class ThemMonAn_GUI extends javax.swing.JFrame {
     private void initComponents() {
         java.awt.GridBagConstraints gridBagConstraints;
 
-        jPanel3 = new javax.swing.JPanel();
-        lblImageMonAn = new javax.swing.JLabel();
-        lblGiaTienMonAn = new javax.swing.JLabel();
-        jPanel2 = new javax.swing.JPanel();
-        jLabel10 = new javax.swing.JLabel();
-        jLabel11 = new javax.swing.JLabel();
-        jLabel12 = new javax.swing.JLabel();
-        cmbSizeMonAn = new javax.swing.JComboBox<>();
-        cmbDeMonAn = new javax.swing.JComboBox<>();
-        cmbLoaiNuoc = new javax.swing.JComboBox<>();
-        jLabel13 = new javax.swing.JLabel();
-        jLabel14 = new javax.swing.JLabel();
-        jLabel15 = new javax.swing.JLabel();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        txaGhiChuMonAn = new javax.swing.JTextArea();
-        lblTinhTrangMonAn = new javax.swing.JLabel();
-        btnThemMonAn = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        jSpinner1 = new javax.swing.JSpinner();
+        jLabel7 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        getContentPane().setLayout(new javax.swing.BoxLayout(getContentPane(), javax.swing.BoxLayout.LINE_AXIS));
+        setTitle("Thêm món ăn");
+        setMaximumSize(new java.awt.Dimension(520, 300));
+        setMinimumSize(new java.awt.Dimension(520, 300));
+        setPreferredSize(new java.awt.Dimension(520, 300));
+        getContentPane().setLayout(new java.awt.GridBagLayout());
 
-        jPanel3.setMinimumSize(new java.awt.Dimension(0, 0));
-        jPanel3.setLayout(new java.awt.GridBagLayout());
-
-        lblImageMonAn.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblImageMonAn.setIcon(new javax.swing.ImageIcon("C:\\Users\\dinhn\\OneDrive\\Máy tính\\ảnh kỷ yếu\\test.jpg")); // NOI18N
-        lblImageMonAn.setMinimumSize(new java.awt.Dimension(250, 250));
-        lblImageMonAn.setPreferredSize(new java.awt.Dimension(250, 250));
+        jLabel1.setMaximumSize(new java.awt.Dimension(200, 200));
+        jLabel1.setMinimumSize(new java.awt.Dimension(200, 200));
+        jLabel1.setPreferredSize(new java.awt.Dimension(200, 200));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        jPanel3.add(lblImageMonAn, gridBagConstraints);
+        gridBagConstraints.gridwidth = 3;
+        gridBagConstraints.gridheight = 5;
+        gridBagConstraints.insets = new java.awt.Insets(12, 12, 12, 12);
+        getContentPane().add(jLabel1, gridBagConstraints);
 
-        lblGiaTienMonAn.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        lblGiaTienMonAn.setForeground(new java.awt.Color(51, 255, 204));
-        lblGiaTienMonAn.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblGiaTienMonAn.setText("69.000");
+        jLabel2.setText("Tàu Hủ Nóng");
+        jLabel2.setMaximumSize(new java.awt.Dimension(88, 24));
+        jLabel2.setMinimumSize(new java.awt.Dimension(88, 24));
+        jLabel2.setPreferredSize(new java.awt.Dimension(88, 24));
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 1;
-        gridBagConstraints.ipadx = 80;
-        gridBagConstraints.ipady = 4;
-        gridBagConstraints.insets = new java.awt.Insets(10, 0, 0, 0);
-        jPanel3.add(lblGiaTienMonAn, gridBagConstraints);
-
-        getContentPane().add(jPanel3);
-
-        jPanel2.setLayout(new java.awt.GridBagLayout());
-
-        jLabel10.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel10.setText("Hàn kiểu Nhật");
-        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 3;
+        gridBagConstraints.gridy = 0;
         gridBagConstraints.gridwidth = 2;
-        gridBagConstraints.insets = new java.awt.Insets(0, 0, 10, 0);
-        jPanel2.add(jLabel10, gridBagConstraints);
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.insets = new java.awt.Insets(12, 12, 12, 12);
+        getContentPane().add(jLabel2, gridBagConstraints);
 
-        jLabel11.setText("Size");
+        jLabel3.setText("Giá");
+        jLabel3.setMaximumSize(new java.awt.Dimension(88, 24));
+        jLabel3.setMinimumSize(new java.awt.Dimension(88, 24));
+        jLabel3.setPreferredSize(new java.awt.Dimension(88, 24));
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridx = 3;
         gridBagConstraints.gridy = 1;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 0);
-        jPanel2.add(jLabel11, gridBagConstraints);
+        gridBagConstraints.insets = new java.awt.Insets(12, 12, 12, 12);
+        getContentPane().add(jLabel3, gridBagConstraints);
 
-        jLabel12.setText("Đế");
+        jLabel4.setText("90000VNĐ");
+        jLabel4.setMaximumSize(new java.awt.Dimension(120, 24));
+        jLabel4.setMinimumSize(new java.awt.Dimension(120, 24));
+        jLabel4.setPreferredSize(new java.awt.Dimension(120, 24));
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridx = 4;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.insets = new java.awt.Insets(12, 12, 12, 12);
+        getContentPane().add(jLabel4, gridBagConstraints);
+
+        jLabel5.setText("Giá khuyến mãi");
+        jLabel5.setMaximumSize(new java.awt.Dimension(88, 24));
+        jLabel5.setMinimumSize(new java.awt.Dimension(88, 24));
+        jLabel5.setPreferredSize(new java.awt.Dimension(88, 24));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 3;
         gridBagConstraints.gridy = 2;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.insets = new java.awt.Insets(10, 10, 0, 0);
-        jPanel2.add(jLabel12, gridBagConstraints);
+        gridBagConstraints.insets = new java.awt.Insets(12, 12, 12, 12);
+        getContentPane().add(jLabel5, gridBagConstraints);
 
-        cmbSizeMonAn.setMinimumSize(new java.awt.Dimension(110, 25));
-        cmbSizeMonAn.setName(""); // NOI18N
-        cmbSizeMonAn.setPreferredSize(new java.awt.Dimension(110, 25));
+        jLabel6.setText("75000VNĐ");
+        jLabel6.setMaximumSize(new java.awt.Dimension(120, 24));
+        jLabel6.setMinimumSize(new java.awt.Dimension(120, 24));
+        jLabel6.setPreferredSize(new java.awt.Dimension(120, 24));
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 1;
-        gridBagConstraints.insets = new java.awt.Insets(10, 0, 10, 0);
-        jPanel2.add(cmbSizeMonAn, gridBagConstraints);
-
-        cmbDeMonAn.setMinimumSize(new java.awt.Dimension(110, 25));
-        cmbDeMonAn.setPreferredSize(new java.awt.Dimension(110, 25));
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridx = 4;
         gridBagConstraints.gridy = 2;
-        gridBagConstraints.insets = new java.awt.Insets(10, 0, 10, 0);
-        jPanel2.add(cmbDeMonAn, gridBagConstraints);
+        gridBagConstraints.insets = new java.awt.Insets(12, 12, 12, 12);
+        getContentPane().add(jLabel6, gridBagConstraints);
 
-        cmbLoaiNuoc.setMinimumSize(new java.awt.Dimension(110, 25));
-        cmbLoaiNuoc.setPreferredSize(new java.awt.Dimension(110, 25));
-        cmbLoaiNuoc.addActionListener(new java.awt.event.ActionListener() {
+        jSpinner1.setMaximumSize(new java.awt.Dimension(120, 24));
+        jSpinner1.setMinimumSize(new java.awt.Dimension(120, 24));
+        jSpinner1.setPreferredSize(new java.awt.Dimension(120, 24));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 4;
+        gridBagConstraints.gridy = 3;
+        gridBagConstraints.insets = new java.awt.Insets(12, 12, 12, 12);
+        getContentPane().add(jSpinner1, gridBagConstraints);
+
+        jLabel7.setText("Số lượng");
+        jLabel7.setMaximumSize(new java.awt.Dimension(88, 24));
+        jLabel7.setMinimumSize(new java.awt.Dimension(88, 24));
+        jLabel7.setPreferredSize(new java.awt.Dimension(88, 24));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 3;
+        gridBagConstraints.gridy = 3;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.insets = new java.awt.Insets(12, 12, 12, 12);
+        getContentPane().add(jLabel7, gridBagConstraints);
+
+        jButton1.setText("Đặt ngay");
+        jButton1.setMaximumSize(new java.awt.Dimension(120, 28));
+        jButton1.setMinimumSize(new java.awt.Dimension(120, 28));
+        jButton1.setPreferredSize(new java.awt.Dimension(120, 28));
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cmbLoaiNuocActionPerformed(evt);
+                jButton1ActionPerformed(evt);
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 3;
-        gridBagConstraints.insets = new java.awt.Insets(10, 0, 10, 0);
-        jPanel2.add(cmbLoaiNuoc, gridBagConstraints);
-
-        jLabel13.setText("Loại nước");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 3;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.insets = new java.awt.Insets(10, 10, 0, 0);
-        jPanel2.add(jLabel13, gridBagConstraints);
-
-        jLabel14.setText("Ghi chú");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridx = 3;
         gridBagConstraints.gridy = 4;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 0);
-        jPanel2.add(jLabel14, gridBagConstraints);
-
-        jLabel15.setText("Tình trạng:");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 6;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 0);
-        jPanel2.add(jLabel15, gridBagConstraints);
-
-        txaGhiChuMonAn.setColumns(20);
-        txaGhiChuMonAn.setRows(5);
-        txaGhiChuMonAn.setMinimumSize(new java.awt.Dimension(0, 0));
-        jScrollPane2.setViewportView(txaGhiChuMonAn);
-
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 5;
         gridBagConstraints.gridwidth = 2;
-        gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
-        jPanel2.add(jScrollPane2, gridBagConstraints);
-
-        lblTinhTrangMonAn.setText("Sẵn Sàng");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 6;
-        gridBagConstraints.insets = new java.awt.Insets(10, 0, 10, 0);
-        jPanel2.add(lblTinhTrangMonAn, gridBagConstraints);
-
-        btnThemMonAn.setText("Thêm món ăn");
-        btnThemMonAn.setPreferredSize(new java.awt.Dimension(120, 30));
-        btnThemMonAn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnThemMonAnActionPerformed(evt);
-            }
-        });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 7;
-        gridBagConstraints.gridwidth = 2;
-        gridBagConstraints.insets = new java.awt.Insets(10, 0, 10, 0);
-        jPanel2.add(btnThemMonAn, gridBagConstraints);
-
-        getContentPane().add(jPanel2);
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.insets = new java.awt.Insets(12, 12, 12, 12);
+        getContentPane().add(jButton1, gridBagConstraints);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnThemMonAnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemMonAnActionPerformed
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnThemMonAnActionPerformed
-
-    private void cmbLoaiNuocActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbLoaiNuocActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cmbLoaiNuocActionPerformed
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -236,22 +189,14 @@ public class ThemMonAn_GUI extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnThemMonAn;
-    private javax.swing.JComboBox<String> cmbDeMonAn;
-    private javax.swing.JComboBox<String> cmbLoaiNuoc;
-    private javax.swing.JComboBox<String> cmbSizeMonAn;
-    private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel13;
-    private javax.swing.JLabel jLabel14;
-    private javax.swing.JLabel jLabel15;
-    private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
-    private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JLabel lblGiaTienMonAn;
-    private javax.swing.JLabel lblImageMonAn;
-    private javax.swing.JLabel lblTinhTrangMonAn;
-    private javax.swing.JTextArea txaGhiChuMonAn;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JSpinner jSpinner1;
     // End of variables declaration//GEN-END:variables
 }
