@@ -13,6 +13,7 @@ import java.util.ArrayList;
  * @author LeAnhQuan
  */
 public class Ban_BUS {
+    
     public ArrayList<Ban_DTO> getAllBan(){
         Ban_DAO ban_DAO = new Ban_DAO();
         ArrayList<Ban_DTO> result = ban_DAO.getAllBan();
