@@ -1,18 +1,198 @@
 package GUI;
 
+import BUS.Ban_BUS;
+import BUS.DonGoi_BUS;
+import Constraints.TinhTrangBanConstraints;
+import DTO.Ban.BanFull_DTO;
+import DTO.Ban.Ban_DTO;
+import DTO.Ban.DonGoi_DTO;
+import com.mycompany.quanlynhahang.Price;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.util.ArrayList;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
+
 /**
  *
  * @author LeAnhQuan
  */
 public class QuanLyPhucVu_GUI extends javax.swing.JFrame {
-
+    private Ban_BUS ban_BUS;
+    private DonGoi_BUS donGoi_BUS;
+    private ArrayList<Ban_DTO> listBanSanSang;
+    private BanFull_DTO banDangChon;
+    private ArrayList<DonGoi_DTO> listDonGoi;
+    
+    private Menu_GUI menu_GUI;
+    private DatMon_GUI datMon_GUI;
     /**
      * Creates new form QuanLyPhucVu_GUI
      */
     public QuanLyPhucVu_GUI() {
         initComponents();
+        ban_BUS = new Ban_BUS();
+        donGoi_BUS = new DonGoi_BUS();
+        
+        loadDanhSachBan();
+    }
+    
+    private void loadDanhSachBan() {
+        pnlDanhSachBan.removeAll();
+        ArrayList<BanFull_DTO> listBan = ban_BUS.getAllBanFull();
+        
+        for(BanFull_DTO ban : listBan){
+            String title = "<html> "
+                    + "<p style=\"text-align:center\">Bàn " + ban.getId() + "</p> "
+                    + "<p  style=\"text-align:center\">" + ban.getLoaiBan().getTen() + "</p> "
+                    + "<p  style=\"text-align:center\">" + ban.getTinhTrangBan().getTen() + "</p> "
+                    + "</html>";
+            JButton button = new JButton(title);
+            button.setPreferredSize(new Dimension(120, 60));
+            button.setMinimumSize(new Dimension(120, 60));
+            button.setMaximumSize(new Dimension(120, 60));
+            
+            int idTinhTrangBan = ban.getTinhTrangBan().getId();
+            if(idTinhTrangBan == TinhTrangBanConstraints.SAN_SANG)
+                button.setBackground(new Color(95, 192, 102));
+            else if(idTinhTrangBan == TinhTrangBanConstraints.DANG_PHUC_VU)
+                button.setBackground(new Color(231, 197, 76));
+            else if(idTinhTrangBan == TinhTrangBanConstraints.DANG_CHUAN_BI)
+                button.setBackground(new Color(220, 60, 47));
+            else 
+                button.setBackground(new Color(141, 141, 141));
+                
+            
+            
+            button.addMouseListener(new MouseListener() {
+                @Override
+                public void mouseClicked(MouseEvent e) {
+                    banDangChon = ban;
+                    loadThongTinBan();
+                    loadChucNang();
+                    if(banDangChon.getTinhTrangBan().getId() == TinhTrangBanConstraints.DANG_PHUC_VU)
+                        loadDonGoi();
+                }
+
+                @Override
+                public void mousePressed(MouseEvent e) {
+                }
+
+                @Override
+                public void mouseReleased(MouseEvent e) {
+                }
+
+                @Override
+                public void mouseEntered(MouseEvent e) {
+                }
+
+                @Override
+                public void mouseExited(MouseEvent e) {
+                }
+            });
+            
+            pnlDanhSachBan.add(button);
+        }
+    }
+    
+    private void loadThongTinBan(){
+        lblIdBan.setText(banDangChon.getId() + "");
+        lblLoaiBan.setText(banDangChon.getLoaiBan().getTen());
+        lblTinhTrangBan.setText(banDangChon.getTinhTrangBan().getTen());
+    }
+    
+    private void loadComboBoxBanSanSang(){
+        listBanSanSang = ban_BUS.getAllBanDangSanSang();
+        cmbBanSanSang.removeAllItems();
+        for(Ban_DTO banSanSang : listBanSanSang){
+            cmbBanSanSang.addItem("Bàn " + banSanSang.getId());
+        }        
+        cmbBanSanSang.setSelectedIndex(-1);
+        if(banDangChon.getTinhTrangBan().getId() == TinhTrangBanConstraints.DANG_PHUC_VU){
+            cmbBanSanSang.setEnabled(true);
+            btnChuyenBan.setEnabled(true);
+        } else {
+            cmbBanSanSang.setEnabled(false);
+            btnChuyenBan.setEnabled(false);
+        }
     }
 
+    private void loadDonGoi(){
+        listDonGoi = donGoi_BUS.getAllDonGoiByIdBan(banDangChon.getId());
+        
+        int total = 0;
+        
+        String[] col = {"Id món ăn","Tên món ăn", "Đơn giá", "Số lượng", "Thành tiền"};
+        DefaultTableModel model = new DefaultTableModel(col, 0);
+        tblDonGoi.setModel(model);
+        for(DonGoi_DTO donGoi : listDonGoi){
+            int gia = donGoi.getMonAn().getGiaKhuyenMai() > 0 ? donGoi.getMonAn().getGiaKhuyenMai() : donGoi.getMonAn().getGia();
+            int thanhTien = gia * donGoi.getSoLuong();
+            Object[] data = {
+                donGoi.getMonAn().getId(),
+                donGoi.getMonAn().getTen(), 
+                Price.formatPrice(gia),
+                donGoi.getSoLuong(),
+                Price.formatPrice(thanhTien)
+            };
+            total += thanhTien;
+            
+            model.addRow(data);
+        }  
+        
+        lblTongGia.setText(Price.formatPrice(total));
+    }
+    
+    private void loadChucNang(){
+        int idTinhTrangBan = banDangChon.getTinhTrangBan().getId();
+        if(idTinhTrangBan == TinhTrangBanConstraints.SAN_SANG){
+            btnSanSang.setEnabled(false);
+            btnPhucVu.setEnabled(true);
+            btnNgungPhucVu.setEnabled(true);
+            btnThemMonMoi.setEnabled(false);
+            btnSuaDonGoi.setEnabled(false);
+            btnThanhToan.setEnabled(false);            
+        }
+        else if(idTinhTrangBan == TinhTrangBanConstraints.DANG_PHUC_VU){
+            btnSanSang.setEnabled(false);
+            btnPhucVu.setEnabled(false);
+            btnNgungPhucVu.setEnabled(false);
+            btnThemMonMoi.setEnabled(true);
+            btnSuaDonGoi.setEnabled(true);
+            btnThanhToan.setEnabled(true);            
+        }
+        else if(idTinhTrangBan == TinhTrangBanConstraints.DANG_CHUAN_BI){
+            btnSanSang.setEnabled(true);
+            btnPhucVu.setEnabled(false);
+            btnNgungPhucVu.setEnabled(true);
+            btnThemMonMoi.setEnabled(false);
+            btnSuaDonGoi.setEnabled(false);
+            btnThanhToan.setEnabled(false);             
+        }
+        else {            
+            btnSanSang.setEnabled(true);
+            btnPhucVu.setEnabled(false);
+            btnNgungPhucVu.setEnabled(false);
+            btnThemMonMoi.setEnabled(false);
+            btnSuaDonGoi.setEnabled(false);
+            btnThanhToan.setEnabled(false); 
+        }
+        loadComboBoxBanSanSang();
+    }
+    
+    private void chuyenTinhTrangBan(int tinhTrangMoi){
+        loadDanhSachBan();
+        ban_BUS.changeTinhTrangBan(banDangChon.getId(), tinhTrangMoi);
+        banDangChon = ban_BUS.getBanFullById(banDangChon.getId());
+        
+        loadChucNang();
+        loadDonGoi();
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -24,7 +204,7 @@ public class QuanLyPhucVu_GUI extends javax.swing.JFrame {
         java.awt.GridBagConstraints gridBagConstraints;
 
         jScrollPane3 = new javax.swing.JScrollPane();
-        jPanel2 = new javax.swing.JPanel();
+        pnlDanhSachBan = new javax.swing.JPanel();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
@@ -124,29 +304,29 @@ public class QuanLyPhucVu_GUI extends javax.swing.JFrame {
         jPanel3 = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
+        lblIdBan = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
+        lblTinhTrangBan = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
+        lblLoaiBan = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
-        jButton9 = new javax.swing.JButton();
+        btnThemMonMoi = new javax.swing.JButton();
         jButton10 = new javax.swing.JButton();
-        jButton11 = new javax.swing.JButton();
+        btnSuaDonGoi = new javax.swing.JButton();
         jLabel8 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        cmbBanSanSang = new javax.swing.JComboBox<>();
         jLabel9 = new javax.swing.JLabel();
-        jButton13 = new javax.swing.JButton();
-        jButton14 = new javax.swing.JButton();
-        jButton15 = new javax.swing.JButton();
-        jButton16 = new javax.swing.JButton();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        btnChuyenBan = new javax.swing.JButton();
+        btnSanSang = new javax.swing.JButton();
+        btnPhucVu = new javax.swing.JButton();
+        btnNgungPhucVu = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tblDonGoi = new javax.swing.JTable();
         jPanel5 = new javax.swing.JPanel();
-        jButton12 = new javax.swing.JButton();
+        btnThanhToan = new javax.swing.JButton();
         jLabel10 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        lblTongGia = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Quản lý phục vụ");
@@ -163,492 +343,492 @@ public class QuanLyPhucVu_GUI extends javax.swing.JFrame {
         jScrollPane3.setPreferredSize(new java.awt.Dimension(540, 600));
         jScrollPane3.setWheelScrollingEnabled(false);
 
-        jPanel2.setMaximumSize(new java.awt.Dimension(520, 600));
-        jPanel2.setMinimumSize(new java.awt.Dimension(520, 600));
-        jPanel2.setNextFocusableComponent(jPanel2);
-        jPanel2.setPreferredSize(new java.awt.Dimension(520, 600));
+        pnlDanhSachBan.setMaximumSize(new java.awt.Dimension(520, 600));
+        pnlDanhSachBan.setMinimumSize(new java.awt.Dimension(520, 600));
+        pnlDanhSachBan.setNextFocusableComponent(pnlDanhSachBan);
+        pnlDanhSachBan.setPreferredSize(new java.awt.Dimension(520, 600));
 
         jButton2.setText("<html>\n<p style=\"text-align:center\">Bàn 1</p>\n<p  style=\"text-align:center\">Vuông 2</p>\n<p  style=\"text-align:center\">Đang chuẩn bị</p>\n</html>");
         jButton2.setMinimumSize(new java.awt.Dimension(120, 60));
         jButton2.setPreferredSize(new java.awt.Dimension(120, 60));
-        jPanel2.add(jButton2);
+        pnlDanhSachBan.add(jButton2);
 
         jButton3.setText("<html>\n<p style=\"text-align:center\">Bàn 1</p>\n<p  style=\"text-align:center\">Vuông 2</p>\n<p  style=\"text-align:center\">Đang chuẩn bị</p>\n</html>");
         jButton3.setMinimumSize(new java.awt.Dimension(120, 60));
         jButton3.setPreferredSize(new java.awt.Dimension(120, 60));
-        jPanel2.add(jButton3);
+        pnlDanhSachBan.add(jButton3);
 
         jButton4.setText("<html>\n<p style=\"text-align:center\">Bàn 1</p>\n<p  style=\"text-align:center\">Vuông 2</p>\n<p  style=\"text-align:center\">Đang chuẩn bị</p>\n</html>");
         jButton4.setMinimumSize(new java.awt.Dimension(120, 60));
         jButton4.setPreferredSize(new java.awt.Dimension(120, 60));
-        jPanel2.add(jButton4);
+        pnlDanhSachBan.add(jButton4);
 
         jButton5.setText("<html>\n<p style=\"text-align:center\">Bàn 1</p>\n<p  style=\"text-align:center\">Vuông 2</p>\n<p  style=\"text-align:center\">Đang chuẩn bị</p>\n</html>");
         jButton5.setMinimumSize(new java.awt.Dimension(120, 60));
         jButton5.setPreferredSize(new java.awt.Dimension(120, 60));
-        jPanel2.add(jButton5);
+        pnlDanhSachBan.add(jButton5);
 
         jButton6.setText("<html>\n<p style=\"text-align:center\">Bàn 1</p>\n<p  style=\"text-align:center\">Vuông 2</p>\n<p  style=\"text-align:center\">Đang chuẩn bị</p>\n</html>");
         jButton6.setMinimumSize(new java.awt.Dimension(120, 60));
         jButton6.setPreferredSize(new java.awt.Dimension(120, 60));
-        jPanel2.add(jButton6);
+        pnlDanhSachBan.add(jButton6);
 
         jButton7.setText("<html>\n<p style=\"text-align:center\">Bàn 1</p>\n<p  style=\"text-align:center\">Vuông 2</p>\n<p  style=\"text-align:center\">Đang chuẩn bị</p>\n</html>");
         jButton7.setMinimumSize(new java.awt.Dimension(120, 60));
         jButton7.setPreferredSize(new java.awt.Dimension(120, 60));
-        jPanel2.add(jButton7);
+        pnlDanhSachBan.add(jButton7);
 
         jButton8.setText("<html>\n<p style=\"text-align:center\">Bàn 1</p>\n<p  style=\"text-align:center\">Vuông 2</p>\n<p  style=\"text-align:center\">Đang chuẩn bị</p>\n</html>");
         jButton8.setMinimumSize(new java.awt.Dimension(120, 60));
         jButton8.setPreferredSize(new java.awt.Dimension(120, 60));
-        jPanel2.add(jButton8);
+        pnlDanhSachBan.add(jButton8);
 
         jButton63.setText("<html>\n<p style=\"text-align:center\">Bàn 1</p>\n<p  style=\"text-align:center\">Vuông 2</p>\n<p  style=\"text-align:center\">Đang chuẩn bị</p>\n</html>");
         jButton63.setMinimumSize(new java.awt.Dimension(120, 60));
         jButton63.setPreferredSize(new java.awt.Dimension(120, 60));
-        jPanel2.add(jButton63);
+        pnlDanhSachBan.add(jButton63);
 
         jButton59.setText("<html>\n<p style=\"text-align:center\">Bàn 1</p>\n<p  style=\"text-align:center\">Vuông 2</p>\n<p  style=\"text-align:center\">Đang chuẩn bị</p>\n</html>");
         jButton59.setMinimumSize(new java.awt.Dimension(120, 60));
         jButton59.setPreferredSize(new java.awt.Dimension(120, 60));
-        jPanel2.add(jButton59);
+        pnlDanhSachBan.add(jButton59);
 
         jButton60.setText("<html>\n<p style=\"text-align:center\">Bàn 1</p>\n<p  style=\"text-align:center\">Vuông 2</p>\n<p  style=\"text-align:center\">Đang chuẩn bị</p>\n</html>");
         jButton60.setMinimumSize(new java.awt.Dimension(120, 60));
         jButton60.setPreferredSize(new java.awt.Dimension(120, 60));
-        jPanel2.add(jButton60);
+        pnlDanhSachBan.add(jButton60);
 
         jButton61.setText("<html>\n<p style=\"text-align:center\">Bàn 1</p>\n<p  style=\"text-align:center\">Vuông 2</p>\n<p  style=\"text-align:center\">Đang chuẩn bị</p>\n</html>");
         jButton61.setMinimumSize(new java.awt.Dimension(120, 60));
         jButton61.setPreferredSize(new java.awt.Dimension(120, 60));
-        jPanel2.add(jButton61);
+        pnlDanhSachBan.add(jButton61);
 
         jButton62.setText("<html>\n<p style=\"text-align:center\">Bàn 1</p>\n<p  style=\"text-align:center\">Vuông 2</p>\n<p  style=\"text-align:center\">Đang chuẩn bị</p>\n</html>");
         jButton62.setMinimumSize(new java.awt.Dimension(120, 60));
         jButton62.setPreferredSize(new java.awt.Dimension(120, 60));
-        jPanel2.add(jButton62);
+        pnlDanhSachBan.add(jButton62);
 
         jButton70.setText("<html>\n<p style=\"text-align:center\">Bàn 1</p>\n<p  style=\"text-align:center\">Vuông 2</p>\n<p  style=\"text-align:center\">Đang chuẩn bị</p>\n</html>");
         jButton70.setMinimumSize(new java.awt.Dimension(120, 60));
         jButton70.setPreferredSize(new java.awt.Dimension(120, 60));
-        jPanel2.add(jButton70);
+        pnlDanhSachBan.add(jButton70);
 
         jButton71.setText("<html>\n<p style=\"text-align:center\">Bàn 1</p>\n<p  style=\"text-align:center\">Vuông 2</p>\n<p  style=\"text-align:center\">Đang chuẩn bị</p>\n</html>");
         jButton71.setMinimumSize(new java.awt.Dimension(120, 60));
         jButton71.setPreferredSize(new java.awt.Dimension(120, 60));
-        jPanel2.add(jButton71);
+        pnlDanhSachBan.add(jButton71);
 
         jButton72.setText("<html>\n<p style=\"text-align:center\">Bàn 1</p>\n<p  style=\"text-align:center\">Vuông 2</p>\n<p  style=\"text-align:center\">Đang chuẩn bị</p>\n</html>");
         jButton72.setMinimumSize(new java.awt.Dimension(120, 60));
         jButton72.setPreferredSize(new java.awt.Dimension(120, 60));
-        jPanel2.add(jButton72);
+        pnlDanhSachBan.add(jButton72);
 
         jButton73.setText("<html>\n<p style=\"text-align:center\">Bàn 1</p>\n<p  style=\"text-align:center\">Vuông 2</p>\n<p  style=\"text-align:center\">Đang chuẩn bị</p>\n</html>");
         jButton73.setMinimumSize(new java.awt.Dimension(120, 60));
         jButton73.setPreferredSize(new java.awt.Dimension(120, 60));
-        jPanel2.add(jButton73);
+        pnlDanhSachBan.add(jButton73);
 
         jButton74.setText("<html>\n<p style=\"text-align:center\">Bàn 1</p>\n<p  style=\"text-align:center\">Vuông 2</p>\n<p  style=\"text-align:center\">Đang chuẩn bị</p>\n</html>");
         jButton74.setMinimumSize(new java.awt.Dimension(120, 60));
         jButton74.setPreferredSize(new java.awt.Dimension(120, 60));
-        jPanel2.add(jButton74);
+        pnlDanhSachBan.add(jButton74);
 
         jButton75.setText("<html>\n<p style=\"text-align:center\">Bàn 1</p>\n<p  style=\"text-align:center\">Vuông 2</p>\n<p  style=\"text-align:center\">Đang chuẩn bị</p>\n</html>");
         jButton75.setMinimumSize(new java.awt.Dimension(120, 60));
         jButton75.setPreferredSize(new java.awt.Dimension(120, 60));
-        jPanel2.add(jButton75);
+        pnlDanhSachBan.add(jButton75);
 
         jButton76.setText("<html>\n<p style=\"text-align:center\">Bàn 1</p>\n<p  style=\"text-align:center\">Vuông 2</p>\n<p  style=\"text-align:center\">Đang chuẩn bị</p>\n</html>");
         jButton76.setMinimumSize(new java.awt.Dimension(120, 60));
         jButton76.setPreferredSize(new java.awt.Dimension(120, 60));
-        jPanel2.add(jButton76);
+        pnlDanhSachBan.add(jButton76);
 
         jButton77.setText("<html>\n<p style=\"text-align:center\">Bàn 1</p>\n<p  style=\"text-align:center\">Vuông 2</p>\n<p  style=\"text-align:center\">Đang chuẩn bị</p>\n</html>");
         jButton77.setMinimumSize(new java.awt.Dimension(120, 60));
         jButton77.setPreferredSize(new java.awt.Dimension(120, 60));
-        jPanel2.add(jButton77);
+        pnlDanhSachBan.add(jButton77);
 
         jButton17.setText("<html>\n<p style=\"text-align:center\">Bàn 1</p>\n<p  style=\"text-align:center\">Vuông 2</p>\n<p  style=\"text-align:center\">Đang chuẩn bị</p>\n</html>");
         jButton17.setMinimumSize(new java.awt.Dimension(120, 60));
         jButton17.setPreferredSize(new java.awt.Dimension(120, 60));
-        jPanel2.add(jButton17);
+        pnlDanhSachBan.add(jButton17);
 
         jButton18.setText("<html>\n<p style=\"text-align:center\">Bàn 1</p>\n<p  style=\"text-align:center\">Vuông 2</p>\n<p  style=\"text-align:center\">Đang chuẩn bị</p>\n</html>");
         jButton18.setMinimumSize(new java.awt.Dimension(120, 60));
         jButton18.setPreferredSize(new java.awt.Dimension(120, 60));
-        jPanel2.add(jButton18);
+        pnlDanhSachBan.add(jButton18);
 
         jButton19.setText("<html>\n<p style=\"text-align:center\">Bàn 1</p>\n<p  style=\"text-align:center\">Vuông 2</p>\n<p  style=\"text-align:center\">Đang chuẩn bị</p>\n</html>");
         jButton19.setMinimumSize(new java.awt.Dimension(120, 60));
         jButton19.setPreferredSize(new java.awt.Dimension(120, 60));
-        jPanel2.add(jButton19);
+        pnlDanhSachBan.add(jButton19);
 
         jButton20.setText("<html>\n<p style=\"text-align:center\">Bàn 1</p>\n<p  style=\"text-align:center\">Vuông 2</p>\n<p  style=\"text-align:center\">Đang chuẩn bị</p>\n</html>");
         jButton20.setMinimumSize(new java.awt.Dimension(120, 60));
         jButton20.setPreferredSize(new java.awt.Dimension(120, 60));
-        jPanel2.add(jButton20);
+        pnlDanhSachBan.add(jButton20);
 
         jButton21.setText("<html>\n<p style=\"text-align:center\">Bàn 1</p>\n<p  style=\"text-align:center\">Vuông 2</p>\n<p  style=\"text-align:center\">Đang chuẩn bị</p>\n</html>");
         jButton21.setMinimumSize(new java.awt.Dimension(120, 60));
         jButton21.setPreferredSize(new java.awt.Dimension(120, 60));
-        jPanel2.add(jButton21);
+        pnlDanhSachBan.add(jButton21);
 
         jButton22.setText("<html>\n<p style=\"text-align:center\">Bàn 1</p>\n<p  style=\"text-align:center\">Vuông 2</p>\n<p  style=\"text-align:center\">Đang chuẩn bị</p>\n</html>");
         jButton22.setMinimumSize(new java.awt.Dimension(120, 60));
         jButton22.setPreferredSize(new java.awt.Dimension(120, 60));
-        jPanel2.add(jButton22);
+        pnlDanhSachBan.add(jButton22);
 
         jButton64.setText("<html>\n<p style=\"text-align:center\">Bàn 1</p>\n<p  style=\"text-align:center\">Vuông 2</p>\n<p  style=\"text-align:center\">Đang chuẩn bị</p>\n</html>");
         jButton64.setMinimumSize(new java.awt.Dimension(120, 60));
         jButton64.setPreferredSize(new java.awt.Dimension(120, 60));
-        jPanel2.add(jButton64);
+        pnlDanhSachBan.add(jButton64);
 
         jButton65.setText("<html>\n<p style=\"text-align:center\">Bàn 1</p>\n<p  style=\"text-align:center\">Vuông 2</p>\n<p  style=\"text-align:center\">Đang chuẩn bị</p>\n</html>");
         jButton65.setMinimumSize(new java.awt.Dimension(120, 60));
         jButton65.setPreferredSize(new java.awt.Dimension(120, 60));
-        jPanel2.add(jButton65);
+        pnlDanhSachBan.add(jButton65);
 
         jButton23.setText("<html>\n<p style=\"text-align:center\">Bàn 1</p>\n<p  style=\"text-align:center\">Vuông 2</p>\n<p  style=\"text-align:center\">Đang chuẩn bị</p>\n</html>");
         jButton23.setMinimumSize(new java.awt.Dimension(120, 60));
         jButton23.setPreferredSize(new java.awt.Dimension(120, 60));
-        jPanel2.add(jButton23);
+        pnlDanhSachBan.add(jButton23);
 
         jButton24.setText("<html>\n<p style=\"text-align:center\">Bàn 1</p>\n<p  style=\"text-align:center\">Vuông 2</p>\n<p  style=\"text-align:center\">Đang chuẩn bị</p>\n</html>");
         jButton24.setMinimumSize(new java.awt.Dimension(120, 60));
         jButton24.setPreferredSize(new java.awt.Dimension(120, 60));
-        jPanel2.add(jButton24);
+        pnlDanhSachBan.add(jButton24);
 
         jButton25.setText("<html>\n<p style=\"text-align:center\">Bàn 1</p>\n<p  style=\"text-align:center\">Vuông 2</p>\n<p  style=\"text-align:center\">Đang chuẩn bị</p>\n</html>");
         jButton25.setMinimumSize(new java.awt.Dimension(120, 60));
         jButton25.setPreferredSize(new java.awt.Dimension(120, 60));
-        jPanel2.add(jButton25);
+        pnlDanhSachBan.add(jButton25);
 
         jButton26.setText("<html>\n<p style=\"text-align:center\">Bàn 1</p>\n<p  style=\"text-align:center\">Vuông 2</p>\n<p  style=\"text-align:center\">Đang chuẩn bị</p>\n</html>");
         jButton26.setMinimumSize(new java.awt.Dimension(120, 60));
         jButton26.setPreferredSize(new java.awt.Dimension(120, 60));
-        jPanel2.add(jButton26);
+        pnlDanhSachBan.add(jButton26);
 
         jButton27.setText("<html>\n<p style=\"text-align:center\">Bàn 1</p>\n<p  style=\"text-align:center\">Vuông 2</p>\n<p  style=\"text-align:center\">Đang chuẩn bị</p>\n</html>");
         jButton27.setMinimumSize(new java.awt.Dimension(120, 60));
         jButton27.setPreferredSize(new java.awt.Dimension(120, 60));
-        jPanel2.add(jButton27);
+        pnlDanhSachBan.add(jButton27);
 
         jButton28.setText("<html>\n<p style=\"text-align:center\">Bàn 1</p>\n<p  style=\"text-align:center\">Vuông 2</p>\n<p  style=\"text-align:center\">Đang chuẩn bị</p>\n</html>");
         jButton28.setMinimumSize(new java.awt.Dimension(120, 60));
         jButton28.setPreferredSize(new java.awt.Dimension(120, 60));
-        jPanel2.add(jButton28);
+        pnlDanhSachBan.add(jButton28);
 
         jButton66.setText("<html>\n<p style=\"text-align:center\">Bàn 1</p>\n<p  style=\"text-align:center\">Vuông 2</p>\n<p  style=\"text-align:center\">Đang chuẩn bị</p>\n</html>");
         jButton66.setMinimumSize(new java.awt.Dimension(120, 60));
         jButton66.setPreferredSize(new java.awt.Dimension(120, 60));
-        jPanel2.add(jButton66);
+        pnlDanhSachBan.add(jButton66);
 
         jButton67.setText("<html>\n<p style=\"text-align:center\">Bàn 1</p>\n<p  style=\"text-align:center\">Vuông 2</p>\n<p  style=\"text-align:center\">Đang chuẩn bị</p>\n</html>");
         jButton67.setMinimumSize(new java.awt.Dimension(120, 60));
         jButton67.setPreferredSize(new java.awt.Dimension(120, 60));
-        jPanel2.add(jButton67);
+        pnlDanhSachBan.add(jButton67);
 
         jButton29.setText("<html>\n<p style=\"text-align:center\">Bàn 1</p>\n<p  style=\"text-align:center\">Vuông 2</p>\n<p  style=\"text-align:center\">Đang chuẩn bị</p>\n</html>");
         jButton29.setMinimumSize(new java.awt.Dimension(120, 60));
         jButton29.setPreferredSize(new java.awt.Dimension(120, 60));
-        jPanel2.add(jButton29);
+        pnlDanhSachBan.add(jButton29);
 
         jButton30.setText("<html>\n<p style=\"text-align:center\">Bàn 1</p>\n<p  style=\"text-align:center\">Vuông 2</p>\n<p  style=\"text-align:center\">Đang chuẩn bị</p>\n</html>");
         jButton30.setMinimumSize(new java.awt.Dimension(120, 60));
         jButton30.setPreferredSize(new java.awt.Dimension(120, 60));
-        jPanel2.add(jButton30);
+        pnlDanhSachBan.add(jButton30);
 
         jButton31.setText("<html>\n<p style=\"text-align:center\">Bàn 1</p>\n<p  style=\"text-align:center\">Vuông 2</p>\n<p  style=\"text-align:center\">Đang chuẩn bị</p>\n</html>");
         jButton31.setMinimumSize(new java.awt.Dimension(120, 60));
         jButton31.setPreferredSize(new java.awt.Dimension(120, 60));
-        jPanel2.add(jButton31);
+        pnlDanhSachBan.add(jButton31);
 
         jButton32.setText("<html>\n<p style=\"text-align:center\">Bàn 1</p>\n<p  style=\"text-align:center\">Vuông 2</p>\n<p  style=\"text-align:center\">Đang chuẩn bị</p>\n</html>");
         jButton32.setMinimumSize(new java.awt.Dimension(120, 60));
         jButton32.setPreferredSize(new java.awt.Dimension(120, 60));
-        jPanel2.add(jButton32);
+        pnlDanhSachBan.add(jButton32);
 
         jButton33.setText("<html>\n<p style=\"text-align:center\">Bàn 1</p>\n<p  style=\"text-align:center\">Vuông 2</p>\n<p  style=\"text-align:center\">Đang chuẩn bị</p>\n</html>");
         jButton33.setMinimumSize(new java.awt.Dimension(120, 60));
         jButton33.setPreferredSize(new java.awt.Dimension(120, 60));
-        jPanel2.add(jButton33);
+        pnlDanhSachBan.add(jButton33);
 
         jButton34.setText("<html>\n<p style=\"text-align:center\">Bàn 1</p>\n<p  style=\"text-align:center\">Vuông 2</p>\n<p  style=\"text-align:center\">Đang chuẩn bị</p>\n</html>");
         jButton34.setMinimumSize(new java.awt.Dimension(120, 60));
         jButton34.setPreferredSize(new java.awt.Dimension(120, 60));
-        jPanel2.add(jButton34);
+        pnlDanhSachBan.add(jButton34);
 
         jButton68.setText("<html>\n<p style=\"text-align:center\">Bàn 1</p>\n<p  style=\"text-align:center\">Vuông 2</p>\n<p  style=\"text-align:center\">Đang chuẩn bị</p>\n</html>");
         jButton68.setMinimumSize(new java.awt.Dimension(120, 60));
         jButton68.setPreferredSize(new java.awt.Dimension(120, 60));
-        jPanel2.add(jButton68);
+        pnlDanhSachBan.add(jButton68);
 
         jButton69.setText("<html>\n<p style=\"text-align:center\">Bàn 1</p>\n<p  style=\"text-align:center\">Vuông 2</p>\n<p  style=\"text-align:center\">Đang chuẩn bị</p>\n</html>");
         jButton69.setMinimumSize(new java.awt.Dimension(120, 60));
         jButton69.setPreferredSize(new java.awt.Dimension(120, 60));
-        jPanel2.add(jButton69);
+        pnlDanhSachBan.add(jButton69);
 
         jButton35.setText("<html>\n<p style=\"text-align:center\">Bàn 1</p>\n<p  style=\"text-align:center\">Vuông 2</p>\n<p  style=\"text-align:center\">Đang chuẩn bị</p>\n</html>");
         jButton35.setMinimumSize(new java.awt.Dimension(120, 60));
         jButton35.setPreferredSize(new java.awt.Dimension(120, 60));
-        jPanel2.add(jButton35);
+        pnlDanhSachBan.add(jButton35);
 
         jButton36.setText("<html>\n<p style=\"text-align:center\">Bàn 1</p>\n<p  style=\"text-align:center\">Vuông 2</p>\n<p  style=\"text-align:center\">Đang chuẩn bị</p>\n</html>");
         jButton36.setMinimumSize(new java.awt.Dimension(120, 60));
         jButton36.setPreferredSize(new java.awt.Dimension(120, 60));
-        jPanel2.add(jButton36);
+        pnlDanhSachBan.add(jButton36);
 
         jButton37.setText("<html>\n<p style=\"text-align:center\">Bàn 1</p>\n<p  style=\"text-align:center\">Vuông 2</p>\n<p  style=\"text-align:center\">Đang chuẩn bị</p>\n</html>");
         jButton37.setMinimumSize(new java.awt.Dimension(120, 60));
         jButton37.setPreferredSize(new java.awt.Dimension(120, 60));
-        jPanel2.add(jButton37);
+        pnlDanhSachBan.add(jButton37);
 
         jButton38.setText("<html>\n<p style=\"text-align:center\">Bàn 1</p>\n<p  style=\"text-align:center\">Vuông 2</p>\n<p  style=\"text-align:center\">Đang chuẩn bị</p>\n</html>");
         jButton38.setMinimumSize(new java.awt.Dimension(120, 60));
         jButton38.setPreferredSize(new java.awt.Dimension(120, 60));
-        jPanel2.add(jButton38);
+        pnlDanhSachBan.add(jButton38);
 
         jButton78.setText("<html>\n<p style=\"text-align:center\">Bàn 1</p>\n<p  style=\"text-align:center\">Vuông 2</p>\n<p  style=\"text-align:center\">Đang chuẩn bị</p>\n</html>");
         jButton78.setMinimumSize(new java.awt.Dimension(120, 60));
         jButton78.setPreferredSize(new java.awt.Dimension(120, 60));
-        jPanel2.add(jButton78);
+        pnlDanhSachBan.add(jButton78);
 
         jButton79.setText("<html>\n<p style=\"text-align:center\">Bàn 1</p>\n<p  style=\"text-align:center\">Vuông 2</p>\n<p  style=\"text-align:center\">Đang chuẩn bị</p>\n</html>");
         jButton79.setMinimumSize(new java.awt.Dimension(120, 60));
         jButton79.setPreferredSize(new java.awt.Dimension(120, 60));
-        jPanel2.add(jButton79);
+        pnlDanhSachBan.add(jButton79);
 
         jButton80.setText("<html>\n<p style=\"text-align:center\">Bàn 1</p>\n<p  style=\"text-align:center\">Vuông 2</p>\n<p  style=\"text-align:center\">Đang chuẩn bị</p>\n</html>");
         jButton80.setMinimumSize(new java.awt.Dimension(120, 60));
         jButton80.setPreferredSize(new java.awt.Dimension(120, 60));
-        jPanel2.add(jButton80);
+        pnlDanhSachBan.add(jButton80);
 
         jButton81.setText("<html>\n<p style=\"text-align:center\">Bàn 1</p>\n<p  style=\"text-align:center\">Vuông 2</p>\n<p  style=\"text-align:center\">Đang chuẩn bị</p>\n</html>");
         jButton81.setMinimumSize(new java.awt.Dimension(120, 60));
         jButton81.setPreferredSize(new java.awt.Dimension(120, 60));
-        jPanel2.add(jButton81);
+        pnlDanhSachBan.add(jButton81);
 
         jButton82.setText("<html>\n<p style=\"text-align:center\">Bàn 1</p>\n<p  style=\"text-align:center\">Vuông 2</p>\n<p  style=\"text-align:center\">Đang chuẩn bị</p>\n</html>");
         jButton82.setMinimumSize(new java.awt.Dimension(120, 60));
         jButton82.setPreferredSize(new java.awt.Dimension(120, 60));
-        jPanel2.add(jButton82);
+        pnlDanhSachBan.add(jButton82);
 
         jButton83.setText("<html>\n<p style=\"text-align:center\">Bàn 1</p>\n<p  style=\"text-align:center\">Vuông 2</p>\n<p  style=\"text-align:center\">Đang chuẩn bị</p>\n</html>");
         jButton83.setMinimumSize(new java.awt.Dimension(120, 60));
         jButton83.setPreferredSize(new java.awt.Dimension(120, 60));
-        jPanel2.add(jButton83);
+        pnlDanhSachBan.add(jButton83);
 
         jButton84.setText("<html>\n<p style=\"text-align:center\">Bàn 1</p>\n<p  style=\"text-align:center\">Vuông 2</p>\n<p  style=\"text-align:center\">Đang chuẩn bị</p>\n</html>");
         jButton84.setMinimumSize(new java.awt.Dimension(120, 60));
         jButton84.setPreferredSize(new java.awt.Dimension(120, 60));
-        jPanel2.add(jButton84);
+        pnlDanhSachBan.add(jButton84);
 
         jButton85.setText("<html>\n<p style=\"text-align:center\">Bàn 1</p>\n<p  style=\"text-align:center\">Vuông 2</p>\n<p  style=\"text-align:center\">Đang chuẩn bị</p>\n</html>");
         jButton85.setMinimumSize(new java.awt.Dimension(120, 60));
         jButton85.setPreferredSize(new java.awt.Dimension(120, 60));
-        jPanel2.add(jButton85);
+        pnlDanhSachBan.add(jButton85);
 
         jButton86.setText("<html>\n<p style=\"text-align:center\">Bàn 1</p>\n<p  style=\"text-align:center\">Vuông 2</p>\n<p  style=\"text-align:center\">Đang chuẩn bị</p>\n</html>");
         jButton86.setMinimumSize(new java.awt.Dimension(120, 60));
         jButton86.setPreferredSize(new java.awt.Dimension(120, 60));
-        jPanel2.add(jButton86);
+        pnlDanhSachBan.add(jButton86);
 
         jButton39.setText("<html>\n<p style=\"text-align:center\">Bàn 1</p>\n<p  style=\"text-align:center\">Vuông 2</p>\n<p  style=\"text-align:center\">Đang chuẩn bị</p>\n</html>");
         jButton39.setMinimumSize(new java.awt.Dimension(120, 60));
         jButton39.setPreferredSize(new java.awt.Dimension(120, 60));
-        jPanel2.add(jButton39);
+        pnlDanhSachBan.add(jButton39);
 
         jButton40.setText("<html>\n<p style=\"text-align:center\">Bàn 1</p>\n<p  style=\"text-align:center\">Vuông 2</p>\n<p  style=\"text-align:center\">Đang chuẩn bị</p>\n</html>");
         jButton40.setMinimumSize(new java.awt.Dimension(120, 60));
         jButton40.setPreferredSize(new java.awt.Dimension(120, 60));
-        jPanel2.add(jButton40);
+        pnlDanhSachBan.add(jButton40);
 
         jButton41.setText("<html>\n<p style=\"text-align:center\">Bàn 1</p>\n<p  style=\"text-align:center\">Vuông 2</p>\n<p  style=\"text-align:center\">Đang chuẩn bị</p>\n</html>");
         jButton41.setMinimumSize(new java.awt.Dimension(120, 60));
         jButton41.setPreferredSize(new java.awt.Dimension(120, 60));
-        jPanel2.add(jButton41);
+        pnlDanhSachBan.add(jButton41);
 
         jButton42.setText("<html>\n<p style=\"text-align:center\">Bàn 1</p>\n<p  style=\"text-align:center\">Vuông 2</p>\n<p  style=\"text-align:center\">Đang chuẩn bị</p>\n</html>");
         jButton42.setMinimumSize(new java.awt.Dimension(120, 60));
         jButton42.setPreferredSize(new java.awt.Dimension(120, 60));
-        jPanel2.add(jButton42);
+        pnlDanhSachBan.add(jButton42);
 
         jButton87.setText("<html>\n<p style=\"text-align:center\">Bàn 1</p>\n<p  style=\"text-align:center\">Vuông 2</p>\n<p  style=\"text-align:center\">Đang chuẩn bị</p>\n</html>");
         jButton87.setMinimumSize(new java.awt.Dimension(120, 60));
         jButton87.setPreferredSize(new java.awt.Dimension(120, 60));
-        jPanel2.add(jButton87);
+        pnlDanhSachBan.add(jButton87);
 
         jButton88.setText("<html>\n<p style=\"text-align:center\">Bàn 1</p>\n<p  style=\"text-align:center\">Vuông 2</p>\n<p  style=\"text-align:center\">Đang chuẩn bị</p>\n</html>");
         jButton88.setMinimumSize(new java.awt.Dimension(120, 60));
         jButton88.setPreferredSize(new java.awt.Dimension(120, 60));
-        jPanel2.add(jButton88);
+        pnlDanhSachBan.add(jButton88);
 
         jButton89.setText("<html>\n<p style=\"text-align:center\">Bàn 1</p>\n<p  style=\"text-align:center\">Vuông 2</p>\n<p  style=\"text-align:center\">Đang chuẩn bị</p>\n</html>");
         jButton89.setMinimumSize(new java.awt.Dimension(120, 60));
         jButton89.setPreferredSize(new java.awt.Dimension(120, 60));
-        jPanel2.add(jButton89);
+        pnlDanhSachBan.add(jButton89);
 
         jButton90.setText("<html>\n<p style=\"text-align:center\">Bàn 1</p>\n<p  style=\"text-align:center\">Vuông 2</p>\n<p  style=\"text-align:center\">Đang chuẩn bị</p>\n</html>");
         jButton90.setMinimumSize(new java.awt.Dimension(120, 60));
         jButton90.setPreferredSize(new java.awt.Dimension(120, 60));
-        jPanel2.add(jButton90);
+        pnlDanhSachBan.add(jButton90);
 
         jButton91.setText("<html>\n<p style=\"text-align:center\">Bàn 1</p>\n<p  style=\"text-align:center\">Vuông 2</p>\n<p  style=\"text-align:center\">Đang chuẩn bị</p>\n</html>");
         jButton91.setMinimumSize(new java.awt.Dimension(120, 60));
         jButton91.setPreferredSize(new java.awt.Dimension(120, 60));
-        jPanel2.add(jButton91);
+        pnlDanhSachBan.add(jButton91);
 
         jButton92.setText("<html>\n<p style=\"text-align:center\">Bàn 1</p>\n<p  style=\"text-align:center\">Vuông 2</p>\n<p  style=\"text-align:center\">Đang chuẩn bị</p>\n</html>");
         jButton92.setMinimumSize(new java.awt.Dimension(120, 60));
         jButton92.setPreferredSize(new java.awt.Dimension(120, 60));
-        jPanel2.add(jButton92);
+        pnlDanhSachBan.add(jButton92);
 
         jButton93.setText("<html>\n<p style=\"text-align:center\">Bàn 1</p>\n<p  style=\"text-align:center\">Vuông 2</p>\n<p  style=\"text-align:center\">Đang chuẩn bị</p>\n</html>");
         jButton93.setMinimumSize(new java.awt.Dimension(120, 60));
         jButton93.setPreferredSize(new java.awt.Dimension(120, 60));
-        jPanel2.add(jButton93);
+        pnlDanhSachBan.add(jButton93);
 
         jButton94.setText("<html>\n<p style=\"text-align:center\">Bàn 1</p>\n<p  style=\"text-align:center\">Vuông 2</p>\n<p  style=\"text-align:center\">Đang chuẩn bị</p>\n</html>");
         jButton94.setMinimumSize(new java.awt.Dimension(120, 60));
         jButton94.setPreferredSize(new java.awt.Dimension(120, 60));
-        jPanel2.add(jButton94);
+        pnlDanhSachBan.add(jButton94);
 
         jButton95.setText("<html>\n<p style=\"text-align:center\">Bàn 1</p>\n<p  style=\"text-align:center\">Vuông 2</p>\n<p  style=\"text-align:center\">Đang chuẩn bị</p>\n</html>");
         jButton95.setMinimumSize(new java.awt.Dimension(120, 60));
         jButton95.setPreferredSize(new java.awt.Dimension(120, 60));
-        jPanel2.add(jButton95);
+        pnlDanhSachBan.add(jButton95);
 
         jButton43.setText("<html>\n<p style=\"text-align:center\">Bàn 1</p>\n<p  style=\"text-align:center\">Vuông 2</p>\n<p  style=\"text-align:center\">Đang chuẩn bị</p>\n</html>");
         jButton43.setMinimumSize(new java.awt.Dimension(120, 60));
         jButton43.setPreferredSize(new java.awt.Dimension(120, 60));
-        jPanel2.add(jButton43);
+        pnlDanhSachBan.add(jButton43);
 
         jButton44.setText("<html>\n<p style=\"text-align:center\">Bàn 1</p>\n<p  style=\"text-align:center\">Vuông 2</p>\n<p  style=\"text-align:center\">Đang chuẩn bị</p>\n</html>");
         jButton44.setMinimumSize(new java.awt.Dimension(120, 60));
         jButton44.setPreferredSize(new java.awt.Dimension(120, 60));
-        jPanel2.add(jButton44);
+        pnlDanhSachBan.add(jButton44);
 
         jButton45.setText("<html>\n<p style=\"text-align:center\">Bàn 1</p>\n<p  style=\"text-align:center\">Vuông 2</p>\n<p  style=\"text-align:center\">Đang chuẩn bị</p>\n</html>");
         jButton45.setMinimumSize(new java.awt.Dimension(120, 60));
         jButton45.setPreferredSize(new java.awt.Dimension(120, 60));
-        jPanel2.add(jButton45);
+        pnlDanhSachBan.add(jButton45);
 
         jButton46.setText("<html>\n<p style=\"text-align:center\">Bàn 1</p>\n<p  style=\"text-align:center\">Vuông 2</p>\n<p  style=\"text-align:center\">Đang chuẩn bị</p>\n</html>");
         jButton46.setMinimumSize(new java.awt.Dimension(120, 60));
         jButton46.setPreferredSize(new java.awt.Dimension(120, 60));
-        jPanel2.add(jButton46);
+        pnlDanhSachBan.add(jButton46);
 
         jButton96.setText("<html>\n<p style=\"text-align:center\">Bàn 1</p>\n<p  style=\"text-align:center\">Vuông 2</p>\n<p  style=\"text-align:center\">Đang chuẩn bị</p>\n</html>");
         jButton96.setMinimumSize(new java.awt.Dimension(120, 60));
         jButton96.setPreferredSize(new java.awt.Dimension(120, 60));
-        jPanel2.add(jButton96);
+        pnlDanhSachBan.add(jButton96);
 
         jButton97.setText("<html>\n<p style=\"text-align:center\">Bàn 1</p>\n<p  style=\"text-align:center\">Vuông 2</p>\n<p  style=\"text-align:center\">Đang chuẩn bị</p>\n</html>");
         jButton97.setMinimumSize(new java.awt.Dimension(120, 60));
         jButton97.setPreferredSize(new java.awt.Dimension(120, 60));
-        jPanel2.add(jButton97);
+        pnlDanhSachBan.add(jButton97);
 
         jButton98.setText("<html>\n<p style=\"text-align:center\">Bàn 1</p>\n<p  style=\"text-align:center\">Vuông 2</p>\n<p  style=\"text-align:center\">Đang chuẩn bị</p>\n</html>");
         jButton98.setMinimumSize(new java.awt.Dimension(120, 60));
         jButton98.setPreferredSize(new java.awt.Dimension(120, 60));
-        jPanel2.add(jButton98);
+        pnlDanhSachBan.add(jButton98);
 
         jButton99.setText("<html>\n<p style=\"text-align:center\">Bàn 1</p>\n<p  style=\"text-align:center\">Vuông 2</p>\n<p  style=\"text-align:center\">Đang chuẩn bị</p>\n</html>");
         jButton99.setMinimumSize(new java.awt.Dimension(120, 60));
         jButton99.setPreferredSize(new java.awt.Dimension(120, 60));
-        jPanel2.add(jButton99);
+        pnlDanhSachBan.add(jButton99);
 
         jButton100.setText("<html>\n<p style=\"text-align:center\">Bàn 1</p>\n<p  style=\"text-align:center\">Vuông 2</p>\n<p  style=\"text-align:center\">Đang chuẩn bị</p>\n</html>");
         jButton100.setMinimumSize(new java.awt.Dimension(120, 60));
         jButton100.setPreferredSize(new java.awt.Dimension(120, 60));
-        jPanel2.add(jButton100);
+        pnlDanhSachBan.add(jButton100);
 
         jButton101.setText("<html>\n<p style=\"text-align:center\">Bàn 1</p>\n<p  style=\"text-align:center\">Vuông 2</p>\n<p  style=\"text-align:center\">Đang chuẩn bị</p>\n</html>");
         jButton101.setMinimumSize(new java.awt.Dimension(120, 60));
         jButton101.setPreferredSize(new java.awt.Dimension(120, 60));
-        jPanel2.add(jButton101);
+        pnlDanhSachBan.add(jButton101);
 
         jButton102.setText("<html>\n<p style=\"text-align:center\">Bàn 1</p>\n<p  style=\"text-align:center\">Vuông 2</p>\n<p  style=\"text-align:center\">Đang chuẩn bị</p>\n</html>");
         jButton102.setMinimumSize(new java.awt.Dimension(120, 60));
         jButton102.setPreferredSize(new java.awt.Dimension(120, 60));
-        jPanel2.add(jButton102);
+        pnlDanhSachBan.add(jButton102);
 
         jButton103.setText("<html>\n<p style=\"text-align:center\">Bàn 1</p>\n<p  style=\"text-align:center\">Vuông 2</p>\n<p  style=\"text-align:center\">Đang chuẩn bị</p>\n</html>");
         jButton103.setMinimumSize(new java.awt.Dimension(120, 60));
         jButton103.setPreferredSize(new java.awt.Dimension(120, 60));
-        jPanel2.add(jButton103);
+        pnlDanhSachBan.add(jButton103);
 
         jButton104.setText("<html>\n<p style=\"text-align:center\">Bàn 1</p>\n<p  style=\"text-align:center\">Vuông 2</p>\n<p  style=\"text-align:center\">Đang chuẩn bị</p>\n</html>");
         jButton104.setMinimumSize(new java.awt.Dimension(120, 60));
         jButton104.setPreferredSize(new java.awt.Dimension(120, 60));
-        jPanel2.add(jButton104);
+        pnlDanhSachBan.add(jButton104);
 
         jButton47.setText("<html>\n<p style=\"text-align:center\">Bàn 1</p>\n<p  style=\"text-align:center\">Vuông 2</p>\n<p  style=\"text-align:center\">Đang chuẩn bị</p>\n</html>");
         jButton47.setMinimumSize(new java.awt.Dimension(120, 60));
         jButton47.setPreferredSize(new java.awt.Dimension(120, 60));
-        jPanel2.add(jButton47);
+        pnlDanhSachBan.add(jButton47);
 
         jButton48.setText("<html>\n<p style=\"text-align:center\">Bàn 1</p>\n<p  style=\"text-align:center\">Vuông 2</p>\n<p  style=\"text-align:center\">Đang chuẩn bị</p>\n</html>");
         jButton48.setMinimumSize(new java.awt.Dimension(120, 60));
         jButton48.setPreferredSize(new java.awt.Dimension(120, 60));
-        jPanel2.add(jButton48);
+        pnlDanhSachBan.add(jButton48);
 
         jButton49.setText("<html>\n<p style=\"text-align:center\">Bàn 1</p>\n<p  style=\"text-align:center\">Vuông 2</p>\n<p  style=\"text-align:center\">Đang chuẩn bị</p>\n</html>");
         jButton49.setMinimumSize(new java.awt.Dimension(120, 60));
         jButton49.setPreferredSize(new java.awt.Dimension(120, 60));
-        jPanel2.add(jButton49);
+        pnlDanhSachBan.add(jButton49);
 
         jButton50.setText("<html>\n<p style=\"text-align:center\">Bàn 1</p>\n<p  style=\"text-align:center\">Vuông 2</p>\n<p  style=\"text-align:center\">Đang chuẩn bị</p>\n</html>");
         jButton50.setMinimumSize(new java.awt.Dimension(120, 60));
         jButton50.setPreferredSize(new java.awt.Dimension(120, 60));
-        jPanel2.add(jButton50);
+        pnlDanhSachBan.add(jButton50);
 
         jButton105.setText("<html>\n<p style=\"text-align:center\">Bàn 1</p>\n<p  style=\"text-align:center\">Vuông 2</p>\n<p  style=\"text-align:center\">Đang chuẩn bị</p>\n</html>");
         jButton105.setMinimumSize(new java.awt.Dimension(120, 60));
         jButton105.setPreferredSize(new java.awt.Dimension(120, 60));
-        jPanel2.add(jButton105);
+        pnlDanhSachBan.add(jButton105);
 
         jButton106.setText("<html>\n<p style=\"text-align:center\">Bàn 1</p>\n<p  style=\"text-align:center\">Vuông 2</p>\n<p  style=\"text-align:center\">Đang chuẩn bị</p>\n</html>");
         jButton106.setMinimumSize(new java.awt.Dimension(120, 60));
         jButton106.setPreferredSize(new java.awt.Dimension(120, 60));
-        jPanel2.add(jButton106);
+        pnlDanhSachBan.add(jButton106);
 
         jButton107.setText("<html>\n<p style=\"text-align:center\">Bàn 1</p>\n<p  style=\"text-align:center\">Vuông 2</p>\n<p  style=\"text-align:center\">Đang chuẩn bị</p>\n</html>");
         jButton107.setMinimumSize(new java.awt.Dimension(120, 60));
         jButton107.setPreferredSize(new java.awt.Dimension(120, 60));
-        jPanel2.add(jButton107);
+        pnlDanhSachBan.add(jButton107);
 
         jButton108.setText("<html>\n<p style=\"text-align:center\">Bàn 1</p>\n<p  style=\"text-align:center\">Vuông 2</p>\n<p  style=\"text-align:center\">Đang chuẩn bị</p>\n</html>");
         jButton108.setMinimumSize(new java.awt.Dimension(120, 60));
         jButton108.setPreferredSize(new java.awt.Dimension(120, 60));
-        jPanel2.add(jButton108);
+        pnlDanhSachBan.add(jButton108);
 
         jButton109.setText("<html>\n<p style=\"text-align:center\">Bàn 1</p>\n<p  style=\"text-align:center\">Vuông 2</p>\n<p  style=\"text-align:center\">Đang chuẩn bị</p>\n</html>");
         jButton109.setMinimumSize(new java.awt.Dimension(120, 60));
         jButton109.setPreferredSize(new java.awt.Dimension(120, 60));
-        jPanel2.add(jButton109);
+        pnlDanhSachBan.add(jButton109);
 
         jButton110.setText("<html>\n<p style=\"text-align:center\">Bàn 1</p>\n<p  style=\"text-align:center\">Vuông 2</p>\n<p  style=\"text-align:center\">Đang chuẩn bị</p>\n</html>");
         jButton110.setMinimumSize(new java.awt.Dimension(120, 60));
         jButton110.setPreferredSize(new java.awt.Dimension(120, 60));
-        jPanel2.add(jButton110);
+        pnlDanhSachBan.add(jButton110);
 
         jButton111.setText("<html>\n<p style=\"text-align:center\">Bàn 1</p>\n<p  style=\"text-align:center\">Vuông 2</p>\n<p  style=\"text-align:center\">Đang chuẩn bị</p>\n</html>");
         jButton111.setMinimumSize(new java.awt.Dimension(120, 60));
         jButton111.setPreferredSize(new java.awt.Dimension(120, 60));
-        jPanel2.add(jButton111);
+        pnlDanhSachBan.add(jButton111);
 
         jButton112.setText("<html>\n<p style=\"text-align:center\">Bàn 1</p>\n<p  style=\"text-align:center\">Vuông 2</p>\n<p  style=\"text-align:center\">Đang chuẩn bị</p>\n</html>");
         jButton112.setMinimumSize(new java.awt.Dimension(120, 60));
         jButton112.setPreferredSize(new java.awt.Dimension(120, 60));
-        jPanel2.add(jButton112);
+        pnlDanhSachBan.add(jButton112);
 
         jButton113.setText("<html>\n<p style=\"text-align:center\">Bàn 1</p>\n<p  style=\"text-align:center\">Vuông 2</p>\n<p  style=\"text-align:center\">Đang chuẩn bị</p>\n</html>");
         jButton113.setMinimumSize(new java.awt.Dimension(120, 60));
         jButton113.setPreferredSize(new java.awt.Dimension(120, 60));
-        jPanel2.add(jButton113);
+        pnlDanhSachBan.add(jButton113);
 
-        jScrollPane3.setViewportView(jPanel2);
+        jScrollPane3.setViewportView(pnlDanhSachBan);
 
         getContentPane().add(jScrollPane3);
 
@@ -674,16 +854,15 @@ public class QuanLyPhucVu_GUI extends javax.swing.JFrame {
         gridBagConstraints.insets = new java.awt.Insets(2, 8, 2, 0);
         jPanel4.add(jLabel1, gridBagConstraints);
 
-        jLabel2.setText("1");
-        jLabel2.setMaximumSize(new java.awt.Dimension(24, 24));
-        jLabel2.setMinimumSize(new java.awt.Dimension(24, 24));
-        jLabel2.setPreferredSize(new java.awt.Dimension(24, 24));
+        lblIdBan.setMaximumSize(new java.awt.Dimension(24, 24));
+        lblIdBan.setMinimumSize(new java.awt.Dimension(24, 24));
+        lblIdBan.setPreferredSize(new java.awt.Dimension(24, 24));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 0;
         gridBagConstraints.ipadx = -1;
         gridBagConstraints.insets = new java.awt.Insets(2, 0, 2, 8);
-        jPanel4.add(jLabel2, gridBagConstraints);
+        jPanel4.add(lblIdBan, gridBagConstraints);
 
         jLabel3.setText("Loại bàn:");
         jLabel3.setMaximumSize(new java.awt.Dimension(54, 24));
@@ -696,16 +875,15 @@ public class QuanLyPhucVu_GUI extends javax.swing.JFrame {
         gridBagConstraints.insets = new java.awt.Insets(2, 8, 2, 0);
         jPanel4.add(jLabel3, gridBagConstraints);
 
-        jLabel4.setText("Đang chuẩn bị");
-        jLabel4.setMaximumSize(new java.awt.Dimension(88, 24));
-        jLabel4.setMinimumSize(new java.awt.Dimension(88, 24));
-        jLabel4.setPreferredSize(new java.awt.Dimension(88, 24));
+        lblTinhTrangBan.setMaximumSize(new java.awt.Dimension(88, 24));
+        lblTinhTrangBan.setMinimumSize(new java.awt.Dimension(88, 24));
+        lblTinhTrangBan.setPreferredSize(new java.awt.Dimension(88, 24));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 5;
         gridBagConstraints.gridy = 0;
         gridBagConstraints.ipadx = -1;
         gridBagConstraints.insets = new java.awt.Insets(2, 0, 2, 8);
-        jPanel4.add(jLabel4, gridBagConstraints);
+        jPanel4.add(lblTinhTrangBan, gridBagConstraints);
 
         jLabel5.setText("Tình trạng bàn:");
         jLabel5.setMaximumSize(new java.awt.Dimension(90, 24));
@@ -718,16 +896,15 @@ public class QuanLyPhucVu_GUI extends javax.swing.JFrame {
         gridBagConstraints.insets = new java.awt.Insets(2, 8, 2, 0);
         jPanel4.add(jLabel5, gridBagConstraints);
 
-        jLabel6.setText("Vuông 2");
-        jLabel6.setMaximumSize(new java.awt.Dimension(60, 24));
-        jLabel6.setMinimumSize(new java.awt.Dimension(60, 24));
-        jLabel6.setPreferredSize(new java.awt.Dimension(60, 24));
+        lblLoaiBan.setMaximumSize(new java.awt.Dimension(60, 24));
+        lblLoaiBan.setMinimumSize(new java.awt.Dimension(60, 24));
+        lblLoaiBan.setPreferredSize(new java.awt.Dimension(60, 24));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 3;
         gridBagConstraints.gridy = 0;
         gridBagConstraints.ipadx = -1;
         gridBagConstraints.insets = new java.awt.Insets(2, 0, 2, 8);
-        jPanel4.add(jLabel6, gridBagConstraints);
+        jPanel4.add(lblLoaiBan, gridBagConstraints);
 
         jPanel3.add(jPanel4);
 
@@ -748,18 +925,25 @@ public class QuanLyPhucVu_GUI extends javax.swing.JFrame {
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 4);
         jPanel1.add(jLabel7, gridBagConstraints);
 
-        jButton9.setText("Thêm món mới");
-        jButton9.setMaximumSize(new java.awt.Dimension(120, 24));
-        jButton9.setMinimumSize(new java.awt.Dimension(120, 24));
-        jButton9.setPreferredSize(new java.awt.Dimension(120, 24));
+        btnThemMonMoi.setText("Thêm món mới");
+        btnThemMonMoi.setEnabled(false);
+        btnThemMonMoi.setMaximumSize(new java.awt.Dimension(120, 24));
+        btnThemMonMoi.setMinimumSize(new java.awt.Dimension(120, 24));
+        btnThemMonMoi.setPreferredSize(new java.awt.Dimension(120, 24));
+        btnThemMonMoi.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnThemMonMoiMouseClicked(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 2;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.insets = new java.awt.Insets(2, 4, 2, 4);
-        jPanel1.add(jButton9, gridBagConstraints);
+        jPanel1.add(btnThemMonMoi, gridBagConstraints);
 
         jButton10.setText("Xóa món ăn");
+        jButton10.setEnabled(false);
         jButton10.setMaximumSize(new java.awt.Dimension(120, 24));
         jButton10.setMinimumSize(new java.awt.Dimension(120, 24));
         jButton10.setPreferredSize(new java.awt.Dimension(120, 24));
@@ -770,16 +954,22 @@ public class QuanLyPhucVu_GUI extends javax.swing.JFrame {
         gridBagConstraints.insets = new java.awt.Insets(2, 4, 2, 4);
         jPanel1.add(jButton10, gridBagConstraints);
 
-        jButton11.setText("Sửa đơn gọi");
-        jButton11.setMaximumSize(new java.awt.Dimension(120, 24));
-        jButton11.setMinimumSize(new java.awt.Dimension(120, 24));
-        jButton11.setPreferredSize(new java.awt.Dimension(120, 24));
+        btnSuaDonGoi.setText("Sửa đơn gọi");
+        btnSuaDonGoi.setEnabled(false);
+        btnSuaDonGoi.setMaximumSize(new java.awt.Dimension(120, 24));
+        btnSuaDonGoi.setMinimumSize(new java.awt.Dimension(120, 24));
+        btnSuaDonGoi.setPreferredSize(new java.awt.Dimension(120, 24));
+        btnSuaDonGoi.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnSuaDonGoiMouseClicked(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 2;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.insets = new java.awt.Insets(2, 4, 2, 4);
-        jPanel1.add(jButton11, gridBagConstraints);
+        jPanel1.add(btnSuaDonGoi, gridBagConstraints);
 
         jLabel8.setText("Chuyển bàn");
         jLabel8.setMaximumSize(new java.awt.Dimension(90, 24));
@@ -792,16 +982,16 @@ public class QuanLyPhucVu_GUI extends javax.swing.JFrame {
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 4);
         jPanel1.add(jLabel8, gridBagConstraints);
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jComboBox1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        jComboBox1.setMaximumSize(new java.awt.Dimension(120, 24));
-        jComboBox1.setMinimumSize(new java.awt.Dimension(120, 24));
-        jComboBox1.setPreferredSize(new java.awt.Dimension(120, 24));
+        cmbBanSanSang.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        cmbBanSanSang.setEnabled(false);
+        cmbBanSanSang.setMaximumSize(new java.awt.Dimension(120, 24));
+        cmbBanSanSang.setMinimumSize(new java.awt.Dimension(120, 24));
+        cmbBanSanSang.setPreferredSize(new java.awt.Dimension(120, 24));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 1;
         gridBagConstraints.insets = new java.awt.Insets(2, 4, 2, 4);
-        jPanel1.add(jComboBox1, gridBagConstraints);
+        jPanel1.add(cmbBanSanSang, gridBagConstraints);
 
         jLabel9.setText("Tình trạng bàn");
         jLabel9.setMaximumSize(new java.awt.Dimension(90, 24));
@@ -814,91 +1004,93 @@ public class QuanLyPhucVu_GUI extends javax.swing.JFrame {
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 4);
         jPanel1.add(jLabel9, gridBagConstraints);
 
-        jButton13.setText("Đổi");
-        jButton13.setMaximumSize(new java.awt.Dimension(120, 24));
-        jButton13.setMinimumSize(new java.awt.Dimension(120, 24));
-        jButton13.setPreferredSize(new java.awt.Dimension(120, 24));
+        btnChuyenBan.setText("Đổi");
+        btnChuyenBan.setEnabled(false);
+        btnChuyenBan.setMaximumSize(new java.awt.Dimension(120, 24));
+        btnChuyenBan.setMinimumSize(new java.awt.Dimension(120, 24));
+        btnChuyenBan.setPreferredSize(new java.awt.Dimension(120, 24));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 1;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.insets = new java.awt.Insets(2, 4, 2, 4);
-        jPanel1.add(jButton13, gridBagConstraints);
+        jPanel1.add(btnChuyenBan, gridBagConstraints);
 
-        jButton14.setText("Sẵn sàng");
-        jButton14.setMaximumSize(new java.awt.Dimension(120, 24));
-        jButton14.setMinimumSize(new java.awt.Dimension(120, 24));
-        jButton14.setPreferredSize(new java.awt.Dimension(120, 24));
+        btnSanSang.setText("Sẵn sàng");
+        btnSanSang.setEnabled(false);
+        btnSanSang.setMaximumSize(new java.awt.Dimension(120, 24));
+        btnSanSang.setMinimumSize(new java.awt.Dimension(120, 24));
+        btnSanSang.setPreferredSize(new java.awt.Dimension(120, 24));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 0;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.insets = new java.awt.Insets(2, 4, 2, 4);
-        jPanel1.add(jButton14, gridBagConstraints);
+        jPanel1.add(btnSanSang, gridBagConstraints);
 
-        jButton15.setText("Phục vụ");
-        jButton15.setMaximumSize(new java.awt.Dimension(120, 24));
-        jButton15.setMinimumSize(new java.awt.Dimension(120, 24));
-        jButton15.setPreferredSize(new java.awt.Dimension(120, 24));
+        btnPhucVu.setText("Phục vụ");
+        btnPhucVu.setEnabled(false);
+        btnPhucVu.setMaximumSize(new java.awt.Dimension(120, 24));
+        btnPhucVu.setMinimumSize(new java.awt.Dimension(120, 24));
+        btnPhucVu.setPreferredSize(new java.awt.Dimension(120, 24));
+        btnPhucVu.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnPhucVuMouseClicked(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 0;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.insets = new java.awt.Insets(2, 4, 2, 4);
-        jPanel1.add(jButton15, gridBagConstraints);
+        jPanel1.add(btnPhucVu, gridBagConstraints);
 
-        jButton16.setText("Ngừng phục vụ");
-        jButton16.setMaximumSize(new java.awt.Dimension(120, 24));
-        jButton16.setMinimumSize(new java.awt.Dimension(120, 24));
-        jButton16.setPreferredSize(new java.awt.Dimension(120, 24));
+        btnNgungPhucVu.setText("Ngừng phục vụ");
+        btnNgungPhucVu.setEnabled(false);
+        btnNgungPhucVu.setMaximumSize(new java.awt.Dimension(120, 24));
+        btnNgungPhucVu.setMinimumSize(new java.awt.Dimension(120, 24));
+        btnNgungPhucVu.setPreferredSize(new java.awt.Dimension(120, 24));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 3;
         gridBagConstraints.gridy = 0;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.insets = new java.awt.Insets(2, 4, 2, 4);
-        jPanel1.add(jButton16, gridBagConstraints);
+        jPanel1.add(btnNgungPhucVu, gridBagConstraints);
 
         jPanel3.add(jPanel1);
 
-        jScrollPane2.setBorder(javax.swing.BorderFactory.createTitledBorder("Danh sách đơn gọi"));
-        jScrollPane2.setMaximumSize(new java.awt.Dimension(2147483647, 2147483647));
-        jScrollPane2.setMinimumSize(new java.awt.Dimension(520, 320));
-        jScrollPane2.setPreferredSize(new java.awt.Dimension(520, 320));
+        jScrollPane1.setBorder(javax.swing.BorderFactory.createTitledBorder("Danh sách đơn gọi"));
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tblDonGoi.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "STT", "Tên món ăn", "Thông tin", "Số lượng", "Đơn giá", "Thành tiền"
+                "ID Món ăn", "Tên món ăn", "Đơn giá", "Số lượng", "Thành tiền"
             }
         ));
-        jTable1.setMaximumSize(new java.awt.Dimension(2147483647, 2147483647));
-        jTable1.setMinimumSize(new java.awt.Dimension(520, 320));
-        jTable1.setPreferredSize(new java.awt.Dimension(520, 2147483647));
-        jTable1.setRowSelectionAllowed(false);
-        jScrollPane2.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tblDonGoi);
 
-        jPanel3.add(jScrollPane2);
+        jPanel3.add(jScrollPane1);
 
         jPanel5.setMaximumSize(new java.awt.Dimension(2147483647, 60));
         jPanel5.setMinimumSize(new java.awt.Dimension(520, 60));
         jPanel5.setPreferredSize(new java.awt.Dimension(520, 60));
         jPanel5.setLayout(new java.awt.GridBagLayout());
 
-        jButton12.setText("Thanh toán");
-        jButton12.setMaximumSize(new java.awt.Dimension(120, 24));
-        jButton12.setMinimumSize(new java.awt.Dimension(120, 24));
-        jButton12.setPreferredSize(new java.awt.Dimension(120, 24));
+        btnThanhToan.setText("Thanh toán");
+        btnThanhToan.setMaximumSize(new java.awt.Dimension(120, 24));
+        btnThanhToan.setMinimumSize(new java.awt.Dimension(120, 24));
+        btnThanhToan.setPreferredSize(new java.awt.Dimension(120, 24));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 1;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
         gridBagConstraints.insets = new java.awt.Insets(4, 8, 4, 8);
-        jPanel5.add(jButton12, gridBagConstraints);
+        jPanel5.add(btnThanhToan, gridBagConstraints);
 
         jLabel10.setText("Tổng tiền");
         jLabel10.setMaximumSize(new java.awt.Dimension(120, 24));
@@ -912,16 +1104,11 @@ public class QuanLyPhucVu_GUI extends javax.swing.JFrame {
         gridBagConstraints.insets = new java.awt.Insets(0, 8, 0, 8);
         jPanel5.add(jLabel10, gridBagConstraints);
 
-        jTextField1.setMaximumSize(new java.awt.Dimension(120, 24));
-        jTextField1.setMinimumSize(new java.awt.Dimension(120, 24));
-        jTextField1.setPreferredSize(new java.awt.Dimension(120, 24));
+        lblTongGia.setText("0 VNĐ");
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 0;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
-        gridBagConstraints.weightx = 0.1;
         gridBagConstraints.insets = new java.awt.Insets(4, 8, 0, 8);
-        jPanel5.add(jTextField1, gridBagConstraints);
+        jPanel5.add(lblTongGia, gridBagConstraints);
 
         jPanel3.add(jPanel5);
 
@@ -929,6 +1116,42 @@ public class QuanLyPhucVu_GUI extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnPhucVuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnPhucVuMouseClicked
+        // TODO add your handling code here:
+       chuyenTinhTrangBan(TinhTrangBanConstraints.DANG_PHUC_VU);
+    }//GEN-LAST:event_btnPhucVuMouseClicked
+
+    private void btnThemMonMoiMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnThemMonMoiMouseClicked
+        // TODO add your handling code here:
+        if(menu_GUI == null){
+            menu_GUI = new Menu_GUI(banDangChon.getId());
+            menu_GUI.setVisible(true);
+        } else {
+            menu_GUI.setState(JFrame.NORMAL);
+            menu_GUI.toFront();
+        }
+    }//GEN-LAST:event_btnThemMonMoiMouseClicked
+
+    private void btnSuaDonGoiMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSuaDonGoiMouseClicked
+        // TODO add your handling code here:
+        int count = tblDonGoi.getSelectedRowCount();
+        if(count < 1)
+            JOptionPane.showMessageDialog(this, "Chưa chọn món ăn","Error", JOptionPane.ERROR_MESSAGE);
+            
+        
+        int indexRow = tblDonGoi.getSelectedRow();
+        TableModel model = tblDonGoi.getModel();
+        
+        int idMonAn = Integer.parseInt(model.getValueAt(indexRow, 0).toString());
+        if(datMon_GUI == null){
+            datMon_GUI = new DatMon_GUI(banDangChon.getId(), idMonAn);
+            datMon_GUI.setVisible(true);
+        } else {
+            datMon_GUI.setState(JFrame.NORMAL);
+            datMon_GUI.toFront();
+        }
+    }//GEN-LAST:event_btnSuaDonGoiMouseClicked
 
     /**
      * @param args the command line arguments
@@ -966,6 +1189,14 @@ public class QuanLyPhucVu_GUI extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnChuyenBan;
+    private javax.swing.JButton btnNgungPhucVu;
+    private javax.swing.JButton btnPhucVu;
+    private javax.swing.JButton btnSanSang;
+    private javax.swing.JButton btnSuaDonGoi;
+    private javax.swing.JButton btnThanhToan;
+    private javax.swing.JButton btnThemMonMoi;
+    private javax.swing.JComboBox<String> cmbBanSanSang;
     private javax.swing.JButton jButton10;
     private javax.swing.JButton jButton100;
     private javax.swing.JButton jButton101;
@@ -977,16 +1208,10 @@ public class QuanLyPhucVu_GUI extends javax.swing.JFrame {
     private javax.swing.JButton jButton107;
     private javax.swing.JButton jButton108;
     private javax.swing.JButton jButton109;
-    private javax.swing.JButton jButton11;
     private javax.swing.JButton jButton110;
     private javax.swing.JButton jButton111;
     private javax.swing.JButton jButton112;
     private javax.swing.JButton jButton113;
-    private javax.swing.JButton jButton12;
-    private javax.swing.JButton jButton13;
-    private javax.swing.JButton jButton14;
-    private javax.swing.JButton jButton15;
-    private javax.swing.JButton jButton16;
     private javax.swing.JButton jButton17;
     private javax.swing.JButton jButton18;
     private javax.swing.JButton jButton19;
@@ -1059,7 +1284,6 @@ public class QuanLyPhucVu_GUI extends javax.swing.JFrame {
     private javax.swing.JButton jButton87;
     private javax.swing.JButton jButton88;
     private javax.swing.JButton jButton89;
-    private javax.swing.JButton jButton9;
     private javax.swing.JButton jButton90;
     private javax.swing.JButton jButton91;
     private javax.swing.JButton jButton92;
@@ -1070,25 +1294,24 @@ public class QuanLyPhucVu_GUI extends javax.swing.JFrame {
     private javax.swing.JButton jButton97;
     private javax.swing.JButton jButton98;
     private javax.swing.JButton jButton99;
-    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
-    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JLabel lblIdBan;
+    private javax.swing.JLabel lblLoaiBan;
+    private javax.swing.JLabel lblTinhTrangBan;
+    private javax.swing.JLabel lblTongGia;
+    private javax.swing.JPanel pnlDanhSachBan;
+    private javax.swing.JTable tblDonGoi;
     // End of variables declaration//GEN-END:variables
 }

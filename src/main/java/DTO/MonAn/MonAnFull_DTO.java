@@ -4,28 +4,30 @@ package DTO.MonAn;
  *
  * @author LeAnhQuan
  */
-public class UpdateMonAn_DTO {
+public class MonAnFull_DTO {
     private int id;
     private String ten;
     private String hinhAnh;
-    private int idLoaiMonAn;
+    private LoaiMonAn_DTO loaiMonAn;
     private int gia;
     private int giaKhuyenMai;
-    private int idTtinhTrangMonAn;
+    private TinhTrangMonAn_DTO tinhTrangMonAn;
     private String noiDung;
 
-    public UpdateMonAn_DTO(int id, String ten, String hinhAnh, int idLoaiMonAn, int gia, int giaKhuyenMai, int idTtinhTrangMonAn, String noiDung) {
+    public MonAnFull_DTO(int id, String ten, String hinhAnh, LoaiMonAn_DTO loaiMonAn, int gia, int giaKhuyenMai, TinhTrangMonAn_DTO tinhTrangMonAn, String noiDung) {
         this.id = id;
         this.ten = ten;
         this.hinhAnh = hinhAnh;
-        this.idLoaiMonAn = idLoaiMonAn;
+        this.loaiMonAn = loaiMonAn;
         this.gia = gia;
         this.giaKhuyenMai = giaKhuyenMai;
-        this.idTtinhTrangMonAn = idTtinhTrangMonAn;
+        this.tinhTrangMonAn = tinhTrangMonAn;
         this.noiDung = noiDung;
     }
+
     
-    public UpdateMonAn_DTO() {
+
+    public MonAnFull_DTO() {
     }  
 
     public int getId() {
@@ -51,7 +53,15 @@ public class UpdateMonAn_DTO {
     public void setHinhAnh(String hinhAnh) {
         this.hinhAnh = hinhAnh;
     }
-    
+
+    public LoaiMonAn_DTO getLoaiMonAn() {
+        return loaiMonAn;
+    }
+
+    public void setLoaiMonAn(LoaiMonAn_DTO loaiMonAn) {
+        this.loaiMonAn = loaiMonAn;
+    }
+
     public int getGia() {
         return gia;
     }
@@ -68,20 +78,12 @@ public class UpdateMonAn_DTO {
         this.giaKhuyenMai = giaKhuyenMai;
     }
 
-    public int getIdLoaiMonAn() {
-        return idLoaiMonAn;
+    public TinhTrangMonAn_DTO getTinhTrangMonAn() {
+        return tinhTrangMonAn;
     }
 
-    public void setIdLoaiMonAn(int idLoaiMonAn) {
-        this.idLoaiMonAn = idLoaiMonAn;
-    }
-
-    public int getIdTtinhTrangMonAn() {
-        return idTtinhTrangMonAn;
-    }
-
-    public void setIdTtinhTrangMonAn(int idTtinhTrangMonAn) {
-        this.idTtinhTrangMonAn = idTtinhTrangMonAn;
+    public void setTinhTrangMonAn(TinhTrangMonAn_DTO tinhTrangMonAn) {
+        this.tinhTrangMonAn = tinhTrangMonAn;
     }
 
     public String getNoiDung() {
@@ -91,6 +93,4 @@ public class UpdateMonAn_DTO {
     public void setNoiDung(String noiDung) {
         this.noiDung = noiDung;
     }
-
-    
 }

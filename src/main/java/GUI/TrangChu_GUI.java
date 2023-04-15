@@ -16,7 +16,6 @@ import javax.swing.UIManager;
 public class TrangChu_GUI extends javax.swing.JFrame {
     private QuanLyPhucVu_GUI quanLyPhucVu_GUI;
     private QuanLyMonAn_GUI quanLyMonAn_GUI;
-    private QuanLyBienTheMonAn_GUI quanLyBienTheMonAn_GUI;
     private QuanLyLoaiBanVaBan_GUI quanLyLoaiBanVaBan_GUI;
     private QuanLyHoaDon_GUI hoaDon_GUI;
     private QuanLyNhanVien_GUI quanLyNhanVien_GUI;
@@ -120,6 +119,7 @@ public class TrangChu_GUI extends javax.swing.JFrame {
         jPanel2.setLayout(new java.awt.GridBagLayout());
 
         jButton1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jButton1.setIcon(new javax.swing.ImageIcon("D:\\QuanLyNhaHang\\Icon\\room_service_FILL0_wght400_GRAD0_opsz48.png")); // NOI18N
         jButton1.setText("<html> <p style =\"margin-top:60px;\"> Quản lý phục vụ</p> </html>");
         jButton1.setActionCommand("<html> <p style =\"margin-top:40px;\"> Quản lý phục vụ</p> </html>");
         jButton1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -136,6 +136,7 @@ public class TrangChu_GUI extends javax.swing.JFrame {
         jPanel2.add(jButton1, gridBagConstraints);
 
         jButton4.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jButton4.setIcon(new javax.swing.ImageIcon("D:\\QuanLyNhaHang\\Icon\\table_bar_FILL0_wght400_GRAD0_opsz48.png")); // NOI18N
         jButton4.setText("<html>\n<p style =\"margin-top:60px;\">Quản lý bàn </p>\n</html>");
         jButton4.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButton4.setMinimumSize(new java.awt.Dimension(200, 130));
@@ -150,6 +151,7 @@ public class TrangChu_GUI extends javax.swing.JFrame {
         jPanel2.add(jButton4, gridBagConstraints);
 
         jButton2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jButton2.setIcon(new javax.swing.ImageIcon("D:\\QuanLyNhaHang\\Icon\\restaurant_menu_FILL0_wght400_GRAD0_opsz48.png")); // NOI18N
         jButton2.setText("<html>\n<p style =\"margin-top:60px;\">Quản lý món ăn </p>\n</html>");
         jButton2.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButton2.setMinimumSize(new java.awt.Dimension(200, 130));
@@ -169,6 +171,7 @@ public class TrangChu_GUI extends javax.swing.JFrame {
         jPanel2.add(jButton2, gridBagConstraints);
 
         jButton5.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jButton5.setIcon(new javax.swing.ImageIcon("D:\\QuanLyNhaHang\\Icon\\receipt_long_FILL0_wght400_GRAD0_opsz48.png")); // NOI18N
         jButton5.setText("<html>\n<p style =\"margin-top:60px;\"> Quản lý hóa đơn</p>\n</html>");
         jButton5.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButton5.setMinimumSize(new java.awt.Dimension(200, 130));
@@ -181,6 +184,7 @@ public class TrangChu_GUI extends javax.swing.JFrame {
         jPanel2.add(jButton5, new java.awt.GridBagConstraints());
 
         jButton6.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jButton6.setIcon(new javax.swing.ImageIcon("D:\\QuanLyNhaHang\\Icon\\person_FILL0_wght400_GRAD0_opsz48.png")); // NOI18N
         jButton6.setText("<html>\n<p style =\"margin-top:60px;\">Quản lý nhân viên</p>\n</html>");
         jButton6.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButton6.setMinimumSize(new java.awt.Dimension(200, 130));
@@ -197,6 +201,7 @@ public class TrangChu_GUI extends javax.swing.JFrame {
         jPanel2.add(jButton6, gridBagConstraints);
 
         jButton7.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jButton7.setIcon(new javax.swing.ImageIcon("D:\\QuanLyNhaHang\\Icon\\groups_FILL0_wght400_GRAD0_opsz48.png")); // NOI18N
         jButton7.setText("<html>\n<p style =\"margin-top:60px;\">Quản lý khách hàng</p>\n</html>");
         jButton7.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButton7.setMinimumSize(new java.awt.Dimension(200, 130));
@@ -213,6 +218,7 @@ public class TrangChu_GUI extends javax.swing.JFrame {
         jPanel2.add(jButton7, gridBagConstraints);
 
         jButton8.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jButton8.setIcon(new javax.swing.ImageIcon("D:\\QuanLyNhaHang\\Icon\\account_circle_FILL0_wght400_GRAD0_opsz48.png")); // NOI18N
         jButton8.setText("<html>\n<p style =\"margin-top:60px;\">Quản lý tài khoản</p>\n</html>");
         jButton8.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButton8.setMinimumSize(new java.awt.Dimension(200, 130));
@@ -229,6 +235,7 @@ public class TrangChu_GUI extends javax.swing.JFrame {
         jPanel2.add(jButton8, gridBagConstraints);
 
         jButton10.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jButton10.setIcon(new javax.swing.ImageIcon("D:\\QuanLyNhaHang\\Icon\\monitoring_FILL0_wght400_GRAD200_opsz48.png")); // NOI18N
         jButton10.setText("<html>\n<p style =\"margin-top:60px;\"> Báo cáo & Thống kê</p>\n</html>");
         jButton10.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButton10.setMinimumSize(new java.awt.Dimension(200, 130));

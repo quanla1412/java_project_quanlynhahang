@@ -11,14 +11,16 @@ public class CreateMonAn_DTO {
     private int gia;
     private int giaKhuyenMai;
     private int idTtinhTrangMonAn;
+    private String noiDung;
 
-    public CreateMonAn_DTO(String ten, String hinhAnh, int idLoaiMonAn, int gia, int giaKhuyenMai, int idTtinhTrangMonAn) {
+    public CreateMonAn_DTO(String ten, String hinhAnh, int idLoaiMonAn, int gia, int giaKhuyenMai, int idTtinhTrangMonAn, String noiDung) {
         this.ten = ten;
         this.hinhAnh = hinhAnh;
         this.idLoaiMonAn = idLoaiMonAn;
         this.gia = gia;
         this.giaKhuyenMai = giaKhuyenMai;
         this.idTtinhTrangMonAn = idTtinhTrangMonAn;
+        this.noiDung = noiDung;
     }
 
     
@@ -71,6 +73,14 @@ public class CreateMonAn_DTO {
 
     public void setIdTtinhTrangMonAn(int idTtinhTrangMonAn) {
         this.idTtinhTrangMonAn = idTtinhTrangMonAn;
+    }
+
+    public String getNoiDung() {
+        return noiDung;
+    }
+
+    public void setNoiDung(String noiDung) {
+        this.noiDung = noiDung;
     }
 
     

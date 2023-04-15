@@ -4,17 +4,174 @@
  */
 package GUI;
 
+import BUS.LoaiMonAn_BUS;
+import BUS.MonAn_BUS;
+import DTO.MonAn.LoaiMonAn_DTO;
+import DTO.MonAn.MonAn_DTO;
+import com.mycompany.quanlynhahang.Price;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
+import java.awt.LayoutManager;
+import java.awt.Panel;
+import java.awt.event.MouseEvent;
+import java.util.ArrayList;
+import javax.swing.BorderFactory;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.ScrollPaneConstants;
+import javax.swing.event.MouseInputListener;
+
 /**
  *
  * @author tanph
  */
 public class Menu_GUI extends javax.swing.JFrame {
 
+    private LoaiMonAn_BUS loaiMonAn_BUS;
+    private MonAn_BUS monAn_BUS;
+    private static int idBan;
+    
+    private DatMon_GUI datMon_GUI;
     /**
      * Creates new form Menu_GUI
      */
-    public Menu_GUI() {
+    public Menu_GUI(int idBan) {
         initComponents();
+        loaiMonAn_BUS = new LoaiMonAn_BUS();
+        monAn_BUS = new MonAn_BUS();
+        this.idBan = idBan;
+        
+        loadMenu();
+    }
+    
+    private void loadMenu(){
+        ArrayList<LoaiMonAn_DTO> listLoaiMonAn = loaiMonAn_BUS.getAllLoaiMonAn();
+        tabMenu.removeAll();
+        for(LoaiMonAn_DTO loaiMonAn : listLoaiMonAn){
+            JScrollPane scrMenu = new JScrollPane();
+            JPanel pnlCategory = new JPanel(new FlowLayout());
+            
+            scrMenu.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+            
+            pnlCategory.setPreferredSize(new Dimension(820, 600));
+            pnlCategory.setMaximumSize(new Dimension(820, 600));
+            pnlCategory.setMinimumSize(new Dimension(820, 600));
+            
+            ArrayList<MonAn_DTO> listMonAn = monAn_BUS.getListMonAnByLoaiMonAn(loaiMonAn.getId());
+            for(MonAn_DTO monAn : listMonAn){
+                JPanel pnlItem = new JPanel(new GridBagLayout());
+                GridBagConstraints c = new GridBagConstraints();
+                
+                pnlItem.setPreferredSize(new Dimension(200, 280));
+                pnlItem.setMinimumSize(new Dimension(200, 280));
+//                pnlItem.setBorder(BorderFactory.createRaisedBevelBorder());
+                        
+                JLabel lblHinhAnh = new JLabel();
+                lblHinhAnh.setIcon(new ImageIcon(monAn.getHinhAnh()));
+                lblHinhAnh.setPreferredSize(new Dimension(140, 140));
+                c.anchor = GridBagConstraints.CENTER;
+                c.gridx = 0;
+                c.gridy = 0;
+                c.gridwidth = 2;
+                c.insets = new Insets(8, 8, 8, 8);
+                pnlItem.add(lblHinhAnh, c);
+                
+                JLabel lblTenMonAn = new JLabel(monAn.getTen());
+                c.anchor = GridBagConstraints.CENTER;
+                c.gridx = 0;
+                c.gridy = 1;
+                c.gridwidth = 2;
+                c.insets = new Insets(6, 2, 6, 2);
+                pnlItem.add(lblTenMonAn, c);              
+                
+                JLabel lblTitleGia = new JLabel("Giá");
+                c.anchor = GridBagConstraints.WEST;
+                c.gridx = 0;
+                c.gridy = 2;
+                c.insets = new Insets(10, 8, 4, 8);
+                pnlItem.add(lblTitleGia, c);
+                
+                JLabel lblGia = new JLabel(Price.formatPrice(monAn.getGia()));
+                c.anchor = GridBagConstraints.EAST;
+                c.gridx = 1;
+                c.gridy = 2;
+                c.insets = new Insets(10, 8, 4, 8);
+                pnlItem.add(lblGia, c);       
+                
+                JLabel lblTitleGiaKhuyenMai = new JLabel("Giá khuyến mãi");
+                c.anchor = GridBagConstraints.WEST;
+                c.gridx = 0;
+                c.gridy = 3;
+                c.insets = new Insets(4, 8, 10, 8);
+                pnlItem.add(lblTitleGiaKhuyenMai, c);
+                
+                if(monAn.getGiaKhuyenMai() > 0){
+                    JLabel lblGiaKhuyenMai = new JLabel(Price.formatPrice(monAn.getGiaKhuyenMai()));
+                    c.anchor = GridBagConstraints.EAST;
+                    c.gridx = 1;
+                    c.gridy = 3;
+                    c.insets = new Insets(4, 8, 10, 8);
+                    pnlItem.add(lblGiaKhuyenMai, c);                    
+                }
+                
+                JButton btnDatMon = new JButton("Đặt ngay");
+                c.anchor = GridBagConstraints.CENTER;
+                c.gridx = 0;
+                c.gridy = 4;
+                c.gridwidth = 2;
+                c.insets = new Insets(4, 4, 4, 4);
+                btnDatMon.addMouseListener(new MouseInputListener() {
+                    @Override
+                    public void mouseClicked(MouseEvent e) {
+                        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+                    }
+
+                    @Override
+                    public void mousePressed(MouseEvent e) {                        
+                        if(datMon_GUI == null){
+                            datMon_GUI = new DatMon_GUI(monAn.getId(), idBan);
+                            datMon_GUI.setVisible(true);
+                        } else {
+                            datMon_GUI.setState(JFrame.NORMAL);
+                            datMon_GUI.toFront();
+                        }
+                    }
+
+                    @Override
+                    public void mouseReleased(MouseEvent e) {
+                    }
+
+                    @Override
+                    public void mouseEntered(MouseEvent e) {
+                    }
+
+                    @Override
+                    public void mouseExited(MouseEvent e) {
+                    }
+
+                    @Override
+                    public void mouseDragged(MouseEvent e) {
+                    }
+
+                    @Override
+                    public void mouseMoved(MouseEvent e) {
+                    }
+                });
+                pnlItem.add(btnDatMon, c);  
+                
+                pnlCategory.add(pnlItem);
+            }
+            scrMenu.setViewportView(pnlCategory);
+            tabMenu.add(loaiMonAn.getTen(), scrMenu);
+        }
     }
 
     /**
@@ -27,7 +184,7 @@ public class Menu_GUI extends javax.swing.JFrame {
     private void initComponents() {
         java.awt.GridBagConstraints gridBagConstraints;
 
-        jTabbedPane1 = new javax.swing.JTabbedPane();
+        tabMenu = new javax.swing.JTabbedPane();
         jScrollPane1 = new javax.swing.JScrollPane();
         jPanel1 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
@@ -158,7 +315,7 @@ public class Menu_GUI extends javax.swing.JFrame {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 4;
-        gridBagConstraints.gridwidth = 3;
+        gridBagConstraints.gridwidth = 2;
         gridBagConstraints.insets = new java.awt.Insets(4, 4, 4, 4);
         jPanel3.add(jButton1, gridBagConstraints);
 
@@ -177,7 +334,7 @@ public class Menu_GUI extends javax.swing.JFrame {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
-        gridBagConstraints.gridwidth = 3;
+        gridBagConstraints.gridwidth = 2;
         gridBagConstraints.weightx = 0.1;
         gridBagConstraints.insets = new java.awt.Insets(8, 8, 8, 8);
         jPanel3.add(jLabel2, gridBagConstraints);
@@ -186,7 +343,7 @@ public class Menu_GUI extends javax.swing.JFrame {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 1;
-        gridBagConstraints.gridwidth = 3;
+        gridBagConstraints.gridwidth = 2;
         gridBagConstraints.insets = new java.awt.Insets(6, 2, 6, 2);
         jPanel3.add(jLabel3, gridBagConstraints);
 
@@ -194,7 +351,6 @@ public class Menu_GUI extends javax.swing.JFrame {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 2;
-        gridBagConstraints.gridwidth = 2;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
         gridBagConstraints.weightx = 0.1;
         gridBagConstraints.insets = new java.awt.Insets(10, 8, 4, 8);
@@ -213,7 +369,6 @@ public class Menu_GUI extends javax.swing.JFrame {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 3;
-        gridBagConstraints.gridwidth = 2;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
         gridBagConstraints.weightx = 0.1;
         gridBagConstraints.insets = new java.awt.Insets(4, 8, 10, 8);
@@ -1103,20 +1258,20 @@ public class Menu_GUI extends javax.swing.JFrame {
 
         jScrollPane1.setViewportView(jPanel1);
 
-        jTabbedPane1.addTab("Món Nóng", jScrollPane1);
+        tabMenu.addTab("Món Nóng", jScrollPane1);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 822, Short.MAX_VALUE)
+            .addGap(0, 861, Short.MAX_VALUE)
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 600, Short.MAX_VALUE)
         );
 
-        jTabbedPane1.addTab("Xôi lạc", jPanel2);
+        tabMenu.addTab("Xôi lạc", jPanel2);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -1124,67 +1279,67 @@ public class Menu_GUI extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(23, 23, 23)
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 822, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(49, Short.MAX_VALUE))
+                .addComponent(tabMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 861, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(27, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(20, 20, 20)
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 449, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(29, Short.MAX_VALUE))
+                .addComponent(tabMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 608, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void jButton16ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton16ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
-
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton2ActionPerformed
-
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton3ActionPerformed
-
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton4ActionPerformed
-
-    private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton9ActionPerformed
-
-    private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton10ActionPerformed
-
-    private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton11ActionPerformed
-
-    private void jButton12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton12ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton12ActionPerformed
-
-    private void jButton13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton13ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton13ActionPerformed
-
-    private void jButton14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton14ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton14ActionPerformed
+    }//GEN-LAST:event_jButton16ActionPerformed
 
     private void jButton15ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton15ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton15ActionPerformed
 
-    private void jButton16ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton16ActionPerformed
+    private void jButton14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton14ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton16ActionPerformed
+    }//GEN-LAST:event_jButton14ActionPerformed
+
+    private void jButton13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton13ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton13ActionPerformed
+
+    private void jButton12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton12ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton12ActionPerformed
+
+    private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton11ActionPerformed
+
+    private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton10ActionPerformed
+
+    private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton9ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -1216,7 +1371,7 @@ public class Menu_GUI extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Menu_GUI().setVisible(true);
+                new Menu_GUI(idBan).setVisible(true);
             }
         });
     }
@@ -1321,6 +1476,6 @@ public class Menu_GUI extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTabbedPane jTabbedPane1;
+    private javax.swing.JTabbedPane tabMenu;
     // End of variables declaration//GEN-END:variables
 }

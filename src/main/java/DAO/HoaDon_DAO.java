@@ -1,6 +1,5 @@
 package DAO;
 
-import DTO.HoaDon.ChiTietHoaDon_DTO;
 import DTO.HoaDon.CreateChiTietHoaDon_DTO;
 import DTO.HoaDon.CreateHoaDon_DTO;
 import DTO.HoaDon.HoaDonFull_DTO;
@@ -115,7 +114,7 @@ public class HoaDon_DAO {
                 hoaDon.setMaNhanVien(rs.getNString("NV_Ma"));
                 hoaDon.setIdKhachHang(rs.getInt("KH_ID"));
                 hoaDon.setNgayGio(rs.getTimestamp("HD_NgayGio"));
-                hoaDon.setListMonAn(getAllChiTietHoaDonByIdHoaDon(idHoaDon));
+//                hoaDon.setListMonAn(getAllChiTietHoaDonByIdHoaDon(idHoaDon));
             }
         } catch (SQLException ex ){
             System.out.println(ex);
@@ -126,36 +125,36 @@ public class HoaDon_DAO {
         return hoaDon;
     }
     
-    public ArrayList<ChiTietHoaDon_DTO> getAllChiTietHoaDonByIdHoaDon(int idHoaDon){
-        Connection con = ConnectDatabase.openConnection();
-        ArrayList<ChiTietHoaDon_DTO> result = new ArrayList<>();
-        BienTheMonAn_DAO bienTheMonAn_DAO = new BienTheMonAn_DAO();
-        try {
-            String sql = "SELECT * FROM ChiTietHoaDon WHERE HD_ID = " + idHoaDon;
-            Statement statement = con.createStatement();
-            
-            ResultSet rs = statement.executeQuery(sql);
-            while(rs.next()){
-                ChiTietHoaDon_DTO cthd = new ChiTietHoaDon_DTO();
-                
-                cthd.setSoLuong(rs.getInt("CTHD_SoLuong"));
-                
-                int idMA = rs.getInt("MA_ID");
-                int idBTMA = rs.getInt("idBTMA");
-                
-                cthd.setBienTheMonAn(bienTheMonAn_DAO.getBienTheMonAnById(idMA, idBTMA));
-                
-                result.add(cthd);
-            }
-        } catch (SQLException ex ){
-            System.out.println(ex);
-        } finally {
-            ConnectDatabase.closeConnection(con);
-        }
-        
-        return result;
-    }
-    
+//    public ArrayList<ChiTietHoaDon_DTO> getAllChiTietHoaDonByIdHoaDon(int idHoaDon){
+//        Connection con = ConnectDatabase.openConnection();
+//        ArrayList<ChiTietHoaDon_DTO> result = new ArrayList<>();
+//        BienTheMonAn_DAO bienTheMonAn_DAO = new BienTheMonAn_DAO();
+//        try {
+//            String sql = "SELECT * FROM ChiTietHoaDon WHERE HD_ID = " + idHoaDon;
+//            Statement statement = con.createStatement();
+//            
+//            ResultSet rs = statement.executeQuery(sql);
+//            while(rs.next()){
+//                ChiTietHoaDon_DTO cthd = new ChiTietHoaDon_DTO();
+//                
+//                cthd.setSoLuong(rs.getInt("CTHD_SoLuong"));
+//                
+//                int idMA = rs.getInt("MA_ID");
+//                int idBTMA = rs.getInt("idBTMA");
+//                
+//                cthd.setBienTheMonAn(bienTheMonAn_DAO.getBienTheMonAnById(idMA, idBTMA));
+//                
+//                result.add(cthd);
+//            }
+//        } catch (SQLException ex ){
+//            System.out.println(ex);
+//        } finally {
+//            ConnectDatabase.closeConnection(con);
+//        }
+//        
+//        return result;
+//    }
+//    
     
     public boolean createHoaDon(CreateHoaDon_DTO data){
         Connection con = ConnectDatabase.openConnection();

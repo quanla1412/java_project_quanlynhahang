@@ -161,6 +161,9 @@
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Segoe UI" size="14" style="1"/>
             </Property>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="2" name="D:\QuanLyNhaHang\Icon\room_service_FILL0_wght400_GRAD0_opsz48.png"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="&lt;html&gt; &lt;p style =&quot;margin-top:60px;&quot;&gt; Qu&#x1ea3;n l&#xfd; ph&#x1ee5;c v&#x1ee5;&lt;/p&gt; &lt;/html&gt;"/>
             <Property name="actionCommand" type="java.lang.String" value="&lt;html&gt; &lt;p style =&quot;margin-top:40px;&quot;&gt; Qu&#x1ea3;n l&#xfd; ph&#x1ee5;c v&#x1ee5;&lt;/p&gt; &lt;/html&gt;"/>
             <Property name="horizontalTextPosition" type="int" value="0"/>
@@ -186,6 +189,9 @@
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Segoe UI" size="14" style="1"/>
             </Property>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="2" name="D:\QuanLyNhaHang\Icon\table_bar_FILL0_wght400_GRAD0_opsz48.png"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="&lt;html&gt;&#xa;&lt;p style =&quot;margin-top:60px;&quot;&gt;Qu&#x1ea3;n l&#xfd; b&#xe0;n &lt;/p&gt;&#xa;&lt;/html&gt;"/>
             <Property name="horizontalTextPosition" type="int" value="0"/>
             <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
@@ -208,6 +214,9 @@
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Segoe UI" size="14" style="1"/>
+            </Property>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="2" name="D:\QuanLyNhaHang\Icon\restaurant_menu_FILL0_wght400_GRAD0_opsz48.png"/>
             </Property>
             <Property name="text" type="java.lang.String" value="&lt;html&gt;&#xa;&lt;p style =&quot;margin-top:60px;&quot;&gt;Qu&#x1ea3;n l&#xfd; m&#xf3;n &#x103;n &lt;/p&gt;&#xa;&lt;/html&gt;"/>
             <Property name="horizontalTextPosition" type="int" value="0"/>
@@ -233,6 +242,9 @@
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Segoe UI" size="14" style="1"/>
             </Property>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="2" name="D:\QuanLyNhaHang\Icon\receipt_long_FILL0_wght400_GRAD0_opsz48.png"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="&lt;html&gt;&#xa;&lt;p style =&quot;margin-top:60px;&quot;&gt; Qu&#x1ea3;n l&#xfd; h&#xf3;a &#x111;&#x1a1;n&lt;/p&gt;&#xa;&lt;/html&gt;"/>
             <Property name="horizontalTextPosition" type="int" value="0"/>
             <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
@@ -255,6 +267,9 @@
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Segoe UI" size="14" style="1"/>
+            </Property>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="2" name="D:\QuanLyNhaHang\Icon\person_FILL0_wght400_GRAD0_opsz48.png"/>
             </Property>
             <Property name="text" type="java.lang.String" value="&lt;html&gt;&#xa;&lt;p style =&quot;margin-top:60px;&quot;&gt;Qu&#x1ea3;n l&#xfd; nh&#xe2;n vi&#xea;n&lt;/p&gt;&#xa;&lt;/html&gt;"/>
             <Property name="horizontalTextPosition" type="int" value="0"/>
@@ -279,6 +294,9 @@
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Segoe UI" size="14" style="1"/>
             </Property>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="2" name="D:\QuanLyNhaHang\Icon\groups_FILL0_wght400_GRAD0_opsz48.png"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="&lt;html&gt;&#xa;&lt;p style =&quot;margin-top:60px;&quot;&gt;Qu&#x1ea3;n l&#xfd; kh&#xe1;ch h&#xe0;ng&lt;/p&gt;&#xa;&lt;/html&gt;"/>
             <Property name="horizontalTextPosition" type="int" value="0"/>
             <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
@@ -302,6 +320,9 @@
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Segoe UI" size="14" style="1"/>
             </Property>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="2" name="D:\QuanLyNhaHang\Icon\account_circle_FILL0_wght400_GRAD0_opsz48.png"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="&lt;html&gt;&#xa;&lt;p style =&quot;margin-top:60px;&quot;&gt;Qu&#x1ea3;n l&#xfd; t&#xe0;i kho&#x1ea3;n&lt;/p&gt;&#xa;&lt;/html&gt;"/>
             <Property name="horizontalTextPosition" type="int" value="0"/>
             <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
@@ -324,6 +345,9 @@
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Segoe UI" size="14" style="1"/>
+            </Property>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="2" name="D:\QuanLyNhaHang\Icon\monitoring_FILL0_wght400_GRAD200_opsz48.png"/>
             </Property>
             <Property name="text" type="java.lang.String" value="&lt;html&gt;&#xa;&lt;p style =&quot;margin-top:60px;&quot;&gt; B&#xe1;o c&#xe1;o &amp; Th&#x1ed1;ng k&#xea;&lt;/p&gt;&#xa;&lt;/html&gt;"/>
             <Property name="horizontalTextPosition" type="int" value="0"/>
