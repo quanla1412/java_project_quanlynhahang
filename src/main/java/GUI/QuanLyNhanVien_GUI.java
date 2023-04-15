@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
+
 package GUI;
 
 import BUS.ChucVu_BUS;
@@ -14,9 +11,9 @@ import DTO.NhanVien.NhanVien_DTO;
 import DTO.NhanVien.TinhTrangNhanVien_DTO;
 import DTO.NhanVien.UpdateNhanVien_DTO;
 import java.sql.Date;
-import java.sql.Timestamp;
 import java.util.ArrayList;
 import javax.swing.BorderFactory;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
@@ -33,7 +30,9 @@ public class QuanLyNhanVien_GUI extends javax.swing.JFrame {
     private final TinhTrangNhanVien_BUS tinhTrangNhanVien_BUS;
     private boolean dangThemNhanVien = true;
     
-    
+    private QuanLyChucVu_GUI quanLyChucVu_GUI;
+    private QuanLyQuyen_GUI quanLyQuyen_GUI;
+    private DoiMatKhau_GUI doiMatKhau_GUI;
  
     private ArrayList<ChucVu_DTO> listChucVu;
     private ArrayList<TinhTrangNhanVien_DTO> listTinhTrangNhanVien;
@@ -151,9 +150,12 @@ public class QuanLyNhanVien_GUI extends javax.swing.JFrame {
         btnQuanLyChucVu = new javax.swing.JButton();
         btnImportNV = new javax.swing.JButton();
         btnExportNV = new javax.swing.JButton();
+        btnPhanQuyen = new javax.swing.JButton();
+        btnDoiMatKhau = new javax.swing.JButton();
         filler1 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 150), new java.awt.Dimension(0, 0));
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Quản lý nhân viên");
         getContentPane().setLayout(new javax.swing.BoxLayout(getContentPane(), javax.swing.BoxLayout.LINE_AXIS));
 
         jPanel1.setLayout(new javax.swing.BoxLayout(jPanel1, javax.swing.BoxLayout.PAGE_AXIS));
@@ -255,7 +257,7 @@ public class QuanLyNhanVien_GUI extends javax.swing.JFrame {
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 607, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 590, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
@@ -495,6 +497,11 @@ public class QuanLyNhanVien_GUI extends javax.swing.JFrame {
         btnQuanLyChucVu.setText("Quản lý chức vụ");
         btnQuanLyChucVu.setMinimumSize(new java.awt.Dimension(140, 40));
         btnQuanLyChucVu.setPreferredSize(new java.awt.Dimension(140, 40));
+        btnQuanLyChucVu.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnQuanLyChucVuMouseClicked(evt);
+            }
+        });
         btnQuanLyChucVu.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnQuanLyChucVuActionPerformed(evt);
@@ -518,12 +525,51 @@ public class QuanLyNhanVien_GUI extends javax.swing.JFrame {
         gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
         jPanel7.add(btnExportNV, gridBagConstraints);
 
+        btnPhanQuyen.setText("Phân quyền tài khoản");
+        btnPhanQuyen.setMinimumSize(new java.awt.Dimension(140, 40));
+        btnPhanQuyen.setPreferredSize(new java.awt.Dimension(140, 40));
+        btnPhanQuyen.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnPhanQuyenMouseClicked(evt);
+            }
+        });
+        btnPhanQuyen.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPhanQuyenActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.gridwidth = 2;
+        jPanel7.add(btnPhanQuyen, gridBagConstraints);
+
+        btnDoiMatKhau.setText("Đổi mật khẩu");
+        btnDoiMatKhau.setMinimumSize(new java.awt.Dimension(140, 40));
+        btnDoiMatKhau.setPreferredSize(new java.awt.Dimension(140, 40));
+        btnDoiMatKhau.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnDoiMatKhauMouseClicked(evt);
+            }
+        });
+        btnDoiMatKhau.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDoiMatKhauActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 0);
+        jPanel7.add(btnDoiMatKhau, gridBagConstraints);
+
         jPanel4.add(jPanel7);
         jPanel4.add(filler1);
 
         getContentPane().add(jPanel4);
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void txtMaNVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtMaNVActionPerformed
@@ -748,6 +794,47 @@ public class QuanLyNhanVien_GUI extends javax.swing.JFrame {
         loadtableNhanVien();
     }//GEN-LAST:event_btnXoaNVMouseClicked
 
+    private void btnQuanLyChucVuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnQuanLyChucVuMouseClicked
+        // TODO add your handling code here:
+        if(quanLyChucVu_GUI == null){
+            quanLyChucVu_GUI = new QuanLyChucVu_GUI();
+            quanLyChucVu_GUI.setVisible(true);
+        } else {
+            quanLyChucVu_GUI.setState(JFrame.NORMAL);
+            quanLyChucVu_GUI.toFront();
+        }
+    }//GEN-LAST:event_btnQuanLyChucVuMouseClicked
+
+    private void btnPhanQuyenMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnPhanQuyenMouseClicked
+        // TODO add your handling code here:
+        if(quanLyQuyen_GUI == null || !quanLyQuyen_GUI.isDisplayable()){
+            quanLyQuyen_GUI = new QuanLyQuyen_GUI();
+            quanLyQuyen_GUI.setVisible(true);
+        } else {
+            quanLyQuyen_GUI.setState(JFrame.NORMAL);
+            quanLyQuyen_GUI.toFront();
+        }
+    }//GEN-LAST:event_btnPhanQuyenMouseClicked
+
+    private void btnPhanQuyenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPhanQuyenActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnPhanQuyenActionPerformed
+
+    private void btnDoiMatKhauMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDoiMatKhauMouseClicked
+        // TODO add your handling code here:
+        if(doiMatKhau_GUI == null || !doiMatKhau_GUI.isDisplayable()){
+            doiMatKhau_GUI = new DoiMatKhau_GUI();
+            doiMatKhau_GUI.setVisible(true);
+        } else {
+            doiMatKhau_GUI.setState(JFrame.NORMAL);
+            doiMatKhau_GUI.toFront();
+        }
+    }//GEN-LAST:event_btnDoiMatKhauMouseClicked
+
+    private void btnDoiMatKhauActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDoiMatKhauActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnDoiMatKhauActionPerformed
+
     
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -782,10 +869,12 @@ public class QuanLyNhanVien_GUI extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnDoiMatKhau;
     private javax.swing.JButton btnExportNV;
     private javax.swing.JButton btnImportNV;
     private javax.swing.JButton btnLocNhanVien;
     private javax.swing.JButton btnLuu;
+    private javax.swing.JButton btnPhanQuyen;
     private javax.swing.JButton btnQuanLyChucVu;
     private javax.swing.JButton btnResetThemNV;
     private javax.swing.JButton btnSuaNV;

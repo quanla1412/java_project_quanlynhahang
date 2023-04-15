@@ -27,19 +27,10 @@ public class QuanLyQuyen_GUI extends javax.swing.JFrame {
     private void initComponents() {
         java.awt.GridBagConstraints gridBagConstraints;
 
-        pnlDanhSachQuyen = new javax.swing.JPanel();
-        scrDanhSachTaiKhoan = new javax.swing.JScrollPane();
-        tblDanhSachTaiKhoan = new javax.swing.JTable();
-        pnlChucNang = new javax.swing.JPanel();
-        pnlThemSua = new javax.swing.JPanel();
-        btnThem = new javax.swing.JButton();
-        btnSua = new javax.swing.JButton();
         pnlThemQuyenMoi = new javax.swing.JPanel();
         lblID = new javax.swing.JLabel();
-        lblQuyen = new javax.swing.JLabel();
         lblChucNang = new javax.swing.JLabel();
         txtID = new javax.swing.JTextField();
-        txtQuyen = new javax.swing.JTextField();
         btnTaoLai = new javax.swing.JButton();
         btnLuu = new javax.swing.JButton();
         chkQuanLyPhucVu = new javax.swing.JCheckBox();
@@ -51,93 +42,19 @@ public class QuanLyQuyen_GUI extends javax.swing.JFrame {
         chkQuanLyTaiKhoan = new javax.swing.JCheckBox();
         chkBaoCaoThongKe = new javax.swing.JCheckBox();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        getContentPane().setLayout(new javax.swing.BoxLayout(getContentPane(), javax.swing.BoxLayout.LINE_AXIS));
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Quản lý quyền");
+        getContentPane().setLayout(new java.awt.GridBagLayout());
 
-        pnlDanhSachQuyen.setLayout(new javax.swing.BoxLayout(pnlDanhSachQuyen, javax.swing.BoxLayout.Y_AXIS));
-
-        scrDanhSachTaiKhoan.setBorder(javax.swing.BorderFactory.createTitledBorder("Danh sách quyền"));
-        scrDanhSachTaiKhoan.setPreferredSize(new java.awt.Dimension(200, 200));
-
-        tblDanhSachTaiKhoan.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null}
-            },
-            new String [] {
-                "ID", "Quyền"
-            }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class
-            };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-        });
-        tblDanhSachTaiKhoan.addAncestorListener(new javax.swing.event.AncestorListener() {
-            public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
-                tblDanhSachTaiKhoanAncestorAdded(evt);
-            }
-            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
-            }
-            public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
-            }
-        });
-        scrDanhSachTaiKhoan.setViewportView(tblDanhSachTaiKhoan);
-
-        pnlDanhSachQuyen.add(scrDanhSachTaiKhoan);
-
-        getContentPane().add(pnlDanhSachQuyen);
-
-        pnlChucNang.setLayout(new javax.swing.BoxLayout(pnlChucNang, javax.swing.BoxLayout.Y_AXIS));
-
-        pnlThemSua.setBorder(javax.swing.BorderFactory.createTitledBorder("Chức năng"));
-        pnlThemSua.setMinimumSize(new java.awt.Dimension(200, 60));
-        pnlThemSua.setPreferredSize(new java.awt.Dimension(200, 60));
-
-        btnThem.setText("Thêm");
-        btnThem.setMaximumSize(new java.awt.Dimension(80, 24));
-        btnThem.setMinimumSize(new java.awt.Dimension(80, 24));
-        btnThem.setPreferredSize(new java.awt.Dimension(80, 24));
-        btnThem.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnThemActionPerformed(evt);
-            }
-        });
-        pnlThemSua.add(btnThem);
-
-        btnSua.setText("Sửa");
-        btnSua.setMaximumSize(new java.awt.Dimension(80, 24));
-        btnSua.setMinimumSize(new java.awt.Dimension(80, 24));
-        btnSua.setPreferredSize(new java.awt.Dimension(80, 24));
-        pnlThemSua.add(btnSua);
-
-        pnlChucNang.add(pnlThemSua);
-
-        pnlThemQuyenMoi.setBorder(javax.swing.BorderFactory.createTitledBorder("Thêm quyền mới"));
-        pnlThemQuyenMoi.setMinimumSize(new java.awt.Dimension(320, 440));
-        pnlThemQuyenMoi.setPreferredSize(new java.awt.Dimension(320, 440));
+        pnlThemQuyenMoi.setMinimumSize(new java.awt.Dimension(320, 400));
+        pnlThemQuyenMoi.setPreferredSize(new java.awt.Dimension(320, 400));
         pnlThemQuyenMoi.setLayout(new java.awt.GridBagLayout());
 
-        lblID.setText("ID");
-        lblID.setMaximumSize(new java.awt.Dimension(60, 16));
-        lblID.setMinimumSize(new java.awt.Dimension(60, 16));
-        lblID.setPreferredSize(new java.awt.Dimension(60, 16));
+        lblID.setText("Mã nhân viên");
+        lblID.setMaximumSize(new java.awt.Dimension(100, 16));
+        lblID.setMinimumSize(new java.awt.Dimension(100, 16));
+        lblID.setPreferredSize(new java.awt.Dimension(100, 16));
         pnlThemQuyenMoi.add(lblID, new java.awt.GridBagConstraints());
-
-        lblQuyen.setText("Quyền");
-        lblQuyen.setMaximumSize(new java.awt.Dimension(60, 16));
-        lblQuyen.setMinimumSize(new java.awt.Dimension(60, 16));
-        lblQuyen.setPreferredSize(new java.awt.Dimension(60, 16));
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 1;
-        gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 10);
-        pnlThemQuyenMoi.add(lblQuyen, gridBagConstraints);
 
         lblChucNang.setText("Chức năng");
         lblChucNang.setMaximumSize(new java.awt.Dimension(60, 16));
@@ -145,7 +62,8 @@ public class QuanLyQuyen_GUI extends javax.swing.JFrame {
         lblChucNang.setPreferredSize(new java.awt.Dimension(60, 16));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 2;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.insets = new java.awt.Insets(6, 10, 6, 10);
         pnlThemQuyenMoi.add(lblChucNang, gridBagConstraints);
 
@@ -160,29 +78,13 @@ public class QuanLyQuyen_GUI extends javax.swing.JFrame {
         gridBagConstraints.insets = new java.awt.Insets(5, 22, 5, 0);
         pnlThemQuyenMoi.add(txtID, gridBagConstraints);
 
-        txtQuyen.setMaximumSize(new java.awt.Dimension(172, 24));
-        txtQuyen.setMinimumSize(new java.awt.Dimension(172, 24));
-        txtQuyen.setPreferredSize(new java.awt.Dimension(172, 24));
-        txtQuyen.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtQuyenActionPerformed(evt);
-            }
-        });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 1;
-        gridBagConstraints.gridwidth = 2;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.SOUTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(0, 22, 0, 0);
-        pnlThemQuyenMoi.add(txtQuyen, gridBagConstraints);
-
         btnTaoLai.setText("Tạo lại");
         btnTaoLai.setMaximumSize(new java.awt.Dimension(80, 24));
         btnTaoLai.setMinimumSize(new java.awt.Dimension(80, 24));
         btnTaoLai.setPreferredSize(new java.awt.Dimension(80, 24));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 11;
+        gridBagConstraints.gridy = 9;
         gridBagConstraints.insets = new java.awt.Insets(5, 12, 5, 12);
         pnlThemQuyenMoi.add(btnTaoLai, gridBagConstraints);
 
@@ -197,7 +99,7 @@ public class QuanLyQuyen_GUI extends javax.swing.JFrame {
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
-        gridBagConstraints.gridy = 11;
+        gridBagConstraints.gridy = 9;
         gridBagConstraints.insets = new java.awt.Insets(5, 12, 5, 12);
         pnlThemQuyenMoi.add(btnLuu, gridBagConstraints);
 
@@ -209,7 +111,7 @@ public class QuanLyQuyen_GUI extends javax.swing.JFrame {
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 2;
+        gridBagConstraints.gridy = 1;
         gridBagConstraints.gridwidth = 2;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.SOUTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(6, 22, 6, 0);
@@ -218,7 +120,7 @@ public class QuanLyQuyen_GUI extends javax.swing.JFrame {
         chkQuanLyLoaiBan.setText("Quản lý loại bàn");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 3;
+        gridBagConstraints.gridy = 2;
         gridBagConstraints.gridwidth = 2;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.SOUTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(6, 22, 6, 0);
@@ -227,7 +129,7 @@ public class QuanLyQuyen_GUI extends javax.swing.JFrame {
         chkQuanLyMonAn.setText("Quản lý món ăn");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 4;
+        gridBagConstraints.gridy = 3;
         gridBagConstraints.gridwidth = 2;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.SOUTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(6, 22, 6, 0);
@@ -236,7 +138,7 @@ public class QuanLyQuyen_GUI extends javax.swing.JFrame {
         chkQuanLyHoaDon.setText("Quản lý hoá đơn");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 5;
+        gridBagConstraints.gridy = 4;
         gridBagConstraints.gridwidth = 2;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.SOUTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(6, 22, 6, 0);
@@ -245,7 +147,7 @@ public class QuanLyQuyen_GUI extends javax.swing.JFrame {
         chkQuanLyNhanVien.setText("Quản lý nhân viên");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 6;
+        gridBagConstraints.gridy = 5;
         gridBagConstraints.gridwidth = 2;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.SOUTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(6, 22, 6, 0);
@@ -254,7 +156,7 @@ public class QuanLyQuyen_GUI extends javax.swing.JFrame {
         chkQuanLyKhachHang.setText("Quản lý khách hàng");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 7;
+        gridBagConstraints.gridy = 6;
         gridBagConstraints.gridwidth = 2;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.SOUTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(6, 22, 6, 0);
@@ -263,7 +165,7 @@ public class QuanLyQuyen_GUI extends javax.swing.JFrame {
         chkQuanLyTaiKhoan.setText("Quản lý tài khoản");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 8;
+        gridBagConstraints.gridy = 7;
         gridBagConstraints.gridwidth = 2;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.SOUTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(6, 22, 6, 0);
@@ -272,38 +174,27 @@ public class QuanLyQuyen_GUI extends javax.swing.JFrame {
         chkBaoCaoThongKe.setText("Báo cáo thống kê");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 9;
+        gridBagConstraints.gridy = 8;
         gridBagConstraints.gridwidth = 2;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.SOUTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(6, 22, 6, 0);
         pnlThemQuyenMoi.add(chkBaoCaoThongKe, gridBagConstraints);
 
-        pnlChucNang.add(pnlThemQuyenMoi);
-
-        getContentPane().add(pnlChucNang);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
+        getContentPane().add(pnlThemQuyenMoi, gridBagConstraints);
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
-    private void tblDanhSachTaiKhoanAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_tblDanhSachTaiKhoanAncestorAdded
-        // TODO add your handling code here:
-    }//GEN-LAST:event_tblDanhSachTaiKhoanAncestorAdded
-
-    private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnThemActionPerformed
-
-    private void txtQuyenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtQuyenActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtQuyenActionPerformed
-
-    private void btnLuuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLuuActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnLuuActionPerformed
 
     private void chkQuanLyPhucVuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkQuanLyPhucVuActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_chkQuanLyPhucVuActionPerformed
+
+    private void btnLuuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLuuActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnLuuActionPerformed
 
     /**
      * @param args the command line arguments
@@ -343,9 +234,7 @@ public class QuanLyQuyen_GUI extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnLuu;
-    private javax.swing.JButton btnSua;
     private javax.swing.JButton btnTaoLai;
-    private javax.swing.JButton btnThem;
     private javax.swing.JCheckBox chkBaoCaoThongKe;
     private javax.swing.JCheckBox chkQuanLyHoaDon;
     private javax.swing.JCheckBox chkQuanLyKhachHang;
@@ -356,14 +245,7 @@ public class QuanLyQuyen_GUI extends javax.swing.JFrame {
     private javax.swing.JCheckBox chkQuanLyTaiKhoan;
     private javax.swing.JLabel lblChucNang;
     private javax.swing.JLabel lblID;
-    private javax.swing.JLabel lblQuyen;
-    private javax.swing.JPanel pnlChucNang;
-    private javax.swing.JPanel pnlDanhSachQuyen;
     private javax.swing.JPanel pnlThemQuyenMoi;
-    private javax.swing.JPanel pnlThemSua;
-    private javax.swing.JScrollPane scrDanhSachTaiKhoan;
-    private javax.swing.JTable tblDanhSachTaiKhoan;
     private javax.swing.JTextField txtID;
-    private javax.swing.JTextField txtQuyen;
     // End of variables declaration//GEN-END:variables
 }

@@ -14,6 +14,7 @@ import com.mycompany.quanlynhahang.Price;
 import java.io.File;
 import java.util.ArrayList;
 import javax.swing.JFileChooser;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.border.TitledBorder;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -31,6 +32,8 @@ public class QuanLyMonAn_GUI extends javax.swing.JFrame {
     ArrayList<LoaiMonAn_DTO> loaiMonAnSearchBox;
     ArrayList<LoaiMonAn_DTO> loaiMonAnUpdate;
     boolean dangThemMonAn = true;
+    
+    private QuanLyLoaiMonAn_GUI quanLyLoaiMonAn_GUI;
     
     String linkHinhAnh = "";
     ArrayList<TinhTrangMonAn_DTO> listTTMA;
@@ -227,10 +230,11 @@ public class QuanLyMonAn_GUI extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblMonAn = new javax.swing.JTable();
-        jButton8 = new javax.swing.JButton();
+        btnQuanLyLoaiMonAn = new javax.swing.JButton();
         resetTableButton = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Quản lý món ăn");
         getContentPane().setLayout(new java.awt.GridBagLayout());
 
         jPanel6.setBorder(javax.swing.BorderFactory.createTitledBorder("Chức năng"));
@@ -243,7 +247,9 @@ public class QuanLyMonAn_GUI extends javax.swing.JFrame {
                 btnThemMouseClicked(evt);
             }
         });
-        jPanel6.add(btnThem, new java.awt.GridBagConstraints());
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.insets = new java.awt.Insets(12, 12, 12, 12);
+        jPanel6.add(btnThem, gridBagConstraints);
 
         btnSua.setText("Sửa");
         btnSua.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -251,7 +257,9 @@ public class QuanLyMonAn_GUI extends javax.swing.JFrame {
                 btnSuaMouseClicked(evt);
             }
         });
-        jPanel6.add(btnSua, new java.awt.GridBagConstraints());
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.insets = new java.awt.Insets(12, 12, 12, 12);
+        jPanel6.add(btnSua, gridBagConstraints);
 
         btnXoa.setText("Xóa");
         btnXoa.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -259,7 +267,9 @@ public class QuanLyMonAn_GUI extends javax.swing.JFrame {
                 btnXoaMouseClicked(evt);
             }
         });
-        jPanel6.add(btnXoa, new java.awt.GridBagConstraints());
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.insets = new java.awt.Insets(12, 12, 12, 12);
+        jPanel6.add(btnXoa, gridBagConstraints);
 
         btnChuyenTinhTrang.setText("Chuyển tình trạng");
         btnChuyenTinhTrang.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -271,6 +281,7 @@ public class QuanLyMonAn_GUI extends javax.swing.JFrame {
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 1;
         gridBagConstraints.gridwidth = 3;
+        gridBagConstraints.insets = new java.awt.Insets(12, 12, 12, 12);
         jPanel6.add(btnChuyenTinhTrang, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -418,6 +429,7 @@ public class QuanLyMonAn_GUI extends javax.swing.JFrame {
 
         txaNoiDung.setColumns(20);
         txaNoiDung.setRows(5);
+        txaNoiDung.setMinimumSize(new java.awt.Dimension(212, 84));
         jScrollPane2.setViewportView(txaNoiDung);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -638,11 +650,16 @@ public class QuanLyMonAn_GUI extends javax.swing.JFrame {
         gridBagConstraints.insets = new java.awt.Insets(5, 10, 10, 10);
         getContentPane().add(jPanel1, gridBagConstraints);
 
-        jButton8.setText("Quản lý loại món ăn");
+        btnQuanLyLoaiMonAn.setText("Quản lý loại món ăn");
+        btnQuanLyLoaiMonAn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnQuanLyLoaiMonAnMouseClicked(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 2;
-        getContentPane().add(jButton8, gridBagConstraints);
+        getContentPane().add(btnQuanLyLoaiMonAn, gridBagConstraints);
 
         resetTableButton.setText("Reset bảng");
         resetTableButton.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -658,6 +675,7 @@ public class QuanLyMonAn_GUI extends javax.swing.JFrame {
         getContentPane().add(resetTableButton, gridBagConstraints);
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnTimKiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTimKiemActionPerformed
@@ -978,6 +996,17 @@ public class QuanLyMonAn_GUI extends javax.swing.JFrame {
         
     }//GEN-LAST:event_btnChuyenTinhTrangMouseClicked
 
+    private void btnQuanLyLoaiMonAnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnQuanLyLoaiMonAnMouseClicked
+        // TODO add your handling code here:        
+        if(quanLyLoaiMonAn_GUI == null || !quanLyLoaiMonAn_GUI.isDisplayable()){
+            quanLyLoaiMonAn_GUI = new QuanLyLoaiMonAn_GUI();
+            quanLyLoaiMonAn_GUI.setVisible(true);
+        } else {
+            quanLyLoaiMonAn_GUI.setState(JFrame.NORMAL);
+            quanLyLoaiMonAn_GUI.toFront();
+        }
+    }//GEN-LAST:event_btnQuanLyLoaiMonAnMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -1018,6 +1047,7 @@ public class QuanLyMonAn_GUI extends javax.swing.JFrame {
     private javax.swing.JButton btnChuyenTinhTrang;
     private javax.swing.JButton btnHinhAnh;
     private javax.swing.JButton btnLuu;
+    private javax.swing.JButton btnQuanLyLoaiMonAn;
     private javax.swing.JButton btnResetForm;
     private javax.swing.JButton btnSua;
     private javax.swing.JButton btnThem;
@@ -1027,7 +1057,6 @@ public class QuanLyMonAn_GUI extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> cmbLMASearchBox;
     private javax.swing.JComboBox<String> cmbTTMAForm;
     private javax.swing.JComboBox<String> cmbTTMASearch;
-    private javax.swing.JButton jButton8;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;

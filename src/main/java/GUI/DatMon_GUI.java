@@ -51,6 +51,7 @@ public class DatMon_GUI extends javax.swing.JFrame {
     private void loadMonAn(){
         MonAnFull_DTO monAn = monAn_BUS.getMonAnFullById(idMonAn);
         
+        
         lblHinhAnh.setIcon(new ImageIcon(monAn.getHinhAnh()));
         lblTenMonAn.setText(monAn.getTen());
         lblNoiDungMonAn.setText(monAn.getNoiDung());
@@ -101,12 +102,15 @@ public class DatMon_GUI extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         lblSoLuongHienTai = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Thêm món ăn");
-        setMaximumSize(new java.awt.Dimension(540, 500));
-        setMinimumSize(new java.awt.Dimension(540, 500));
-        setPreferredSize(new java.awt.Dimension(540, 500));
-        getContentPane().setLayout(new java.awt.GridBagLayout());
+        setMaximumSize(new java.awt.Dimension(660, 460));
+        setMinimumSize(new java.awt.Dimension(660, 460));
+        setPreferredSize(new java.awt.Dimension(660, 460));
+        java.awt.GridBagLayout layout = new java.awt.GridBagLayout();
+        layout.columnWidths = new int[] {0, 5, 0, 5, 0};
+        layout.rowHeights = new int[] {0, 5, 0, 5, 0, 5, 0, 5, 0, 5, 0, 5, 0, 5, 0, 5, 0, 5, 0};
+        getContentPane().setLayout(layout);
 
         lblHinhAnh.setMaximumSize(new java.awt.Dimension(200, 200));
         lblHinhAnh.setMinimumSize(new java.awt.Dimension(200, 200));
@@ -114,31 +118,32 @@ public class DatMon_GUI extends javax.swing.JFrame {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
-        gridBagConstraints.gridheight = 7;
-        gridBagConstraints.insets = new java.awt.Insets(12, 12, 12, 12);
+        gridBagConstraints.gridheight = 13;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(0, 8, 0, 8);
         getContentPane().add(lblHinhAnh, gridBagConstraints);
 
         lblTenMonAn.setText("Tàu Hủ Nóng");
-        lblTenMonAn.setMaximumSize(new java.awt.Dimension(88, 24));
-        lblTenMonAn.setMinimumSize(new java.awt.Dimension(88, 24));
-        lblTenMonAn.setPreferredSize(new java.awt.Dimension(88, 24));
+        lblTenMonAn.setMaximumSize(new java.awt.Dimension(200, 24));
+        lblTenMonAn.setMinimumSize(new java.awt.Dimension(200, 24));
+        lblTenMonAn.setPreferredSize(new java.awt.Dimension(200, 24));
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 0;
-        gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.gridwidth = 3;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.insets = new java.awt.Insets(12, 12, 12, 12);
+        gridBagConstraints.insets = new java.awt.Insets(0, 8, 0, 0);
         getContentPane().add(lblTenMonAn, gridBagConstraints);
 
         jLabel3.setText("Giá");
-        jLabel3.setMaximumSize(new java.awt.Dimension(88, 24));
-        jLabel3.setMinimumSize(new java.awt.Dimension(88, 24));
-        jLabel3.setPreferredSize(new java.awt.Dimension(88, 24));
+        jLabel3.setMaximumSize(new java.awt.Dimension(120, 24));
+        jLabel3.setMinimumSize(new java.awt.Dimension(120, 24));
+        jLabel3.setPreferredSize(new java.awt.Dimension(120, 24));
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 3;
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 6;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.insets = new java.awt.Insets(12, 12, 12, 12);
+        gridBagConstraints.insets = new java.awt.Insets(0, 8, 0, 0);
         getContentPane().add(jLabel3, gridBagConstraints);
 
         lblGia.setText("90000VNĐ");
@@ -146,20 +151,21 @@ public class DatMon_GUI extends javax.swing.JFrame {
         lblGia.setMinimumSize(new java.awt.Dimension(120, 24));
         lblGia.setPreferredSize(new java.awt.Dimension(120, 24));
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 2;
-        gridBagConstraints.gridy = 3;
-        gridBagConstraints.insets = new java.awt.Insets(12, 12, 12, 12);
+        gridBagConstraints.gridx = 4;
+        gridBagConstraints.gridy = 6;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.insets = new java.awt.Insets(0, 8, 0, 0);
         getContentPane().add(lblGia, gridBagConstraints);
 
         jLabel5.setText("Giá khuyến mãi");
-        jLabel5.setMaximumSize(new java.awt.Dimension(88, 24));
-        jLabel5.setMinimumSize(new java.awt.Dimension(88, 24));
-        jLabel5.setPreferredSize(new java.awt.Dimension(88, 24));
+        jLabel5.setMaximumSize(new java.awt.Dimension(120, 24));
+        jLabel5.setMinimumSize(new java.awt.Dimension(120, 24));
+        jLabel5.setPreferredSize(new java.awt.Dimension(120, 24));
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 4;
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 8;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.insets = new java.awt.Insets(12, 12, 12, 12);
+        gridBagConstraints.insets = new java.awt.Insets(0, 8, 0, 0);
         getContentPane().add(jLabel5, gridBagConstraints);
 
         lblGiaKhuyenMai.setText("75000VNĐ");
@@ -167,35 +173,37 @@ public class DatMon_GUI extends javax.swing.JFrame {
         lblGiaKhuyenMai.setMinimumSize(new java.awt.Dimension(120, 24));
         lblGiaKhuyenMai.setPreferredSize(new java.awt.Dimension(120, 24));
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 2;
-        gridBagConstraints.gridy = 4;
-        gridBagConstraints.insets = new java.awt.Insets(12, 12, 12, 12);
+        gridBagConstraints.gridx = 4;
+        gridBagConstraints.gridy = 8;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.insets = new java.awt.Insets(0, 8, 0, 0);
         getContentPane().add(lblGiaKhuyenMai, gridBagConstraints);
 
         spnSoLuong.setMaximumSize(new java.awt.Dimension(120, 24));
         spnSoLuong.setMinimumSize(new java.awt.Dimension(120, 24));
         spnSoLuong.setPreferredSize(new java.awt.Dimension(120, 24));
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 2;
-        gridBagConstraints.gridy = 6;
-        gridBagConstraints.insets = new java.awt.Insets(12, 12, 12, 12);
+        gridBagConstraints.gridx = 4;
+        gridBagConstraints.gridy = 12;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.insets = new java.awt.Insets(0, 8, 0, 0);
         getContentPane().add(spnSoLuong, gridBagConstraints);
 
         jLabel7.setText("Số lượng");
-        jLabel7.setMaximumSize(new java.awt.Dimension(88, 24));
-        jLabel7.setMinimumSize(new java.awt.Dimension(88, 24));
-        jLabel7.setPreferredSize(new java.awt.Dimension(88, 24));
+        jLabel7.setMaximumSize(new java.awt.Dimension(120, 24));
+        jLabel7.setMinimumSize(new java.awt.Dimension(120, 24));
+        jLabel7.setPreferredSize(new java.awt.Dimension(120, 24));
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 6;
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 12;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.insets = new java.awt.Insets(12, 12, 12, 12);
+        gridBagConstraints.insets = new java.awt.Insets(0, 8, 0, 0);
         getContentPane().add(jLabel7, gridBagConstraints);
 
         btnDatMon.setText("Đặt ngay");
-        btnDatMon.setMaximumSize(new java.awt.Dimension(120, 28));
-        btnDatMon.setMinimumSize(new java.awt.Dimension(120, 28));
-        btnDatMon.setPreferredSize(new java.awt.Dimension(120, 28));
+        btnDatMon.setMaximumSize(new java.awt.Dimension(120, 24));
+        btnDatMon.setMinimumSize(new java.awt.Dimension(120, 24));
+        btnDatMon.setPreferredSize(new java.awt.Dimension(120, 24));
         btnDatMon.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnDatMonMouseClicked(evt);
@@ -207,71 +215,116 @@ public class DatMon_GUI extends javax.swing.JFrame {
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 9;
-        gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 18;
+        gridBagConstraints.gridwidth = 3;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.insets = new java.awt.Insets(12, 12, 12, 12);
+        gridBagConstraints.insets = new java.awt.Insets(0, 8, 0, 0);
         getContentPane().add(btnDatMon, gridBagConstraints);
 
         jLabel8.setText("Ghi chú");
+        jLabel8.setMaximumSize(new java.awt.Dimension(120, 24));
+        jLabel8.setMinimumSize(new java.awt.Dimension(120, 24));
+        jLabel8.setPreferredSize(new java.awt.Dimension(120, 24));
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 7;
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 14;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.insets = new java.awt.Insets(0, 8, 0, 0);
         getContentPane().add(jLabel8, gridBagConstraints);
 
         jScrollPane1.setMinimumSize(new java.awt.Dimension(234, 86));
 
         txaGhiChu.setColumns(20);
         txaGhiChu.setRows(5);
+        txaGhiChu.setMaximumSize(new java.awt.Dimension(160, 80));
+        txaGhiChu.setMinimumSize(new java.awt.Dimension(160, 80));
+        txaGhiChu.setPreferredSize(new java.awt.Dimension(160, 80));
         jScrollPane1.setViewportView(txaGhiChu);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 2;
-        gridBagConstraints.gridy = 7;
+        gridBagConstraints.gridx = 4;
+        gridBagConstraints.gridy = 14;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.insets = new java.awt.Insets(0, 8, 0, 0);
         getContentPane().add(jScrollPane1, gridBagConstraints);
 
         jLabel1.setText("Tình trạng món");
+        jLabel1.setMaximumSize(new java.awt.Dimension(120, 24));
+        jLabel1.setMinimumSize(new java.awt.Dimension(120, 24));
+        jLabel1.setPreferredSize(new java.awt.Dimension(120, 24));
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 8;
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 16;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.insets = new java.awt.Insets(0, 8, 0, 0);
         getContentPane().add(jLabel1, gridBagConstraints);
 
         lblTinhTrangMonAn.setText("Sẵn sàng");
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 2;
-        gridBagConstraints.gridy = 8;
+        gridBagConstraints.gridx = 4;
+        gridBagConstraints.gridy = 16;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.insets = new java.awt.Insets(0, 8, 0, 0);
         getContentPane().add(lblTinhTrangMonAn, gridBagConstraints);
 
         lblNoiDungMonAn.setText("Nội dung món ăn");
+        lblNoiDungMonAn.setMaximumSize(new java.awt.Dimension(288, 48));
+        lblNoiDungMonAn.setMinimumSize(new java.awt.Dimension(288, 48));
+        lblNoiDungMonAn.setPreferredSize(new java.awt.Dimension(288, 48));
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 1;
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.gridwidth = 3;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.insets = new java.awt.Insets(0, 8, 0, 0);
         getContentPane().add(lblNoiDungMonAn, gridBagConstraints);
 
         lblLoaiMonAn.setText("Loại");
+        lblLoaiMonAn.setMaximumSize(new java.awt.Dimension(120, 24));
+        lblLoaiMonAn.setMinimumSize(new java.awt.Dimension(120, 24));
+        lblLoaiMonAn.setPreferredSize(new java.awt.Dimension(120, 24));
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 2;
-        gridBagConstraints.gridy = 2;
+        gridBagConstraints.gridx = 4;
+        gridBagConstraints.gridy = 4;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.insets = new java.awt.Insets(0, 8, 0, 0);
         getContentPane().add(lblLoaiMonAn, gridBagConstraints);
 
         jLabel12.setText("Loại món ăn");
+        jLabel12.setMaximumSize(new java.awt.Dimension(120, 24));
+        jLabel12.setMinimumSize(new java.awt.Dimension(120, 24));
+        jLabel12.setPreferredSize(new java.awt.Dimension(120, 24));
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 2;
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 4;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.insets = new java.awt.Insets(0, 8, 0, 0);
         getContentPane().add(jLabel12, gridBagConstraints);
 
         jLabel2.setText("Số lượng món hiện tại");
+        jLabel2.setMaximumSize(new java.awt.Dimension(120, 24));
+        jLabel2.setMinimumSize(new java.awt.Dimension(120, 24));
+        jLabel2.setPreferredSize(new java.awt.Dimension(120, 24));
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 5;
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 10;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.insets = new java.awt.Insets(0, 8, 0, 0);
         getContentPane().add(jLabel2, gridBagConstraints);
 
         lblSoLuongHienTai.setText("0");
+        lblSoLuongHienTai.setMaximumSize(new java.awt.Dimension(120, 24));
+        lblSoLuongHienTai.setMinimumSize(new java.awt.Dimension(120, 24));
+        lblSoLuongHienTai.setPreferredSize(new java.awt.Dimension(120, 24));
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 2;
-        gridBagConstraints.gridy = 5;
+        gridBagConstraints.gridx = 4;
+        gridBagConstraints.gridy = 10;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.insets = new java.awt.Insets(0, 8, 0, 0);
         getContentPane().add(lblSoLuongHienTai, gridBagConstraints);
+
+        getAccessibleContext().setAccessibleDescription("");
 
         pack();
         setLocationRelativeTo(null);

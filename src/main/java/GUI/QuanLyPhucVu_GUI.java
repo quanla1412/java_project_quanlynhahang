@@ -31,6 +31,7 @@ public class QuanLyPhucVu_GUI extends javax.swing.JFrame {
     
     private Menu_GUI menu_GUI;
     private DatMon_GUI datMon_GUI;
+    private ThanhToan_GUI thanhToan_GUI;
     /**
      * Creates new form QuanLyPhucVu_GUI
      */
@@ -328,7 +329,7 @@ public class QuanLyPhucVu_GUI extends javax.swing.JFrame {
         jLabel10 = new javax.swing.JLabel();
         lblTongGia = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Quản lý phục vụ");
         setMinimumSize(new java.awt.Dimension(1080, 600));
         setPreferredSize(new java.awt.Dimension(1080, 600));
@@ -347,6 +348,7 @@ public class QuanLyPhucVu_GUI extends javax.swing.JFrame {
         pnlDanhSachBan.setMinimumSize(new java.awt.Dimension(520, 600));
         pnlDanhSachBan.setNextFocusableComponent(pnlDanhSachBan);
         pnlDanhSachBan.setPreferredSize(new java.awt.Dimension(520, 600));
+        pnlDanhSachBan.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT));
 
         jButton2.setText("<html>\n<p style=\"text-align:center\">Bàn 1</p>\n<p  style=\"text-align:center\">Vuông 2</p>\n<p  style=\"text-align:center\">Đang chuẩn bị</p>\n</html>");
         jButton2.setMinimumSize(new java.awt.Dimension(120, 60));
@@ -1085,6 +1087,16 @@ public class QuanLyPhucVu_GUI extends javax.swing.JFrame {
         btnThanhToan.setMaximumSize(new java.awt.Dimension(120, 24));
         btnThanhToan.setMinimumSize(new java.awt.Dimension(120, 24));
         btnThanhToan.setPreferredSize(new java.awt.Dimension(120, 24));
+        btnThanhToan.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnThanhToanMouseClicked(evt);
+            }
+        });
+        btnThanhToan.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnThanhToanActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 1;
@@ -1115,6 +1127,7 @@ public class QuanLyPhucVu_GUI extends javax.swing.JFrame {
         getContentPane().add(jPanel3);
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnPhucVuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnPhucVuMouseClicked
@@ -1124,7 +1137,7 @@ public class QuanLyPhucVu_GUI extends javax.swing.JFrame {
 
     private void btnThemMonMoiMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnThemMonMoiMouseClicked
         // TODO add your handling code here:
-        if(menu_GUI == null){
+        if(menu_GUI == null || !menu_GUI.isDisplayable()){
             menu_GUI = new Menu_GUI(banDangChon.getId());
             menu_GUI.setVisible(true);
         } else {
@@ -1144,7 +1157,7 @@ public class QuanLyPhucVu_GUI extends javax.swing.JFrame {
         TableModel model = tblDonGoi.getModel();
         
         int idMonAn = Integer.parseInt(model.getValueAt(indexRow, 0).toString());
-        if(datMon_GUI == null){
+        if(datMon_GUI == null || !datMon_GUI.isDisplayable()){
             datMon_GUI = new DatMon_GUI(banDangChon.getId(), idMonAn);
             datMon_GUI.setVisible(true);
         } else {
@@ -1152,6 +1165,21 @@ public class QuanLyPhucVu_GUI extends javax.swing.JFrame {
             datMon_GUI.toFront();
         }
     }//GEN-LAST:event_btnSuaDonGoiMouseClicked
+
+    private void btnThanhToanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThanhToanActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnThanhToanActionPerformed
+
+    private void btnThanhToanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnThanhToanMouseClicked
+        // TODO add your handling code here:
+        if(thanhToan_GUI == null || !thanhToan_GUI.isDisplayable()){
+            thanhToan_GUI = new ThanhToan_GUI();
+            thanhToan_GUI.setVisible(true);
+        } else {
+            thanhToan_GUI.setState(JFrame.NORMAL);
+            thanhToan_GUI.toFront();
+        }
+    }//GEN-LAST:event_btnThanhToanMouseClicked
 
     /**
      * @param args the command line arguments

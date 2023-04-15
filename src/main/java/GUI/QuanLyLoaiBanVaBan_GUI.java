@@ -156,7 +156,7 @@ public class QuanLyLoaiBanVaBan_GUI extends javax.swing.JFrame {
 
         jMenu1.setText("jMenu1");
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Quản lý bàn và loại bàn");
         setMinimumSize(new java.awt.Dimension(695, 560));
         setPreferredSize(new java.awt.Dimension(695, 560));
@@ -522,6 +522,7 @@ public class QuanLyLoaiBanVaBan_GUI extends javax.swing.JFrame {
         getContentPane().add(jPanel5);
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void txtIDLoaiBanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtIDLoaiBanActionPerformed

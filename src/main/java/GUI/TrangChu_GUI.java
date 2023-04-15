@@ -7,6 +7,7 @@ package GUI;
 import com.formdev.flatlaf.FlatDarkLaf;
 import com.formdev.flatlaf.FlatIntelliJLaf;
 import com.formdev.flatlaf.themes.FlatMacLightLaf;
+import javax.swing.JFrame;
 import javax.swing.UIManager;
 
 /**
@@ -20,8 +21,7 @@ public class TrangChu_GUI extends javax.swing.JFrame {
     private QuanLyHoaDon_GUI hoaDon_GUI;
     private QuanLyNhanVien_GUI quanLyNhanVien_GUI;
     private QuanLyKhachHang_GUI quanLyKhachHang_GUI;
-    private QuanLyQuyen_GUI quanLyQuyen_GUI;
-    private QuanLyTaiKhoan_GUI quanLyTaiKhoan_GUI;
+    private BaoCaoThongKe_GUI baoCaoThongKe_GUI;
     
     /**
      * Creates new form TrangChu_GUI
@@ -45,17 +45,16 @@ public class TrangChu_GUI extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
+        jButton2 = new javax.swing.JButton();
         jPanel5 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
+        btnQuanLyBan = new javax.swing.JButton();
+        btnQuanLyMonAn = new javax.swing.JButton();
+        btnQuanLyHoaDon = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
         jButton7 = new javax.swing.JButton();
-        jButton8 = new javax.swing.JButton();
-        jButton10 = new javax.swing.JButton();
+        btnBaoCaoThongKe = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Trang chủ");
@@ -84,18 +83,18 @@ public class TrangChu_GUI extends javax.swing.JFrame {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
-        gridBagConstraints.gridwidth = 2;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
         gridBagConstraints.insets = new java.awt.Insets(10, 0, 10, 10);
         jPanel4.add(jLabel2, gridBagConstraints);
 
-        jLabel3.setText("Đăng xuất");
+        jButton2.setText("Đăng xuất");
+        jButton2.setFocusable(false);
+        jButton2.setRequestFocusEnabled(false);
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 1;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
-        gridBagConstraints.insets = new java.awt.Insets(0, 0, 10, 10);
-        jPanel4.add(jLabel3, gridBagConstraints);
+        jPanel4.add(jButton2, gridBagConstraints);
 
         jPanel1.add(jPanel4, java.awt.BorderLayout.LINE_END);
 
@@ -135,53 +134,53 @@ public class TrangChu_GUI extends javax.swing.JFrame {
         gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
         jPanel2.add(jButton1, gridBagConstraints);
 
-        jButton4.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jButton4.setIcon(new javax.swing.ImageIcon("D:\\QuanLyNhaHang\\Icon\\table_bar_FILL0_wght400_GRAD0_opsz48.png")); // NOI18N
-        jButton4.setText("<html>\n<p style =\"margin-top:60px;\">Quản lý bàn </p>\n</html>");
-        jButton4.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButton4.setMinimumSize(new java.awt.Dimension(200, 130));
-        jButton4.setPreferredSize(new java.awt.Dimension(200, 130));
-        jButton4.addMouseListener(new java.awt.event.MouseAdapter() {
+        btnQuanLyBan.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btnQuanLyBan.setIcon(new javax.swing.ImageIcon("D:\\QuanLyNhaHang\\Icon\\table_bar_FILL0_wght400_GRAD0_opsz48.png")); // NOI18N
+        btnQuanLyBan.setText("<html>\n<p style =\"margin-top:60px;\">Quản lý bàn </p>\n</html>");
+        btnQuanLyBan.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnQuanLyBan.setMinimumSize(new java.awt.Dimension(200, 130));
+        btnQuanLyBan.setPreferredSize(new java.awt.Dimension(200, 130));
+        btnQuanLyBan.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jButton4MouseClicked(evt);
+                btnQuanLyBanMouseClicked(evt);
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
-        jPanel2.add(jButton4, gridBagConstraints);
+        jPanel2.add(btnQuanLyBan, gridBagConstraints);
 
-        jButton2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jButton2.setIcon(new javax.swing.ImageIcon("D:\\QuanLyNhaHang\\Icon\\restaurant_menu_FILL0_wght400_GRAD0_opsz48.png")); // NOI18N
-        jButton2.setText("<html>\n<p style =\"margin-top:60px;\">Quản lý món ăn </p>\n</html>");
-        jButton2.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButton2.setMinimumSize(new java.awt.Dimension(200, 130));
-        jButton2.setPreferredSize(new java.awt.Dimension(200, 130));
-        jButton2.addMouseListener(new java.awt.event.MouseAdapter() {
+        btnQuanLyMonAn.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btnQuanLyMonAn.setIcon(new javax.swing.ImageIcon("D:\\QuanLyNhaHang\\Icon\\restaurant_menu_FILL0_wght400_GRAD0_opsz48.png")); // NOI18N
+        btnQuanLyMonAn.setText("<html>\n<p style =\"margin-top:60px;\">Quản lý món ăn </p>\n</html>");
+        btnQuanLyMonAn.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnQuanLyMonAn.setMinimumSize(new java.awt.Dimension(200, 130));
+        btnQuanLyMonAn.setPreferredSize(new java.awt.Dimension(200, 130));
+        btnQuanLyMonAn.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jButton2MouseClicked(evt);
+                btnQuanLyMonAnMouseClicked(evt);
             }
         });
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        btnQuanLyMonAn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                btnQuanLyMonAnActionPerformed(evt);
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
-        jPanel2.add(jButton2, gridBagConstraints);
+        jPanel2.add(btnQuanLyMonAn, gridBagConstraints);
 
-        jButton5.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jButton5.setIcon(new javax.swing.ImageIcon("D:\\QuanLyNhaHang\\Icon\\receipt_long_FILL0_wght400_GRAD0_opsz48.png")); // NOI18N
-        jButton5.setText("<html>\n<p style =\"margin-top:60px;\"> Quản lý hóa đơn</p>\n</html>");
-        jButton5.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButton5.setMinimumSize(new java.awt.Dimension(200, 130));
-        jButton5.setPreferredSize(new java.awt.Dimension(200, 130));
-        jButton5.addMouseListener(new java.awt.event.MouseAdapter() {
+        btnQuanLyHoaDon.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btnQuanLyHoaDon.setIcon(new javax.swing.ImageIcon("D:\\QuanLyNhaHang\\Icon\\receipt_long_FILL0_wght400_GRAD0_opsz48.png")); // NOI18N
+        btnQuanLyHoaDon.setText("<html>\n<p style =\"margin-top:60px;\"> Quản lý hóa đơn</p>\n</html>");
+        btnQuanLyHoaDon.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnQuanLyHoaDon.setMinimumSize(new java.awt.Dimension(200, 130));
+        btnQuanLyHoaDon.setPreferredSize(new java.awt.Dimension(200, 130));
+        btnQuanLyHoaDon.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jButton5MouseClicked(evt);
+                btnQuanLyHoaDonMouseClicked(evt);
             }
         });
-        jPanel2.add(jButton5, new java.awt.GridBagConstraints());
+        jPanel2.add(btnQuanLyHoaDon, new java.awt.GridBagConstraints());
 
         jButton6.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jButton6.setIcon(new javax.swing.ImageIcon("D:\\QuanLyNhaHang\\Icon\\person_FILL0_wght400_GRAD0_opsz48.png")); // NOI18N
@@ -217,106 +216,109 @@ public class TrangChu_GUI extends javax.swing.JFrame {
         gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
         jPanel2.add(jButton7, gridBagConstraints);
 
-        jButton8.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jButton8.setIcon(new javax.swing.ImageIcon("D:\\QuanLyNhaHang\\Icon\\account_circle_FILL0_wght400_GRAD0_opsz48.png")); // NOI18N
-        jButton8.setText("<html>\n<p style =\"margin-top:60px;\">Quản lý tài khoản</p>\n</html>");
-        jButton8.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButton8.setMinimumSize(new java.awt.Dimension(200, 130));
-        jButton8.setPreferredSize(new java.awt.Dimension(200, 130));
-        jButton8.addMouseListener(new java.awt.event.MouseAdapter() {
+        btnBaoCaoThongKe.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btnBaoCaoThongKe.setIcon(new javax.swing.ImageIcon("D:\\QuanLyNhaHang\\Icon\\monitoring_FILL0_wght400_GRAD200_opsz48.png")); // NOI18N
+        btnBaoCaoThongKe.setText("<html>\n<p style =\"margin-top:60px;\"> Báo cáo & Thống kê</p>\n</html>");
+        btnBaoCaoThongKe.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnBaoCaoThongKe.setMinimumSize(new java.awt.Dimension(200, 130));
+        btnBaoCaoThongKe.setPreferredSize(new java.awt.Dimension(200, 130));
+        btnBaoCaoThongKe.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jButton8MouseClicked(evt);
+                btnBaoCaoThongKeMouseClicked(evt);
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 1;
         gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
-        jPanel2.add(jButton8, gridBagConstraints);
-
-        jButton10.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jButton10.setIcon(new javax.swing.ImageIcon("D:\\QuanLyNhaHang\\Icon\\monitoring_FILL0_wght400_GRAD200_opsz48.png")); // NOI18N
-        jButton10.setText("<html>\n<p style =\"margin-top:60px;\"> Báo cáo & Thống kê</p>\n</html>");
-        jButton10.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButton10.setMinimumSize(new java.awt.Dimension(200, 130));
-        jButton10.setPreferredSize(new java.awt.Dimension(200, 130));
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 3;
-        gridBagConstraints.gridy = 1;
-        gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
-        jPanel2.add(jButton10, gridBagConstraints);
+        jPanel2.add(btnBaoCaoThongKe, gridBagConstraints);
 
         getContentPane().add(jPanel2, java.awt.BorderLayout.CENTER);
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void btnQuanLyMonAnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnQuanLyMonAnActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_btnQuanLyMonAnActionPerformed
 
     private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
         // TODO add your handling code here:
-        if(quanLyPhucVu_GUI == null){
+        if(quanLyPhucVu_GUI == null || !quanLyPhucVu_GUI.isDisplayable()){
             quanLyPhucVu_GUI = new QuanLyPhucVu_GUI();
             quanLyPhucVu_GUI.setVisible(true);
         } else {
+            quanLyPhucVu_GUI.setState(JFrame.NORMAL);
+            quanLyPhucVu_GUI.toFront();
         }
     }//GEN-LAST:event_jButton1MouseClicked
 
-    private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseClicked
+    private void btnQuanLyMonAnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnQuanLyMonAnMouseClicked
         // TODO add your handling code here:
-        if(quanLyMonAn_GUI == null){
+        if(quanLyMonAn_GUI == null || !quanLyMonAn_GUI.isDisplayable()){
             quanLyMonAn_GUI = new QuanLyMonAn_GUI();
             quanLyMonAn_GUI.setVisible(true);
         } else {
+            quanLyMonAn_GUI.setState(JFrame.NORMAL);
+            quanLyMonAn_GUI.toFront();
         }
-    }//GEN-LAST:event_jButton2MouseClicked
+    }//GEN-LAST:event_btnQuanLyMonAnMouseClicked
 
-    private void jButton4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton4MouseClicked
+    private void btnQuanLyBanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnQuanLyBanMouseClicked
         // TODO add your handling code here:
-        if(quanLyLoaiBanVaBan_GUI == null){
+        if(quanLyLoaiBanVaBan_GUI == null || !quanLyLoaiBanVaBan_GUI.isDisplayable()){
             quanLyLoaiBanVaBan_GUI = new QuanLyLoaiBanVaBan_GUI();
             quanLyLoaiBanVaBan_GUI.setVisible(true);
         } else {
+            quanLyLoaiBanVaBan_GUI.setState(JFrame.NORMAL);
+            quanLyLoaiBanVaBan_GUI.toFront();
         }
-    }//GEN-LAST:event_jButton4MouseClicked
+    }//GEN-LAST:event_btnQuanLyBanMouseClicked
 
-    private void jButton5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton5MouseClicked
+    private void btnQuanLyHoaDonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnQuanLyHoaDonMouseClicked
         // TODO add your handling code here:
-        if(hoaDon_GUI == null){
+        if(hoaDon_GUI == null || !hoaDon_GUI.isDisplayable()){
             hoaDon_GUI = new QuanLyHoaDon_GUI();
             hoaDon_GUI.setVisible(true);
         } else {
+            hoaDon_GUI.setState(JFrame.NORMAL);
+            hoaDon_GUI.toFront();
         }
-    }//GEN-LAST:event_jButton5MouseClicked
+    }//GEN-LAST:event_btnQuanLyHoaDonMouseClicked
 
     private void jButton6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton6MouseClicked
         // TODO add your handling code here:
-        if(quanLyNhanVien_GUI == null){
+        if(quanLyNhanVien_GUI == null || !quanLyNhanVien_GUI.isDisplayable()){
             quanLyNhanVien_GUI = new QuanLyNhanVien_GUI();
             quanLyNhanVien_GUI.setVisible(true);
         } else {
+            quanLyNhanVien_GUI.setState(JFrame.NORMAL);
+            quanLyNhanVien_GUI.toFront();
         }
     }//GEN-LAST:event_jButton6MouseClicked
 
     private void jButton7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton7MouseClicked
         // TODO add your handling code here:
-        if(quanLyKhachHang_GUI == null){
+        if(quanLyKhachHang_GUI == null || !quanLyKhachHang_GUI.isDisplayable()){
             quanLyKhachHang_GUI = new QuanLyKhachHang_GUI();
             quanLyKhachHang_GUI.setVisible(true);
         } else {
+            quanLyKhachHang_GUI.setState(JFrame.NORMAL);
+            quanLyKhachHang_GUI.toFront();
         }
     }//GEN-LAST:event_jButton7MouseClicked
 
-    private void jButton8MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton8MouseClicked
+    private void btnBaoCaoThongKeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBaoCaoThongKeMouseClicked
         // TODO add your handling code here:
-        if(quanLyTaiKhoan_GUI == null){
-            quanLyTaiKhoan_GUI = new QuanLyTaiKhoan_GUI();
-            quanLyTaiKhoan_GUI.setVisible(true);
+        if(baoCaoThongKe_GUI == null || !baoCaoThongKe_GUI.isDisplayable()){
+            baoCaoThongKe_GUI = new BaoCaoThongKe_GUI();
+            baoCaoThongKe_GUI.setVisible(true);
         } else {
+            baoCaoThongKe_GUI.setState(JFrame.NORMAL);
+            baoCaoThongKe_GUI.toFront();
         }
-    }//GEN-LAST:event_jButton8MouseClicked
+    }//GEN-LAST:event_btnBaoCaoThongKeMouseClicked
 
     /**
      * @param args the command line arguments
@@ -332,17 +334,16 @@ public class TrangChu_GUI extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnBaoCaoThongKe;
+    private javax.swing.JButton btnQuanLyBan;
+    private javax.swing.JButton btnQuanLyHoaDon;
+    private javax.swing.JButton btnQuanLyMonAn;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton10;
     private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
-    private javax.swing.JButton jButton8;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;

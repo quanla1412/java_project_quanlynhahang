@@ -61,7 +61,7 @@ public class QuanLyLoaiMonAn_GUI extends javax.swing.JFrame {
         tblLoaiMonAn = new javax.swing.JTable();
         jButton1 = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Quản lý loại món ăn");
         getContentPane().setLayout(new javax.swing.BoxLayout(getContentPane(), javax.swing.BoxLayout.PAGE_AXIS));
 
@@ -127,6 +127,7 @@ public class QuanLyLoaiMonAn_GUI extends javax.swing.JFrame {
         getContentPane().add(jPanel2);
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnThemLoaiMonAnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnThemLoaiMonAnMouseClicked
