@@ -255,13 +255,13 @@ public class QuanLyLoaiKhachHang_GUI extends javax.swing.JFrame {
         getContentPane().add(jPanel4);
 
         pack();
-        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
     private void clearTextViewLoaiKH(){
         txtID.setText("");
         txtLoaiKH.setText("");
         txtDiemToiThieu.setText("");
         txtMucUuDai.setText("");
+        
     }
     private void loadTableKhachHang(){
         ArrayList<LoaiKhachHang_DTO> listKhachHang = loaiKhachHang_BUS.getAllLoaiKhachHang();

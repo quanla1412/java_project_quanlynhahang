@@ -19,11 +19,13 @@ public class KhachHangFull_DTO {
     private int diemTichLuy;
     private String email;
     private Timestamp ngaySinh;
+    private boolean gioiTinh;
+
 
     public KhachHangFull_DTO() {
     }
 
-    public KhachHangFull_DTO(int id, LoaiKhachHang_DTO loaiKhachHang, String ten, String sdt, int diemTichLuy, String email, Timestamp ngaySinh) {
+    public KhachHangFull_DTO(int id, LoaiKhachHang_DTO loaiKhachHang, String ten, String sdt, int diemTichLuy, String email, Timestamp ngaySinh, boolean gioiTinh) {
         this.id = id;
         this.loaiKhachHang = loaiKhachHang;
         this.ten = ten;
@@ -31,7 +33,18 @@ public class KhachHangFull_DTO {
         this.diemTichLuy = diemTichLuy;
         this.email = email;
         this.ngaySinh = ngaySinh;
+        this.gioiTinh = gioiTinh;
     }
+
+    public boolean isGioiTinh() {
+        return gioiTinh;
+    }
+
+    public void setGioiTinh(boolean gioiTinh) {
+        this.gioiTinh = gioiTinh;
+    }
+
+    
 
     public int getId() {
         return id;
