@@ -11,10 +11,13 @@ import DTO.KhachHang.KhachHangFull_DTO;
 import DTO.KhachHang.KhachHang_DTO;
 import DTO.KhachHang.LoaiKhachHang_DTO;
 import DTO.KhachHang.UpdateKhachHang_DTO;
+import DTO.KhachHang.SearchKhachHang_DTO;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 import javax.swing.BorderFactory;
-import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
@@ -26,6 +29,7 @@ import javax.swing.table.TableModel;
 public class QuanLyKhachHang_GUI extends javax.swing.JFrame {
     private final LoaiKhachHang_BUS loaiKhach_BUS;
     private final KhachHang_BUS khachHang_BUS;
+    
     private boolean dangThemKhachHang = true;
     
     private QuanLyLoaiKhachHang_GUI quanLyLoaiKhachHang_GUI;
@@ -57,6 +61,17 @@ public class QuanLyKhachHang_GUI extends javax.swing.JFrame {
             tableModel.addRow(data);
         }
     }
+    private void loadTableKhachHang(ArrayList<KhachHang_DTO> dataTable){
+        
+        ArrayList<KhachHang_DTO> listKhachHang = dataTable;
+        String col[] = {"ID", "Tên khách hàng", "Số diện thoại ", "Điểm tích lũy ", "Loại khách hàng "};
+        DefaultTableModel tableModel = new DefaultTableModel(col, 0);
+        tblKhachHang.setModel(tableModel);
+        for(KhachHang_DTO row : listKhachHang){
+            Object[] data = {row.getId(), row.getTen(), row.getSdt(), row.getDiemTichLuy(), row.getLoaiKhachHang().getTen()};
+            tableModel.addRow(data);
+        }
+    }
     
     private void loadComboBoxLoaiKhach(){
         listLoaiKhach = loaiKhach_BUS.getAllLoaiKhachHang();        
@@ -78,12 +93,13 @@ public class QuanLyKhachHang_GUI extends javax.swing.JFrame {
     }
     
     private void clearTextViewKhachHang(){
-        txtID.setText("");
-        txtMaKH.setText("");
+        txtSearchIdName.setText("");
+        txtIDKH.setText("");
         txtHoTen.setText("");
         txtSDT.setText("");
         txtDiemTichLuy.setText("");
         txtEmail.setText("");
+        jdcNgaySinh.setDate(new Date());
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -98,12 +114,14 @@ public class QuanLyKhachHang_GUI extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        txtID = new javax.swing.JTextField();
-        cmbGioiTinh = new javax.swing.JComboBox<>();
+        txtSearchIdName = new javax.swing.JTextField();
         cmbLoaiKhach = new javax.swing.JComboBox<>();
         btnTimKiem = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
+        cmbGioiTinh = new javax.swing.JComboBox<>();
+        jLabel12 = new javax.swing.JLabel();
+        txtSoDienThoai = new javax.swing.JTextField();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblKhachHang = new javax.swing.JTable();
@@ -120,7 +138,7 @@ public class QuanLyKhachHang_GUI extends javax.swing.JFrame {
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
-        txtMaKH = new javax.swing.JTextField();
+        txtIDKH = new javax.swing.JTextField();
         txtHoTen = new javax.swing.JTextField();
         txtSDT = new javax.swing.JTextField();
         txtDiemTichLuy = new javax.swing.JTextField();
@@ -129,8 +147,10 @@ public class QuanLyKhachHang_GUI extends javax.swing.JFrame {
         btnReset = new javax.swing.JButton();
         btnLuu = new javax.swing.JButton();
         jdcNgaySinh = new com.toedter.calendar.JDateChooser();
+        jLabel11 = new javax.swing.JLabel();
+        cmbGioiTinhKH = new javax.swing.JComboBox<>();
         jPanel7 = new javax.swing.JPanel();
-        btnQuanLyLoaiKhachHang = new javax.swing.JButton();
+        btnQLLKH = new javax.swing.JButton();
         btnImport = new javax.swing.JButton();
         btnExport = new javax.swing.JButton();
         filler1 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 200), new java.awt.Dimension(0, 0));
@@ -151,14 +171,6 @@ public class QuanLyKhachHang_GUI extends javax.swing.JFrame {
         gridBagConstraints.insets = new java.awt.Insets(10, 0, 10, 10);
         jPanel2.add(jLabel1, gridBagConstraints);
 
-        jLabel2.setText("Giới tính");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 1;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.insets = new java.awt.Insets(10, 0, 10, 10);
-        jPanel2.add(jLabel2, gridBagConstraints);
-
         jLabel3.setText("Loại khách");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
@@ -167,22 +179,17 @@ public class QuanLyKhachHang_GUI extends javax.swing.JFrame {
         gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
         jPanel2.add(jLabel3, gridBagConstraints);
 
-        txtID.setMinimumSize(new java.awt.Dimension(200, 22));
-        txtID.setPreferredSize(new java.awt.Dimension(250, 22));
+        txtSearchIdName.setMinimumSize(new java.awt.Dimension(250, 22));
+        txtSearchIdName.setPreferredSize(new java.awt.Dimension(250, 22));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 0;
         gridBagConstraints.gridwidth = 3;
         gridBagConstraints.insets = new java.awt.Insets(10, 0, 10, 0);
-        jPanel2.add(txtID, gridBagConstraints);
+        jPanel2.add(txtSearchIdName, gridBagConstraints);
 
-        cmbGioiTinh.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "NAM", "NỮ" }));
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 1;
-        gridBagConstraints.insets = new java.awt.Insets(10, 0, 10, 0);
-        jPanel2.add(cmbGioiTinh, gridBagConstraints);
-
+        cmbLoaiKhach.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tất Cả" }));
+        cmbLoaiKhach.setMinimumSize(new java.awt.Dimension(100, 22));
         cmbLoaiKhach.setPreferredSize(new java.awt.Dimension(100, 22));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 3;
@@ -192,12 +199,51 @@ public class QuanLyKhachHang_GUI extends javax.swing.JFrame {
         btnTimKiem.setText("Tìm kiếm");
         btnTimKiem.setMinimumSize(new java.awt.Dimension(100, 60));
         btnTimKiem.setPreferredSize(new java.awt.Dimension(100, 60));
+        btnTimKiem.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnTimKiemMouseClicked(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 4;
         gridBagConstraints.gridy = 0;
-        gridBagConstraints.gridheight = 2;
+        gridBagConstraints.gridheight = 3;
         gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 0);
         jPanel2.add(btnTimKiem, gridBagConstraints);
+
+        jLabel2.setText("Giới Tính");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        jPanel2.add(jLabel2, gridBagConstraints);
+
+        cmbGioiTinh.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tất Cả", "Nam", "Nữ" }));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 1;
+        jPanel2.add(cmbGioiTinh, gridBagConstraints);
+
+        jLabel12.setText("Số điện thoại");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        jPanel2.add(jLabel12, gridBagConstraints);
+
+        txtSoDienThoai.setMinimumSize(new java.awt.Dimension(250, 22));
+        txtSoDienThoai.setPreferredSize(new java.awt.Dimension(250, 22));
+        txtSoDienThoai.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtSoDienThoaiActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.gridwidth = 3;
+        gridBagConstraints.insets = new java.awt.Insets(10, 0, 10, 0);
+        jPanel2.add(txtSoDienThoai, gridBagConstraints);
 
         jPanel1.add(jPanel2);
 
@@ -227,7 +273,7 @@ public class QuanLyKhachHang_GUI extends javax.swing.JFrame {
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 533, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 585, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
@@ -283,7 +329,7 @@ public class QuanLyKhachHang_GUI extends javax.swing.JFrame {
         pnlKhachHang.setBorder(javax.swing.BorderFactory.createTitledBorder("Thêm khách hàng"));
         pnlKhachHang.setLayout(new java.awt.GridBagLayout());
 
-        jLabel4.setText("Mã KH");
+        jLabel4.setText("ID");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
@@ -337,11 +383,11 @@ public class QuanLyKhachHang_GUI extends javax.swing.JFrame {
         gridBagConstraints.insets = new java.awt.Insets(0, 10, 10, 10);
         pnlKhachHang.add(jLabel10, gridBagConstraints);
 
-        txtMaKH.setEnabled(false);
-        txtMaKH.setPreferredSize(new java.awt.Dimension(150, 22));
-        txtMaKH.addActionListener(new java.awt.event.ActionListener() {
+        txtIDKH.setEnabled(false);
+        txtIDKH.setPreferredSize(new java.awt.Dimension(150, 22));
+        txtIDKH.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtMaKHActionPerformed(evt);
+                txtIDKHActionPerformed(evt);
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -349,7 +395,7 @@ public class QuanLyKhachHang_GUI extends javax.swing.JFrame {
         gridBagConstraints.gridy = 0;
         gridBagConstraints.gridwidth = 2;
         gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 0);
-        pnlKhachHang.add(txtMaKH, gridBagConstraints);
+        pnlKhachHang.add(txtIDKH, gridBagConstraints);
 
         txtHoTen.setPreferredSize(new java.awt.Dimension(150, 22));
         txtHoTen.addActionListener(new java.awt.event.ActionListener() {
@@ -404,7 +450,7 @@ public class QuanLyKhachHang_GUI extends javax.swing.JFrame {
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 7;
+        gridBagConstraints.gridy = 8;
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 10, 0);
         pnlKhachHang.add(btnReset, gridBagConstraints);
 
@@ -421,7 +467,7 @@ public class QuanLyKhachHang_GUI extends javax.swing.JFrame {
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
-        gridBagConstraints.gridy = 7;
+        gridBagConstraints.gridy = 8;
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 10, 0);
         pnlKhachHang.add(btnLuu, gridBagConstraints);
 
@@ -433,22 +479,44 @@ public class QuanLyKhachHang_GUI extends javax.swing.JFrame {
         gridBagConstraints.insets = new java.awt.Insets(0, 10, 10, 0);
         pnlKhachHang.add(jdcNgaySinh, gridBagConstraints);
 
+        jLabel11.setText("Giới Tính");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 7;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.insets = new java.awt.Insets(0, 10, 10, 10);
+        pnlKhachHang.add(jLabel11, gridBagConstraints);
+
+        cmbGioiTinhKH.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Nam", "Nữ" }));
+        cmbGioiTinhKH.setPreferredSize(new java.awt.Dimension(150, 22));
+        cmbGioiTinhKH.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbGioiTinhKHActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 7;
+        gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.insets = new java.awt.Insets(0, 10, 10, 0);
+        pnlKhachHang.add(cmbGioiTinhKH, gridBagConstraints);
+
         jPanel4.add(pnlKhachHang);
 
         jPanel7.setBorder(javax.swing.BorderFactory.createTitledBorder("Chức năng khác"));
         jPanel7.setLayout(new java.awt.GridBagLayout());
 
-        btnQuanLyLoaiKhachHang.setText("Quản lý loại khách hàng");
-        btnQuanLyLoaiKhachHang.setMinimumSize(new java.awt.Dimension(180, 23));
-        btnQuanLyLoaiKhachHang.setPreferredSize(new java.awt.Dimension(180, 40));
-        btnQuanLyLoaiKhachHang.addMouseListener(new java.awt.event.MouseAdapter() {
+        btnQLLKH.setText("Quản lý loại khách hàng");
+        btnQLLKH.setMinimumSize(new java.awt.Dimension(180, 23));
+        btnQLLKH.setPreferredSize(new java.awt.Dimension(180, 40));
+        btnQLLKH.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnQuanLyLoaiKhachHangMouseClicked(evt);
+                btnQLLKHMouseClicked(evt);
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 0);
-        jPanel7.add(btnQuanLyLoaiKhachHang, gridBagConstraints);
+        jPanel7.add(btnQLLKH, gridBagConstraints);
 
         btnImport.setText("Import");
         btnImport.setMinimumSize(new java.awt.Dimension(80, 40));
@@ -472,9 +540,9 @@ public class QuanLyKhachHang_GUI extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
     
-    private void txtMaKHActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtMaKHActionPerformed
+    private void txtIDKHActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtIDKHActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtMaKHActionPerformed
+    }//GEN-LAST:event_txtIDKHActionPerformed
 
     private void txtHoTenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtHoTenActionPerformed
         // TODO add your handling code here:
@@ -488,7 +556,7 @@ public class QuanLyKhachHang_GUI extends javax.swing.JFrame {
         // TODO add your handling code here:        
         int loaiKH = cmbLoaiKH.getSelectedIndex();
         if(loaiKH == -1){
-            JOptionPane.showMessageDialog(this, "Họ tên không được để trống","Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Loại khách hàng không được để trống","Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
                    
@@ -523,9 +591,13 @@ public class QuanLyKhachHang_GUI extends javax.swing.JFrame {
         Timestamp ngaySinh;
         ngaySinh = new Timestamp(jdcNgaySinh.getDate().getTime());
         
+        boolean gioiTinh = true;
+        if(cmbGioiTinh.getSelectedIndex() == 1){
+            gioiTinh = false;
+        }
+        
         if(dangThemKhachHang){
-            CreateKhachHang_DTO data = new CreateKhachHang_DTO(loaiKH,hoTen,sdt,diemTichLuy,email,ngaySinh);
-
+            CreateKhachHang_DTO data = new CreateKhachHang_DTO(loaiKH+1,hoTen, sdt, diemTichLuy, email, ngaySinh, gioiTinh);
             boolean result = khachHang_BUS.createKhachHang(data);
             if(result){
                 JOptionPane.showMessageDialog(this, "Thêm khách hàng mới thành công","Thông báo", JOptionPane.INFORMATION_MESSAGE);
@@ -535,9 +607,9 @@ public class QuanLyKhachHang_GUI extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(this, "Thêm khách hàng mới thất bại","Error", JOptionPane.ERROR_MESSAGE);
 
         } else {
-            int id = Integer.parseInt(txtMaKH.getText());
+            int id = Integer.parseInt(txtIDKH.getText());
             
-            UpdateKhachHang_DTO data = new UpdateKhachHang_DTO(id,loaiKH, hoTen,sdt,diemTichLuy,email,ngaySinh);
+            UpdateKhachHang_DTO data = new UpdateKhachHang_DTO(id, loaiKH+1, hoTen,sdt,diemTichLuy,email,ngaySinh, gioiTinh);
             Boolean result = khachHang_BUS.updateKhachHang(data);
             if(result){
                 JOptionPane.showMessageDialog(this, "Sửa khách hàng thành công","Thông báo", JOptionPane.INFORMATION_MESSAGE);
@@ -564,7 +636,7 @@ public class QuanLyKhachHang_GUI extends javax.swing.JFrame {
         if(dangThemKhachHang)
             clearTextViewKhachHang();
         else {
-            int id = Integer.parseInt(txtMaKH.getText());
+            int id = Integer.parseInt(txtIDKH.getText());
             KhachHangFull_DTO result = khachHang_BUS.getKhachHangFullById(id);
         
             if(result == null){
@@ -605,11 +677,17 @@ public class QuanLyKhachHang_GUI extends javax.swing.JFrame {
             return;
         }
         
-        txtID.setText(Integer.toString(result.getId()));
+        txtIDKH.setText(Integer.toString(result.getId()));
         txtHoTen.setText(result.getTen());
         txtSDT.setText(result.getSdt());
         txtDiemTichLuy.setText(Integer.toString(result.getDiemTichLuy()));
-        txtEmail.setText(result.getEmail());
+        txtEmail.setText(result.getEmail().trim());
+        cmbLoaiKH.setSelectedIndex(result.getLoaiKhachHang().getId()-1);
+        jdcNgaySinh.setDate(result.getNgaySinh());
+        if(result.isGioiTinh())
+            cmbGioiTinhKH.setSelectedIndex(0);
+        else
+            cmbGioiTinhKH.setSelectedIndex(1);
         
     }//GEN-LAST:event_tblKhachHangMouseClicked
 
@@ -618,12 +696,12 @@ public class QuanLyKhachHang_GUI extends javax.swing.JFrame {
         int total = tblKhachHang.getSelectedRowCount();
         TableModel model = tblKhachHang.getModel();
         if(total < 1){
-            JOptionPane.showMessageDialog(this, "Bạn chưa chọn loại bàn muốn xóa","Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Bạn chưa chọn khách hàng muốn xóa","Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
         
         int confirm = JOptionPane.showConfirmDialog(null, 
-                "Bạn có chắc chắn muốn xóa " + total + " loại bàn không ?", "Xóa dữ liệu loại bàn!", JOptionPane.OK_CANCEL_OPTION);
+                "Bạn có chắc chắn muốn xóa khách hàng đã chọn không ?", "Xóa dữ liệu khách hàng!", JOptionPane.OK_CANCEL_OPTION);
         
         if(confirm == JOptionPane.CANCEL_OPTION)
             return;
@@ -635,7 +713,7 @@ public class QuanLyKhachHang_GUI extends javax.swing.JFrame {
 
             boolean result = khachHang_BUS.deleteKhachHangById(id); 
             if(result){
-                JOptionPane.showMessageDialog(this, "Xóa 1 loại bàn thành công","Thông báo", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Xóa khách hàng thành công","Thông báo", JOptionPane.INFORMATION_MESSAGE);
                 
             }            
             else {
@@ -648,17 +726,51 @@ public class QuanLyKhachHang_GUI extends javax.swing.JFrame {
         loadTableKhachHang();
     }//GEN-LAST:event_btnXoaMouseClicked
 
-    private void btnQuanLyLoaiKhachHangMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnQuanLyLoaiKhachHangMouseClicked
+    private void btnQLLKHMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnQLLKHMouseClicked
         // TODO add your handling code here:
-        
-        if(quanLyLoaiKhachHang_GUI == null || !quanLyLoaiKhachHang_GUI.isDisplayable()){
+        if(quanLyLoaiKhachHang_GUI == null){
             quanLyLoaiKhachHang_GUI = new QuanLyLoaiKhachHang_GUI();
             quanLyLoaiKhachHang_GUI.setVisible(true);
         } else {
-            quanLyLoaiKhachHang_GUI.setState(JFrame.NORMAL);
-            quanLyLoaiKhachHang_GUI.toFront();
         }
-    }//GEN-LAST:event_btnQuanLyLoaiKhachHangMouseClicked
+    }//GEN-LAST:event_btnQLLKHMouseClicked
+
+    private void btnTimKiemMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnTimKiemMouseClicked
+        // TODO add your handling code here:
+        SearchKhachHang_DTO searchKhachHang_DTO = new SearchKhachHang_DTO();
+        
+        String idOrName = txtSearchIdName.getText();
+        if(!idOrName.isBlank()){
+            searchKhachHang_DTO.setIdOrName(idOrName.trim());
+        }
+        
+        int idLoaiKhach = cmbLoaiKhach.getSelectedIndex();
+        if(idLoaiKhach > 0){
+            searchKhachHang_DTO.setLoaiKhachHang(listLoaiKhach.get(idLoaiKhach -1).getId());
+        }
+        int gioiTinh = cmbGioiTinh.getSelectedIndex();
+        if(gioiTinh > 0){
+            if(gioiTinh == 1)
+                searchKhachHang_DTO.setGioiTinh(1);
+            else
+                searchKhachHang_DTO.setGioiTinh(2);
+        }
+        String SDT = txtSoDienThoai.getText();
+        if(!SDT.isBlank()){
+            khachHang_BUS.findKhachHangBySDT(SDT);
+        }
+         
+        ArrayList<KhachHang_DTO> result = khachHang_BUS.searchKhachHang(searchKhachHang_DTO);
+        loadTableKhachHang(result);
+    }//GEN-LAST:event_btnTimKiemMouseClicked
+
+    private void cmbGioiTinhKHActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbGioiTinhKHActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cmbGioiTinhKHActionPerformed
+
+    private void txtSoDienThoaiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSoDienThoaiActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtSoDienThoaiActionPerformed
     
     
     /**
@@ -700,18 +812,21 @@ public class QuanLyKhachHang_GUI extends javax.swing.JFrame {
     private javax.swing.JButton btnExport;
     private javax.swing.JButton btnImport;
     private javax.swing.JButton btnLuu;
-    private javax.swing.JButton btnQuanLyLoaiKhachHang;
+    private javax.swing.JButton btnQLLKH;
     private javax.swing.JButton btnReset;
     private javax.swing.JButton btnSua;
     private javax.swing.JButton btnThem;
     private javax.swing.JButton btnTimKiem;
     private javax.swing.JButton btnXoa;
     private javax.swing.JComboBox<String> cmbGioiTinh;
+    private javax.swing.JComboBox<String> cmbGioiTinhKH;
     private javax.swing.JComboBox<String> cmbLoaiKH;
     private javax.swing.JComboBox<String> cmbLoaiKhach;
     private javax.swing.Box.Filler filler1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -733,8 +848,9 @@ public class QuanLyKhachHang_GUI extends javax.swing.JFrame {
     private javax.swing.JTextField txtDiemTichLuy;
     private javax.swing.JTextField txtEmail;
     private javax.swing.JTextField txtHoTen;
-    private javax.swing.JTextField txtID;
-    private javax.swing.JTextField txtMaKH;
+    private javax.swing.JTextField txtIDKH;
     private javax.swing.JTextField txtSDT;
+    private javax.swing.JTextField txtSearchIdName;
+    private javax.swing.JTextField txtSoDienThoai;
     // End of variables declaration//GEN-END:variables
 }

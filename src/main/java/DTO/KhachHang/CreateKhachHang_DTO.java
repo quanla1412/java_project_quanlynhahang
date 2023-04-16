@@ -17,18 +17,30 @@ public class CreateKhachHang_DTO {
     private int diemTichLuy;
     private String email;
     private Timestamp ngaySinh;
+    private boolean gioiTinh;
 
     public CreateKhachHang_DTO() {
     }
 
-    public CreateKhachHang_DTO( int loaiKhachHang, String ten, String sdt, int diemTichLuy, String email, Timestamp ngaySinh) {
+    public CreateKhachHang_DTO(int loaiKhachHang, String ten, String sdt, int diemTichLuy, String email, Timestamp ngaySinh, boolean gioiTinh) {
         this.loaiKhachHang = loaiKhachHang;
         this.ten = ten;
         this.sdt = sdt;
         this.diemTichLuy = diemTichLuy;
         this.email = email;
         this.ngaySinh = ngaySinh;
+        this.gioiTinh = gioiTinh;
     }
+
+    public boolean isGioiTinh() {
+        return gioiTinh;
+    }
+
+    public void setGioiTinh(boolean gioiTinh) {
+        this.gioiTinh = gioiTinh;
+    }
+
+    
 
     public int getLoaiKhachHang() {
         return loaiKhachHang;
