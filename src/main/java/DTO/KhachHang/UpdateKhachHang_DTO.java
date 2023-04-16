@@ -18,11 +18,12 @@ public class UpdateKhachHang_DTO {
     private int diemTichLuy;
     private String email;
     private Timestamp ngaySinh;
+    private boolean gioiTinh;
 
     public UpdateKhachHang_DTO() {
     }
 
-    public UpdateKhachHang_DTO(int id, int loaiKhachHang, String ten, String sdt, int diemTichLuy, String email, Timestamp ngaySinh) {
+    public UpdateKhachHang_DTO(int id, int loaiKhachHang, String ten, String sdt, int diemTichLuy, String email, Timestamp ngaySinh, boolean gioiTinh) {
         this.id = id;
         this.loaiKhachHang = loaiKhachHang;
         this.ten = ten;
@@ -30,7 +31,17 @@ public class UpdateKhachHang_DTO {
         this.diemTichLuy = diemTichLuy;
         this.email = email;
         this.ngaySinh = ngaySinh;
+        this.gioiTinh = gioiTinh;
     }
+
+    public boolean isGioiTinh() {
+        return gioiTinh;
+    }
+
+    public void setGioiTinh(boolean gioiTinh) {
+        this.gioiTinh = gioiTinh;
+    }
+
 
     public int getId() {
         return id;

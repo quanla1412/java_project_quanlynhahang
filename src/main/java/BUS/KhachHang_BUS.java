@@ -8,6 +8,7 @@ import DAO.KhachHang_DAO;
 import DTO.KhachHang.CreateKhachHang_DTO;
 import DTO.KhachHang.KhachHangFull_DTO;
 import DTO.KhachHang.KhachHang_DTO;
+import DTO.KhachHang.SearchKhachHang_DTO;
 import DTO.KhachHang.UpdateKhachHang_DTO;
 import java.util.ArrayList;
 
@@ -23,6 +24,12 @@ public class KhachHang_BUS {
         return result;
     }
 
+    public ArrayList<KhachHang_DTO> searchKhachHang(SearchKhachHang_DTO searchData){
+        KhachHang_DAO KhachHang_DAO = new KhachHang_DAO();
+        ArrayList<KhachHang_DTO> result = KhachHang_DAO.searchKhachHang(searchData);
+        
+        return result;
+    }
     
     public KhachHangFull_DTO getKhachHangFullById(int id){
         KhachHang_DAO khachHang_DAO = new KhachHang_DAO();
