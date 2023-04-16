@@ -19,7 +19,7 @@ public class Main {
             System.out.println(ex);
         }
 
-        DangNhap_GUI dangNhap_GUI= new DangNhap_GUI();
+        QuanLyPhucVu_GUI dangNhap_GUI= new QuanLyPhucVu_GUI();
         dangNhap_GUI.setVisible(true);
     }
     

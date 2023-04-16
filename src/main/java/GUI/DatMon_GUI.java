@@ -9,6 +9,7 @@ import BUS.MonAn_BUS;
 import Constraints.TinhTrangMonAnConstraints;
 import DTO.Ban.CreateDonGoi_DTO;
 import DTO.Ban.DonGoi_DTO;
+import DTO.Ban.UpdateDonGoi_DTO;
 import DTO.MonAn.MonAnFull_DTO;
 import com.mycompany.quanlynhahang.Price;
 import java.awt.Image;
@@ -55,10 +56,10 @@ public class DatMon_GUI extends javax.swing.JFrame {
         
         
         lblHinhAnh.setIcon(new ImageIcon(monAn.getHinhAnh()));
-        Icon i = lblHinhAnh.getIcon();
-        ImageIcon icon = (ImageIcon)i;
-        Image image = icon.getScaledInstance(lblHinhAnh.getWidth(),lblHinhAnh.getHeight(),Image.SCALE_SMOOTH);
-        lblHinhAnh.setIcon(new ImageIcon(image));
+//        Icon i = lblHinhAnh.getIcon();
+//        ImageIcon icon = (ImageIcon)i;
+//        Image image = icon.getScaledInstance(lblHinhAnh.getWidth(),lblHinhAnh.getHeight(),Image.SCALE_SMOOTH);
+//        lblHinhAnh.setIcon(new ImageIcon());
         lblTenMonAn.setText(monAn.getTen());
         lblNoiDungMonAn.setText(monAn.getNoiDung());
         lblLoaiMonAn.setText(monAn.getLoaiMonAn().getTen());
@@ -342,38 +343,49 @@ public class DatMon_GUI extends javax.swing.JFrame {
 
     private void btnDatMonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDatMonMouseClicked
         // TODO add your handling code here:
-        CreateDonGoi_DTO createDonGoi_DTO = new CreateDonGoi_DTO();
-        
-        createDonGoi_DTO.setIdMA(idMonAn);
-        createDonGoi_DTO.setIdBan(idBan);
-        
         int soLuong = 0;
-        try {
-            soLuong = Integer.parseInt(spnSoLuong.getValue().toString());
-            if(soLuong < 1){
-                throw new NumberFormatException("Số lượng món nhỏ hơn 1");
+            try {
+                soLuong = Integer.parseInt(spnSoLuong.getValue().toString());
+                if(soLuong < 1 && dangThemMon){
+                    throw new NumberFormatException("Số lượng món nhỏ hơn 1");
+                }
+            } catch (NumberFormatException e) {
+                System.out.println(e);
+                JOptionPane.showMessageDialog(this, "Số lượng món ăn không hợp lệ","Error", JOptionPane.ERROR_MESSAGE);   
+                return;
             }
-            createDonGoi_DTO.setSoLuong(soLuong);
-        } catch (NumberFormatException e) {
-            System.out.println(e);
-            JOptionPane.showMessageDialog(this, "Số lượng món ăn không hợp lệ","Error", JOptionPane.ERROR_MESSAGE);   
-            return;
-        }
-        
+
+        String ghiChu = null;
         if(!txaGhiChu.getText().isBlank())
-            createDonGoi_DTO.setGhiChu(txaGhiChu.getText());
-        
-        boolean result = donGoi_BUS.createDonGoi(createDonGoi_DTO);
-        
-        if(result){
-            JOptionPane.showMessageDialog(this, "Thêm món ăn mới thành công","Thông báo", JOptionPane.INFORMATION_MESSAGE);
-            this.dispose();
-        } else {            
-            JOptionPane.showMessageDialog(this, "Thêm món ăn mới thất bại","Thông báo", JOptionPane.INFORMATION_MESSAGE);
-        }
+            ghiChu = txaGhiChu.getText();
+        if(dangThemMon){
+            CreateDonGoi_DTO createDonGoi_DTO = new CreateDonGoi_DTO();  
             
-        
-        System.out.println(spnSoLuong.getValue().toString());
+            createDonGoi_DTO.setIdMA(idMonAn);
+            createDonGoi_DTO.setIdBan(idBan);
+            createDonGoi_DTO.setSoLuong(soLuong);
+            createDonGoi_DTO.setGhiChu(ghiChu);
+
+            boolean result = donGoi_BUS.createDonGoi(createDonGoi_DTO);
+
+            if(result){
+                JOptionPane.showMessageDialog(this, "Thêm món ăn mới thành công","Thông báo", JOptionPane.INFORMATION_MESSAGE);
+                this.dispose();
+            } else {            
+                JOptionPane.showMessageDialog(this, "Thêm món ăn mới thất bại","Thông báo", JOptionPane.INFORMATION_MESSAGE);
+            }
+        } else {
+            UpdateDonGoi_DTO updateDonGoi_DTO = new UpdateDonGoi_DTO(idBan, idMonAn, soLuong + donGoi_DTO.getSoLuong(), ghiChu);
+            
+            boolean result = donGoi_BUS.updateDonGoi(updateDonGoi_DTO);
+
+            if(result){
+                JOptionPane.showMessageDialog(this, "Sửa món ăn thành công","Thông báo", JOptionPane.INFORMATION_MESSAGE);
+                this.dispose();
+            } else {            
+                JOptionPane.showMessageDialog(this, "Sửa món ăn thất bại","Thông báo", JOptionPane.INFORMATION_MESSAGE);
+            }
+        }
     }//GEN-LAST:event_btnDatMonMouseClicked
 
     /**

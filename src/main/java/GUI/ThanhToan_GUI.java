@@ -1,16 +1,61 @@
 package GUI;
 
+import BUS.DonGoi_BUS;
+import DTO.Ban.DonGoi_DTO;
+import com.mycompany.quanlynhahang.Price;
+import java.util.ArrayList;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author tuant
  */
 public class ThanhToan_GUI extends javax.swing.JFrame {
-
+    private int idBan;
+    private DonGoi_BUS donGoi_BUS;
+    
     /**
      * Creates new form HoaDon_GUI
      */
-    public ThanhToan_GUI() {
+    public ThanhToan_GUI(int idBan) {
         initComponents();
+        this.idBan = idBan;
+        donGoi_BUS = new DonGoi_BUS();
+        
+        loadThanhToan();
+        loadDonGoi();
+    }
+    
+    private void loadThanhToan(){
+        lblTitleBan.setText("Bàn số " + idBan);
+    }
+    
+    private void loadDonGoi(){
+        ArrayList<DonGoi_DTO> listDonGoi = donGoi_BUS.getAllDonGoiByIdBan(idBan);
+        
+        String[] col = {"ID Món ăn", "Tên món ăn", "Đơn giá", "Số lượng", "Thành tiền"};
+        DefaultTableModel model = new DefaultTableModel(col, 0);
+        tblDonGoi.setModel(model);
+        int total = 0;
+        
+        for(DonGoi_DTO donGoi : listDonGoi){
+            int gia = donGoi.getMonAn().getGiaKhuyenMai() > 0 ?
+                    donGoi.getMonAn().getGiaKhuyenMai() :
+                    donGoi.getMonAn().getGia();
+            int tongTien = gia * donGoi.getSoLuong();
+            total += tongTien;
+            
+            Object[] data = {
+                donGoi.getMonAn().getId(), 
+                donGoi.getMonAn().getTen(),
+                Price.formatPrice(tongTien),
+                donGoi.getSoLuong(),
+                Price.formatPrice(tongTien)
+                };
+            model.addRow(data);
+        }
+        
+        lblTongTien.setText(Price.formatPrice(total));
     }
 
     /**
@@ -23,104 +68,104 @@ public class ThanhToan_GUI extends javax.swing.JFrame {
     private void initComponents() {
         java.awt.GridBagConstraints gridBagConstraints;
 
+        jPanel1 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        jTextField9 = new javax.swing.JTextField();
+        jButton3 = new javax.swing.JButton();
+        lblTitleBan = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
+        jLabel13 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tblDonGoi = new javax.swing.JTable();
         jPanel2 = new javax.swing.JPanel();
-        jPanel5 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
-        jTextField3 = new javax.swing.JTextField();
-        jPanel4 = new javax.swing.JPanel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
-        jPanel6 = new javax.swing.JPanel();
-        jPanel8 = new javax.swing.JPanel();
+        lblTongTien = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        jPanel9 = new javax.swing.JPanel();
-        jTextField4 = new javax.swing.JTextField();
-        jTextField5 = new javax.swing.JTextField();
-        jTextField6 = new javax.swing.JTextField();
-        jPanel3 = new javax.swing.JPanel();
-        jPanel7 = new javax.swing.JPanel();
-        jButton2 = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Thanh toán");
+        getContentPane().setLayout(new java.awt.GridBagLayout());
 
-        jPanel2.setLayout(new javax.swing.BoxLayout(jPanel2, javax.swing.BoxLayout.PAGE_AXIS));
+        jPanel1.setLayout(new java.awt.GridBagLayout());
 
-        jPanel5.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        jPanel5.setMinimumSize(new java.awt.Dimension(671, 150));
-        jPanel5.setPreferredSize(new java.awt.Dimension(671, 150));
-        jPanel5.setLayout(new java.awt.GridBagLayout());
-
-        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel2.setText("Nhân viên lập hoán đơn");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.insets = new java.awt.Insets(10, 10, 0, 10);
-        jPanel5.add(jLabel2, gridBagConstraints);
-
-        jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel3.setText("Ngày giờ lập hóa đơn");
+        jLabel1.setText("Nhân viên lập hóa đơn: Phan Hoàng Nhật Tân");
+        jLabel1.setMaximumSize(new java.awt.Dimension(300, 16));
+        jLabel1.setMinimumSize(new java.awt.Dimension(300, 16));
+        jLabel1.setPreferredSize(new java.awt.Dimension(300, 16));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 1;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.insets = new java.awt.Insets(10, 10, 0, 10);
-        jPanel5.add(jLabel3, gridBagConstraints);
+        gridBagConstraints.gridwidth = 3;
+        gridBagConstraints.ipadx = -1;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(5, 10, 5, 10);
+        jPanel1.add(jLabel1, gridBagConstraints);
 
-        jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel4.setText("ID khách hàng");
+        jLabel9.setText("Tìm khách hàng theo số điện thoại");
+        jLabel9.setMaximumSize(new java.awt.Dimension(192, 16));
+        jLabel9.setMinimumSize(new java.awt.Dimension(192, 16));
+        jLabel9.setPreferredSize(new java.awt.Dimension(192, 16));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 2;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
-        jPanel5.add(jLabel4, gridBagConstraints);
+        gridBagConstraints.ipadx = -1;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(5, 10, 5, 5);
+        jPanel1.add(jLabel9, gridBagConstraints);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.ipadx = 7;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
+        jPanel1.add(jTextField9, gridBagConstraints);
 
-        jButton1.setText("Tìm kiếm");
+        jButton3.setText("Tìm kiếm");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 2;
-        gridBagConstraints.insets = new java.awt.Insets(10, 0, 10, 0);
-        jPanel5.add(jButton1, gridBagConstraints);
+        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 10);
+        jPanel1.add(jButton3, gridBagConstraints);
 
-        jTextField1.setMinimumSize(new java.awt.Dimension(400, 22));
-        jTextField1.setPreferredSize(new java.awt.Dimension(400, 22));
+        lblTitleBan.setText("Bàn số 1");
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
-        gridBagConstraints.gridwidth = 2;
-        gridBagConstraints.insets = new java.awt.Insets(10, 0, 0, 10);
-        jPanel5.add(jTextField1, gridBagConstraints);
+        gridBagConstraints.gridwidth = 3;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.insets = new java.awt.Insets(5, 10, 5, 5);
+        jPanel1.add(lblTitleBan, gridBagConstraints);
 
-        jTextField2.setMinimumSize(new java.awt.Dimension(300, 22));
-        jTextField2.setPreferredSize(new java.awt.Dimension(300, 22));
+        jLabel11.setText("Tên khách hàng:");
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 2;
-        gridBagConstraints.insets = new java.awt.Insets(10, 0, 10, 10);
-        jPanel5.add(jTextField2, gridBagConstraints);
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 3;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.insets = new java.awt.Insets(5, 10, 5, 10);
+        jPanel1.add(jLabel11, gridBagConstraints);
 
-        jTextField3.setMinimumSize(new java.awt.Dimension(400, 22));
-        jTextField3.setPreferredSize(new java.awt.Dimension(400, 22));
+        jLabel13.setText("Số điện thoại:");
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 1;
-        gridBagConstraints.gridwidth = 2;
-        gridBagConstraints.insets = new java.awt.Insets(10, 0, 0, 10);
-        jPanel5.add(jTextField3, gridBagConstraints);
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 4;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.insets = new java.awt.Insets(5, 10, 5, 10);
+        jPanel1.add(jLabel13, gridBagConstraints);
 
-        jPanel2.add(jPanel5);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.insets = new java.awt.Insets(20, 20, 5, 20);
+        getContentPane().add(jPanel1, gridBagConstraints);
 
-        jPanel4.setPreferredSize(new java.awt.Dimension(671, 500));
+        jScrollPane1.setMinimumSize(new java.awt.Dimension(452, 206));
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tblDonGoi.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null},
                 {null, null, null, null, null},
@@ -128,122 +173,84 @@ public class ThanhToan_GUI extends javax.swing.JFrame {
                 {null, null, null, null, null}
             },
             new String [] {
-                "Tên món", "Thông tin", "Số lượng", "Đơn giá", "Thành tiền"
+                "ID Món ăn", "Tên món ăn", "Đơn giá", "Số lượng", "Thành tiền"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        tblDonGoi.setMinimumSize(new java.awt.Dimension(300, 80));
+        tblDonGoi.setRequestFocusEnabled(false);
+        jScrollPane1.setViewportView(tblDonGoi);
 
-        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
-        jPanel4.setLayout(jPanel4Layout);
-        jPanel4Layout.setHorizontalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 659, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-        jPanel4Layout.setVerticalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 269, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-
-        jPanel2.add(jPanel4);
-
-        jPanel6.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        jPanel6.setLayout(new java.awt.BorderLayout());
-
-        jPanel8.setLayout(new java.awt.GridBagLayout());
-
-        jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel5.setText("Thành tiền");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 2;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.insets = new java.awt.Insets(10, 20, 10, 10);
-        jPanel8.add(jLabel5, gridBagConstraints);
-
-        jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel6.setText("Ưu đãi");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 1;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.insets = new java.awt.Insets(10, 20, 10, 10);
-        jPanel8.add(jLabel6, gridBagConstraints);
+        gridBagConstraints.insets = new java.awt.Insets(5, 20, 5, 20);
+        getContentPane().add(jScrollPane1, gridBagConstraints);
 
-        jLabel7.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel7.setText("Tổng tiền");
+        jPanel2.setLayout(new java.awt.GridBagLayout());
+
+        jLabel2.setText("Tổng tiền");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.insets = new java.awt.Insets(10, 20, 10, 10);
-        jPanel8.add(jLabel7, gridBagConstraints);
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(12, 8, 0, 0);
+        jPanel2.add(jLabel2, gridBagConstraints);
 
-        jPanel6.add(jPanel8, java.awt.BorderLayout.LINE_START);
-
-        jPanel9.setLayout(new java.awt.GridBagLayout());
-
-        jTextField4.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jTextField4.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        jTextField4.setText("64000");
-        jTextField4.setEnabled(false);
-        jTextField4.setMinimumSize(new java.awt.Dimension(150, 31));
-        jTextField4.setPreferredSize(new java.awt.Dimension(150, 31));
+        jLabel3.setText("0 VNĐ");
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 20);
-        jPanel9.add(jTextField4, gridBagConstraints);
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
+        gridBagConstraints.insets = new java.awt.Insets(12, 0, 0, 8);
+        jPanel2.add(jLabel3, gridBagConstraints);
 
-        jTextField5.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jTextField5.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        jTextField5.setText("10%");
-        jTextField5.setEnabled(false);
-        jTextField5.setMinimumSize(new java.awt.Dimension(150, 31));
-        jTextField5.setPreferredSize(new java.awt.Dimension(150, 31));
+        lblTongTien.setText("0 VNĐ");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
+        gridBagConstraints.weightx = 0.1;
+        gridBagConstraints.insets = new java.awt.Insets(12, 0, 0, 8);
+        jPanel2.add(lblTongTien, gridBagConstraints);
+
+        jLabel5.setText("Ưu đãi thành viên");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 1;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
-        gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 20);
-        jPanel9.add(jTextField5, gridBagConstraints);
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(12, 8, 0, 0);
+        jPanel2.add(jLabel5, gridBagConstraints);
 
-        jTextField6.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jTextField6.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        jTextField6.setText("57600");
-        jTextField6.setEnabled(false);
-        jTextField6.setMinimumSize(new java.awt.Dimension(150, 31));
-        jTextField6.setPreferredSize(new java.awt.Dimension(150, 31));
+        jLabel6.setText("Tổng thanh toán");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 2;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
-        gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 20);
-        jPanel9.add(jTextField6, gridBagConstraints);
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.insets = new java.awt.Insets(12, 8, 0, 0);
+        jPanel2.add(jLabel6, gridBagConstraints);
 
-        jPanel6.add(jPanel9, java.awt.BorderLayout.LINE_END);
-
-        jPanel2.add(jPanel6);
-
-        jPanel3.setLayout(new java.awt.BorderLayout());
-
-        jPanel7.setLayout(new java.awt.GridBagLayout());
-
-        jButton2.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jButton2.setText("Lưu hóa đơn");
+        jLabel7.setText("0 %");
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 20);
-        jPanel7.add(jButton2, gridBagConstraints);
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
+        gridBagConstraints.insets = new java.awt.Insets(12, 0, 0, 8);
+        jPanel2.add(jLabel7, gridBagConstraints);
 
-        jPanel3.add(jPanel7, java.awt.BorderLayout.LINE_END);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.insets = new java.awt.Insets(5, 20, 5, 20);
+        getContentPane().add(jPanel2, gridBagConstraints);
 
-        jPanel2.add(jPanel3);
-
-        getContentPane().add(jPanel2, java.awt.BorderLayout.CENTER);
+        jButton1.setText("jButton1");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 3;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
+        gridBagConstraints.insets = new java.awt.Insets(5, 20, 10, 20);
+        getContentPane().add(jButton1, gridBagConstraints);
 
         pack();
         setLocationRelativeTo(null);
@@ -280,35 +287,29 @@ public class ThanhToan_GUI extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ThanhToan_GUI().setVisible(true);
+//                new ThanhToan_GUI().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel9;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel4;
-    private javax.swing.JPanel jPanel5;
-    private javax.swing.JPanel jPanel6;
-    private javax.swing.JPanel jPanel7;
-    private javax.swing.JPanel jPanel8;
-    private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
-    private javax.swing.JTextField jTextField5;
-    private javax.swing.JTextField jTextField6;
+    private javax.swing.JTextField jTextField9;
+    private javax.swing.JLabel lblTitleBan;
+    private javax.swing.JLabel lblTongTien;
+    private javax.swing.JTable tblDonGoi;
     // End of variables declaration//GEN-END:variables
 }

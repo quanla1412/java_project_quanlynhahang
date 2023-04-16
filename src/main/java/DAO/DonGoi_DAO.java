@@ -109,18 +109,17 @@ public class DonGoi_DAO {
         Connection con = ConnectDatabase.openConnection();
         boolean result = false;
         try {
-            String sql = "UPDATE DonGoi_BTMA "
-                    + "SET DGB_SoLuong = ?, DGB_GhiChu = ?"
-                    + "WHERE B_ID = ? AND MA_ID = ? AND BTMA_ID = ?";
+            String sql = "UPDATE DonGoi "
+                    + "SET DG_SoLuong = ?, DG_GhiChu = ? "
+                    + "WHERE B_ID = ? AND MA_ID = ?";
             PreparedStatement statement = con.prepareStatement(sql);
                        
-            statement.setInt(1, data.getSoLuong());         
-            statement.setNString(2, data.getGhiChu());
-            statement.setInt(3, data.getIdBan());            
-            statement.setInt(4, data.getIdMA());
-            statement.setInt(5, data.getIdBTMA()); 
+            statement.setInt(1, data.soLuong());         
+            statement.setNString(2, data.ghiChu());
+            statement.setInt(3, data.idBan());            
+            statement.setInt(4, data.idMonAn());
 
-            if(statement.executeUpdate() > 1)
+            if(statement.executeUpdate() >= 1)
                 result = true;
         } catch (SQLException ex ){
             System.out.println(ex);
@@ -131,19 +130,17 @@ public class DonGoi_DAO {
         return result;
     }
     
-    public boolean deleteDonGoi(int idBan, int idMA, int idBTMA){
+    public boolean deleteDonGoi(int idBan, int idMA){
         Connection con = ConnectDatabase.openConnection();
         boolean result = false;
         try {
-            String sql = "DELETE FROM DonGoi_BTMA "
-                    + "WHERE B_ID = ? AND MA_ID = ? AND BTMA_ID = ?";
+            String sql = "DELETE FROM DonGoi WHERE B_ID = ? AND MA_ID = ? ";
             PreparedStatement statement = con.prepareStatement(sql);
                        
             statement.setInt(1, idBan);            
             statement.setInt(2, idMA);
-            statement.setInt(3, idBTMA); 
 
-            if(statement.executeUpdate() > 1)
+            if(statement.executeUpdate() >= 1)
                 result = true;
         } catch (SQLException ex ){
             System.out.println(ex);
@@ -192,5 +189,26 @@ public class DonGoi_DAO {
         
         return result;
         
+    }
+    
+    public boolean chuyenBan(int idBanCu, int idBanMoi){
+        Connection con = ConnectDatabase.openConnection();
+        boolean result = false;
+        try {
+            String sql = "UPDATE DonGoi SET B_ID = ? WHERE B_ID = ?";
+            PreparedStatement statement = con.prepareStatement(sql);
+                       
+            statement.setInt(1, idBanMoi);         
+            statement.setInt(2, idBanCu);
+
+            if(statement.executeUpdate() >= 1)
+                result = true;
+        } catch (SQLException ex ){
+            System.out.println(ex);
+        } finally {
+            ConnectDatabase.closeConnection(con);
+        }
+        
+        return result;
     }
 }
