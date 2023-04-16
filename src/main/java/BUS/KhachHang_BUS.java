@@ -47,6 +47,10 @@ public class KhachHang_BUS {
     
     public boolean createKhachHang(CreateKhachHang_DTO data){
         KhachHang_DAO khachHang_DAO = new KhachHang_DAO();
+        
+        if(khachHang_DAO.hasSoDienThoaiOrEmail(data.getSdt(), data.getEmail()))
+            return false;
+        
         boolean result = khachHang_DAO.createKhachHang(data);
     
         return result;
@@ -54,6 +58,10 @@ public class KhachHang_BUS {
     
     public boolean updateKhachHang(UpdateKhachHang_DTO data){
         KhachHang_DAO khachHang_DAO = new KhachHang_DAO();
+        
+        if(khachHang_DAO.hasSoDienThoaiOrEmail(data.getId(), data.getSdt(), data.getEmail()))
+            return false;
+        
         boolean result = khachHang_DAO.updateKhachHang(data);
     
         return result;

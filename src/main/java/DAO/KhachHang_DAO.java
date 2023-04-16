@@ -4,6 +4,7 @@
  */
 package DAO;
 
+import Constraints.GioiTinhConstraints;
 import DTO.KhachHang.CreateKhachHang_DTO;
 import DTO.KhachHang.KhachHangFull_DTO;
 import DTO.KhachHang.KhachHang_DTO;
@@ -30,8 +31,9 @@ public class KhachHang_DAO {
         ArrayList<KhachHang_DTO> result = new ArrayList<>();
         
         try {
-            String sql = "SELECT KH_ID, KH_Ten, KH_Sdt, KH_DiemTichLuy, LKH_ID "
-                    + "FROM KhachHang";
+            String sql = "SELECT KH_ID, KH_Ten, KH_Sdt, KH_DiemTichLuy, LKH_Ten "
+                    + "FROM KhachHang, LoaiKhachHang "
+                    + "WHERE KhachHang.LKH_ID = LoaiKhachHang.LKH_ID";
             Statement statement = con.createStatement();
             
             ResultSet rs = statement.executeQuery(sql);
@@ -42,7 +44,7 @@ public class KhachHang_DAO {
                 khachHang.setSdt(rs.getString("KH_Sdt"));
                 khachHang.setDiemTichLuy(rs.getInt("KH_DiemTichLuy"));
                 LoaiKhachHang_DAO lkh = new LoaiKhachHang_DAO();
-                khachHang.setLoaiKhachHang(lkh.getLoaiKhachHangById(rs.getInt("LKH_ID")));
+                khachHang.setLoaiKhachHang(rs.getNString("LKH_Ten"));
                 
                 result.add(khachHang);
             }            
@@ -72,7 +74,7 @@ public class KhachHang_DAO {
                 khachHangFull.setDiemTichLuy(rs.getInt("KH_DiemTichLuy"));
                 khachHangFull.setEmail(rs.getString("KH_Email"));
                 khachHangFull.setNgaySinh(rs.getTimestamp("KH_NgaySinh"));
-                khachHangFull.setGioiTinh(rs.getBoolean("KH_GioiTinhNam"));
+                khachHangFull.setGioiTinhNam(rs.getBoolean("KH_GioiTinhNam"));
                 LoaiKhachHang_DAO lkh = new LoaiKhachHang_DAO();
                 khachHangFull.setLoaiKhachHang(lkh.getLoaiKhachHangById(rs.getInt("LKH_ID")));
             }
@@ -168,24 +170,24 @@ public class KhachHang_DAO {
         Connection con = ConnectDatabase.openConnection();
         ArrayList<KhachHang_DTO> result = new ArrayList<>();
         try {
-            StringBuilder sql = new StringBuilder("SELECT KH_ID, KH_Ten, KH_Sdt, KH_DiemTichLuy, KhachHang.LKH_ID " 
+            StringBuilder sql = new StringBuilder("SELECT KH_ID, KH_Ten, KH_Sdt, KH_DiemTichLuy, LKH_Ten " 
                                                    + "FROM KhachHang, LoaiKhachHang "
                                                    + "WHERE KhachHang.LKH_ID = LoaiKhachHang.LKH_ID ");
             
             if(searchData.getIdOrName() != null && !searchData.getIdOrName().isBlank())
-                sql.append(" AND (KH_Ten LIKE '%").append(searchData.getIdOrName()).append("%' OR KH_ID LIKE '%").append(searchData.getIdOrName()).append("%') ");
+                sql.append(" AND (KH_Ten LIKE N'%").append(searchData.getIdOrName()).append("%' OR KH_ID LIKE '%").append(searchData.getIdOrName()).append("%') ");
             
             if(searchData.getLoaiKhachHang() > 0)
                 sql.append(" AND KhachHang.LKH_ID = ").append(searchData.getLoaiKhachHang());
             
-            if(searchData.isGioiTinh() > 0)
-                if(searchData.isGioiTinh() == 1)
-                    sql.append(" AND KH_GioiTinhNam = 1");
-                else
-                    sql.append(" AND KH_GioiTinhNam = 0");
+            if(searchData.isGioiTinh() >= 0)
+                sql.append(" AND KH_GioiTinhNam = " + searchData.isGioiTinh());            
+            
+            if(searchData.getSdt() != null && !searchData.getSdt().isBlank())
+                sql.append(" AND KH_SDT LIKE '%" + searchData.getSdt() + "%'");
+            
             Statement statement = con.createStatement();
-            ResultSet resultSet = statement.executeQuery(sql.toString());
-        
+            ResultSet resultSet = statement.executeQuery(sql.toString());        
             
             while(resultSet.next()){
                 KhachHang_DTO khachHang = new KhachHang_DTO();
@@ -193,8 +195,7 @@ public class KhachHang_DAO {
                 khachHang.setTen(resultSet.getNString("KH_Ten"));
                 khachHang.setSdt(resultSet.getString("KH_Sdt"));
                 khachHang.setDiemTichLuy(resultSet.getInt("KH_DiemTichLuy"));
-                LoaiKhachHang_DAO lkh = new LoaiKhachHang_DAO();
-                khachHang.setLoaiKhachHang(lkh.getLoaiKhachHangById(resultSet.getInt("LKH_ID")));
+                khachHang.setLoaiKhachHang(resultSet.getNString("LKH_Ten"));
                 
                 result.add(khachHang);
             }
@@ -210,18 +211,12 @@ public class KhachHang_DAO {
         Connection con = ConnectDatabase.openConnection();
         ArrayList<KhachHang_DTO> result = new ArrayList<>();
         try {
-            StringBuilder sql = new StringBuilder("SELECT KH_ID, KH_Ten, KH_Sdt, KH_DiemTichLuy, KhachHang.LKH_ID " 
+            String sql = "SELECT KH_ID, KH_Ten, KH_Sdt, KH_DiemTichLuy, LKH_Ten " 
                                                    + "FROM KhachHang, LoaiKhachHang "
-                                                   + "WHERE KhachHang.LKH_ID = LoaiKhachHang.LKH_ID ");
-            
-            
-            if(sdt != null && !sdt.isBlank())
-                sql.append(" AND KH_Sdt = '").append(sdt).append("' ");
-            
+                                                   + "WHERE KhachHang.LKH_ID = LoaiKhachHang.LKH_ID AND KH_SDT LIKE '" + sdt + "'";            
             
             Statement statement = con.createStatement();
-            ResultSet resultSet = statement.executeQuery(sql.toString());
-        
+            ResultSet resultSet = statement.executeQuery(sql);
             
             while(resultSet.next()){
                 KhachHang_DTO khachHang = new KhachHang_DTO();
@@ -229,8 +224,7 @@ public class KhachHang_DAO {
                 khachHang.setTen(resultSet.getNString("KH_Ten"));
                 khachHang.setSdt(resultSet.getString("KH_Sdt"));
                 khachHang.setDiemTichLuy(resultSet.getInt("KH_DiemTichLuy"));
-                LoaiKhachHang_DAO lkh = new LoaiKhachHang_DAO();
-                khachHang.setLoaiKhachHang(lkh.getLoaiKhachHangById(resultSet.getInt("LKH_ID")));
+                khachHang.setLoaiKhachHang(resultSet.getNString("LKH_Ten"));
                 
                 result.add(khachHang);
             }
@@ -242,4 +236,45 @@ public class KhachHang_DAO {
         return result;
     }
 
+    public boolean hasSoDienThoaiOrEmail(String sdt, String email){
+        Connection con = ConnectDatabase.openConnection();
+        boolean result = false;
+        try {
+            String sql = "SELECT KH_ID From KhachHang "
+                    + "WHERE KH_SDT = '" + sdt + "' OR KH_Email = '" + email + "'";
+            
+            Statement statement = con.createStatement();
+            ResultSet resultSet = statement.executeQuery(sql);        
+            
+            if(resultSet.next())
+                result = true;
+            
+        } catch (SQLException ex) {
+            System.out.println(ex);
+        } finally {
+            ConnectDatabase.closeConnection(con); 
+        }
+        return result;
+    }
+    
+    public boolean hasSoDienThoaiOrEmail(int idKHHienTai, String sdt, String email){
+        Connection con = ConnectDatabase.openConnection();
+        boolean result = false;
+        try {
+            String sql = "SELECT KH_ID From KhachHang "
+                    + "WHERE (KH_SDT = '" + sdt + "' OR KH_Email = '" + email + "') AND KH_ID != " + idKHHienTai;
+            
+            Statement statement = con.createStatement();
+            ResultSet resultSet = statement.executeQuery(sql);        
+            
+            if(resultSet.next())
+                result = true;
+            
+        } catch (SQLException ex) {
+            System.out.println(ex);
+        } finally {
+            ConnectDatabase.closeConnection(con); 
+        }
+        return result;
+    }
 }

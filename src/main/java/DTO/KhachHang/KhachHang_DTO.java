@@ -13,12 +13,12 @@ public class KhachHang_DTO {
     private String ten;
     private String sdt;
     private int diemTichLuy;
-    private LoaiKhachHang_DTO loaiKhachHang;
+    private String loaiKhachHang;
 
     public KhachHang_DTO() {
     }
 
-    public KhachHang_DTO(int id, String ten, String sdt, int diemTichLuy, LoaiKhachHang_DTO loaiKhachHang) {
+    public KhachHang_DTO(int id, String ten, String sdt, int diemTichLuy, String loaiKhachHang) {
         this.id = id;
         this.ten = ten;
         this.sdt = sdt;
@@ -58,11 +58,11 @@ public class KhachHang_DTO {
         this.diemTichLuy = diemTichLuy;
     }
 
-    public LoaiKhachHang_DTO getLoaiKhachHang() {
+    public String getLoaiKhachHang() {
         return loaiKhachHang;
     }
 
-    public void setLoaiKhachHang(LoaiKhachHang_DTO loaiKhachHang) {
+    public void setLoaiKhachHang(String loaiKhachHang) {
         this.loaiKhachHang = loaiKhachHang;
     }
     

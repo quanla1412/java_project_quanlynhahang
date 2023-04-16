@@ -120,7 +120,7 @@ public class MonAn_DAO {
                                                     + "WHERE MonAn.LMA_ID = LoaiMonAn.LMA_ID AND MonAn.TTMA_ID = TTMA.TTMA_ID ");
             
             if(searchData.getIdOrName() != null && !searchData.getIdOrName().isBlank())
-                sql.append(" AND (MA_Ten LIKE '%").append(searchData.getIdOrName()).append("%' OR MA_ID LIKE '%").append(searchData.getIdOrName()).append("%') ");
+                sql.append(" AND (MA_Ten LIKE N'%").append(searchData.getIdOrName()).append("%' OR MA_ID LIKE '%").append(searchData.getIdOrName()).append("%') ");
             
             if(searchData.getIdLoaiMonAn() > 0)
                 sql.append(" AND MonAn.LMA_ID = ").append(searchData.getIdLoaiMonAn());
