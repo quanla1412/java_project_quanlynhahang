@@ -4,6 +4,7 @@
  */
 package BUS;
 
+import Constraints.LoaiKhachHangConstraints;
 import DAO.LoaiKhachHang_DAO;
 import DTO.KhachHang.CreateLoaiKhachHang_DTO;
 import DTO.KhachHang.LoaiKhachHang_DTO;
@@ -38,6 +39,10 @@ public class LoaiKhachHang_BUS {
     
     public boolean updateLoaiKhachHang(UpdateLoaiKhachHang_DTO data){
         LoaiKhachHang_DAO loaiKhachHang_DAO = new LoaiKhachHang_DAO();
+        
+        if(data.getId() == LoaiKhachHangConstraints.LOAI_KHACH_HANG_LOCKED && data.getDiemToiThieu() != 0)
+            return false;
+        
         boolean result = loaiKhachHang_DAO.updateLoaiKhachHang(data);
     
         return result;

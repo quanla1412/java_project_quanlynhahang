@@ -616,7 +616,7 @@ public class QuanLyKhachHang_GUI extends javax.swing.JFrame {
         }
         
         if(dangThemKhachHang){
-            CreateKhachHang_DTO data = new CreateKhachHang_DTO( loaiKH, hoTen, sdt, diemTichLuy, email, ngaySinh, gioiTinhNam);
+            CreateKhachHang_DTO data = new CreateKhachHang_DTO( hoTen, sdt, email, ngaySinh, gioiTinhNam);
             boolean result = khachHang_BUS.createKhachHang(data);
             if(result){
                 JOptionPane.showMessageDialog(this, "Thêm khách hàng mới thành công","Thông báo", JOptionPane.INFORMATION_MESSAGE);

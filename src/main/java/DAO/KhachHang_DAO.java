@@ -98,10 +98,10 @@ public class KhachHang_DAO {
             
             statement.setNString(1, data.getTen());
             statement.setString(2, data.getSdt());
-            statement.setInt(3,data.getDiemTichLuy());
+            statement.setInt(3, 0);
             statement.setString(4, data.getEmail());
             statement.setTimestamp(5, data.getNgaySinh());
-            statement.setInt(6, data.getLoaiKhachHang());
+            statement.setInt(6, 0);
             statement.setBoolean(7, data.isGioiTinh());
             
             if (statement.executeUpdate() >= 1){
