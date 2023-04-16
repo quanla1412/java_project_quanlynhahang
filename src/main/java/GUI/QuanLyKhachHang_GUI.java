@@ -120,6 +120,8 @@ public class QuanLyKhachHang_GUI extends javax.swing.JFrame {
         btnTimKiem = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         cmbGioiTinh = new javax.swing.JComboBox<>();
+        jLabel12 = new javax.swing.JLabel();
+        txtSoDienThoai = new javax.swing.JTextField();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblKhachHang = new javax.swing.JTable();
@@ -177,7 +179,7 @@ public class QuanLyKhachHang_GUI extends javax.swing.JFrame {
         gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
         jPanel2.add(jLabel3, gridBagConstraints);
 
-        txtSearchIdName.setMinimumSize(new java.awt.Dimension(200, 22));
+        txtSearchIdName.setMinimumSize(new java.awt.Dimension(250, 22));
         txtSearchIdName.setPreferredSize(new java.awt.Dimension(250, 22));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
@@ -205,7 +207,7 @@ public class QuanLyKhachHang_GUI extends javax.swing.JFrame {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 4;
         gridBagConstraints.gridy = 0;
-        gridBagConstraints.gridheight = 2;
+        gridBagConstraints.gridheight = 3;
         gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 0);
         jPanel2.add(btnTimKiem, gridBagConstraints);
 
@@ -221,6 +223,27 @@ public class QuanLyKhachHang_GUI extends javax.swing.JFrame {
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 1;
         jPanel2.add(cmbGioiTinh, gridBagConstraints);
+
+        jLabel12.setText("Số điện thoại");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        jPanel2.add(jLabel12, gridBagConstraints);
+
+        txtSoDienThoai.setMinimumSize(new java.awt.Dimension(250, 22));
+        txtSoDienThoai.setPreferredSize(new java.awt.Dimension(250, 22));
+        txtSoDienThoai.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtSoDienThoaiActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.gridwidth = 3;
+        gridBagConstraints.insets = new java.awt.Insets(10, 0, 10, 0);
+        jPanel2.add(txtSoDienThoai, gridBagConstraints);
 
         jPanel1.add(jPanel2);
 
@@ -732,7 +755,11 @@ public class QuanLyKhachHang_GUI extends javax.swing.JFrame {
             else
                 searchKhachHang_DTO.setGioiTinh(2);
         }
-        
+        String SDT = txtSoDienThoai.getText();
+        if(!SDT.isBlank()){
+            khachHang_BUS.findKhachHangBySDT(SDT);
+        }
+         
         ArrayList<KhachHang_DTO> result = khachHang_BUS.searchKhachHang(searchKhachHang_DTO);
         loadTableKhachHang(result);
     }//GEN-LAST:event_btnTimKiemMouseClicked
@@ -740,6 +767,10 @@ public class QuanLyKhachHang_GUI extends javax.swing.JFrame {
     private void cmbGioiTinhKHActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbGioiTinhKHActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_cmbGioiTinhKHActionPerformed
+
+    private void txtSoDienThoaiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSoDienThoaiActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtSoDienThoaiActionPerformed
     
     
     /**
@@ -795,6 +826,7 @@ public class QuanLyKhachHang_GUI extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -819,5 +851,6 @@ public class QuanLyKhachHang_GUI extends javax.swing.JFrame {
     private javax.swing.JTextField txtIDKH;
     private javax.swing.JTextField txtSDT;
     private javax.swing.JTextField txtSearchIdName;
+    private javax.swing.JTextField txtSoDienThoai;
     // End of variables declaration//GEN-END:variables
 }

@@ -25,8 +25,15 @@ public class KhachHang_BUS {
     }
 
     public ArrayList<KhachHang_DTO> searchKhachHang(SearchKhachHang_DTO searchData){
-        KhachHang_DAO KhachHang_DAO = new KhachHang_DAO();
-        ArrayList<KhachHang_DTO> result = KhachHang_DAO.searchKhachHang(searchData);
+        KhachHang_DAO khachHang_DAO = new KhachHang_DAO();
+        ArrayList<KhachHang_DTO> result = khachHang_DAO.searchKhachHang(searchData);
+        
+        return result;
+    }
+    
+    public ArrayList<KhachHang_DTO> findKhachHangBySDT(String sdt){
+        KhachHang_DAO khachHang_DAO = new KhachHang_DAO();
+        ArrayList<KhachHang_DTO> result = khachHang_DAO.findKhachHangBySDT(sdt);
         
         return result;
     }

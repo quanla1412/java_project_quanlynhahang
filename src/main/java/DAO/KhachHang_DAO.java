@@ -177,11 +177,48 @@ public class KhachHang_DAO {
             
             if(searchData.getLoaiKhachHang() > 0)
                 sql.append(" AND KhachHang.LKH_ID = ").append(searchData.getLoaiKhachHang());
+            
             if(searchData.isGioiTinh() > 0)
                 if(searchData.isGioiTinh() == 1)
                     sql.append(" AND KH_GioiTinhNam = 1");
                 else
                     sql.append(" AND KH_GioiTinhNam = 0");
+            Statement statement = con.createStatement();
+            ResultSet resultSet = statement.executeQuery(sql.toString());
+        
+            
+            while(resultSet.next()){
+                KhachHang_DTO khachHang = new KhachHang_DTO();
+                khachHang.setId(resultSet.getInt("KH_ID"));
+                khachHang.setTen(resultSet.getNString("KH_Ten"));
+                khachHang.setSdt(resultSet.getString("KH_Sdt"));
+                khachHang.setDiemTichLuy(resultSet.getInt("KH_DiemTichLuy"));
+                LoaiKhachHang_DAO lkh = new LoaiKhachHang_DAO();
+                khachHang.setLoaiKhachHang(lkh.getLoaiKhachHangById(resultSet.getInt("LKH_ID")));
+                
+                result.add(khachHang);
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex);
+        } finally {
+            ConnectDatabase.closeConnection(con); 
+        }
+        return result;
+    }
+    
+    public ArrayList<KhachHang_DTO> findKhachHangBySDT(String sdt){
+        Connection con = ConnectDatabase.openConnection();
+        ArrayList<KhachHang_DTO> result = new ArrayList<>();
+        try {
+            StringBuilder sql = new StringBuilder("SELECT KH_ID, KH_Ten, KH_Sdt, KH_DiemTichLuy, KhachHang.LKH_ID " 
+                                                   + "FROM KhachHang, LoaiKhachHang "
+                                                   + "WHERE KhachHang.LKH_ID = LoaiKhachHang.LKH_ID ");
+            
+            
+            if(sdt != null && !sdt.isBlank())
+                sql.append(" AND KH_Sdt = '").append(sdt).append("' ");
+            
+            
             Statement statement = con.createStatement();
             ResultSet resultSet = statement.executeQuery(sql.toString());
         
