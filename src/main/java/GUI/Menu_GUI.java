@@ -57,7 +57,7 @@ public class Menu_GUI extends javax.swing.JFrame {
         tabMenu.removeAll();
         for(LoaiMonAn_DTO loaiMonAn : listLoaiMonAn){
             JScrollPane scrMenu = new JScrollPane();
-            JPanel pnlCategory = new JPanel(new FlowLayout());
+            JPanel pnlCategory = new JPanel(new FlowLayout(FlowLayout.LEFT));
             
             scrMenu.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
             
@@ -131,18 +131,17 @@ public class Menu_GUI extends javax.swing.JFrame {
                 btnDatMon.addMouseListener(new MouseInputListener() {
                     @Override
                     public void mouseClicked(MouseEvent e) {
-                        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-                    }
-
-                    @Override
-                    public void mousePressed(MouseEvent e) {                        
-                        if(datMon_GUI == null){
-                            datMon_GUI = new DatMon_GUI(monAn.getId(), idBan);
+                         if(datMon_GUI == null || !datMon_GUI.isDisplayable()){
+                            datMon_GUI = new DatMon_GUI(idBan, monAn.getId());
                             datMon_GUI.setVisible(true);
                         } else {
                             datMon_GUI.setState(JFrame.NORMAL);
                             datMon_GUI.toFront();
-                        }
+                        }}
+
+                    @Override
+                    public void mousePressed(MouseEvent e) {                        
+                       
                     }
 
                     @Override
@@ -285,7 +284,7 @@ public class Menu_GUI extends javax.swing.JFrame {
         jLabel96 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Menu");
 
         jScrollPane1.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
@@ -1291,6 +1290,7 @@ public class Menu_GUI extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton16ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton16ActionPerformed

@@ -13,12 +13,7 @@ import java.util.ArrayList;
  *
  * @author LeAnhQuan
  */
-<<<<<<< HEAD
 public class Ban_BUS {    
-=======
-public class Ban_BUS {
-    
->>>>>>> 904cf01b47a236d2b5fe0f72badce3b23abc0c0e
     public ArrayList<Ban_DTO> getAllBan(){
         Ban_DAO ban_DAO = new Ban_DAO();
         ArrayList<Ban_DTO> result = ban_DAO.getAllBan();

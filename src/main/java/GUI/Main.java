@@ -19,9 +19,8 @@ public class Main {
             System.out.println(ex);
         }
 
-        QuanLyPhucVu_GUI monAn_GUI = new QuanLyPhucVu_GUI();
-
-        monAn_GUI.setVisible(true);
+        QuanLyKhachHang_GUI dangNhap_GUI= new QuanLyKhachHang_GUI();
+        dangNhap_GUI.setVisible(true);
     }
     
 }

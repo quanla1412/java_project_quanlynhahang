@@ -62,7 +62,7 @@ public class QuanLyHoaDon_GUI extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         btnSua = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Quản lý hoá đơn");
         getContentPane().setLayout(new javax.swing.BoxLayout(getContentPane(), javax.swing.BoxLayout.LINE_AXIS));
 
@@ -388,6 +388,7 @@ public class QuanLyHoaDon_GUI extends javax.swing.JFrame {
         getContentPane().add(jPanel9);
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void cmbChonQuyenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbChonQuyenActionPerformed
