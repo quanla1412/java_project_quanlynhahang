@@ -8,8 +8,10 @@ import DAO.NhanVien_DAO;
 import DTO.NhanVien.CreateNhanVien_DTO;
 import DTO.NhanVien.NhanVienFull_DTO;
 import DTO.NhanVien.NhanVien_DTO;
+import DTO.NhanVien.SearchNhanVien_DTO;
 import DTO.NhanVien.UpdateNhanVien_DTO;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -35,6 +37,11 @@ public class NhanVien_BUS {
    
     public boolean createNhanVien(CreateNhanVien_DTO data){
         NhanVien_DAO nhanVien_DAO = new NhanVien_DAO();
+     
+        if(nhanVien_DAO.hasMaNV(data.getMa()) || nhanVien_DAO.hasSoDienThoaiOrEmail(data.getSoDienThoai(), data.getEmail()))
+        {
+            return false;
+        }
         boolean result = nhanVien_DAO.createNhanVien(data);
     
         return result;
@@ -42,8 +49,9 @@ public class NhanVien_BUS {
     
     public boolean updateNhanVien(UpdateNhanVien_DTO data){
         NhanVien_DAO nhanVien_DAO = new NhanVien_DAO();
+        if(nhanVien_DAO.hasSoDienThoaiOrEmail(data.getMa(),data.getSoDienThoai(),data.getEmail()))
+            return false;
         boolean result = nhanVien_DAO.updateNhanVien(data);
-        
         return result;
     }
     
@@ -54,6 +62,12 @@ public class NhanVien_BUS {
         return result;
     }
     
+    public ArrayList<NhanVien_DTO> searchNhanVien(SearchNhanVien_DTO searchData) {
+        NhanVien_DAO nhanVien_DAO = new NhanVien_DAO();
+        ArrayList<NhanVien_DTO> result = nhanVien_DAO.searchNhanVien(searchData);
+        
+        return result;
+    }
     
     
 

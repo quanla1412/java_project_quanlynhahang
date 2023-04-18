@@ -8,6 +8,7 @@ import DTO.NhanVien.ChucVu_DTO;
 import DTO.NhanVien.CreateNhanVien_DTO;
 import DTO.NhanVien.NhanVien_DTO;
 import DTO.NhanVien.NhanVienFull_DTO;
+import DTO.NhanVien.SearchNhanVien_DTO;
 import DTO.NhanVien.TinhTrangNhanVien_DTO;
 import DTO.NhanVien.UpdateNhanVien_DTO;
 import com.mycompany.quanlynhahang.ConnectDatabase;
@@ -42,7 +43,7 @@ public class NhanVien_DAO {
                 result.setHoTen(resultSet.getNString("NV_HoTen"));
                 result.setNgaySinh(resultSet.getTimestamp("NV_NgaySinh"));
                 result.setGioiTinhNam(resultSet.getBoolean("NV_GioiTinhNam"));
-                result.setEmail(resultSet.getString("NV_Email"));
+                result.setEmail(resultSet.getString("NV_Email").trim());
                 result.setSoDienThoai(resultSet.getString("NV_SDT"));
                 result.setDiaChi(resultSet.getNString("NV_DiaChi"));
                 
@@ -98,7 +99,49 @@ public class NhanVien_DAO {
             ConnectDatabase.closeConnection(con); 
         }
         return result;
-     }
+    }
+       
+       
+        public ArrayList<NhanVien_DTO> searchNhanVien(SearchNhanVien_DTO searchData){
+        Connection con = ConnectDatabase.openConnection();
+        ArrayList<NhanVien_DTO> result = new ArrayList<>();
+        try {
+            StringBuilder sql = new StringBuilder("SELECT NV_MA, NV_HoTen, NV_SDT, TTNV_Ten, CV_Ten "
+                        + "FROM NhanVien, TinhTrangNhanVien, ChucVu "
+                        + "WHERE NhanVien.TTNV_ID = TinhTrangNhanVien.TTNV_ID AND NhanVien.CV_ID = ChucVu.CV_ID ");
+            
+             if(searchData.getMaOrhoTen()!= null && !searchData.getMaOrhoTen().isBlank())
+                sql.append(" AND (NV_HoTen LIKE N'%").append(searchData.getMaOrhoTen()).append("%' OR NV_Ma LIKE '%").append(searchData.getMaOrhoTen()).append("%') ");
+            
+             if (searchData.getChucVu() > 0) 
+                 sql.append("AND ChucVu.CV_ID = ").append(searchData.getChucVu());
+             
+             if (searchData.isGioiTinh() >= 0)
+                 sql.append("AND NV_GioiTinhNam = ").append(searchData.isGioiTinh());
+            
+            Statement statement = con.createStatement();
+            ResultSet resultSet = statement.executeQuery(sql.toString());        
+            
+            while(resultSet.next()){
+               NhanVien_DTO nhanVien = new NhanVien_DTO();
+               nhanVien.setMa(resultSet.getString("NV_Ma"));
+               nhanVien.setHoTen(resultSet.getNString("NV_HoTen"));
+               nhanVien.setSdt(resultSet.getString("NV_SDT"));
+               nhanVien.setTinhTrangNhanVien(resultSet.getNString("TTNV_Ten"));
+               nhanVien.setTenChucVu(resultSet.getNString("CV_Ten"));
+               
+               result.add(nhanVien);
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex);
+        } finally {
+            ConnectDatabase.closeConnection(con); 
+        }
+        return result;
+    } 
+       
+       
+       
      
       public boolean createNhanVien(CreateNhanVien_DTO data){
         Connection con = ConnectDatabase.openConnection();
@@ -205,5 +248,68 @@ public class NhanVien_DAO {
         return result;
     }  
        
-       
+     public boolean hasSoDienThoaiOrEmail(String sdt, String email){
+        Connection con = ConnectDatabase.openConnection();
+        boolean result = false;
+        try {
+            String sql = "SELECT NV_Ma From NhanVien "
+                    + "WHERE NV_SDT = '" + sdt + "' OR NV_Email = '" + email + "'";
+            
+            Statement statement = con.createStatement();
+            ResultSet resultSet = statement.executeQuery(sql);        
+            
+            if(resultSet.next())
+                result = true;
+            
+        } catch (SQLException ex) {
+            System.out.println(ex);
+        } finally {
+            ConnectDatabase.closeConnection(con); 
+        }
+        return result;
+    }
+    
+    public boolean hasSoDienThoaiOrEmail(String MaNVHienTai, String sdt, String email){
+        Connection con = ConnectDatabase.openConnection();
+        boolean result = false;
+        try {
+            String sql = "SELECT NV_Ma From NhanVien "
+                    + "WHERE (NV_SDT = '" + sdt + "' OR NV_Email = '" + email + "') AND NV_Ma != '" + MaNVHienTai + "'";
+            
+            Statement statement = con.createStatement();
+            ResultSet resultSet = statement.executeQuery(sql);        
+            
+            if(resultSet.next())
+                result = true;
+            
+        } catch (SQLException ex) {
+            System.out.println(ex);
+        } finally {
+            ConnectDatabase.closeConnection(con); 
+        }
+        return result;
+    }  
+    
+     public boolean hasMaNV(String MaNV){
+        Connection con = ConnectDatabase.openConnection();
+        boolean result = false;
+        try {
+            String sql = "SELECT NV_Ma From NhanVien "
+                    + "WHERE NV_Ma = '" + MaNV + "' ";
+            
+            Statement statement = con.createStatement();
+            ResultSet resultSet = statement.executeQuery(sql);        
+            
+            if(resultSet.next())
+                result = true;
+            
+        } catch (SQLException ex) {
+            System.out.println(ex);
+        } finally {
+            ConnectDatabase.closeConnection(con); 
+        }
+        return result;
+    }  
+    
+    
 }
