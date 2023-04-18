@@ -67,7 +67,10 @@ public class NhanVien_DAO {
         }
         return result;
      }
-    
+     
+     
+   
+     
      
      
        public ArrayList<NhanVien_DTO> getAllNhanVien() {
@@ -155,7 +158,7 @@ public class NhanVien_DAO {
             statement.setInt(2, data.getIdTinhTrangNhanVien());
             statement.setInt(3, data.getIdChucVu());
             statement.setNString(4, data.getHoTen());
-            statement.setDate(5, data.getNgaySinh());
+            statement.setTimestamp(5, data.getNgaySinh());
             statement.setBoolean(6, data.isGioiTinhNam());
             statement.setString(7, data.getEmail());
             statement.setString(8, data.getSoDienThoai());
@@ -184,7 +187,7 @@ public class NhanVien_DAO {
             statement.setInt(1, data.getIdTinhTrangNhanVien());
             statement.setInt(2, data.getIdChucVu());
             statement.setNString(3, data.getHoTen());
-            statement.setDate(4, data.getNgaySinh());
+            statement.setTimestamp(4, data.getNgaySinh());
             statement.setString(5, data.getEmail());
             statement.setString(6, data.getSoDienThoai());
             statement.setString(7, data.getDiaChi());

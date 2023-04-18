@@ -34,6 +34,14 @@ public class NhanVien_BUS {
         return result;
     }
     
+//    public ArrayList<NhanVienFull_DTO> getchitietNhanVien(ArrayList<NhanVien_DTO> data){
+//        NhanVien_DAO nhanVien_DAO = new NhanVien_DAO();
+//        
+//        ArrayList<NhanVienFull_DTO> result = nhanVien_DAO.getchitietNhanVien(data);
+//        
+//        return result;
+//    }
+    
    
     public boolean createNhanVien(CreateNhanVien_DTO data){
         NhanVien_DAO nhanVien_DAO = new NhanVien_DAO();

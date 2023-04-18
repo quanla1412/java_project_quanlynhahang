@@ -13,15 +13,15 @@ import DTO.NhanVien.SearchNhanVien_DTO;
 import DTO.NhanVien.TinhTrangNhanVien_DTO;
 import DTO.NhanVien.UpdateNhanVien_DTO;
 import com.mycompany.quanlynhahang.CheckHopLe;
-import java.sql.Date;
+import java.sql.Timestamp;
+import java.time.LocalDate;
+import java.time.Period;
 import java.util.ArrayList;
 import javax.swing.BorderFactory;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
-
-
 
 
 /**
@@ -38,7 +38,9 @@ public class QuanLyNhanVien_GUI extends javax.swing.JFrame {
     private QuanLyChucVu_GUI quanLyChucVu_GUI;
     private QuanLyQuyen_GUI quanLyQuyen_GUI;
     private DoiMatKhau_GUI doiMatKhau_GUI;
- 
+    
+     private ArrayList<NhanVienFull_DTO> listNhanVien;
+    
     private ArrayList<ChucVu_DTO> listChucVu;
     private ArrayList<TinhTrangNhanVien_DTO> listTinhTrangNhanVien;
     
@@ -666,6 +668,7 @@ public class QuanLyNhanVien_GUI extends javax.swing.JFrame {
         btnThemNV.setEnabled(false);
         btnSuaNV.setEnabled(true);
         dangThemNhanVien = true;
+        cmbGioiTinhNV.setEnabled(true);
         txtMaNV.setEnabled(true);
         pnlThemNhanVien.setBorder(BorderFactory.createTitledBorder("Thêm nhân viên mới"));
         pnlThemNhanVien.repaint();
@@ -772,8 +775,13 @@ public class QuanLyNhanVien_GUI extends javax.swing.JFrame {
         if (cmbGioiTinhNV.getSelectedIndex() == 0){
             gioitinh = true;
         }
-        Date ngaySinh;
-        ngaySinh = new Date(ngaysinhnhanvien.getDate().getTime());
+         Timestamp ngaySinh;
+        ngaySinh = new Timestamp(ngaysinhnhanvien.getDate().getTime());
+        int tuoi = Period.between(ngaySinh.toLocalDateTime().toLocalDate(), LocalDate.now()).getYears();
+        if(tuoi < 18){
+            JOptionPane.showMessageDialog(this, "Nhân viên phải từ 18 tuổi trở lên","Error", JOptionPane.ERROR_MESSAGE);
+            return;            
+        }
         
         
         if (dangThemNhanVien){
@@ -899,14 +907,11 @@ public class QuanLyNhanVien_GUI extends javax.swing.JFrame {
         loadTableNhanVien(result);
     }//GEN-LAST:event_btnTimKiemNhanVienMouseClicked
 
+    
+    
     private void btnExportNVMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnExportNVMouseClicked
         // TODO add your handling code here:
-        try {
-        
-            
-            
-        } catch (Exception e) {
-        }
+       
     }//GEN-LAST:event_btnExportNVMouseClicked
 
     
