@@ -101,8 +101,8 @@ public class KhachHang_DAO {
             statement.setInt(3, 0);
             statement.setString(4, data.getEmail());
             statement.setTimestamp(5, data.getNgaySinh());
-            statement.setInt(6, 0);
-            statement.setBoolean(7, data.isGioiTinh());
+            statement.setInt(6, 1);
+            statement.setBoolean(7, data.isGioiTinhNam());
             
             if (statement.executeUpdate() >= 1){
                 result = true;
@@ -131,7 +131,7 @@ public class KhachHang_DAO {
             preparedStatement.setInt(4, data.getDiemTichLuy());
             preparedStatement.setNString(5, data.getEmail());
             preparedStatement.setTimestamp(6, data.getNgaySinh());
-            preparedStatement.setBoolean(7, data.isGioiTinh());
+            preparedStatement.setBoolean(7, data.isGioiTinhNam());
             
             
             if(preparedStatement.executeUpdate() >= 1){
@@ -263,6 +263,26 @@ public class KhachHang_DAO {
         try {
             String sql = "SELECT KH_ID From KhachHang "
                     + "WHERE (KH_SDT = '" + sdt + "' OR KH_Email = '" + email + "') AND KH_ID != " + idKHHienTai;
+            
+            Statement statement = con.createStatement();
+            ResultSet resultSet = statement.executeQuery(sql);        
+            
+            if(resultSet.next())
+                result = true;
+            
+        } catch (SQLException ex) {
+            System.out.println(ex);
+        } finally {
+            ConnectDatabase.closeConnection(con); 
+        }
+        return result;
+    }
+    public boolean hasId(int idKHHienTai){
+        Connection con = ConnectDatabase.openConnection();
+        boolean result = false;
+        try {
+            String sql = "SELECT KH_ID From KhachHang "
+                    + "WHERE KH_ID = " + idKHHienTai;
             
             Statement statement = con.createStatement();
             ResultSet resultSet = statement.executeQuery(sql);        
