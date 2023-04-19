@@ -207,33 +207,34 @@ public class KhachHang_DAO {
         return result;
     }
     
-    public ArrayList<KhachHang_DTO> findKhachHangBySDT(String sdt){
+    public KhachHangFull_DTO findKhachHangFullBySDT(String sdt){
         Connection con = ConnectDatabase.openConnection();
-        ArrayList<KhachHang_DTO> result = new ArrayList<>();
+        LoaiKhachHang_DAO loaiKhachHang_DAO = new LoaiKhachHang_DAO();
+        KhachHangFull_DTO khachHang = null;
         try {
-            String sql = "SELECT KH_ID, KH_Ten, KH_Sdt, KH_DiemTichLuy, LKH_Ten " 
-                                                   + "FROM KhachHang, LoaiKhachHang "
-                                                   + "WHERE KhachHang.LKH_ID = LoaiKhachHang.LKH_ID AND KH_SDT LIKE '" + sdt + "'";            
+            String sql = "SELECT * FROM KhachHang WHERE KH_SDT = '" + sdt + "'";            
             
             Statement statement = con.createStatement();
             ResultSet resultSet = statement.executeQuery(sql);
             
-            while(resultSet.next()){
-                KhachHang_DTO khachHang = new KhachHang_DTO();
+            if(resultSet.next()){
+                khachHang = new KhachHangFull_DTO();
                 khachHang.setId(resultSet.getInt("KH_ID"));
                 khachHang.setTen(resultSet.getNString("KH_Ten"));
                 khachHang.setSdt(resultSet.getString("KH_Sdt"));
                 khachHang.setDiemTichLuy(resultSet.getInt("KH_DiemTichLuy"));
-                khachHang.setLoaiKhachHang(resultSet.getNString("LKH_Ten"));
-                
-                result.add(khachHang);
+                khachHang.setEmail(resultSet.getString("KH_Email"));
+                khachHang.setNgaySinh(resultSet.getTimestamp("Kh_NgaySinh"));
+                khachHang.setLoaiKhachHang(
+                        loaiKhachHang_DAO.getLoaiKhachHangById(resultSet.getInt("LKH_ID")));
             }
         } catch (SQLException ex) {
             System.out.println(ex);
         } finally {
             ConnectDatabase.closeConnection(con); 
         }
-        return result;
+        
+        return khachHang;
     }
 
     public boolean hasSoDienThoaiOrEmail(String sdt, String email){

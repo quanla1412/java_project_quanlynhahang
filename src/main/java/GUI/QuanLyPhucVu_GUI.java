@@ -158,7 +158,8 @@ public class QuanLyPhucVu_GUI extends javax.swing.JFrame {
             btnThemMonMoi.setEnabled(false);
             btnSuaDonGoi.setEnabled(false);
             btnXoa.setEnabled(false);
-            btnThanhToan.setEnabled(false);            
+            btnThanhToan.setEnabled(false); 
+            btnResetDonGoi.setEnabled(false);           
         }
         else if(idTinhTrangBan == TinhTrangBanConstraints.DANG_PHUC_VU){
             btnSanSang.setEnabled(false);
@@ -167,7 +168,8 @@ public class QuanLyPhucVu_GUI extends javax.swing.JFrame {
             btnThemMonMoi.setEnabled(true);
             btnSuaDonGoi.setEnabled(true);
             btnXoa.setEnabled(true);
-            btnThanhToan.setEnabled(true);            
+            btnThanhToan.setEnabled(true);   
+            btnResetDonGoi.setEnabled(true);         
         }
         else if(idTinhTrangBan == TinhTrangBanConstraints.DANG_CHUAN_BI){
             btnSanSang.setEnabled(true);
@@ -176,7 +178,8 @@ public class QuanLyPhucVu_GUI extends javax.swing.JFrame {
             btnThemMonMoi.setEnabled(false);
             btnSuaDonGoi.setEnabled(false);
             btnXoa.setEnabled(false);
-            btnThanhToan.setEnabled(false);             
+            btnThanhToan.setEnabled(false);       
+            btnResetDonGoi.setEnabled(false);        
         }
         else {            
             btnSanSang.setEnabled(true);
@@ -186,7 +189,9 @@ public class QuanLyPhucVu_GUI extends javax.swing.JFrame {
             btnSuaDonGoi.setEnabled(false);
             btnXoa.setEnabled(false);
             btnThanhToan.setEnabled(false); 
+            btnResetDonGoi.setEnabled(false);  
         }
+        
         loadComboBoxBanSanSang();
     }
     
@@ -1105,6 +1110,7 @@ public class QuanLyPhucVu_GUI extends javax.swing.JFrame {
         jPanel3.add(jScrollPane1);
 
         btnResetDonGoi.setText("Reset");
+        btnResetDonGoi.setEnabled(false);
         btnResetDonGoi.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnResetDonGoiMouseClicked(evt);
@@ -1118,6 +1124,7 @@ public class QuanLyPhucVu_GUI extends javax.swing.JFrame {
         jPanel5.setLayout(new java.awt.GridBagLayout());
 
         btnThanhToan.setText("Thanh toán");
+        btnThanhToan.setEnabled(false);
         btnThanhToan.setMaximumSize(new java.awt.Dimension(120, 24));
         btnThanhToan.setMinimumSize(new java.awt.Dimension(120, 24));
         btnThanhToan.setPreferredSize(new java.awt.Dimension(120, 24));
@@ -1183,8 +1190,10 @@ public class QuanLyPhucVu_GUI extends javax.swing.JFrame {
     private void btnSuaDonGoiMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSuaDonGoiMouseClicked
         // TODO add your handling code here:
         int count = tblDonGoi.getSelectedRowCount();
-        if(count < 1)
+        if(count < 1){            
             JOptionPane.showMessageDialog(this, "Chưa chọn món ăn","Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
             
         
         int indexRow = tblDonGoi.getSelectedRow();
@@ -1206,6 +1215,11 @@ public class QuanLyPhucVu_GUI extends javax.swing.JFrame {
 
     private void btnThanhToanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnThanhToanMouseClicked
         // TODO add your handling code here:
+        if(donGoi_BUS.getAllDonGoiByIdBan(banDangChon.getId()).size() <= 0){            
+            JOptionPane.showMessageDialog(this, "Đơn gọi không có món ăn","Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        
         if(thanhToan_GUI == null || !thanhToan_GUI.isDisplayable()){
             thanhToan_GUI = new ThanhToan_GUI(banDangChon.getId());
             thanhToan_GUI.setVisible(true);

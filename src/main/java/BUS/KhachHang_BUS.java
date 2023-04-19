@@ -31,9 +31,9 @@ public class KhachHang_BUS {
         return result;
     }
     
-    public ArrayList<KhachHang_DTO> findKhachHangBySDT(String sdt){
+    public KhachHangFull_DTO findKhachHangFullBySDT(String sdt){
         KhachHang_DAO khachHang_DAO = new KhachHang_DAO();
-        ArrayList<KhachHang_DTO> result = khachHang_DAO.findKhachHangBySDT(sdt);
+        KhachHangFull_DTO result = khachHang_DAO.findKhachHangFullBySDT(sdt);
         
         return result;
     }
