@@ -336,7 +336,7 @@ public class QuanLyLoaiKhachHang_GUI extends javax.swing.JFrame {
         }
         double mucUuDai;
         try{            
-            mucUuDai = Double.parseDouble(txtDiemToiThieu.getText());
+            mucUuDai = Double.parseDouble(txtMucUuDai.getText());
         } catch (NumberFormatException ex) {
             JOptionPane.showMessageDialog(this, "Nhập sai định dạng mức ưu đãi ","Error", JOptionPane.ERROR_MESSAGE);
             return;
