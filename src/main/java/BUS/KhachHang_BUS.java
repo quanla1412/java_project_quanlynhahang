@@ -74,5 +74,16 @@ public class KhachHang_BUS {
         return result;
     }
     
-    
+    public void importKhachHang(KhachHangFull_DTO data){
+        KhachHang_DAO khachHang_DAO = new KhachHang_DAO();
+        if(khachHang_DAO.hasId( data.getId()))
+        {
+            UpdateKhachHang_DTO up = new UpdateKhachHang_DTO(data.getId(), data.getLoaiKhachHang().getId(), data.getTen(), data.getSdt(), data.getDiemTichLuy(), data.getEmail(), data.getNgaySinh(), data.isGioiTinhNam());
+            updateKhachHang(up);
+        }
+        else{
+            CreateKhachHang_DTO up = new CreateKhachHang_DTO(data.getTen(), data.getSdt(), data.getEmail(), data.getNgaySinh(), data.isGioiTinhNam());
+            createKhachHang(up);
+        }
+    }  
 }

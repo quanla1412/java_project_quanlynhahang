@@ -28,12 +28,12 @@ public class CreateKhachHang_DTO {
         this.gioiTinhNam = gioiTinhNam;
     }
 
-    public boolean isGioiTinh() {
+    public boolean isGioiTinhNam() {
         return gioiTinhNam;
     }
 
-    public void setGioiTinh(boolean gioiTinh) {
-        this.gioiTinhNam = gioiTinh;
+    public void setGioiTinhNam(boolean gioiTinhNam) {
+        this.gioiTinhNam = gioiTinhNam;
     }
 
     public String getTen() {

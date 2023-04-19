@@ -32,8 +32,12 @@ public class LoaiKhachHang_BUS {
     
     public boolean createLoaiKhachHang(CreateLoaiKhachHang_DTO data){
         LoaiKhachHang_DAO loaiKhachHang_DAO = new LoaiKhachHang_DAO();
+        
+        if(loaiKhachHang_DAO.hasLoaiKHOrDiemToiThieuOrMucUuDai(data.getTen(), data.getDiemToiThieu(), data.getMucUuDai()))
+            return false;
+        
         boolean result = loaiKhachHang_DAO.createLoaiKhachHang(data);
-    
+        
         return result;
     }
     
@@ -41,6 +45,8 @@ public class LoaiKhachHang_BUS {
         LoaiKhachHang_DAO loaiKhachHang_DAO = new LoaiKhachHang_DAO();
         
         if(data.getId() == LoaiKhachHangConstraints.LOAI_KHACH_HANG_LOCKED && data.getDiemToiThieu() != 0)
+            return false;
+        if(loaiKhachHang_DAO.hasLoaiKHOrDiemToiThieuOrMucUuDai(data.getId(), data.getTen(), data.getDiemToiThieu(), data.getMucUuDai()))
             return false;
         
         boolean result = loaiKhachHang_DAO.updateLoaiKhachHang(data);
