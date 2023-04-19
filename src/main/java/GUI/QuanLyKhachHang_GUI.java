@@ -78,7 +78,7 @@ public class QuanLyKhachHang_GUI extends javax.swing.JFrame {
         DefaultTableModel tableModel = new DefaultTableModel(col, 0);
         tblKhachHang.setModel(tableModel);
         for(KhachHang_DTO row : listKhachHang){
-            Object[] data = {row.getId(), row.getTen(), row.getSdt(), row.getDiemTichLuy(), row.getLoaiKhachHang()};
+            Object[] data = {row.id(), row.id(), row.sdt(), row.diemTichLuy(), row.loaiKhachHang()};
             tableModel.addRow(data);
         }
     }
@@ -89,7 +89,7 @@ public class QuanLyKhachHang_GUI extends javax.swing.JFrame {
         DefaultTableModel tableModel = new DefaultTableModel(col, 0);
         tblKhachHang.setModel(tableModel);
         for(KhachHang_DTO row : listKhachHang){
-            Object[] data = {row.getId(), row.getTen(), row.getSdt(), row.getDiemTichLuy(), row.getLoaiKhachHang()};
+            Object[] data = {row.id(), row.id(), row.sdt(), row.diemTichLuy(), row.loaiKhachHang()};
             tableModel.addRow(data);
         }
     }
@@ -828,79 +828,24 @@ public class QuanLyKhachHang_GUI extends javax.swing.JFrame {
         loadTableKhachHang();
         clearSearchBox();
     }//GEN-LAST:event_btnResetTableMouseClicked
-    public void openFile (String file) {
-        try {
-            File path = new File(file);
-            Desktop.getDesktop().open(path);
-        } catch (IOException io) {
-        }
-    }
+    
     private void btnExportMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnExportMouseClicked
         // TODO add your handling code here:
-        try {
-            JFileChooser jFileChooser = new JFileChooser();
-            jFileChooser.showSaveDialog(this);
-            File saveFile = jFileChooser.getSelectedFile();
-            
-            if (saveFile != null) {
-                saveFile = new File (saveFile.toString()+".xlsx");
-                Workbook wb = new XSSFWorkbook();
-                Sheet sheet = wb.createSheet("Nhân Viên");
-                Row rowCol = sheet.createRow(0);
-                sheet.setColumnWidth(0, 4000);
-                sheet.setColumnWidth(1, 6500);
-                sheet.setColumnWidth(2, 6500);
-                sheet.setColumnWidth(3, 6500);
-                sheet.setColumnWidth(4, 6500);
-                // tao hang tieu de
-                for (int i=0; i<tblKhachHang.getColumnCount();i++ )
-                {
-                    Cell cell = rowCol.createCell(i);
-                    cell.setCellValue(tblKhachHang.getColumnName(i));
-                }
-                // tạo màu cho hàng tiêu đề
-                CellStyle style = wb.createCellStyle();
-                style.setFillForegroundColor(IndexedColors.AQUA.getIndex());
-                style.setFillPattern(FillPatternType.SOLID_FOREGROUND);
-
-                for (int a=0; a<tblKhachHang.getColumnCount(); a++) {
-                    Cell cell = rowCol.createCell(a);
-                    cell.setCellValue(tblKhachHang.getColumnName(a));
-                    cell.setCellStyle(style); // set cell style with color
-                }
-                // tao cac cot con lai
-                for (int j=0; j<tblKhachHang.getRowCount();j++)
-                {
-                    Row row = sheet.createRow(j+1);
-                   
-                    for (int k=0;k<tblKhachHang.getColumnCount();k++)
-                    {
-                        Cell cell = row.createCell(k);
-                        if (tblKhachHang.getValueAt(j, k) != null )
-                        {
-                            cell.setCellValue(tblKhachHang.getValueAt(j, k).toString());
-                        }
-                    }
-                }
-                FileOutputStream out = new FileOutputStream(new File(saveFile.toString()));
-                wb.write(out);
-                wb.close();
-                out.close();
-                openFile(saveFile.toString());
+        TableModel model = tblKhachHang.getModel();
+        ArrayList<String> listId = new ArrayList<>();
+        int rowCount = model.getRowCount();
+        boolean result = false;
+        
+        for(int i = 0; i < rowCount; i++){
+            listId.add(model.getValueAt(i, 0).toString());
+        }
+        
+        JFileChooser jFileChooser = new JFileChooser("D:");
+        jFileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
                 
-            } else {
-                JOptionPane.showMessageDialog(null, "Error");
-            }
-            
-        } catch (FileNotFoundException e) {
-            System.out.println(e);
+        if (jFileChooser.showSaveDialog(null) == JFileChooser.APPROVE_OPTION) {
+            result = khachHang_BUS.exportKhachHang(listId, jFileChooser.getSelectedFile().getAbsolutePath());
         }
-        catch (IOException io )
-        {
-            System.out.println(io);
-        }
-
-
     }//GEN-LAST:event_btnExportMouseClicked
 
     private void btnImportMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnImportMouseClicked
@@ -942,7 +887,7 @@ public class QuanLyKhachHang_GUI extends javax.swing.JFrame {
 //        }
 
         try {
-            JFileChooser jFileChooser = new JFileChooser();
+            JFileChooser jFileChooser = new JFileChooser("D:");
             jFileChooser.showSaveDialog(this);
             File saveFile = jFileChooser.getSelectedFile();
             if (saveFile != null) {
