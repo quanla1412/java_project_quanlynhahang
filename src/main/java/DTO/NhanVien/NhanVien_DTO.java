@@ -4,6 +4,9 @@
  */
 package DTO.NhanVien;
 
+import java.sql.Timestamp;
+import jdk.jfr.Timespan;
+
 /**
  *
  * @author dinhn
@@ -14,6 +17,11 @@ public class NhanVien_DTO {
     private String tenChucVu;
     private String hoTen;
     private String sdt;
+    private Timestamp ngaySinh;
+    private String email;
+    private String DiaChi;
+    private String GioiTinhNam;
+    
 
     public NhanVien_DTO(String ma, String tinhTrangNhanVien, String tenChucVu, String hoTen, String sdt) {
         this.ma = ma;
@@ -22,6 +30,52 @@ public class NhanVien_DTO {
         this.hoTen = hoTen;
         this.sdt = sdt;
     }
+
+    public NhanVien_DTO(String ma, String tinhTrangNhanVien, String tenChucVu, String hoTen, String sdt, Timestamp ngaySinh, String email, String DiaChi, String GioiTinhNam) {
+        this.ma = ma;
+        this.tinhTrangNhanVien = tinhTrangNhanVien;
+        this.tenChucVu = tenChucVu;
+        this.hoTen = hoTen;
+        this.sdt = sdt;
+        this.ngaySinh = ngaySinh;
+        this.email = email;
+        this.DiaChi = DiaChi;
+        this.GioiTinhNam = GioiTinhNam;
+    }
+
+    public Timestamp getNgaySinh() {
+        return ngaySinh;
+    }
+
+    public void setNgaySinh(Timestamp ngaySinh) {
+        this.ngaySinh = ngaySinh;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getDiaChi() {
+        return DiaChi;
+    }
+
+    public void setDiaChi(String DiaChi) {
+        this.DiaChi = DiaChi;
+    }
+
+    public String getGioiTinhNam() {
+        return GioiTinhNam;
+    }
+
+    public void setGioiTinhNam(String GioiTinhNam) {
+        this.GioiTinhNam = GioiTinhNam;
+    }
+    
+    
 
     public NhanVien_DTO() {
         

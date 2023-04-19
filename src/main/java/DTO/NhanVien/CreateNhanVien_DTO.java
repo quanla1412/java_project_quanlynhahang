@@ -16,14 +16,14 @@ public class CreateNhanVien_DTO {
     private int idTinhTrangNhanVien;
     private int idChucVu;
     private String hoTen;
-    private Date ngaySinh;
+    private Timestamp ngaySinh;
     private boolean gioiTinhNam;
     private String email;
     private String soDienThoai ;
     private String diaChi ;
 
     
-    public CreateNhanVien_DTO(String ma, int idTinhTrangNhanVien, int idChucVu, String hoTen, Date ngaySinh, boolean gioiTinhNam, String email, String soDienThoai, String diaChi) {
+    public CreateNhanVien_DTO(String ma, int idTinhTrangNhanVien, int idChucVu, String hoTen, Timestamp ngaySinh, boolean gioiTinhNam, String email, String soDienThoai, String diaChi) {
         this.ma = ma;
         this.idTinhTrangNhanVien = idTinhTrangNhanVien;
         this.idChucVu = idChucVu;
@@ -67,14 +67,15 @@ public class CreateNhanVien_DTO {
         this.hoTen = hoTen;
     }
 
-    public Date getNgaySinh() {
+    public Timestamp getNgaySinh() {
         return ngaySinh;
     }
 
-    public void setNgaySinh(Date ngaySinh) {
+    public void setNgaySinh(Timestamp ngaySinh) {
         this.ngaySinh = ngaySinh;
     }
 
+    
     
     
 

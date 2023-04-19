@@ -5,6 +5,7 @@
 package DTO.NhanVien;
 
 import java.sql.Date;
+import java.sql.Timestamp;
 
 /**
  *
@@ -15,12 +16,12 @@ public class UpdateNhanVien_DTO {
     private int idTinhTrangNhanVien;
     private int idChucVu;
     private String hoTen;
-    private Date ngaySinh;
+    private Timestamp ngaySinh;
     private String email;
     private String soDienThoai ;
     private String diaChi ;
 
-    public UpdateNhanVien_DTO(String ma, int idTinhTrangNhanVien, int idChucVu, String hoTen, Date ngaySinh, String email, String soDienThoai, String diaChi) {
+    public UpdateNhanVien_DTO(String ma, int idTinhTrangNhanVien, int idChucVu, String hoTen, Timestamp ngaySinh, String email, String soDienThoai, String diaChi) {
         this.ma = ma;
         this.idTinhTrangNhanVien = idTinhTrangNhanVien;
         this.idChucVu = idChucVu;
@@ -64,13 +65,15 @@ public class UpdateNhanVien_DTO {
         this.hoTen = hoTen;
     }
 
-    public Date getNgaySinh() {
+    public Timestamp getNgaySinh() {
         return ngaySinh;
     }
 
-    public void setNgaySinh(Date ngaySinh) {
+    public void setNgaySinh(Timestamp ngaySinh) {
         this.ngaySinh = ngaySinh;
     }
+
+ 
 
    
 
