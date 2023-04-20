@@ -554,8 +554,10 @@ public class QuanLyLoaiBanVaBan_GUI extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(this, "Thêm loại bàn mới thành công","Thông báo", JOptionPane.INFORMATION_MESSAGE);
                 clearTextViewLoaiBan();            
             }            
-            else
+            else{
                 JOptionPane.showMessageDialog(this, "Thêm loại bàn mới thất bại","Error", JOptionPane.ERROR_MESSAGE);
+            return;
+            }
 
         } else {
             int id = Integer.parseInt(txtIDLoaiBan.getText());
@@ -567,8 +569,10 @@ public class QuanLyLoaiBanVaBan_GUI extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(this, "Sửa loại bàn thành công","Thông báo", JOptionPane.INFORMATION_MESSAGE);
                 clearTextViewLoaiBan();            
             }            
-            else
+            else{
                 JOptionPane.showMessageDialog(this, "Sửa loại bàn mới thất bại","Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
         }
         loadTableLoaiBan();
     }//GEN-LAST:event_btnLuuLoaiBanMouseClicked
@@ -636,9 +640,10 @@ public class QuanLyLoaiBanVaBan_GUI extends javax.swing.JFrame {
         // TODO add your handling code here:
         int total = tblLoaiBan.getSelectedRowCount();
         TableModel model = tblLoaiBan.getModel();
-        if(total < 1)
+        if(total < 1){
             JOptionPane.showMessageDialog(this, "Bạn chưa chọn loại bàn muốn xóa","Error", JOptionPane.ERROR_MESSAGE);
-        
+            return;
+        }
         int confirm = JOptionPane.showConfirmDialog(null, 
                 "Bạn có chắc chắn muốn xóa " + total + " loại bàn không ?", "Xóa dữ liệu loại bàn!", JOptionPane.OK_CANCEL_OPTION);
         
@@ -655,8 +660,10 @@ public class QuanLyLoaiBanVaBan_GUI extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(this, "Xóa 1 loại bàn thành công","Thông báo", JOptionPane.INFORMATION_MESSAGE);
                 
             }            
-            else
+            else{
                 JOptionPane.showMessageDialog(this, "Xóa thất bại","Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
         } else {
             int[] listIndex = tblLoaiBan.getSelectedRows();
             ArrayList<Integer> listID = new ArrayList<>();
@@ -668,11 +675,14 @@ public class QuanLyLoaiBanVaBan_GUI extends javax.swing.JFrame {
             int result = loaiBan_BUS.deleteNhieuLoaiBan(listID);
             if(result == listID.size())
                 JOptionPane.showMessageDialog(this, "Xóa " + total + " loại bàn thành công","Thông báo", JOptionPane.INFORMATION_MESSAGE);
-            else if(result > 0)
+            else if(result > 0){
                 JOptionPane.showMessageDialog(this, "Xóa thất bại, chỉ xóa được " + total + " loại bàn","Error", JOptionPane.ERROR_MESSAGE);
-            else 
-                JOptionPane.showMessageDialog(this, "Xóa thất bại, không loại bàn nào được xóa","Error", JOptionPane.ERROR_MESSAGE);            
-                
+                return;
+            }
+            else {
+                JOptionPane.showMessageDialog(this, "Xóa thất bại, không loại bàn nào được xóa","Error", JOptionPane.ERROR_MESSAGE); 
+            return;           
+            }
         }
         clearTextViewLoaiBan();  
         loadTableLoaiBan();
