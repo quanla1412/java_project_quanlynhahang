@@ -50,7 +50,8 @@ public class LoaiKhachHang_DAO {
         
         try {
             String sql = "SELECT * "
-                    + "FROM LoaiKhachHang ";
+                    + "FROM LoaiKhachHang "
+                    + "ORDER BY LKH_DiemToiThieu ASC;";
             Statement statement = con.createStatement();
             
             ResultSet rs = statement.executeQuery(sql);
@@ -111,6 +112,26 @@ public class LoaiKhachHang_DAO {
             statement.setDouble(3, data.getMucUuDai());
             
             if(statement.executeUpdate() >= 1){
+                result = true;                
+            }
+            
+        } catch (SQLException ex) {
+            System.out.println(ex);
+        } finally {
+            ConnectDatabase.closeConnection(con); 
+        }
+        return result;
+    }
+    
+    public boolean deleteLoaiKhachHang(int idLoaiKhachHang){
+        Connection con = ConnectDatabase.openConnection();
+        boolean result = false;
+        try {
+            
+            String sql = "DELETE FROM LoaiKhachHang WHERE LKH_ID = " + idLoaiKhachHang;
+            Statement statement = con.createStatement();
+            
+            if(statement.executeUpdate(sql) >= 1){
                 result = true;                
             }
             

@@ -5,19 +5,28 @@
 package BUS;
 
 import DAO.KhachHang_DAO;
+import DAO.LoaiKhachHang_DAO;
 import DTO.KhachHang.CreateKhachHang_DTO;
 import DTO.KhachHang.KhachHangFull_DTO;
 import DTO.KhachHang.KhachHang_DTO;
+import DTO.KhachHang.LoaiKhachHang_DTO;
 import DTO.KhachHang.SearchKhachHang_DTO;
 import DTO.KhachHang.UpdateKhachHang_DTO;
+import com.mycompany.quanlynhahang.CheckHopLe;
+import com.mycompany.quanlynhahang.OpenFile;
 import java.awt.Desktop;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import org.apache.poi.ss.usermodel.Cell;
@@ -29,6 +38,7 @@ import org.apache.poi.ss.usermodel.IndexedColors;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.ss.usermodel.WorkbookFactory;
 import org.apache.poi.ss.util.CellRangeAddress;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
@@ -92,20 +102,7 @@ public class KhachHang_BUS {
         boolean result = khachHang_DAO.deleteKhachHangById(id);
     
         return result;
-    }
-    
-    public void importKhachHang(KhachHangFull_DTO data){
-        KhachHang_DAO khachHang_DAO = new KhachHang_DAO();
-        if(khachHang_DAO.hasId( data.getId()))
-        {
-            UpdateKhachHang_DTO up = new UpdateKhachHang_DTO(data.getId(), data.getLoaiKhachHang().getId(), data.getTen(), data.getSdt(), data.getDiemTichLuy(), data.getEmail(), data.getNgaySinh(), data.isGioiTinhNam());
-            updateKhachHang(up);
-        }
-        else{
-            CreateKhachHang_DTO up = new CreateKhachHang_DTO(data.getTen(), data.getSdt(), data.getEmail(), data.getNgaySinh(), data.isGioiTinhNam());
-            createKhachHang(up);
-        }
-    }  
+    } 
     
     public boolean exportKhachHang(ArrayList<String> listId, String filePath) {
         KhachHang_DAO khachHang_DAO = new KhachHang_DAO();
@@ -180,7 +177,7 @@ public class KhachHang_BUS {
             cell.setCellValue(data.email());
             
             CellStyle cellStyleDate = wb.createCellStyle();
-            cellStyleDate.setDataFormat(createHelper.createDataFormat().getFormat("d/m/yy"));
+            cellStyleDate.setDataFormat(createHelper.createDataFormat().getFormat("d/m/yyyy"));
             cell = row.createCell(6);
             cell.setCellValue(data.ngaySinh());
             cell.setCellStyle(cellStyleDate);
@@ -199,20 +196,193 @@ public class KhachHang_BUS {
         
         try (OutputStream os = new FileOutputStream(saveFile.getAbsoluteFile())) {
             wb.write(os);
-            openFile(saveFile.toString());  
+            OpenFile.openFile(saveFile.toString());  
         } catch (IOException e) {
             System.out.println(e);    
             return false;
         }
         return true;
     }
+    
+    public boolean exportAllKhachHangTheoMauImport(String filePath) {
+        KhachHang_DAO khachHang_DAO = new KhachHang_DAO();
+        
+        ArrayList<KhachHangFull_DTO> listKhachHang = khachHang_DAO.getAllKhachHangFull();
+        
+        File saveFile = new File (filePath + "\\danhSachKhachHangImport.xlsx");
 
-    public void openFile (String file) {
-            try {
-                File path = new File(file);
-                Desktop.getDesktop().open(path);
-            } catch (IOException io) {
-            }
+        Workbook wb = new XSSFWorkbook();
+        CreationHelper createHelper = wb.getCreationHelper();
+        Sheet sheet = wb.createSheet("Nhân Viên");
+
+        int rowIndex = 1;        
+        Row row = sheet.createRow(rowIndex);          
+
+        // tao hang tieu de   
+        row = sheet.createRow(rowIndex);                
+        Cell cell = row.createCell(0);
+        cell.setCellValue("ID khách hàng");     
+        
+        cell = row.createCell(1);
+        cell.setCellValue("Họ và tên");     
+        
+        cell = row.createCell(2);
+        cell.setCellValue("Số điện thoại");      
+        
+        cell = row.createCell(3);
+        cell.setCellValue("Email");         
+        
+        cell = row.createCell(4);
+        cell.setCellValue("Ngày sinh");     
+        
+        cell = row.createCell(5);
+        cell.setCellValue("Giới tính nam");
+
+
+        for (int i=0; i < listKhachHang.size(); i++) {
+            KhachHangFull_DTO data = listKhachHang.get(i);
+            
+            rowIndex++;            
+            row = sheet.createRow(rowIndex);
+            
+            cell = row.createCell(0);
+            cell.setCellValue(data.getId());
+            
+            cell = row.createCell(1);
+            cell.setCellValue(data.getTen());
+            
+            cell = row.createCell(2);
+            cell.setCellValue(data.getSdt());
+            
+            cell = row.createCell(3);
+            cell.setCellValue(data.getEmail());
+            
+            cell = row.createCell(4);
+            CellStyle cellStyleDate = wb.createCellStyle();
+            cellStyleDate.setDataFormat(createHelper.createDataFormat().getFormat("d/m/yyyy"));
+            cell.setCellValue(data.getNgaySinh());
+            cell.setCellStyle(cellStyleDate);
+            
+            cell = row.createCell(5);
+            cell.setCellValue(data.isGioiTinhNam());
+//            cell.setCellStyle(style); // set cell style with color
+        }
+        
+         // Auto resize column witdth
+        int numberOfColumn = sheet.getRow(rowIndex).getPhysicalNumberOfCells();
+        for (int columnIndex = 0; columnIndex < numberOfColumn; columnIndex++) {
+            sheet.autoSizeColumn(columnIndex);
+        }
+        
+        
+        try (OutputStream os = new FileOutputStream(saveFile.getAbsoluteFile())) {
+            wb.write(os);
+            OpenFile.openFile(saveFile.toString());  
+        } catch (IOException e) {
+            System.out.println(e);    
+            return false;
+        }
+        return true;
     }
     
+    public int importKhachHang(String filePath){
+        KhachHang_DAO khachHang_DAO = new KhachHang_DAO();
+        int totalSuccess = 0;
+        try {
+            File file = new File(filePath);
+            Workbook workbook = WorkbookFactory.create(file);
+            Sheet sheet = workbook.getSheetAt(0);
+            
+                // Đọc dữ liệu từ các hàng trong sheet
+            boolean firstRow = true;
+            for (Row row : sheet) {
+                if (firstRow){
+                    firstRow = false;
+                    continue;
+                }
+                boolean result;
+                
+                int id = (int) row.getCell(0).getNumericCellValue();
+                String hoTen = row.getCell(1).getStringCellValue();
+                String SDT = row.getCell(2).getStringCellValue();
+                String email = row.getCell(3).getStringCellValue();
+                Date ngaySinh = row.getCell(4).getDateCellValue();
+                boolean gioiTinhNam = row.getCell(5).getBooleanCellValue();
+                
+                if(khachHang_DAO.hasId(id)){
+                    UpdateKhachHang_DTO data = new UpdateKhachHang_DTO(
+                            id,
+                            hoTen,
+                            SDT,
+                            email,
+                            ngaySinh, 
+                            gioiTinhNam
+                        );
+                    result = updateKhachHang(data);
+                } else {
+                    CreateKhachHang_DTO data = new CreateKhachHang_DTO(
+                            hoTen,
+                            SDT,
+                            email,
+                            ngaySinh, 
+                            gioiTinhNam
+                        );
+                    result = createKhachHang(data);
+                }
+                
+                if(result)
+                    totalSuccess++;
+            }
+
+                workbook.close();
+                
+        } catch (IOException ex) {
+            System.out.println(ex);
+        }
+        return totalSuccess;
+    }
+    
+    public boolean capNhatLoaiKhachHang(){
+        LoaiKhachHang_BUS loaiKhachHang_BUS = new LoaiKhachHang_BUS();
+        KhachHang_DAO khachHang_DAO = new KhachHang_DAO();
+        ArrayList<LoaiKhachHang_DTO> listLoaiKhachHang = loaiKhachHang_BUS.getAllLoaiKhachHang();        
+        ArrayList<KhachHangFull_DTO>  listKhachHang = khachHang_DAO.getAllKhachHangFull();
+        
+        for(KhachHangFull_DTO khachHangFull_DTO : listKhachHang){
+            for(int i = 1; i < listLoaiKhachHang.size(); i++){
+                if(khachHangFull_DTO.getDiemTichLuy() < listLoaiKhachHang.get(i).getDiemToiThieu()){
+                    boolean result = khachHang_DAO.capNhatLoaiKhachHang(khachHangFull_DTO.getId(), listLoaiKhachHang.get(i-1).getId());
+                    if (!result) {
+                        return false;
+                    }
+                    break;
+                }                        
+            }
+            
+        }
+        return true;
+    }
+    
+    public boolean capNhatLoaiKhachHangSauXoa(int idLoaiKhachHangBiXoa){         
+        LoaiKhachHang_BUS loaiKhachHang_BUS = new LoaiKhachHang_BUS();
+        KhachHang_DAO khachHang_DAO = new KhachHang_DAO();
+        ArrayList<LoaiKhachHang_DTO> listLoaiKhachHang = loaiKhachHang_BUS.getAllLoaiKhachHang();        
+        ArrayList<KhachHangFull_DTO>  listKhachHang = khachHang_DAO.getAllKhachHangFull();
+        
+        for(KhachHangFull_DTO khachHangFull_DTO : listKhachHang){
+            if (khachHangFull_DTO.getLoaiKhachHang().getId() == idLoaiKhachHangBiXoa) {
+                for(int i = 1; i < listLoaiKhachHang.size(); i++){
+                    if(listLoaiKhachHang.get(i).getId() == idLoaiKhachHangBiXoa){
+                        boolean result = khachHang_DAO.capNhatLoaiKhachHang(khachHangFull_DTO.getId(), listLoaiKhachHang.get(i - 1).getId());
+                        if (!result) {
+                            return false;
+                        }
+                        break;
+                    }                        
+                }
+            }
+        } 
+        return true;
+    }
 }
+

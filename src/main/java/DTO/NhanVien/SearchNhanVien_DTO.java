@@ -12,6 +12,17 @@ public class SearchNhanVien_DTO {
     private String maOrhoTen;
     private int gioiTinh;
     private int chucVu;
+    private int[] tinhTrang;
+
+    public SearchNhanVien_DTO() {
+    }
+
+    public SearchNhanVien_DTO(String maOrhoTen, int gioiTinh, int chucVu, int[] tinhTrang) {
+        this.maOrhoTen = maOrhoTen;
+        this.gioiTinh = gioiTinh;
+        this.chucVu = chucVu;
+        this.tinhTrang = tinhTrang;
+    }
 
     public String getMaOrhoTen() {
         return maOrhoTen;
@@ -36,8 +47,12 @@ public class SearchNhanVien_DTO {
     public void setChucVu(int chucVu) {
         this.chucVu = chucVu;
     }
-  
-    
-    
-    
+
+    public int[] getTinhTrang() {
+        return tinhTrang;
+    }
+
+    public void setTinhTrang(int[] tinhTrang) {
+        this.tinhTrang = tinhTrang;
+    }
 }

@@ -18,6 +18,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  *
@@ -68,11 +69,6 @@ public class NhanVien_DAO {
         return result;
      }
      
-     
-   
-     
-     
-     
        public ArrayList<NhanVien_DTO> getAllNhanVien() {
         Connection con = ConnectDatabase.openConnection();
         ArrayList<NhanVien_DTO> result = new ArrayList<>();
@@ -113,14 +109,22 @@ public class NhanVien_DAO {
                         + "FROM NhanVien, TinhTrangNhanVien, ChucVu "
                         + "WHERE NhanVien.TTNV_ID = TinhTrangNhanVien.TTNV_ID AND NhanVien.CV_ID = ChucVu.CV_ID ");
             
-             if(searchData.getMaOrhoTen()!= null && !searchData.getMaOrhoTen().isBlank())
-                sql.append(" AND (NV_HoTen LIKE N'%").append(searchData.getMaOrhoTen()).append("%' OR NV_Ma LIKE '%").append(searchData.getMaOrhoTen()).append("%') ");
-            
-             if (searchData.getChucVu() > 0) 
-                 sql.append("AND ChucVu.CV_ID = ").append(searchData.getChucVu());
-             
-             if (searchData.isGioiTinh() >= 0)
-                 sql.append("AND NV_GioiTinhNam = ").append(searchData.isGioiTinh());
+            if(searchData.getMaOrhoTen()!= null && !searchData.getMaOrhoTen().isBlank())
+               sql.append(" AND (NV_HoTen LIKE N'%").append(searchData.getMaOrhoTen()).append("%' OR NV_Ma LIKE '%").append(searchData.getMaOrhoTen()).append("%') ");
+
+            if (searchData.getChucVu() > 0) 
+                sql.append("AND ChucVu.CV_ID = ").append(searchData.getChucVu());
+
+            if (searchData.isGioiTinh() >= 0)
+                sql.append("AND NV_GioiTinhNam = ").append(searchData.isGioiTinh());
+
+            if (searchData.getTinhTrang() != null){
+                sql.append("AND NhanVien.TTNV_ID IN (");
+                for(int tinhTrang : searchData.getTinhTrang())
+                    sql.append(tinhTrang + ", ");
+                sql.replace(sql.length()-2, sql.length(), "");
+                sql.append(')');            
+            }
             
             Statement statement = con.createStatement();
             ResultSet resultSet = statement.executeQuery(sql.toString());        

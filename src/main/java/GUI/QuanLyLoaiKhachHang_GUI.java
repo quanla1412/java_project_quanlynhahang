@@ -4,7 +4,9 @@
  */
 package GUI;
 
+import BUS.KhachHang_BUS;
 import BUS.LoaiKhachHang_BUS;
+import Constraints.LoaiKhachHangConstraints;
 import DTO.KhachHang.CreateLoaiKhachHang_DTO;
 import DTO.KhachHang.LoaiKhachHang_DTO;
 import DTO.KhachHang.UpdateLoaiKhachHang_DTO;
@@ -20,6 +22,7 @@ import javax.swing.table.TableModel;
  */
 public class QuanLyLoaiKhachHang_GUI extends javax.swing.JFrame {
     private final LoaiKhachHang_BUS loaiKhachHang_BUS;
+    private final KhachHang_BUS khachHang_BUS;
     private boolean dangThemLoaiKH = true;
     /**
      * Creates new form QuanLyLoaiKhachHang
@@ -28,9 +31,10 @@ public class QuanLyLoaiKhachHang_GUI extends javax.swing.JFrame {
         initComponents();
         this.setLocationRelativeTo(null);
         loaiKhachHang_BUS = new LoaiKhachHang_BUS();
+        khachHang_BUS = new KhachHang_BUS();
         
         clearTextViewLoaiKH();
-        loadTableKhachHang();
+        loadTableLoaiKhachHang();
     }
 
     /**
@@ -52,6 +56,7 @@ public class QuanLyLoaiKhachHang_GUI extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         btnThem = new javax.swing.JButton();
         btnSua = new javax.swing.JButton();
+        btnXoa = new javax.swing.JButton();
         pnlLoaiKH = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
@@ -94,6 +99,8 @@ public class QuanLyLoaiKhachHang_GUI extends javax.swing.JFrame {
                 "ID", "Tên loại khách hàng", "Điểm tối thiểu", "Mức ưu đãi"
             }
         ));
+        tblLoaiKH.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        tblLoaiKH.setShowGrid(false);
         tblLoaiKH.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tblLoaiKHMouseClicked(evt);
@@ -152,6 +159,21 @@ public class QuanLyLoaiKhachHang_GUI extends javax.swing.JFrame {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
         jPanel2.add(btnSua, gridBagConstraints);
+
+        btnXoa.setText("Xóa");
+        btnXoa.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnXoaMouseClicked(evt);
+            }
+        });
+        btnXoa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnXoaActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
+        jPanel2.add(btnXoa, gridBagConstraints);
 
         jPanel4.add(jPanel2);
 
@@ -263,7 +285,7 @@ public class QuanLyLoaiKhachHang_GUI extends javax.swing.JFrame {
         txtMucUuDai.setText("");
         
     }
-    private void loadTableKhachHang(){
+    private void loadTableLoaiKhachHang(){
         ArrayList<LoaiKhachHang_DTO> listKhachHang = loaiKhachHang_BUS.getAllLoaiKhachHang();
         String col[] = {"ID", "Tên loại khách hàng", "Điểm tối thiểu ", "Mức ưu đãi "};
         DefaultTableModel tableModel = new DefaultTableModel(col, 0);
@@ -365,18 +387,25 @@ public class QuanLyLoaiKhachHang_GUI extends javax.swing.JFrame {
             else
                 JOptionPane.showMessageDialog(this, "Sửa loại khách hàng thất bại","Error", JOptionPane.ERROR_MESSAGE);
         }
-        loadTableKhachHang();
+        loadTableLoaiKhachHang();
+        khachHang_BUS.capNhatLoaiKhachHang();
     }//GEN-LAST:event_btnLuuMouseClicked
 
     private void tblLoaiKHMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblLoaiKHMouseClicked
         // TODO add your handling code here:
-        if(dangThemLoaiKH)
-            return;
-        
         int index = tblLoaiKH.getSelectedRow();
         TableModel model = tblLoaiKH.getModel();
         
         int id = Integer.parseInt(model.getValueAt(index, 0).toString());
+        
+        if(id == LoaiKhachHangConstraints.LOAI_KHACH_HANG_LOCKED)
+            btnXoa.setEnabled(false);
+        else
+            btnXoa.setEnabled(true);
+        
+        if(dangThemLoaiKH)
+            return;
+        
         LoaiKhachHang_DTO result = loaiKhachHang_BUS.getLoaiKhachHangById(id);
         
         if(result == null){
@@ -389,6 +418,32 @@ public class QuanLyLoaiKhachHang_GUI extends javax.swing.JFrame {
         txtDiemToiThieu.setText(Integer.toString(result.getDiemToiThieu()));
         txtMucUuDai.setText(Double.toString(result.getMucUuDai()));
     }//GEN-LAST:event_tblLoaiKHMouseClicked
+
+    private void btnXoaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnXoaMouseClicked
+        // TODO add your handling code here:        
+        int index = tblLoaiKH.getSelectedRow();
+        TableModel model = tblLoaiKH.getModel();
+        
+        int id = Integer.parseInt(model.getValueAt(index, 0).toString());
+        if(id == LoaiKhachHangConstraints.LOAI_KHACH_HANG_LOCKED){
+            JOptionPane.showMessageDialog(this, "Loại khách hàng này không thể xóa","Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+         
+        boolean result = loaiKhachHang_BUS.deleteLoaiKhachHang(id);
+        if(result){
+            JOptionPane.showMessageDialog(this, "Xóa loại khách hàng thành công","Thông báo", JOptionPane.INFORMATION_MESSAGE);
+            clearTextViewLoaiKH();            
+        }            
+        else
+            JOptionPane.showMessageDialog(this, "Xóa loại khách hàng thất bại","Error", JOptionPane.ERROR_MESSAGE);            
+        
+        loadTableLoaiKhachHang();
+    }//GEN-LAST:event_btnXoaMouseClicked
+
+    private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnXoaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -431,6 +486,7 @@ public class QuanLyLoaiKhachHang_GUI extends javax.swing.JFrame {
     private javax.swing.JButton btnReset;
     private javax.swing.JButton btnSua;
     private javax.swing.JButton btnThem;
+    private javax.swing.JButton btnXoa;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;

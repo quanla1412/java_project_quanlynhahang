@@ -54,5 +54,15 @@ public class LoaiKhachHang_BUS {
         return result;
     }
     
-    
+    public boolean deleteLoaiKhachHang(int idLoaiKhachHang){
+        LoaiKhachHang_DAO loaiKhachHang_DAO = new LoaiKhachHang_DAO();
+        KhachHang_BUS khachHang_BUS = new KhachHang_BUS();
+        
+        boolean result = khachHang_BUS.capNhatLoaiKhachHangSauXoa(idLoaiKhachHang);
+        if(!result)
+            return result;
+        
+        result = loaiKhachHang_DAO.deleteLoaiKhachHang(idLoaiKhachHang);
+        return result;
+    }
 }

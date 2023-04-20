@@ -7,7 +7,6 @@ package GUI;
 import BUS.KhachHang_BUS;
 import BUS.LoaiKhachHang_BUS;
 import Constraints.GioiTinhConstraints;
-import DAO.KhachHang_DAO;
 import DAO.LoaiKhachHang_DAO;
 import DTO.KhachHang.CreateKhachHang_DTO;
 import DTO.KhachHang.KhachHangFull_DTO;
@@ -16,33 +15,23 @@ import DTO.KhachHang.LoaiKhachHang_DTO;
 import DTO.KhachHang.UpdateKhachHang_DTO;
 import DTO.KhachHang.SearchKhachHang_DTO;
 import com.mycompany.quanlynhahang.CheckHopLe;
-import java.awt.Desktop;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.Period;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.Iterator;
 import javax.swing.BorderFactory;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
-import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.CellStyle;
-import org.apache.poi.ss.usermodel.FillPatternType;
-import org.apache.poi.ss.usermodel.IndexedColors;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.usermodel.WorkbookFactory;
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 /**
  *
  * @author tuant
@@ -78,7 +67,7 @@ public class QuanLyKhachHang_GUI extends javax.swing.JFrame {
         DefaultTableModel tableModel = new DefaultTableModel(col, 0);
         tblKhachHang.setModel(tableModel);
         for(KhachHang_DTO row : listKhachHang){
-            Object[] data = {row.id(), row.id(), row.sdt(), row.diemTichLuy(), row.loaiKhachHang()};
+            Object[] data = {row.id(), row.ten(), row.sdt(), row.diemTichLuy(), row.loaiKhachHang()};
             tableModel.addRow(data);
         }
     }
@@ -89,7 +78,7 @@ public class QuanLyKhachHang_GUI extends javax.swing.JFrame {
         DefaultTableModel tableModel = new DefaultTableModel(col, 0);
         tblKhachHang.setModel(tableModel);
         for(KhachHang_DTO row : listKhachHang){
-            Object[] data = {row.id(), row.id(), row.sdt(), row.diemTichLuy(), row.loaiKhachHang()};
+            Object[] data = {row.id(), row.ten(), row.sdt(), row.diemTichLuy(), row.loaiKhachHang()};
             tableModel.addRow(data);
         }
     }
@@ -183,6 +172,7 @@ public class QuanLyKhachHang_GUI extends javax.swing.JFrame {
         btnQLLKH = new javax.swing.JButton();
         btnImport = new javax.swing.JButton();
         btnExport = new javax.swing.JButton();
+        btnExportMauImport = new javax.swing.JButton();
         filler1 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 200), new java.awt.Dimension(0, 0));
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -569,6 +559,8 @@ public class QuanLyKhachHang_GUI extends javax.swing.JFrame {
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 1;
         gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 0);
         jPanel7.add(btnImport, gridBagConstraints);
 
@@ -583,6 +575,20 @@ public class QuanLyKhachHang_GUI extends javax.swing.JFrame {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
         jPanel7.add(btnExport, gridBagConstraints);
+
+        btnExportMauImport.setText("Export mẫu import");
+        btnExportMauImport.setMinimumSize(new java.awt.Dimension(120, 40));
+        btnExportMauImport.setPreferredSize(new java.awt.Dimension(130, 40));
+        btnExportMauImport.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnExportMauImportMouseClicked(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
+        jPanel7.add(btnExportMauImport, gridBagConstraints);
 
         jPanel4.add(jPanel7);
         jPanel4.add(filler1);
@@ -605,10 +611,7 @@ public class QuanLyKhachHang_GUI extends javax.swing.JFrame {
     }//GEN-LAST:event_btnLuuActionPerformed
 
     private void btnLuuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLuuMouseClicked
-        // TODO add your handling code here:  
-        int indexLoaiKH = cmbThemSuaLoaiKH.getSelectedIndex();
-        int loaiKH = listLoaiKhach.get(indexLoaiKH).getId();
-                   
+        // TODO add your handling code here:                     
         String hoTen = txtHoTen.getText().trim();
         if(hoTen.isBlank()){
             JOptionPane.showMessageDialog(this, "Họ tên không được để trống","Error", JOptionPane.ERROR_MESSAGE);
@@ -620,8 +623,6 @@ public class QuanLyKhachHang_GUI extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Số điện thoại không hợp lệ","Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
-        
-        int diemTichLuy = 0;
         
         Timestamp ngaySinh;
         ngaySinh = new Timestamp(jdcNgaySinh.getDate().getTime());
@@ -656,7 +657,7 @@ public class QuanLyKhachHang_GUI extends javax.swing.JFrame {
         } else {
             int id = Integer.parseInt(txtIDKH.getText());
             
-            UpdateKhachHang_DTO data = new UpdateKhachHang_DTO(id, loaiKH, hoTen, sdt, diemTichLuy, email, ngaySinh, gioiTinhNam);
+            UpdateKhachHang_DTO data = new UpdateKhachHang_DTO(id, hoTen, sdt, email, ngaySinh, gioiTinhNam);
             boolean result = khachHang_BUS.updateKhachHang(data);
             if(result){
                 JOptionPane.showMessageDialog(this, "Sửa khách hàng thành công","Thông báo", JOptionPane.INFORMATION_MESSAGE);
@@ -783,6 +784,8 @@ public class QuanLyKhachHang_GUI extends javax.swing.JFrame {
             quanLyLoaiKhachHang_GUI.setState(JFrame.NORMAL);
             quanLyLoaiKhachHang_GUI.toFront();
         }
+        clearSearchBox();
+        loadTableKhachHang();
     }//GEN-LAST:event_btnQLLKHMouseClicked
 
     private void btnTimKiemMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnTimKiemMouseClicked
@@ -846,84 +849,43 @@ public class QuanLyKhachHang_GUI extends javax.swing.JFrame {
         if (jFileChooser.showSaveDialog(null) == JFileChooser.APPROVE_OPTION) {
             result = khachHang_BUS.exportKhachHang(listId, jFileChooser.getSelectedFile().getAbsolutePath());
         }
+        
+        if (!result) {
+            JOptionPane.showMessageDialog(this, "Xuất file excel thất bại","Error", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_btnExportMouseClicked
 
     private void btnImportMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnImportMouseClicked
         // TODO add your handling code here:
-//        try {
-            // Đọc dữ liệu từ tệp Excel
+        int totalSuccess = 0;
+
+        JFileChooser jFileChooser = new JFileChooser("D:");
+        if (jFileChooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
+            totalSuccess = khachHang_BUS.importKhachHang(jFileChooser.getSelectedFile().getAbsolutePath());
             
-//
-//                // Tạo DefaultTableModel từ dữ liệu đọc được
-//                DefaultTableModel model = new DefaultTableModel();
-//                Iterator<Row> rowIterator = sheet.iterator();
-//                while (rowIterator.hasNext()) {
-//                    Row row = rowIterator.next();
-//                    Iterator<Cell> cellIterator = row.cellIterator();
-//
-//                    if (row.getRowNum() == 0) { // Header row
-//                        while (cellIterator.hasNext()) {
-//                            Cell cell = cellIterator.next();
-//                            model.addColumn(cell.getStringCellValue());
-//                        }
-//                    } else { // Data rows
-//                        Object[] rowData = new Object[model.getColumnCount()];
-//                        int columnIndex = 0;
-//                        while (cellIterator.hasNext()) {
-//                            Cell cell = cellIterator.next();
-//                            rowData[columnIndex++] = cell.getStringCellValue();
-//                        }
-//                        model.addRow(rowData);
-//                    }
-//                }
-//                
-//                tblKhachHang.setModel(model);
-//                // Đóng workbook
-//                workbook.close();
-
-//            
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-
-        try {
-            JFileChooser jFileChooser = new JFileChooser("D:");
-            jFileChooser.showSaveDialog(this);
-            File saveFile = jFileChooser.getSelectedFile();
-            if (saveFile != null) {
-                Workbook workbook = WorkbookFactory.create(new File(saveFile.toString()));
-                Sheet sheet = workbook.getSheetAt(0);
-
-                ArrayList<KhachHangFull_DTO> result = new ArrayList<>();
-                    
-                // Đọc dữ liệu từ các hàng trong sheet
-                for (Row row : sheet) {
-                    KhachHangFull_DTO khachHang = new KhachHangFull_DTO();
-                    khachHang.setId((int) row.getCell(0).getNumericCellValue());
-                    LoaiKhachHang_DAO lkh = new LoaiKhachHang_DAO();
-                    khachHang.setLoaiKhachHang(lkh.getLoaiKhachHangById((int) row.getCell(1).getNumericCellValue()));
-                    khachHang.setTen(row.getCell(2).getStringCellValue());
-                    khachHang.setSdt(row.getCell(3).getStringCellValue());
-                    khachHang.setDiemTichLuy((int) row.getCell(4).getNumericCellValue());
-                    khachHang.setEmail(row.getCell(5).getStringCellValue());
-                    Date date ;  
-                    date = row.getCell(6).getDateCellValue();
-                    Timestamp ngaySinh = new Timestamp(date.getTime());  
-                    khachHang.setNgaySinh(ngaySinh);
-                    khachHang.setGioiTinhNam(row.getCell(7).getBooleanCellValue());
-                    
-                    khachHang_BUS.importKhachHang(khachHang);
-                }
-
-                workbook.close();
-                loadTableKhachHang();
-            }else {
-                JOptionPane.showMessageDialog(null, "Error");
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Cập nhật " + totalSuccess + " khách hàng","Import danh sách nhân viên", JOptionPane.INFORMATION_MESSAGE);
+            
+            loadTableKhachHang();
+        }else {
+            JOptionPane.showMessageDialog(this, "Xuất file excel thất bại","Error", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnImportMouseClicked
+
+    private void btnExportMauImportMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnExportMauImportMouseClicked
+        // TODO add your handling code here:
+        boolean result = false;
+        
+        JFileChooser jFileChooser = new JFileChooser("D:");
+        jFileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+                
+        if (jFileChooser.showSaveDialog(null) == JFileChooser.APPROVE_OPTION) {
+            result = khachHang_BUS.exportAllKhachHangTheoMauImport(jFileChooser.getSelectedFile().getAbsolutePath());
+        }
+        
+        if (!result) {
+            JOptionPane.showMessageDialog(this, "Import file excel thất bại","Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_btnExportMauImportMouseClicked
 
     
     /**
@@ -963,6 +925,7 @@ public class QuanLyKhachHang_GUI extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnExport;
+    private javax.swing.JButton btnExportMauImport;
     private javax.swing.JButton btnImport;
     private javax.swing.JButton btnLuu;
     private javax.swing.JButton btnQLLKH;
