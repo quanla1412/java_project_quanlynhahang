@@ -18,7 +18,7 @@ public class Main {
         } catch(Exception ex){
             System.out.println(ex);
         }
-        QuanLyKhachHang_GUI dangNhap_GUI= new QuanLyKhachHang_GUI();
+        QuanLyNhanVien_GUI dangNhap_GUI= new QuanLyNhanVien_GUI();
         dangNhap_GUI.setVisible(true);
     }
     

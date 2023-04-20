@@ -4,7 +4,8 @@
  */
 package DTO.KhachHang;
 
-import java.sql.Timestamp;
+import java.util.Date;
+
 
 /**
  *
@@ -14,13 +15,13 @@ public class CreateKhachHang_DTO {
     private String ten;
     private String sdt;
     private String email;
-    private Timestamp ngaySinh;
+    private Date ngaySinh;
     private boolean gioiTinhNam;
 
     public CreateKhachHang_DTO() {
     }
 
-    public CreateKhachHang_DTO(String ten, String sdt, String email, Timestamp ngaySinh, boolean gioiTinhNam) {
+    public CreateKhachHang_DTO(String ten, String sdt, String email, Date ngaySinh, boolean gioiTinhNam) {
         this.ten = ten;
         this.sdt = sdt;
         this.email = email;
@@ -60,11 +61,11 @@ public class CreateKhachHang_DTO {
         this.email = email;
     }
 
-    public Timestamp getNgaySinh() {
+    public Date getNgaySinh() {
         return ngaySinh;
     }
 
-    public void setNgaySinh(Timestamp ngaySinh) {
+    public void setNgaySinh(Date ngaySinh) {
         this.ngaySinh = ngaySinh;
     }
 

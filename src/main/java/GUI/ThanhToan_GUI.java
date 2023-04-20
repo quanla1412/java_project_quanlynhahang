@@ -368,22 +368,17 @@ public class ThanhToan_GUI extends javax.swing.JFrame {
     }//GEN-LAST:event_btnTimKhachHangMouseClicked
 
     private void btnInBillTamMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnInBillTamMouseClicked
-        // TODO add your handling code here:JFileChooser fc = new JFileChooser("D:\\");
-        JFileChooser fileChooser= new JFileChooser();
-        fileChooser.setCurrentDirectory(new java.io.File("."));
-        fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-    // Some init code, if you need one, like setting title
-            if (fileChooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) { 
-            try {
-                inBillTam(fileChooser.getSelectedFile().getAbsolutePath());
-            } catch (FileNotFoundException ex) {
-                Logger.getLogger(ThanhToan_GUI.class.getName()).log(Level.SEVERE, null, ex);
-            }
-          }
-        else {
-          System.out.println("No Selection ");
-          
-         }
+       JFileChooser jFileChooser= new JFileChooser("D:");
+        jFileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+       boolean result = false; 
+       
+        if (jFileChooser.showSaveDialog(null) == JFileChooser.APPROVE_OPTION) {
+            result = donGoi_BUS.inBillTam(idBan, jFileChooser.getSelectedFile().getAbsolutePath());
+        }
+        
+        if (!result) {
+            JOptionPane.showMessageDialog(this, "In bill tạm thất bại","Error", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_btnInBillTamMouseClicked
 
     /**

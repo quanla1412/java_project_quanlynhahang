@@ -4,7 +4,7 @@
  */
 package DTO.KhachHang;
 
-import java.sql.Timestamp;
+import java.util.Date;
 
 /**
  *
@@ -12,23 +12,19 @@ import java.sql.Timestamp;
  */
 public class UpdateKhachHang_DTO {
     private int id;
-    private int loaiKhachHang;
     private String ten;
     private String sdt;
-    private int diemTichLuy;
     private String email;
-    private Timestamp ngaySinh;
+    private Date ngaySinh;
     private boolean gioiTinhNam;
 
     public UpdateKhachHang_DTO() {
     }
 
-    public UpdateKhachHang_DTO(int id, int loaiKhachHang, String ten, String sdt, int diemTichLuy, String email, Timestamp ngaySinh, boolean gioiTinhNam) {
+    public UpdateKhachHang_DTO(int id, String ten, String sdt, String email, Date ngaySinh, boolean gioiTinhNam) {
         this.id = id;
-        this.loaiKhachHang = loaiKhachHang;
         this.ten = ten;
         this.sdt = sdt;
-        this.diemTichLuy = diemTichLuy;
         this.email = email;
         this.ngaySinh = ngaySinh;
         this.gioiTinhNam = gioiTinhNam;
@@ -51,14 +47,6 @@ public class UpdateKhachHang_DTO {
         this.id = id;
     }
 
-    public int getLoaiKhachHang() {
-        return loaiKhachHang;
-    }
-
-    public void setLoaiKhachHang(int loaiKhachHang) {
-        this.loaiKhachHang = loaiKhachHang;
-    }
-
     public String getTen() {
         return ten;
     }
@@ -75,14 +63,6 @@ public class UpdateKhachHang_DTO {
         this.sdt = sdt;
     }
 
-    public int getDiemTichLuy() {
-        return diemTichLuy;
-    }
-
-    public void setDiemTichLuy(int diemTichLuy) {
-        this.diemTichLuy = diemTichLuy;
-    }
-
     public String getEmail() {
         return email;
     }
@@ -91,11 +71,11 @@ public class UpdateKhachHang_DTO {
         this.email = email;
     }
 
-    public Timestamp getNgaySinh() {
+    public Date getNgaySinh() {
         return ngaySinh;
     }
 
-    public void setNgaySinh(Timestamp ngaySinh) {
+    public void setNgaySinh(Date ngaySinh) {
         this.ngaySinh = ngaySinh;
     }
     
