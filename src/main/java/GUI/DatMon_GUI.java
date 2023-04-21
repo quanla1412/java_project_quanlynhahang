@@ -11,8 +11,6 @@ import DTO.Ban.CreateDonGoi_DTO;
 import DTO.Ban.DonGoi_DTO;
 import DTO.MonAn.MonAnFull_DTO;
 import com.mycompany.quanlynhahang.Price;
-import java.awt.Image;
-import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
@@ -55,10 +53,6 @@ public class DatMon_GUI extends javax.swing.JFrame {
         
         
         lblHinhAnh.setIcon(new ImageIcon(monAn.getHinhAnh()));
-        Icon i = lblHinhAnh.getIcon();
-        ImageIcon icon = (ImageIcon)i;
-        Image image = icon.getScaledInstance(lblHinhAnh.getWidth(),lblHinhAnh.getHeight(),Image.SCALE_SMOOTH);
-        lblHinhAnh.setIcon(new ImageIcon(image));
         lblTenMonAn.setText(monAn.getTen());
         lblNoiDungMonAn.setText(monAn.getNoiDung());
         lblLoaiMonAn.setText(monAn.getLoaiMonAn().getTen());
