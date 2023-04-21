@@ -12,14 +12,16 @@ public class SearchKhachHang_DTO {
     private String idOrName;
     private int loaiKhachHang;
     private int gioiTinh;
+    private String sdt;
 
     public SearchKhachHang_DTO() {
     }
 
-    public SearchKhachHang_DTO(String idOrName, int loaiKhachHang, int gioiTinh) {
+    public SearchKhachHang_DTO(String idOrName, int loaiKhachHang, int gioiTinh, String sdt) {
         this.idOrName = idOrName;
         this.loaiKhachHang = loaiKhachHang;
         this.gioiTinh = gioiTinh;
+        this.sdt = sdt;
     }
 
     public int isGioiTinh() {
@@ -29,8 +31,6 @@ public class SearchKhachHang_DTO {
     public void setGioiTinh(int gioiTinh) {
         this.gioiTinh = gioiTinh;
     }
-
-    
 
     public String getIdOrName() {
         return idOrName;
@@ -47,5 +47,12 @@ public class SearchKhachHang_DTO {
     public void setLoaiKhachHang(int loaiKhachHang) {
         this.loaiKhachHang = loaiKhachHang;
     }
-    
+
+    public String getSdt() {
+        return sdt;
+    }
+
+    public void setSdt(String sdt) {
+        this.sdt = sdt;
+    }
 }

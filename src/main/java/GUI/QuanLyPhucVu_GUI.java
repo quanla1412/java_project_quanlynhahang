@@ -157,7 +157,9 @@ public class QuanLyPhucVu_GUI extends javax.swing.JFrame {
             btnNgungPhucVu.setEnabled(true);
             btnThemMonMoi.setEnabled(false);
             btnSuaDonGoi.setEnabled(false);
-            btnThanhToan.setEnabled(false);            
+            btnXoa.setEnabled(false);
+            btnThanhToan.setEnabled(false); 
+            btnResetDonGoi.setEnabled(false);           
         }
         else if(idTinhTrangBan == TinhTrangBanConstraints.DANG_PHUC_VU){
             btnSanSang.setEnabled(false);
@@ -165,7 +167,9 @@ public class QuanLyPhucVu_GUI extends javax.swing.JFrame {
             btnNgungPhucVu.setEnabled(false);
             btnThemMonMoi.setEnabled(true);
             btnSuaDonGoi.setEnabled(true);
-            btnThanhToan.setEnabled(true);            
+            btnXoa.setEnabled(true);
+            btnThanhToan.setEnabled(true);   
+            btnResetDonGoi.setEnabled(true);         
         }
         else if(idTinhTrangBan == TinhTrangBanConstraints.DANG_CHUAN_BI){
             btnSanSang.setEnabled(true);
@@ -173,7 +177,9 @@ public class QuanLyPhucVu_GUI extends javax.swing.JFrame {
             btnNgungPhucVu.setEnabled(true);
             btnThemMonMoi.setEnabled(false);
             btnSuaDonGoi.setEnabled(false);
-            btnThanhToan.setEnabled(false);             
+            btnXoa.setEnabled(false);
+            btnThanhToan.setEnabled(false);       
+            btnResetDonGoi.setEnabled(false);        
         }
         else {            
             btnSanSang.setEnabled(true);
@@ -181,18 +187,22 @@ public class QuanLyPhucVu_GUI extends javax.swing.JFrame {
             btnNgungPhucVu.setEnabled(false);
             btnThemMonMoi.setEnabled(false);
             btnSuaDonGoi.setEnabled(false);
+            btnXoa.setEnabled(false);
             btnThanhToan.setEnabled(false); 
+            btnResetDonGoi.setEnabled(false);  
         }
+        
         loadComboBoxBanSanSang();
     }
     
     private void chuyenTinhTrangBan(int tinhTrangMoi){
-        loadDanhSachBan();
         ban_BUS.changeTinhTrangBan(banDangChon.getId(), tinhTrangMoi);
         banDangChon = ban_BUS.getBanFullById(banDangChon.getId());
         
         loadChucNang();
         loadDonGoi();
+        loadComboBoxBanSanSang();
+        loadDanhSachBan();
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -313,7 +323,7 @@ public class QuanLyPhucVu_GUI extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
         btnThemMonMoi = new javax.swing.JButton();
-        jButton10 = new javax.swing.JButton();
+        btnXoa = new javax.swing.JButton();
         btnSuaDonGoi = new javax.swing.JButton();
         jLabel8 = new javax.swing.JLabel();
         cmbBanSanSang = new javax.swing.JComboBox<>();
@@ -324,6 +334,7 @@ public class QuanLyPhucVu_GUI extends javax.swing.JFrame {
         btnNgungPhucVu = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblDonGoi = new javax.swing.JTable();
+        btnResetDonGoi = new javax.swing.JButton();
         jPanel5 = new javax.swing.JPanel();
         btnThanhToan = new javax.swing.JButton();
         jLabel10 = new javax.swing.JLabel();
@@ -944,17 +955,22 @@ public class QuanLyPhucVu_GUI extends javax.swing.JFrame {
         gridBagConstraints.insets = new java.awt.Insets(2, 4, 2, 4);
         jPanel1.add(btnThemMonMoi, gridBagConstraints);
 
-        jButton10.setText("Xóa món ăn");
-        jButton10.setEnabled(false);
-        jButton10.setMaximumSize(new java.awt.Dimension(120, 24));
-        jButton10.setMinimumSize(new java.awt.Dimension(120, 24));
-        jButton10.setPreferredSize(new java.awt.Dimension(120, 24));
+        btnXoa.setText("Xóa món ăn");
+        btnXoa.setEnabled(false);
+        btnXoa.setMaximumSize(new java.awt.Dimension(120, 24));
+        btnXoa.setMinimumSize(new java.awt.Dimension(120, 24));
+        btnXoa.setPreferredSize(new java.awt.Dimension(120, 24));
+        btnXoa.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnXoaMouseClicked(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 3;
         gridBagConstraints.gridy = 2;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.insets = new java.awt.Insets(2, 4, 2, 4);
-        jPanel1.add(jButton10, gridBagConstraints);
+        jPanel1.add(btnXoa, gridBagConstraints);
 
         btnSuaDonGoi.setText("Sửa đơn gọi");
         btnSuaDonGoi.setEnabled(false);
@@ -1011,6 +1027,11 @@ public class QuanLyPhucVu_GUI extends javax.swing.JFrame {
         btnChuyenBan.setMaximumSize(new java.awt.Dimension(120, 24));
         btnChuyenBan.setMinimumSize(new java.awt.Dimension(120, 24));
         btnChuyenBan.setPreferredSize(new java.awt.Dimension(120, 24));
+        btnChuyenBan.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnChuyenBanMouseClicked(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 1;
@@ -1023,6 +1044,11 @@ public class QuanLyPhucVu_GUI extends javax.swing.JFrame {
         btnSanSang.setMaximumSize(new java.awt.Dimension(120, 24));
         btnSanSang.setMinimumSize(new java.awt.Dimension(120, 24));
         btnSanSang.setPreferredSize(new java.awt.Dimension(120, 24));
+        btnSanSang.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnSanSangMouseClicked(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 0;
@@ -1052,6 +1078,11 @@ public class QuanLyPhucVu_GUI extends javax.swing.JFrame {
         btnNgungPhucVu.setMaximumSize(new java.awt.Dimension(120, 24));
         btnNgungPhucVu.setMinimumSize(new java.awt.Dimension(120, 24));
         btnNgungPhucVu.setPreferredSize(new java.awt.Dimension(120, 24));
+        btnNgungPhucVu.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnNgungPhucVuMouseClicked(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 3;
         gridBagConstraints.gridy = 0;
@@ -1078,12 +1109,22 @@ public class QuanLyPhucVu_GUI extends javax.swing.JFrame {
 
         jPanel3.add(jScrollPane1);
 
+        btnResetDonGoi.setText("Reset");
+        btnResetDonGoi.setEnabled(false);
+        btnResetDonGoi.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnResetDonGoiMouseClicked(evt);
+            }
+        });
+        jPanel3.add(btnResetDonGoi);
+
         jPanel5.setMaximumSize(new java.awt.Dimension(2147483647, 60));
         jPanel5.setMinimumSize(new java.awt.Dimension(520, 60));
         jPanel5.setPreferredSize(new java.awt.Dimension(520, 60));
         jPanel5.setLayout(new java.awt.GridBagLayout());
 
         btnThanhToan.setText("Thanh toán");
+        btnThanhToan.setEnabled(false);
         btnThanhToan.setMaximumSize(new java.awt.Dimension(120, 24));
         btnThanhToan.setMinimumSize(new java.awt.Dimension(120, 24));
         btnThanhToan.setPreferredSize(new java.awt.Dimension(120, 24));
@@ -1149,8 +1190,10 @@ public class QuanLyPhucVu_GUI extends javax.swing.JFrame {
     private void btnSuaDonGoiMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSuaDonGoiMouseClicked
         // TODO add your handling code here:
         int count = tblDonGoi.getSelectedRowCount();
-        if(count < 1)
+        if(count < 1){            
             JOptionPane.showMessageDialog(this, "Chưa chọn món ăn","Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
             
         
         int indexRow = tblDonGoi.getSelectedRow();
@@ -1172,14 +1215,72 @@ public class QuanLyPhucVu_GUI extends javax.swing.JFrame {
 
     private void btnThanhToanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnThanhToanMouseClicked
         // TODO add your handling code here:
+        if(donGoi_BUS.getAllDonGoiByIdBan(banDangChon.getId()).size() <= 0){            
+            JOptionPane.showMessageDialog(this, "Đơn gọi không có món ăn","Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        
         if(thanhToan_GUI == null || !thanhToan_GUI.isDisplayable()){
-            thanhToan_GUI = new ThanhToan_GUI();
+            thanhToan_GUI = new ThanhToan_GUI(banDangChon.getId());
             thanhToan_GUI.setVisible(true);
         } else {
             thanhToan_GUI.setState(JFrame.NORMAL);
             thanhToan_GUI.toFront();
         }
     }//GEN-LAST:event_btnThanhToanMouseClicked
+
+    private void btnResetDonGoiMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnResetDonGoiMouseClicked
+        // TODO add your handling code here:
+        loadDonGoi();
+    }//GEN-LAST:event_btnResetDonGoiMouseClicked
+
+    private void btnXoaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnXoaMouseClicked
+        // TODO add your handling code here:
+        int count = tblDonGoi.getSelectedRowCount();
+        if(count < 1)
+            JOptionPane.showMessageDialog(this, "Chưa chọn món ăn","Error", JOptionPane.ERROR_MESSAGE);
+        else if(count > 1)
+            JOptionPane.showMessageDialog(this, "Chỉ chọn 1 món ăn","Error", JOptionPane.ERROR_MESSAGE);
+        
+        int indexRow = tblDonGoi.getSelectedRow();
+        TableModel model = tblDonGoi.getModel();
+        
+        int idMonAn = Integer.parseInt(model.getValueAt(indexRow, 0).toString());
+        boolean result = donGoi_BUS.deleteDonGoi(banDangChon.getId(), idMonAn);
+        if(result){
+            JOptionPane.showMessageDialog(this, "Xóa món ăn thành công","Thông báo", JOptionPane.INFORMATION_MESSAGE);
+            loadDonGoi();
+        } else {            
+            JOptionPane.showMessageDialog(this, "Xóa món ăn thất bại","Thông báo", JOptionPane.INFORMATION_MESSAGE);
+        }
+    }//GEN-LAST:event_btnXoaMouseClicked
+
+    private void btnChuyenBanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnChuyenBanMouseClicked
+        // TODO add your handling code here:
+        int indexBan = cmbBanSanSang.getSelectedIndex();
+        if(indexBan < 0){
+            JOptionPane.showMessageDialog(this, "Vui lòng chọn bàn muốn chuyển","Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        
+        boolean result = donGoi_BUS.chuyenBan(banDangChon.getId(), listBanSanSang.get(indexBan).getId());
+        if(result){
+            JOptionPane.showMessageDialog(this, "Chuyển bàn thành công","Thông báo", JOptionPane.INFORMATION_MESSAGE);
+            chuyenTinhTrangBan(TinhTrangBanConstraints.DANG_CHUAN_BI);
+        } else {            
+            JOptionPane.showMessageDialog(this, "Chuyển bàn thất bại","Thông báo", JOptionPane.INFORMATION_MESSAGE);
+        }
+    }//GEN-LAST:event_btnChuyenBanMouseClicked
+
+    private void btnSanSangMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSanSangMouseClicked
+        // TODO add your handling code here:
+        chuyenTinhTrangBan(TinhTrangBanConstraints.SAN_SANG);
+    }//GEN-LAST:event_btnSanSangMouseClicked
+
+    private void btnNgungPhucVuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnNgungPhucVuMouseClicked
+        // TODO add your handling code here:
+        chuyenTinhTrangBan(TinhTrangBanConstraints.NGUNG_PHUC_VU);
+    }//GEN-LAST:event_btnNgungPhucVuMouseClicked
 
     /**
      * @param args the command line arguments
@@ -1220,12 +1321,13 @@ public class QuanLyPhucVu_GUI extends javax.swing.JFrame {
     private javax.swing.JButton btnChuyenBan;
     private javax.swing.JButton btnNgungPhucVu;
     private javax.swing.JButton btnPhucVu;
+    private javax.swing.JButton btnResetDonGoi;
     private javax.swing.JButton btnSanSang;
     private javax.swing.JButton btnSuaDonGoi;
     private javax.swing.JButton btnThanhToan;
     private javax.swing.JButton btnThemMonMoi;
+    private javax.swing.JButton btnXoa;
     private javax.swing.JComboBox<String> cmbBanSanSang;
-    private javax.swing.JButton jButton10;
     private javax.swing.JButton jButton100;
     private javax.swing.JButton jButton101;
     private javax.swing.JButton jButton102;

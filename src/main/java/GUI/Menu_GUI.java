@@ -131,18 +131,17 @@ public class Menu_GUI extends javax.swing.JFrame {
                 btnDatMon.addMouseListener(new MouseInputListener() {
                     @Override
                     public void mouseClicked(MouseEvent e) {
-                        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-                    }
-
-                    @Override
-                    public void mousePressed(MouseEvent e) {                        
-                        if(datMon_GUI == null || !datMon_GUI.isDisplayable()){
+                         if(datMon_GUI == null || !datMon_GUI.isDisplayable()){
                             datMon_GUI = new DatMon_GUI(idBan, monAn.getId());
                             datMon_GUI.setVisible(true);
                         } else {
                             datMon_GUI.setState(JFrame.NORMAL);
                             datMon_GUI.toFront();
-                        }
+                        }}
+
+                    @Override
+                    public void mousePressed(MouseEvent e) {                        
+                       
                     }
 
                     @Override

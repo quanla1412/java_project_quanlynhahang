@@ -1,0 +1,32 @@
+   PDDocument document = new PDDocument();
+//            
+//            PDPage page = new PDPage();
+//            document.addPage(page);
+//            PDPageContentStream contentStream = new PDPageContentStream(document, page);
+//            
+//            //Begin the Content stream 
+//            contentStream.beginText();
+//            
+//            //Setting the font to the Content stream  
+//            PDType0Font font = PDType0Font.load(document, new File("D:\\QuanLyNhaHang\\Font\\Roboto-Black.ttf"));
+//            contentStream.setFont(font, 12);
+//
+//            //Setting the position for the line 
+//            contentStream.newLineAtOffset(25, 500);
+//
+//            String text = "a ă â à ã ạ ả á World!";
+//
+//            //Adding text in the form of string 
+//            contentStream.showText(text);      
+//
+//            //Ending the content stream
+//            contentStream.endText();
+//
+//            System.out.println("Content added");
+//
+//            //Closing the content stream
+//            contentStream.close();
+//            
+//            document.save(dest);
+//            
+//            document.close();

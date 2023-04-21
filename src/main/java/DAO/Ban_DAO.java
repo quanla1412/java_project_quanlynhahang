@@ -230,7 +230,7 @@ public class Ban_DAO {
             statement.setInt(1, idTinhTrang);
             statement.setInt(2, idBan);
             
-            while(statement.executeUpdate() > 1){
+            if(statement.executeUpdate() >= 1){
                 result = true;
             }            
         } catch (SQLException ex) {

@@ -1,10 +1,20 @@
 package GUI;
 
+import BUS.Ban_BUS;
+import BUS.LoaiBan_BUS;
+import DTO.Ban.Ban_DTO;
+import DTO.Ban.LoaiBan_DTO;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
+import org.jfree.chart.labels.StandardPieSectionLabelGenerator;
 import org.jfree.chart.plot.CategoryPlot;
 import org.jfree.chart.plot.PiePlot;
 import org.jfree.chart.plot.PlotOrientation;
@@ -17,100 +27,110 @@ import org.jfree.data.general.DefaultPieDataset;
  */
 public class BaoCaoThongKe_GUI extends javax.swing.JFrame {
 
+    private final LoaiBan_BUS loaiBan_BUS;
+    private final Ban_BUS ban_BUS;
     
+    private ArrayList<Ban_DTO> listBan;
+    private ArrayList<LoaiBan_DTO> listLoaiBan;
     /**
      * Creates new form BaoCaoThongKe_GUI
      */
     public BaoCaoThongKe_GUI() {
         initComponents();
-        showPieChartMonAn();
-        showPieChartKhachHang();
-        showBarChartDoanhThu();
+        this.setLocationRelativeTo(null);
+        
+        loaiBan_BUS = new LoaiBan_BUS();
+        ban_BUS = new Ban_BUS();
+        
+    showPieChartBanTheoSoLuong();
+    
+    cmbThongKe.addItemListener(new ItemListener() {
+    public void itemStateChanged(ItemEvent event) {
+        int indexLoaiKH = cmbThongKe.getSelectedIndex();
+        if(indexLoaiKH == 0){
+            showPieChartBanTheoSoLuong();
+        }
+        if(indexLoaiKH == 1){
+            showPieChartBanTheoTinhTrang();
+        }
+     }
+    });
     }
+   
+     public void showPieChartBanTheoSoLuong(){
+        DefaultPieDataset dataset = new DefaultPieDataset();
+        listLoaiBan = loaiBan_BUS.getAllLoaiBan();        
+        
+        for(LoaiBan_DTO loaiBan : listLoaiBan){
+        dataset.setValue(loaiBan.getTen(), loaiBan.getSoLuongCho());
+        }
+        // Create the chart
+        JFreeChart chart = ChartFactory.createPieChart(
+            "Số lượng bàn theo loại bàn",
+            dataset,
+            true,
+            true,
+            false
+        );
+        
+        PiePlot plot = (PiePlot) chart.getPlot();
+        
+        // Định dạng chuỗi giá trị hiển thị trên biểu đồ tròn
+        StandardPieSectionLabelGenerator labelGenerator = new StandardPieSectionLabelGenerator(
+                "{0}: {1} ({2})", // "{0}" là tên section, "{1}" là giá trị, "{2}" là tỷ lệ phần trăm
+                new java.text.DecimalFormat("0"), // định dạng cho giá trị
+                new java.text.DecimalFormat("0.00%") // định dạng cho tỷ lệ phần trăm
+                );
+        plot.setLabelGenerator(labelGenerator);
+        // Create the chart panel and add it to the main panel
+        ChartPanel chartPanel = new ChartPanel(chart);
+        this.pnlBieuDo.removeAll();
+        this.pnlBieuDo.add(chartPanel);
+        this.pnlBieuDo.validate();
+        this.pnlBieuDo.repaint();
+     }
+     
+    public void showPieChartBanTheoTinhTrang(){
+        DefaultPieDataset dataset = new DefaultPieDataset();
+        listBan = ban_BUS.getAllBan();        
+        Map<String, Integer> countMap = new HashMap<String, Integer>();
 
-    public void showPieChartMonAn(){
-        DefaultPieDataset pieDataset;
-        JFreeChart pieChart;
-        PiePlot piePlot;
-        ChartPanel chartPanel;
+        for(Ban_DTO ban : listBan){
+            if (countMap.containsKey(ban.getTinhTrangBan())) {
+                countMap.put(ban.getTinhTrangBan(), countMap.get(ban.getTinhTrangBan()) + 1);
+            } else {
+                countMap.put(ban.getTinhTrangBan(), 1);
+            }
+        }
+        for (Map.Entry<String, Integer> entry : countMap.entrySet()) {
+            dataset.setValue(entry.getKey(), entry.getValue());
+        }
+        // Create the chart
+        JFreeChart chart = ChartFactory.createPieChart(
+            "Số lượng bàn theo loại bàn",
+            dataset,
+            true,
+            true,
+            false
+        );
         
-        pieDataset = new DefaultPieDataset();
-        pieDataset.setValue("Burgers", 9.2);
-        pieDataset.setValue("Sandwich", 9.0);
-        pieDataset.setValue("Gà rán", 9.2);
-        pieDataset.setValue("Tráng miệng", 9.2);
+        PiePlot plot = (PiePlot) chart.getPlot();
         
-        pieChart = ChartFactory.createPieChart3D("Top  4 món ăn yêu thích nhất", pieDataset, true, true, false);
+        // Định dạng chuỗi giá trị hiển thị trên biểu đồ tròn
+        StandardPieSectionLabelGenerator labelGenerator = new StandardPieSectionLabelGenerator(
+                "{0}: {1} ({2})", // "{0}" là tên section, "{1}" là giá trị, "{2}" là tỷ lệ phần trăm
+                new java.text.DecimalFormat("0"), // định dạng cho giá trị
+                new java.text.DecimalFormat("0.00%") // định dạng cho tỷ lệ phần trăm
+                );
+        plot.setLabelGenerator(labelGenerator);
+        // Create the chart panel and add it to the main panel
+        ChartPanel chartPanel = new ChartPanel(chart);
+        this.pnlBieuDo.removeAll();
+        this.pnlBieuDo.add(chartPanel);
+        this.pnlBieuDo.validate();
+        this.pnlBieuDo.repaint();
+     }
         
-        piePlot = (PiePlot) pieChart.getPlot();
-        chartPanel = new ChartPanel(pieChart);
-        
-        pnlPieChartMonAn.add(chartPanel, BorderLayout.CENTER);
-        
-        pnlPieChartMonAn.setPreferredSize(new Dimension(400, 300));        
-        pnlPieChartMonAn.setMinimumSize(new Dimension(400, 300));
-        chartPanel.validate();
-    }
-    
-    public void showPieChartKhachHang(){
-        DefaultPieDataset pieDataset;
-        JFreeChart pieChart;
-        PiePlot piePlot;
-        ChartPanel chartPanel;
-        
-        pieDataset = new DefaultPieDataset();
-        pieDataset.setValue("Lê Anh Quân", 12);
-        pieDataset.setValue("Phan Hoàng Nhật Tân", 9.0);
-        pieDataset.setValue("Huỳnh Tuấn Thanh", 5);
-        pieDataset.setValue("Đinh Nhật Tân", 3);
-        
-        pieChart = ChartFactory.createPieChart3D("Top  4 khách hàng chi tiêu nhiều nhất", pieDataset, true, true, false);
-        
-        piePlot = (PiePlot) pieChart.getPlot();
-        chartPanel = new ChartPanel(pieChart);
-        
-        pnlPieChartKhachHang.add(chartPanel, BorderLayout.CENTER);
-        
-        pnlPieChartKhachHang.setPreferredSize(new Dimension(400, 300));        
-        pnlPieChartKhachHang.setMinimumSize(new Dimension(400, 300));
-        chartPanel.validate();
-    }
-    
-    private void showBarChartDoanhThu(){
-        DefaultCategoryDataset dataset = new DefaultCategoryDataset();
-        JFreeChart chart;
-        CategoryPlot categoryPlot;
-        ChartPanel chartPanel;
-        
-        dataset.addValue(10000,"Tháng", "T1");        
-        dataset.addValue(20000,"Tháng", "T2");
-        dataset.addValue(25000,"Tháng", "T3");
-        dataset.addValue(12000,"Tháng", "T4");
-        dataset.addValue(9000,"Tháng", "T5");
-        dataset.addValue(50000,"Tháng", "T6");
-        dataset.addValue(10000,"Tháng", "T7");
-        dataset.addValue(20000,"Tháng", "T8");
-        dataset.addValue(90000,"Tháng", "T9");
-        dataset.addValue(5000,"Tháng", "T10");
-        dataset.addValue(12000,"Tháng", "T11");
-        dataset.addValue(14000,"Tháng", "T12");
-
-        chart = ChartFactory.createBarChart("Doanh thu theo tháng", "Tháng", "1000 VNĐ", 
-                dataset, PlotOrientation.VERTICAL, true, true, false);
-        
-        categoryPlot = chart.getCategoryPlot();
-        chartPanel = new ChartPanel(chart);
-        
-        pnlBarChartDoanhThu.setPreferredSize(new Dimension(1000, 300));        
-        pnlBarChartDoanhThu.setMinimumSize(new Dimension(1000, 300));      
-        pnlBarChartDoanhThu.setMaximumSize(new Dimension(1000, 300));
-        
-        pnlBarChartDoanhThu.add(chartPanel, BorderLayout.CENTER);
-        pnlBarChartDoanhThu.validate();
-    }
-    
-    
-    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -121,70 +141,64 @@ public class BaoCaoThongKe_GUI extends javax.swing.JFrame {
     private void initComponents() {
         java.awt.GridBagConstraints gridBagConstraints;
 
-        pnlPieChartMonAn = new javax.swing.JPanel();
-        pnlPieChartKhachHang = new javax.swing.JPanel();
-        pnlBarChartDoanhThu = new javax.swing.JPanel();
-        pieChartPanel3 = new javax.swing.JPanel();
-        pieChartPanel4 = new javax.swing.JPanel();
-        pieChartPanel5 = new javax.swing.JPanel();
-        pieChartPanel6 = new javax.swing.JPanel();
-        pieChartPanel7 = new javax.swing.JPanel();
+        pnlBieuDo = new javax.swing.JPanel();
+        cmbThongKe = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Báo cáo thống kê");
+        setMinimumSize(new java.awt.Dimension(800, 500));
+        setPreferredSize(new java.awt.Dimension(800, 500));
         getContentPane().setLayout(new java.awt.GridBagLayout());
 
-        pnlPieChartMonAn.setMinimumSize(new java.awt.Dimension(300, 300));
-        pnlPieChartMonAn.setPreferredSize(new java.awt.Dimension(300, 300));
-        pnlPieChartMonAn.setLayout(new java.awt.BorderLayout());
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.insets = new java.awt.Insets(0, 0, 213, 290);
-        getContentPane().add(pnlPieChartMonAn, gridBagConstraints);
-
-        pnlPieChartKhachHang.setMinimumSize(new java.awt.Dimension(300, 300));
-        pnlPieChartKhachHang.setPreferredSize(new java.awt.Dimension(300, 300));
-        pnlPieChartKhachHang.setLayout(new java.awt.BorderLayout());
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.insets = new java.awt.Insets(0, 0, 213, 290);
-        getContentPane().add(pnlPieChartKhachHang, gridBagConstraints);
-
-        pnlBarChartDoanhThu.setMinimumSize(new java.awt.Dimension(400, 300));
-        pnlBarChartDoanhThu.setName(""); // NOI18N
-        pnlBarChartDoanhThu.setPreferredSize(new java.awt.Dimension(400, 300));
-        pnlBarChartDoanhThu.setLayout(new java.awt.BorderLayout());
-
-        pieChartPanel3.setLayout(new java.awt.BorderLayout());
-        pnlBarChartDoanhThu.add(pieChartPanel3, java.awt.BorderLayout.CENTER);
-
-        pieChartPanel4.setLayout(new java.awt.BorderLayout());
-
-        pieChartPanel5.setLayout(new java.awt.BorderLayout());
-
-        pieChartPanel6.setLayout(new java.awt.BorderLayout());
-
-        pieChartPanel7.setLayout(new java.awt.BorderLayout());
-        pieChartPanel6.add(pieChartPanel7, java.awt.BorderLayout.CENTER);
-
-        pieChartPanel5.add(pieChartPanel6, java.awt.BorderLayout.CENTER);
-
-        pieChartPanel4.add(pieChartPanel5, java.awt.BorderLayout.CENTER);
-
-        pnlBarChartDoanhThu.add(pieChartPanel4, java.awt.BorderLayout.PAGE_START);
-
+        pnlBieuDo.setMinimumSize(new java.awt.Dimension(800, 400));
+        pnlBieuDo.setPreferredSize(new java.awt.Dimension(800, 400));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 1;
-        gridBagConstraints.gridwidth = 2;
-        gridBagConstraints.insets = new java.awt.Insets(0, 0, 213, 290);
-        getContentPane().add(pnlBarChartDoanhThu, gridBagConstraints);
+        gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
+        getContentPane().add(pnlBieuDo, gridBagConstraints);
+
+        cmbThongKe.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Thống kê bàn theo số lượng", "Thống kê bàn theo tình trạng bàn" }));
+        cmbThongKe.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                cmbThongKeMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                cmbThongKeMouseEntered(evt);
+            }
+        });
+        cmbThongKe.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbThongKeActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
+        getContentPane().add(cmbThongKe, gridBagConstraints);
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void cmbThongKeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cmbThongKeMouseClicked
+        // TODO add your handling code here:
+//        int indexLoaiKH = cmbThongKe.getSelectedIndex();
+//        if(indexLoaiKH == 1){
+//            showPieChartBanTheoSoLuong();
+//        }
+//        if(indexLoaiKH == 0){
+//            showPieChartBanTheoTinhTrang();
+//        }
+    }//GEN-LAST:event_cmbThongKeMouseClicked
+
+    private void cmbThongKeMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cmbThongKeMouseEntered
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_cmbThongKeMouseEntered
+
+    private void cmbThongKeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbThongKeActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cmbThongKeActionPerformed
 
     /**
      * @param args the command line arguments
@@ -222,13 +236,7 @@ public class BaoCaoThongKe_GUI extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel pieChartPanel3;
-    private javax.swing.JPanel pieChartPanel4;
-    private javax.swing.JPanel pieChartPanel5;
-    private javax.swing.JPanel pieChartPanel6;
-    private javax.swing.JPanel pieChartPanel7;
-    private javax.swing.JPanel pnlBarChartDoanhThu;
-    private javax.swing.JPanel pnlPieChartKhachHang;
-    private javax.swing.JPanel pnlPieChartMonAn;
+    private javax.swing.JComboBox<String> cmbThongKe;
+    private javax.swing.JPanel pnlBieuDo;
     // End of variables declaration//GEN-END:variables
 }

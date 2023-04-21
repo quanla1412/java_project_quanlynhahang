@@ -1,5 +1,8 @@
 package GUI;
 
+import com.formdev.flatlaf.themes.FlatMacLightLaf;
+import javax.swing.UIManager;
+
 /**
  *
  * @author LeAnhQuan
@@ -10,9 +13,13 @@ public class Main {
      */
     public static void main(String[] args) {
         // TODO code application logic here
-        
-        QuanLyKhachHang_GUI monAn_GUI = new QuanLyKhachHang_GUI();
-        monAn_GUI.setVisible(true);
+        try{
+            UIManager.setLookAndFeel(new FlatMacLightLaf());
+        } catch(Exception ex){
+            System.out.println(ex);
+        }
+        QuanLyNhanVien_GUI dangNhap_GUI= new QuanLyNhanVien_GUI();
+        dangNhap_GUI.setVisible(true);
     }
     
 }

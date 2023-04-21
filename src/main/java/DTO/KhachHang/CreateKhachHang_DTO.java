@@ -4,50 +4,37 @@
  */
 package DTO.KhachHang;
 
-import java.sql.Timestamp;
+import java.util.Date;
+
 
 /**
  *
  * @author tuant
  */
 public class CreateKhachHang_DTO {
-    private int loaiKhachHang;
     private String ten;
     private String sdt;
-    private int diemTichLuy;
     private String email;
-    private Timestamp ngaySinh;
-    private boolean gioiTinh;
+    private Date ngaySinh;
+    private boolean gioiTinhNam;
 
     public CreateKhachHang_DTO() {
     }
 
-    public CreateKhachHang_DTO(int loaiKhachHang, String ten, String sdt, int diemTichLuy, String email, Timestamp ngaySinh, boolean gioiTinh) {
-        this.loaiKhachHang = loaiKhachHang;
+    public CreateKhachHang_DTO(String ten, String sdt, String email, Date ngaySinh, boolean gioiTinhNam) {
         this.ten = ten;
         this.sdt = sdt;
-        this.diemTichLuy = diemTichLuy;
         this.email = email;
         this.ngaySinh = ngaySinh;
-        this.gioiTinh = gioiTinh;
+        this.gioiTinhNam = gioiTinhNam;
     }
 
-    public boolean isGioiTinh() {
-        return gioiTinh;
+    public boolean isGioiTinhNam() {
+        return gioiTinhNam;
     }
 
-    public void setGioiTinh(boolean gioiTinh) {
-        this.gioiTinh = gioiTinh;
-    }
-
-    
-
-    public int getLoaiKhachHang() {
-        return loaiKhachHang;
-    }
-
-    public void setLoaiKhachHang(int loaiKhachHang) {
-        this.loaiKhachHang = loaiKhachHang;
+    public void setGioiTinhNam(boolean gioiTinhNam) {
+        this.gioiTinhNam = gioiTinhNam;
     }
 
     public String getTen() {
@@ -66,14 +53,6 @@ public class CreateKhachHang_DTO {
         this.sdt = sdt;
     }
 
-    public int getDiemTichLuy() {
-        return diemTichLuy;
-    }
-
-    public void setDiemTichLuy(int diemTichLuy) {
-        this.diemTichLuy = diemTichLuy;
-    }
-
     public String getEmail() {
         return email;
     }
@@ -82,11 +61,11 @@ public class CreateKhachHang_DTO {
         this.email = email;
     }
 
-    public Timestamp getNgaySinh() {
+    public Date getNgaySinh() {
         return ngaySinh;
     }
 
-    public void setNgaySinh(Timestamp ngaySinh) {
+    public void setNgaySinh(Date ngaySinh) {
         this.ngaySinh = ngaySinh;
     }
 

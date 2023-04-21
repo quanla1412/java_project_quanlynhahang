@@ -50,7 +50,8 @@ public class LoaiKhachHang_DAO {
         
         try {
             String sql = "SELECT * "
-                    + "FROM LoaiKhachHang ";
+                    + "FROM LoaiKhachHang "
+                    + "ORDER BY LKH_DiemToiThieu ASC;";
             Statement statement = con.createStatement();
             
             ResultSet rs = statement.executeQuery(sql);
@@ -113,6 +114,69 @@ public class LoaiKhachHang_DAO {
             if(statement.executeUpdate() >= 1){
                 result = true;                
             }
+            
+        } catch (SQLException ex) {
+            System.out.println(ex);
+        } finally {
+            ConnectDatabase.closeConnection(con); 
+        }
+        return result;
+    }
+    
+    public boolean deleteLoaiKhachHang(int idLoaiKhachHang){
+        Connection con = ConnectDatabase.openConnection();
+        boolean result = false;
+        try {
+            
+            String sql = "DELETE FROM LoaiKhachHang WHERE LKH_ID = " + idLoaiKhachHang;
+            Statement statement = con.createStatement();
+            
+            if(statement.executeUpdate(sql) >= 1){
+                result = true;                
+            }
+            
+        } catch (SQLException ex) {
+            System.out.println(ex);
+        } finally {
+            ConnectDatabase.closeConnection(con); 
+        }
+        return result;
+    }
+    
+    public boolean hasLoaiKHOrDiemToiThieuOrMucUuDai(String loaiKH, int diemToiThieu, double mucUuDai){
+        Connection con = ConnectDatabase.openConnection();
+        boolean result = false;
+        try {
+            String sql = "SELECT LKH_ID From LoaiKhachHang "
+                    + "WHERE LKH_Ten = '" + loaiKH + "' OR LKH_DiemToiThieu = '" + diemToiThieu + "' OR LKH_MucUuDai = '" + mucUuDai + "'";
+            
+            Statement statement = con.createStatement();
+            ResultSet resultSet = statement.executeQuery(sql);        
+            
+            if(resultSet.next())
+                result = true;
+            
+        } catch (SQLException ex) {
+            System.out.println(ex);
+        } finally {
+            ConnectDatabase.closeConnection(con); 
+        }
+        return result;
+    }
+    
+    public boolean hasLoaiKHOrDiemToiThieuOrMucUuDai(int idLKHHienTai, String loaiKH, int diemToiThieu, double mucUuDai){
+        Connection con = ConnectDatabase.openConnection();
+        boolean result = false;
+        try {
+            String sql = "SELECT LKH_ID From LoaiKhachHang "
+                    + "WHERE (LKH_Ten = '" + loaiKH + "' OR LKH_DiemToiThieu = '" + diemToiThieu 
+                    + "' OR LKH_MucUuDai = '" + mucUuDai + "') AND LKH_ID != " + idLKHHienTai;
+            
+            Statement statement = con.createStatement();
+            ResultSet resultSet = statement.executeQuery(sql);        
+            
+            if(resultSet.next())
+                result = true;
             
         } catch (SQLException ex) {
             System.out.println(ex);
