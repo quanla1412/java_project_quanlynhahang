@@ -692,9 +692,17 @@ public class QuanLyKhachHang_GUI extends javax.swing.JFrame {
                 return;
             }
             
+            txtIDKH.setText(Integer.toString(result.getId()));
             txtHoTen.setText(result.getTen());
             txtSDT.setText(result.getSdt());
             txtDiemTichLuy.setText(Integer.toString(result.getDiemTichLuy()));
+            txtEmail.setText(result.getEmail().trim());
+            cmbThemSuaLoaiKH.setSelectedIndex(result.getLoaiKhachHang().getId()-1);
+            jdcNgaySinh.setDate(result.getNgaySinh());
+            if(result.isGioiTinhNam())
+                cmbGioiTinhKH.setSelectedIndex(0);
+            else
+                cmbGioiTinhKH.setSelectedIndex(1);
         }      
     }//GEN-LAST:event_btnResetMouseClicked
 
