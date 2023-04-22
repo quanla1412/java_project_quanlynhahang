@@ -4,8 +4,7 @@
  */
 package DTO.NhanVien;
 
-import java.sql.Date;
-import java.sql.Timestamp;
+import java.util.Date;
 
 /**
  *
@@ -16,14 +15,15 @@ public class CreateNhanVien_DTO {
     private int idTinhTrangNhanVien;
     private int idChucVu;
     private String hoTen;
-    private Timestamp ngaySinh;
+    private Date ngaySinh;
     private boolean gioiTinhNam;
     private String email;
     private String soDienThoai ;
     private String diaChi ;
+    private String password ;
+    private String CCCD;
 
-    
-    public CreateNhanVien_DTO(String ma, int idTinhTrangNhanVien, int idChucVu, String hoTen, Timestamp ngaySinh, boolean gioiTinhNam, String email, String soDienThoai, String diaChi) {
+    public CreateNhanVien_DTO(String ma, int idTinhTrangNhanVien, int idChucVu, String hoTen, Date ngaySinh, boolean gioiTinhNam, String email, String soDienThoai, String diaChi, String CCCD) {
         this.ma = ma;
         this.idTinhTrangNhanVien = idTinhTrangNhanVien;
         this.idChucVu = idChucVu;
@@ -33,7 +33,10 @@ public class CreateNhanVien_DTO {
         this.email = email;
         this.soDienThoai = soDienThoai;
         this.diaChi = diaChi;
+        this.CCCD = CCCD;
     }
+    
+    
 
     public String getMa() {
         return ma;
@@ -67,17 +70,13 @@ public class CreateNhanVien_DTO {
         this.hoTen = hoTen;
     }
 
-    public Timestamp getNgaySinh() {
+    public Date getNgaySinh() {
         return ngaySinh;
     }
 
-    public void setNgaySinh(Timestamp ngaySinh) {
+    public void setNgaySinh(Date ngaySinh) {
         this.ngaySinh = ngaySinh;
     }
-
-    
-    
-    
 
     public boolean isGioiTinhNam() {
         return gioiTinhNam;
@@ -110,7 +109,20 @@ public class CreateNhanVien_DTO {
     public void setDiaChi(String diaChi) {
         this.diaChi = diaChi;
     }
-    
-    
-    
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getCCCD() {
+        return CCCD;
+    }
+
+    public void setCCCD(String CCCD) {
+        this.CCCD = CCCD;
+    }
 }

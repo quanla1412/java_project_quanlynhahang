@@ -16,7 +16,7 @@ public class CheckHopLe {
     }
     
     public static boolean checkEmail(String email){
-        Pattern pattern = Pattern.compile("^[a-zA-Z0-9.!#$%&’+\\/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:.[a-zA-Z0-9-]+)$");
+        Pattern pattern = Pattern.compile("^[a-z][a-z0-9_\\.]{5,32}@[a-z0-9]{2,}(\\.[a-z0-9]{2,4}){1,2}$");
         Matcher matcher = pattern.matcher(email);
         
         return matcher.find();
