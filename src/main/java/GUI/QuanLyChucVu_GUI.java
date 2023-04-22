@@ -30,7 +30,7 @@ public class QuanLyChucVu_GUI extends javax.swing.JFrame {
     }
     
     private void loadTableChucVu(){
-        ArrayList<ChucVu_DTO> listChucVu = chucVu_BUS.getAllChucVu();
+        listChucVu = chucVu_BUS.getAllChucVu();
         String col[] = {"ID", "Chức vụ"};
         DefaultTableModel tableModel = new DefaultTableModel(col, 0);
         tblDanhSachChucVu.setModel(tableModel);

@@ -11,15 +11,17 @@ public class HoaDon_DTO {
     private String maNhanVien;
     private int idKhachHang;
     private Timestamp ngayGio;
+    private int tongGia;
 
     public HoaDon_DTO() {
     }
 
-    public HoaDon_DTO(int id, String maNhanVien, int idKhachHang, Timestamp ngayGio) {
+    public HoaDon_DTO(int id, String maNhanVien, int idKhachHang, Timestamp ngayGio, int tongGia) {
         this.id = id;
         this.maNhanVien = maNhanVien;
         this.idKhachHang = idKhachHang;
         this.ngayGio = ngayGio;
+        this.tongGia = tongGia;
     }
 
     public int getId() {
@@ -52,5 +54,13 @@ public class HoaDon_DTO {
 
     public void setNgayGio(Timestamp ngayGio) {
         this.ngayGio = ngayGio;
+    }
+    
+    public int getTongGia() {
+        return tongGia;
+    }
+
+    public void setTongGia(int tongGia) {
+        this.tongGia = tongGia;
     }
 }

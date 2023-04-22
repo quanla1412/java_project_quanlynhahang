@@ -39,6 +39,7 @@ import org.apache.poi.ss.usermodel.WorkbookFactory;
 public class QuanLyKhachHang_GUI extends javax.swing.JFrame {
     private final LoaiKhachHang_BUS loaiKhach_BUS;
     private final KhachHang_BUS khachHang_BUS;
+    private ArrayList<KhachHang_DTO> listKhachHang;
     
     private boolean dangThemKhachHang = true;
     
@@ -62,7 +63,7 @@ public class QuanLyKhachHang_GUI extends javax.swing.JFrame {
         
     }
     private void loadTableKhachHang(){
-        ArrayList<KhachHang_DTO> listKhachHang = khachHang_BUS.getAllKhachHang();
+        listKhachHang = khachHang_BUS.getAllKhachHang();
         String col[] = {"ID", "Tên khách hàng", "Số diện thoại ", "Điểm tích lũy ", "Loại khách hàng "};
         DefaultTableModel tableModel = new DefaultTableModel(col, 0);
         tblKhachHang.setModel(tableModel);
@@ -73,7 +74,7 @@ public class QuanLyKhachHang_GUI extends javax.swing.JFrame {
     }
     public void loadTableKhachHang(ArrayList<KhachHang_DTO> dataTable){
         
-        ArrayList<KhachHang_DTO> listKhachHang = dataTable;
+        listKhachHang = dataTable;
         String col[] = {"ID", "Tên khách hàng", "Số diện thoại ", "Điểm tích lũy ", "Loại khách hàng "};
         DefaultTableModel tableModel = new DefaultTableModel(col, 0);
         tblKhachHang.setModel(tableModel);
@@ -692,9 +693,17 @@ public class QuanLyKhachHang_GUI extends javax.swing.JFrame {
                 return;
             }
             
+            txtIDKH.setText(Integer.toString(result.getId()));
             txtHoTen.setText(result.getTen());
             txtSDT.setText(result.getSdt());
             txtDiemTichLuy.setText(Integer.toString(result.getDiemTichLuy()));
+            txtEmail.setText(result.getEmail().trim());
+            cmbThemSuaLoaiKH.setSelectedIndex(result.getLoaiKhachHang().getId()-1);
+            jdcNgaySinh.setDate(result.getNgaySinh());
+            if(result.isGioiTinhNam())
+                cmbGioiTinhKH.setSelectedIndex(0);
+            else
+                cmbGioiTinhKH.setSelectedIndex(1);
         }      
     }//GEN-LAST:event_btnResetMouseClicked
 
@@ -833,21 +842,13 @@ public class QuanLyKhachHang_GUI extends javax.swing.JFrame {
     }//GEN-LAST:event_btnResetTableMouseClicked
     
     private void btnExportMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnExportMouseClicked
-        // TODO add your handling code here:
-        TableModel model = tblKhachHang.getModel();
-        ArrayList<String> listId = new ArrayList<>();
-        int rowCount = model.getRowCount();
+        // TODO add your handling code here:        
         boolean result = false;
-        
-        for(int i = 0; i < rowCount; i++){
-            listId.add(model.getValueAt(i, 0).toString());
-        }
-        
         JFileChooser jFileChooser = new JFileChooser("D:");
         jFileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
                 
         if (jFileChooser.showSaveDialog(null) == JFileChooser.APPROVE_OPTION) {
-            result = khachHang_BUS.exportKhachHang(listId, jFileChooser.getSelectedFile().getAbsolutePath());
+            result = khachHang_BUS.exportKhachHang(listKhachHang, jFileChooser.getSelectedFile().getAbsolutePath());
         }
         
         if (!result) {
@@ -867,7 +868,7 @@ public class QuanLyKhachHang_GUI extends javax.swing.JFrame {
             
             loadTableKhachHang();
         }else {
-            JOptionPane.showMessageDialog(this, "Xuất file excel thất bại","Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Import file excel thất bại","Error", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnImportMouseClicked
 
@@ -876,14 +877,14 @@ public class QuanLyKhachHang_GUI extends javax.swing.JFrame {
         boolean result = false;
         
         JFileChooser jFileChooser = new JFileChooser("D:");
-        jFileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+        jFileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
                 
         if (jFileChooser.showSaveDialog(null) == JFileChooser.APPROVE_OPTION) {
             result = khachHang_BUS.exportAllKhachHangTheoMauImport(jFileChooser.getSelectedFile().getAbsolutePath());
         }
         
         if (!result) {
-            JOptionPane.showMessageDialog(this, "Import file excel thất bại","Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Export file excel thất bại","Error", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnExportMauImportMouseClicked
 

@@ -261,7 +261,7 @@ public class KhachHang_DAO {
         Connection con = ConnectDatabase.openConnection();
         ArrayList<KhachHang_DTO> result = new ArrayList<>();
         try {
-            StringBuilder sql = new StringBuilder("SELECT KH_ID, KH_Ten, KH_Sdt, KH_DiemTichLuy, LKH_Ten " 
+            StringBuilder sql = new StringBuilder("SELECT KH_ID, KH_Ten, KH_Sdt, KH_Email, KH_NgaySinh,KH_GioiTinhNam, KH_DiemTichLuy, LKH_Ten " 
                                                    + "FROM KhachHang, LoaiKhachHang "
                                                    + "WHERE KhachHang.LKH_ID = LoaiKhachHang.LKH_ID ");
             
@@ -288,7 +288,7 @@ public class KhachHang_DAO {
                 String loaiKhachHang = rs.getNString("LKH_Ten");
                 String email = rs.getString("KH_Email");
                 Date ngaySinh = new Date(rs.getTimestamp("KH_NgaySinh").getTime());
-                boolean gioiTinhBoolean = rs.getBoolean("KH_GioiTinh");
+                boolean gioiTinhBoolean = rs.getBoolean("KH_GioiTinhNam");
                 String gioiTinh = gioiTinhBoolean ? "Nam" : "Nữ";
                 
                 result.add(new KhachHang_DTO(

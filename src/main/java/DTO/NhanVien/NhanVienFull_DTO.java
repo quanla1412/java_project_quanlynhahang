@@ -20,8 +20,9 @@ public class NhanVienFull_DTO {
     private String email;
     private String soDienThoai;
     private String diaChi;
+    private String CCCD;
 
-    public NhanVienFull_DTO(String ma, TinhTrangNhanVien_DTO tinhTrangNhanVien, ChucVu_DTO chucVu, String hoTen, Date ngaySinh, boolean gioiTinhNam, String email, String soDienThoai, String diaChi) {
+    public NhanVienFull_DTO(String ma, TinhTrangNhanVien_DTO tinhTrangNhanVien, ChucVu_DTO chucVu, String hoTen, Date ngaySinh, boolean gioiTinhNam, String email, String soDienThoai, String diaChi, String CCCD) {
         this.ma = ma;
         this.tinhTrangNhanVien = tinhTrangNhanVien;
         this.chucVu = chucVu;
@@ -31,6 +32,7 @@ public class NhanVienFull_DTO {
         this.email = email;
         this.soDienThoai = soDienThoai;
         this.diaChi = diaChi;
+        this.CCCD = CCCD;
     }
 
     public NhanVienFull_DTO() {
@@ -108,8 +110,12 @@ public class NhanVienFull_DTO {
     public void setDiaChi(String diaChi) {
         this.diaChi = diaChi;
     }
-    
-    
-    
-    
+
+    public String getCCCD() {
+        return CCCD;
+    }
+
+    public void setCCCD(String CCCD) {
+        this.CCCD = CCCD;
+    }
 }

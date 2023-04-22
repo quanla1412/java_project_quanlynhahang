@@ -104,15 +104,12 @@ public class KhachHang_BUS {
         return result;
     } 
     
-    public boolean exportKhachHang(ArrayList<String> listId, String filePath) {
-        KhachHang_DAO khachHang_DAO = new KhachHang_DAO();
-        ArrayList<KhachHang_DTO> listKhachHang = khachHang_DAO.getListKhachHangByListID(listId);
-        
+    public boolean exportKhachHang(ArrayList<KhachHang_DTO> listKhachHang, String filePath) {
         File saveFile = new File (filePath + "\\danhSachKhachHang.xlsx");
 
         Workbook wb = new XSSFWorkbook();
         CreationHelper createHelper = wb.getCreationHelper();
-        Sheet sheet = wb.createSheet("Nhân Viên");
+        Sheet sheet = wb.createSheet("Khách hàng");
 
         int rowIndex = 1;        
         Row row = sheet.createRow(rowIndex);   
@@ -177,7 +174,7 @@ public class KhachHang_BUS {
             cell.setCellValue(data.email());
             
             CellStyle cellStyleDate = wb.createCellStyle();
-            cellStyleDate.setDataFormat(createHelper.createDataFormat().getFormat("d/m/yyyy"));
+            cellStyleDate.setDataFormat(createHelper.createDataFormat().getFormat("m/d/yyyy"));
             cell = row.createCell(6);
             cell.setCellValue(data.ngaySinh());
             cell.setCellStyle(cellStyleDate);
@@ -192,7 +189,6 @@ public class KhachHang_BUS {
         for (int columnIndex = 0; columnIndex < numberOfColumn; columnIndex++) {
             sheet.autoSizeColumn(columnIndex);
         }
-        
         
         try (OutputStream os = new FileOutputStream(saveFile.getAbsoluteFile())) {
             wb.write(os);
@@ -213,7 +209,7 @@ public class KhachHang_BUS {
 
         Workbook wb = new XSSFWorkbook();
         CreationHelper createHelper = wb.getCreationHelper();
-        Sheet sheet = wb.createSheet("Nhân Viên");
+        Sheet sheet = wb.createSheet("Khách hàng");
 
         int rowIndex = 1;        
         Row row = sheet.createRow(rowIndex);          

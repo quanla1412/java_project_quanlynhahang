@@ -1,16 +1,23 @@
 package GUI;
 
+import BUS.NhanVien_BUS;
+import java.util.Arrays;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author LeAnhQuan
  */
 public class DoiMatKhau_GUI extends javax.swing.JFrame {
-
+    private NhanVien_BUS nhanVien_BUS;
+    private String maNhanVien;
     /**
      * Creates new form DoiMatKhau
      */
-    public DoiMatKhau_GUI() {
+    public DoiMatKhau_GUI(String maNhanVien) {
         initComponents();
+        nhanVien_BUS = new NhanVien_BUS();
+        this.maNhanVien = maNhanVien;
     }
 
     /**
@@ -24,11 +31,11 @@ public class DoiMatKhau_GUI extends javax.swing.JFrame {
         java.awt.GridBagConstraints gridBagConstraints;
 
         jPanel1 = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
-        txtTaiKhoan = new javax.swing.JTextField();
+        btnSuccess = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        txtMatKhau = new javax.swing.JPasswordField();
+        txtPassword = new javax.swing.JPasswordField();
+        txtRetypePassword = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Đổi mật khẩu");
@@ -36,15 +43,15 @@ public class DoiMatKhau_GUI extends javax.swing.JFrame {
 
         jPanel1.setLayout(new java.awt.GridBagLayout());
 
-        jButton1.setText("Đổi mật khẩu");
-        jButton1.setMinimumSize(new java.awt.Dimension(150, 23));
-        jButton1.setPreferredSize(new java.awt.Dimension(150, 23));
-        jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
+        btnSuccess.setText("Đổi mật khẩu");
+        btnSuccess.setMinimumSize(new java.awt.Dimension(150, 23));
+        btnSuccess.setPreferredSize(new java.awt.Dimension(150, 23));
+        btnSuccess.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jButton1MouseClicked(evt);
+                btnSuccessMouseClicked(evt);
             }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                jButton1MouseEntered(evt);
+                btnSuccessMouseEntered(evt);
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -52,16 +59,7 @@ public class DoiMatKhau_GUI extends javax.swing.JFrame {
         gridBagConstraints.gridy = 4;
         gridBagConstraints.gridwidth = 2;
         gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
-        jPanel1.add(jButton1, gridBagConstraints);
-
-        txtTaiKhoan.setMinimumSize(new java.awt.Dimension(250, 22));
-        txtTaiKhoan.setPreferredSize(new java.awt.Dimension(250, 22));
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 1;
-        gridBagConstraints.gridwidth = 2;
-        gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 10);
-        jPanel1.add(txtTaiKhoan, gridBagConstraints);
+        jPanel1.add(btnSuccess, gridBagConstraints);
 
         jLabel3.setText("Nhập lại mật khẩu mới");
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -76,22 +74,28 @@ public class DoiMatKhau_GUI extends javax.swing.JFrame {
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.insets = new java.awt.Insets(0, 10, 10, 0);
+        gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 0);
         jPanel1.add(jLabel2, gridBagConstraints);
 
-        txtMatKhau.setMinimumSize(new java.awt.Dimension(250, 22));
-        txtMatKhau.setPreferredSize(new java.awt.Dimension(250, 22));
+        txtPassword.setMinimumSize(new java.awt.Dimension(250, 22));
+        txtPassword.setPreferredSize(new java.awt.Dimension(250, 22));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 1;
+        jPanel1.add(txtPassword, gridBagConstraints);
+
+        txtRetypePassword.setMinimumSize(new java.awt.Dimension(250, 22));
+        txtRetypePassword.setPreferredSize(new java.awt.Dimension(250, 22));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 3;
-        gridBagConstraints.gridwidth = 2;
-        jPanel1.add(txtMatKhau, gridBagConstraints);
+        jPanel1.add(txtRetypePassword, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
-        gridBagConstraints.ipadx = 132;
-        gridBagConstraints.ipady = 151;
+        gridBagConstraints.ipadx = 20;
+        gridBagConstraints.ipady = 20;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         getContentPane().add(jPanel1, gridBagConstraints);
 
@@ -99,21 +103,29 @@ public class DoiMatKhau_GUI extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
+    private void btnSuccessMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSuccessMouseClicked
         // TODO add your handling code here:
-        String username = txtTaiKhoan.getText();
-        String password = txtMatKhau.getText();
+        String password = Arrays.toString(txtPassword.getPassword());
+        String retypePassword = Arrays.toString(txtRetypePassword.getPassword());
 
-        if("admin".equals(username) && "admin".equals(password)){
-            TrangChu_GUI trangChu_GUI = new TrangChu_GUI();
-            trangChu_GUI.setVisible(true);
-            this.dispose();
-        }
-    }//GEN-LAST:event_jButton1MouseClicked
+        if(password.equals(retypePassword)){
+            boolean result = nhanVien_BUS.doiMatKhau(maNhanVien, password);
+            if(result){
+                JOptionPane.showMessageDialog(this, "Đổi mật khẩu thành công","Thông báo", JOptionPane.INFORMATION_MESSAGE);
+                this.dispose();
+            }            
+            else
+                JOptionPane.showMessageDialog(this, "Đổi mật khẩu thất bại","Error", JOptionPane.ERROR_MESSAGE);
+        } 
+        else
+                JOptionPane.showMessageDialog(this, "Nhập lại mật khẩu không đúng","Error", JOptionPane.ERROR_MESSAGE);
+        
+        
+    }//GEN-LAST:event_btnSuccessMouseClicked
 
-    private void jButton1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseEntered
+    private void btnSuccessMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSuccessMouseEntered
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1MouseEntered
+    }//GEN-LAST:event_btnSuccessMouseEntered
 
     /**
      * @param args the command line arguments
@@ -146,17 +158,17 @@ public class DoiMatKhau_GUI extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new DoiMatKhau_GUI().setVisible(true);
+//                new DoiMatKhau_GUI().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton btnSuccess;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPasswordField txtMatKhau;
-    private javax.swing.JTextField txtTaiKhoan;
+    private javax.swing.JPasswordField txtPassword;
+    private javax.swing.JPasswordField txtRetypePassword;
     // End of variables declaration//GEN-END:variables
 }
