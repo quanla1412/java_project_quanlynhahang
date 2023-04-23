@@ -12,12 +12,12 @@ public class LoaiKhachHang_DTO {
     private int id;
     private String ten;
     private int diemToiThieu;
-    private Double mucUuDai;
+    private float mucUuDai;
 
     public LoaiKhachHang_DTO() {
     }
 
-    public LoaiKhachHang_DTO(int id, String ten, int diemToiThieu, Double mucUuDai) {
+    public LoaiKhachHang_DTO(int id, String ten, int diemToiThieu, float mucUuDai) {
         this.id = id;
         this.ten = ten;
         this.diemToiThieu = diemToiThieu;
@@ -48,11 +48,11 @@ public class LoaiKhachHang_DTO {
         this.diemToiThieu = diemToiThieu;
     }
 
-    public Double getMucUuDai() {
+    public float getMucUuDai() {
         return mucUuDai;
     }
 
-    public void setMucUuDai(Double mucUuDai) {
+    public void setMucUuDai(float mucUuDai) {
         this.mucUuDai = mucUuDai;
     }
     

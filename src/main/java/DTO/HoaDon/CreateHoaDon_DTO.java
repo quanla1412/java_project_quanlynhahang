@@ -12,17 +12,10 @@ public class CreateHoaDon_DTO {
     private int idKhachHang;
     private Timestamp ngayGio;
     private int tongGia;
+    private float uuDai;
     private ArrayList<CreateChiTietHoaDon_DTO> listMonAn;
 
     public CreateHoaDon_DTO() {
-    }
-
-    public CreateHoaDon_DTO(String maNhanVien, int idKhachHang, Timestamp ngayGio, int tongGia, ArrayList<CreateChiTietHoaDon_DTO> listMonAn) {
-        this.maNhanVien = maNhanVien;
-        this.idKhachHang = idKhachHang;
-        this.ngayGio = ngayGio;
-        this.tongGia = tongGia;
-        this.listMonAn = listMonAn;
     }
 
     public String getMaNhanVien() {
@@ -64,6 +57,12 @@ public class CreateHoaDon_DTO {
     public void setListMonAn(ArrayList<CreateChiTietHoaDon_DTO> listMonAn) {
         this.listMonAn = listMonAn;
     }
-    
-    
+
+    public float getUuDai() {
+        return uuDai;
+    }
+
+    public void setUuDai(float uuDai) {
+        this.uuDai = uuDai;
+    }
 }

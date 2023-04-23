@@ -65,8 +65,6 @@ public class QuanLyHoaDon_GUI extends javax.swing.JFrame {
     
     
     private void loadFromDateToDate(){  
-
-
         LocalDate fromDate = LocalDate.now().minusDays(7);
         LocalDate toDate = LocalDate.now();
         

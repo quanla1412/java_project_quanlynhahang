@@ -244,14 +244,14 @@ public class TrangChu_GUI extends javax.swing.JFrame {
     }//GEN-LAST:event_btnQuanLyMonAnActionPerformed
 
     private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
-        // TODO add your handling code here:
-        if(quanLyPhucVu_GUI == null || !quanLyPhucVu_GUI.isDisplayable()){
-            quanLyPhucVu_GUI = new QuanLyPhucVu_GUI();
-            quanLyPhucVu_GUI.setVisible(true);
-        } else {
-            quanLyPhucVu_GUI.setState(JFrame.NORMAL);
-            quanLyPhucVu_GUI.toFront();
-        }
+//        // TODO add your handling code here:
+//        if(quanLyPhucVu_GUI == null || !quanLyPhucVu_GUI.isDisplayable()){
+//            quanLyPhucVu_GUI = new QuanLyPhucVu_GUI();
+//            quanLyPhucVu_GUI.setVisible(true);
+//        } else {
+//            quanLyPhucVu_GUI.setState(JFrame.NORMAL);
+//            quanLyPhucVu_GUI.toFront();
+//        }
     }//GEN-LAST:event_jButton1MouseClicked
 
     private void btnQuanLyMonAnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnQuanLyMonAnMouseClicked
