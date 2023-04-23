@@ -5,8 +5,6 @@ import DTO.HoaDon.CreateChiTietHoaDon_DTO;
 import DTO.HoaDon.CreateHoaDon_DTO;
 import DTO.HoaDon.HoaDonFull_DTO;
 import DTO.HoaDon.HoaDon_DTO;
-import DTO.HoaDon.UpdateChiTietHoaDon_DTO;
-import DTO.HoaDon.UpdateHoaDon_DTO;
 import DTO.Search.SearchHoaDon_DTO;
 import com.mycompany.quanlynhahang.ConnectDatabase;
 import java.sql.Connection;
@@ -15,6 +13,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Timestamp;
+import java.sql.Types;
 import java.util.ArrayList;
 
 /**
@@ -59,7 +58,7 @@ public class HoaDon_DAO {
                                                     + " FROM HoaDon"
                                                     + " WHERE ");
             
-            ArrayList<String> listSQL = new ArrayList<String>();
+            ArrayList<String> listSQL = new ArrayList<>();
             if(searchData.getId() != null && !searchData.getId().isBlank())
                 listSQL.add("HD_ID LIKE '%" + searchData.getId() + "%'");
           
@@ -195,7 +194,7 @@ public class HoaDon_DAO {
         Connection con = ConnectDatabase.openConnection();
         ArrayList<ChiTietHoaDon_DTO> result = new ArrayList<>();
         try {
-            String sql = "SELECT MA_Ten, CTHD_Gia, CTHD_SoLuong, CTHD_Gia*CTHD_SoLuong AS CTHD_ThanhTien "
+            String sql = "SELECT MA_Ten, CTHD_DonGia, CTHD_SoLuong, CTHD_DonGia*CTHD_SoLuong AS CTHD_ThanhTien "
                         + "FROM ChiTietHoaDon, MonAn "
                         + "WHERE MonAn.MA_ID = ChiTietHoaDon.MA_ID AND HD_ID =" + idHoaDon;
             Statement statement = con.createStatement();
@@ -205,7 +204,7 @@ public class HoaDon_DAO {
                 ChiTietHoaDon_DTO cthd = new ChiTietHoaDon_DTO();
                 
                 cthd.setTenMonAn(rs.getNString("Ma_Ten"));
-                cthd.setGia(rs.getInt("CTHD_Gia"));
+                cthd.setGia(rs.getInt("CTHD_DonGia"));
                 cthd.setSoLuong(rs.getInt("CTHD_SoLuong"));
                 cthd.setThanhTien(rs.getInt("CTHD_ThanhTien"));
                 
@@ -221,75 +220,62 @@ public class HoaDon_DAO {
     }
     
     
-    public boolean createHoaDon(CreateHoaDon_DTO data){
+    public int createHoaDon(CreateHoaDon_DTO data){
         Connection con = ConnectDatabase.openConnection();
-        boolean result = false;
+        int idHoaDon = -1;
         try {
-            String sql = "INSERT INTO HoaDon(NV_Ma, KH_ID, HD_NgayGio, HD_TongGia) "
-                    + "VALUES (?, ?, ?, ?)";
+            String sql = "INSERT INTO HoaDon(NV_Ma, KH_ID, HD_NgayGio, HD_TongGia, HD_UuDai, HD_DaHuy) "
+                    + "VALUES (?, ?, ?, ?, ?, 0)";
             
             PreparedStatement statement = con.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
             
             statement.setString(1, data.getMaNhanVien());
-            statement.setInt(2, data.getIdKhachHang());
-            statement.setTimestamp(3, data.getNgayGio());
+            if(data.getIdKhachHang() > 0)
+                statement.setInt(2, data.getIdKhachHang());
+            else
+                statement.setNull(2, Types.INTEGER);
+            statement.setTimestamp(3, new Timestamp(data.getNgayGio().getTime()));
             statement.setInt(4, data.getTongGia());
+            statement.setFloat(5, data.getUuDai());
             
-            if(statement.executeUpdate() >  1){
+            if(statement.executeUpdate() >=  1){
                 ResultSet rs = statement.getGeneratedKeys();
                 if(rs.next()){
-                    int idHoaDon = rs.getInt(1);
+                    idHoaDon = rs.getInt(1);
                     
-                    sql = "INSERT INTO ChiTietHoaDon(HD_ID, MA_ID, BTMA_ID, CTHD_SoLuong)"
+                    sql = "INSERT INTO ChiTietHoaDon(HD_ID, MA_ID, CTHD_SoLuong, CTHD_DonGia) "
                             + "VALUES(?, ?, ?, ?)";
                     PreparedStatement statementCTHD = con.prepareStatement(sql);
                     
                     for(CreateChiTietHoaDon_DTO cthd : data.getListMonAn()) {
                         statementCTHD.setInt(1, idHoaDon);
-                        statementCTHD.setInt(2, cthd.getIdMA());
-                        statementCTHD.setInt(3, cthd.getIdBTMA());
-                        statementCTHD.setInt(4, cthd.getSoLuong());
+                        statementCTHD.setInt(2, cthd.idMonAn());
+                        statementCTHD.setInt(3, cthd.soLuong());
+                        statementCTHD.setInt(4, cthd.donGia());
                         
                         statementCTHD.executeUpdate();
                     }                    
                 }  
-                result = true;
             }
             
             
             
         } catch (SQLException ex ){
             System.out.println(ex);
+            idHoaDon = -1;
         } finally {
             ConnectDatabase.closeConnection(con);
         }
         
-        return result;
-    }
-    
-    public void updateHoaDon(UpdateHoaDon_DTO data){
-        Connection con = ConnectDatabase.openConnection();
-        try {
-            String sql = "UPDATE HoaDon"
-                    + "SET HD_DaHuy = 1 "
-                    + "WHERE HD_ID = " + data.getIdHoaDon();
-            
-            PreparedStatement statement = con.prepareStatement(sql);
-            
-
-        } catch (SQLException ex ){
-            System.out.println(ex);
-        } finally {
-            ConnectDatabase.closeConnection(con);
-        }
+        return idHoaDon;
     }
     
     public boolean deleteHoaDon(int idHoaDon){
         Connection con = ConnectDatabase.openConnection();
         boolean result = false;
         try {
-            String sql = "UPDATE HoaDon"
-                    + " SET HD_DaHuy = 1"
+            String sql = "UPDATE HoaDon "
+                    + " SET HD_DaHuy = 1 "
                     + " WHERE HD_ID = " + idHoaDon;
             
             Statement statement = con.createStatement();

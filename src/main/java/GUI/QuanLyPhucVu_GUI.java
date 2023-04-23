@@ -28,6 +28,7 @@ public class QuanLyPhucVu_GUI extends javax.swing.JFrame {
     private ArrayList<Ban_DTO> listBanSanSang;
     private BanFull_DTO banDangChon;
     private ArrayList<DonGoi_DTO> listDonGoi;
+    private String maNhanVien;
     
     private Menu_GUI menu_GUI;
     private DatMon_GUI datMon_GUI;
@@ -35,10 +36,11 @@ public class QuanLyPhucVu_GUI extends javax.swing.JFrame {
     /**
      * Creates new form QuanLyPhucVu_GUI
      */
-    public QuanLyPhucVu_GUI() {
+    public QuanLyPhucVu_GUI(String maNhanVien) {
         initComponents();
         ban_BUS = new Ban_BUS();
         donGoi_BUS = new DonGoi_BUS();
+        this.maNhanVien = maNhanVien;
         
         loadDanhSachBan();
     }
@@ -226,15 +228,15 @@ public class QuanLyPhucVu_GUI extends javax.swing.JFrame {
         jButton63 = new javax.swing.JButton();
         jButton59 = new javax.swing.JButton();
         jButton60 = new javax.swing.JButton();
-        jButton61 = new javax.swing.JButton();
         jButton62 = new javax.swing.JButton();
         jButton70 = new javax.swing.JButton();
         jButton71 = new javax.swing.JButton();
         jButton72 = new javax.swing.JButton();
+        jButton61 = new javax.swing.JButton();
         jButton73 = new javax.swing.JButton();
         jButton74 = new javax.swing.JButton();
-        jButton75 = new javax.swing.JButton();
         jButton76 = new javax.swing.JButton();
+        jButton75 = new javax.swing.JButton();
         jButton77 = new javax.swing.JButton();
         jButton17 = new javax.swing.JButton();
         jButton18 = new javax.swing.JButton();
@@ -411,11 +413,6 @@ public class QuanLyPhucVu_GUI extends javax.swing.JFrame {
         jButton60.setPreferredSize(new java.awt.Dimension(120, 60));
         pnlDanhSachBan.add(jButton60);
 
-        jButton61.setText("<html>\n<p style=\"text-align:center\">Bàn 1</p>\n<p  style=\"text-align:center\">Vuông 2</p>\n<p  style=\"text-align:center\">Đang chuẩn bị</p>\n</html>");
-        jButton61.setMinimumSize(new java.awt.Dimension(120, 60));
-        jButton61.setPreferredSize(new java.awt.Dimension(120, 60));
-        pnlDanhSachBan.add(jButton61);
-
         jButton62.setText("<html>\n<p style=\"text-align:center\">Bàn 1</p>\n<p  style=\"text-align:center\">Vuông 2</p>\n<p  style=\"text-align:center\">Đang chuẩn bị</p>\n</html>");
         jButton62.setMinimumSize(new java.awt.Dimension(120, 60));
         jButton62.setPreferredSize(new java.awt.Dimension(120, 60));
@@ -436,6 +433,11 @@ public class QuanLyPhucVu_GUI extends javax.swing.JFrame {
         jButton72.setPreferredSize(new java.awt.Dimension(120, 60));
         pnlDanhSachBan.add(jButton72);
 
+        jButton61.setText("<html>\n<p style=\"text-align:center\">Bàn 1</p>\n<p  style=\"text-align:center\">Vuông 2</p>\n<p  style=\"text-align:center\">Đang chuẩn bị</p>\n</html>");
+        jButton61.setMinimumSize(new java.awt.Dimension(120, 60));
+        jButton61.setPreferredSize(new java.awt.Dimension(120, 60));
+        pnlDanhSachBan.add(jButton61);
+
         jButton73.setText("<html>\n<p style=\"text-align:center\">Bàn 1</p>\n<p  style=\"text-align:center\">Vuông 2</p>\n<p  style=\"text-align:center\">Đang chuẩn bị</p>\n</html>");
         jButton73.setMinimumSize(new java.awt.Dimension(120, 60));
         jButton73.setPreferredSize(new java.awt.Dimension(120, 60));
@@ -446,15 +448,15 @@ public class QuanLyPhucVu_GUI extends javax.swing.JFrame {
         jButton74.setPreferredSize(new java.awt.Dimension(120, 60));
         pnlDanhSachBan.add(jButton74);
 
-        jButton75.setText("<html>\n<p style=\"text-align:center\">Bàn 1</p>\n<p  style=\"text-align:center\">Vuông 2</p>\n<p  style=\"text-align:center\">Đang chuẩn bị</p>\n</html>");
-        jButton75.setMinimumSize(new java.awt.Dimension(120, 60));
-        jButton75.setPreferredSize(new java.awt.Dimension(120, 60));
-        pnlDanhSachBan.add(jButton75);
-
         jButton76.setText("<html>\n<p style=\"text-align:center\">Bàn 1</p>\n<p  style=\"text-align:center\">Vuông 2</p>\n<p  style=\"text-align:center\">Đang chuẩn bị</p>\n</html>");
         jButton76.setMinimumSize(new java.awt.Dimension(120, 60));
         jButton76.setPreferredSize(new java.awt.Dimension(120, 60));
         pnlDanhSachBan.add(jButton76);
+
+        jButton75.setText("<html>\n<p style=\"text-align:center\">Bàn 1</p>\n<p  style=\"text-align:center\">Vuông 2</p>\n<p  style=\"text-align:center\">Đang chuẩn bị</p>\n</html>");
+        jButton75.setMinimumSize(new java.awt.Dimension(120, 60));
+        jButton75.setPreferredSize(new java.awt.Dimension(120, 60));
+        pnlDanhSachBan.add(jButton75);
 
         jButton77.setText("<html>\n<p style=\"text-align:center\">Bàn 1</p>\n<p  style=\"text-align:center\">Vuông 2</p>\n<p  style=\"text-align:center\">Đang chuẩn bị</p>\n</html>");
         jButton77.setMinimumSize(new java.awt.Dimension(120, 60));
@@ -1221,7 +1223,7 @@ public class QuanLyPhucVu_GUI extends javax.swing.JFrame {
         }
         
         if(thanhToan_GUI == null || !thanhToan_GUI.isDisplayable()){
-            thanhToan_GUI = new ThanhToan_GUI(banDangChon.getId());
+            thanhToan_GUI = new ThanhToan_GUI(banDangChon.getId(), maNhanVien);
             thanhToan_GUI.setVisible(true);
         } else {
             thanhToan_GUI.setState(JFrame.NORMAL);
@@ -1312,7 +1314,7 @@ public class QuanLyPhucVu_GUI extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new QuanLyPhucVu_GUI().setVisible(true);
+                new QuanLyPhucVu_GUI("quanla").setVisible(true);
             }
         });
     }

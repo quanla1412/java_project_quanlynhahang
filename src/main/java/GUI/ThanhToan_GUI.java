@@ -1,23 +1,24 @@
 package GUI;
 
+import BUS.Ban_BUS;
 import BUS.DonGoi_BUS;
+import BUS.HoaDon_BUS;
 import BUS.KhachHang_BUS;
+import BUS.NhanVien_BUS;
+import Constraints.TinhTrangBanConstraints;
 import DTO.Ban.DonGoi_DTO;
+import DTO.HoaDon.ChiTietHoaDon_DTO;
+import DTO.HoaDon.CreateChiTietHoaDon_DTO;
+import DTO.HoaDon.CreateHoaDon_DTO;
 import DTO.KhachHang.KhachHangFull_DTO;
-import com.itextpdf.kernel.pdf.PdfDocument;
-import com.itextpdf.kernel.pdf.PdfWriter;
-import com.itextpdf.layout.Document;
-import com.itextpdf.layout.element.Cell;
-import com.itextpdf.layout.element.Paragraph;
-import com.itextpdf.layout.element.Table;
+import DTO.KhachHang.UpdateKhachHang_DTO;
+import DTO.NhanVien.NhanVienFull_DTO;
 import com.mycompany.quanlynhahang.CheckHopLe;
 import com.mycompany.quanlynhahang.Price;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.Date;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -30,17 +31,27 @@ public class ThanhToan_GUI extends javax.swing.JFrame {
     private int idBan;
     private DonGoi_BUS donGoi_BUS;
     private KhachHang_BUS khachHang_BUS;
+    private HoaDon_BUS hoaDon_BUS;
     private int tongTien;
     private ArrayList<DonGoi_DTO> listDonGoi;
-    
+    private String maNhanVien;
+    private NhanVien_BUS nhanVien_BUS;
+    private KhachHangFull_DTO khachHang;
+    private Ban_BUS ban_BUS;
+    int total = 0;
     /**
      * Creates new form HoaDon_GUI
      */
-    public ThanhToan_GUI(int idBan) {
+    public ThanhToan_GUI(int idBan, String maNhanVien) {
         initComponents();
         this.idBan = idBan;
         donGoi_BUS = new DonGoi_BUS();
         khachHang_BUS = new KhachHang_BUS();
+        nhanVien_BUS = new NhanVien_BUS();
+        hoaDon_BUS = new HoaDon_BUS();
+        this.maNhanVien = maNhanVien;
+        KhachHangFull_DTO khachHang;
+        ban_BUS = new Ban_BUS();
         
         loadThanhToan();
         loadDonGoi();
@@ -48,6 +59,9 @@ public class ThanhToan_GUI extends javax.swing.JFrame {
     
     private void loadThanhToan(){
         lblTitleBan.setText("Bàn số " + idBan);
+        
+        NhanVienFull_DTO nhanVienFull_DTO = nhanVien_BUS.getNhanVienbyMa(maNhanVien);
+        lblNhanVien.setText("Nhân viên lập hóa đơn: " + nhanVienFull_DTO.getHoTen());
     }
     
     private void loadDonGoi(){
@@ -56,7 +70,6 @@ public class ThanhToan_GUI extends javax.swing.JFrame {
         String[] col = {"ID Món ăn", "Tên món ăn", "Đơn giá", "Số lượng", "Thành tiền"};
         DefaultTableModel model = new DefaultTableModel(col, 0);
         tblDonGoi.setModel(model);
-        int total = 0;
         
         for(DonGoi_DTO donGoi : listDonGoi){
             int gia = donGoi.getMonAn().getGiaKhuyenMai() > 0 ?
@@ -78,47 +91,6 @@ public class ThanhToan_GUI extends javax.swing.JFrame {
         tongTien = total;
         lblTongTien.setText(Price.formatPrice(tongTien));
     }
-    
-    private void inBillTam(String filePath) throws FileNotFoundException{
-        String dest = filePath + "\\billBan" + idBan + ".pdf";
-        PdfWriter writer = new PdfWriter(dest);
-        
-        PdfDocument pdf = new PdfDocument(new PdfWriter(dest));
-        Document doc = new Document(pdf);
-        
-        // Creating a table object 
-        float [] pointColumnWidths = {150F, 150F, 150F, 150F, 150F}; 
-        Table table = new Table(pointColumnWidths); 
-        
-            // Adding cells to the table       
-          table.addCell("ID Món ăn");       
-          table.addCell("Tên món ăn");       
-          table.addCell("Đơn giá");       
-          table.addCell("Số lượng");       
-          table.addCell("Thành tiền");       
-          
-          for(DonGoi_DTO donGoi : listDonGoi){   
-            int gia = donGoi.getMonAn().getGiaKhuyenMai() > 0 ?
-                  donGoi.getMonAn().getGiaKhuyenMai() :
-                  donGoi.getMonAn().getGia();
-            int tongTien = gia * donGoi.getSoLuong();
-            
-            table.addCell(Integer.toString(donGoi.getMonAn().getId()));       
-            table.addCell(donGoi.getMonAn().getTen());       
-            table.addCell(Price.formatPrice(gia));       
-            table.addCell(Integer.toString(donGoi.getSoLuong()));       
-            table.addCell(Price.formatPrice(tongTien));               
-          }
-
-          // Adding Table to document        
-          doc.add(table);                  
-
-          // Closing the document       
-          doc.close();
-          System.out.println("Table created successfully..");  
-
-        
-    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -131,7 +103,7 @@ public class ThanhToan_GUI extends javax.swing.JFrame {
         java.awt.GridBagConstraints gridBagConstraints;
 
         jPanel1 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
+        lblNhanVien = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         txtSDTKhachHang = new javax.swing.JTextField();
         btnTimKhachHang = new javax.swing.JButton();
@@ -147,7 +119,7 @@ public class ThanhToan_GUI extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         lblMucUuDai = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        btnThanhToan = new javax.swing.JButton();
         btnInBillTam = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -156,10 +128,10 @@ public class ThanhToan_GUI extends javax.swing.JFrame {
 
         jPanel1.setLayout(new java.awt.GridBagLayout());
 
-        jLabel1.setText("Nhân viên lập hóa đơn: Phan Hoàng Nhật Tân");
-        jLabel1.setMaximumSize(new java.awt.Dimension(300, 16));
-        jLabel1.setMinimumSize(new java.awt.Dimension(300, 16));
-        jLabel1.setPreferredSize(new java.awt.Dimension(300, 16));
+        lblNhanVien.setText("Nhân viên lập hóa đơn: Phan Hoàng Nhật Tân");
+        lblNhanVien.setMaximumSize(new java.awt.Dimension(300, 16));
+        lblNhanVien.setMinimumSize(new java.awt.Dimension(300, 16));
+        lblNhanVien.setPreferredSize(new java.awt.Dimension(300, 16));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 1;
@@ -167,9 +139,9 @@ public class ThanhToan_GUI extends javax.swing.JFrame {
         gridBagConstraints.ipadx = -1;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(5, 10, 5, 10);
-        jPanel1.add(jLabel1, gridBagConstraints);
+        jPanel1.add(lblNhanVien, gridBagConstraints);
 
-        jLabel9.setText("Tìm khách hàng theo số điện thoại");
+        jLabel9.setText("Tìm khách hàng theo số điện thoại:");
         jLabel9.setMaximumSize(new java.awt.Dimension(192, 16));
         jLabel9.setMinimumSize(new java.awt.Dimension(192, 16));
         jLabel9.setPreferredSize(new java.awt.Dimension(192, 16));
@@ -316,13 +288,18 @@ public class ThanhToan_GUI extends javax.swing.JFrame {
         gridBagConstraints.insets = new java.awt.Insets(5, 20, 5, 20);
         getContentPane().add(jPanel2, gridBagConstraints);
 
-        jButton1.setText("Thanh toán");
+        btnThanhToan.setText("Thanh toán");
+        btnThanhToan.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnThanhToanMouseClicked(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 3;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
         gridBagConstraints.insets = new java.awt.Insets(5, 0, 10, 20);
-        getContentPane().add(jButton1, gridBagConstraints);
+        getContentPane().add(btnThanhToan, gridBagConstraints);
 
         btnInBillTam.setText("In bill tạm");
         btnInBillTam.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -350,7 +327,7 @@ public class ThanhToan_GUI extends javax.swing.JFrame {
             return;
         }
         
-        KhachHangFull_DTO khachHang = khachHang_BUS.findKhachHangFullBySDT(sdt);
+        khachHang = khachHang_BUS.findKhachHangFullBySDT(sdt);
         if(khachHang == null){            
             JOptionPane.showMessageDialog(this, "Không tìm thấy khách hàng","Error", JOptionPane.ERROR_MESSAGE);
             return;
@@ -368,18 +345,67 @@ public class ThanhToan_GUI extends javax.swing.JFrame {
     }//GEN-LAST:event_btnTimKhachHangMouseClicked
 
     private void btnInBillTamMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnInBillTamMouseClicked
-       JFileChooser jFileChooser= new JFileChooser("D:");
+        JFileChooser jFileChooser= new JFileChooser("D:");
         jFileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-       boolean result = false; 
+        boolean result = false; 
        
         if (jFileChooser.showSaveDialog(null) == JFileChooser.APPROVE_OPTION) {
-            result = donGoi_BUS.inBillTam(idBan, jFileChooser.getSelectedFile().getAbsolutePath());
+            result = donGoi_BUS.inBillTam(idBan, maNhanVien, khachHang.getId(), jFileChooser.getSelectedFile().getAbsolutePath());
         }
         
         if (!result) {
             JOptionPane.showMessageDialog(this, "In bill tạm thất bại","Error", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnInBillTamMouseClicked
+
+    private void btnThanhToanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnThanhToanMouseClicked
+        // TODO add your handling code here:
+        CreateHoaDon_DTO createHoaDon_DTO = new CreateHoaDon_DTO();
+        
+        createHoaDon_DTO.setMaNhanVien(maNhanVien);
+        if(khachHang != null){
+            createHoaDon_DTO.setIdKhachHang(khachHang.getId());
+            createHoaDon_DTO.setUuDai(khachHang.getLoaiKhachHang().getMucUuDai());
+        }
+        
+        createHoaDon_DTO.setNgayGio(Timestamp.valueOf(LocalDateTime.now()));
+        createHoaDon_DTO.setTongGia(tongTien);
+        
+        ArrayList<CreateChiTietHoaDon_DTO> listChiTietHoaDon = new ArrayList<>();
+        for(DonGoi_DTO donGoi : listDonGoi){
+            int idMonAn = donGoi.getMonAn().getId();
+            int soLuong = donGoi.getSoLuong();
+            int gia = donGoi.getMonAn().getGiaKhuyenMai() > 0 ? 
+                    donGoi.getMonAn().getGiaKhuyenMai() :
+                    donGoi.getMonAn().getGia();
+            
+            CreateChiTietHoaDon_DTO cthd = new CreateChiTietHoaDon_DTO(idMonAn, soLuong, gia);
+            listChiTietHoaDon.add(cthd);
+        }
+        createHoaDon_DTO.setListMonAn(listChiTietHoaDon);
+        
+        int idHoaDon = hoaDon_BUS.createHoaDon(createHoaDon_DTO);
+        if(idHoaDon > 0){
+            donGoi_BUS.deleteDonGoi(idBan);
+            
+            boolean result = khachHang_BUS.capNhatSauThanhToan(idHoaDon);
+            if(!result)
+                JOptionPane.showMessageDialog(this, "Cập nhật điểm khách hàng thất bại","Error", JOptionPane.ERROR_MESSAGE);                
+            
+            JFileChooser jFileChooser= new JFileChooser("D:");
+            jFileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+            boolean resultInBill = false; 
+
+            if (jFileChooser.showSaveDialog(null) == JFileChooser.APPROVE_OPTION) {
+                resultInBill = hoaDon_BUS.inBill(idHoaDon, jFileChooser.getSelectedFile().getAbsolutePath());
+            }  
+            ban_BUS.changeTinhTrangBan(idBan, TinhTrangBanConstraints.DANG_CHUAN_BI);
+            this.dispose();
+        }            
+        else{
+            JOptionPane.showMessageDialog(this, "Thanh toán thất bại","Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_btnThanhToanMouseClicked
 
     /**
      * @param args the command line arguments
@@ -419,9 +445,8 @@ public class ThanhToan_GUI extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnInBillTam;
+    private javax.swing.JButton btnThanhToan;
     private javax.swing.JButton btnTimKhachHang;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
@@ -430,6 +455,7 @@ public class ThanhToan_GUI extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblMucUuDai;
+    private javax.swing.JLabel lblNhanVien;
     private javax.swing.JLabel lblSDTKhachHang;
     private javax.swing.JLabel lblTenKhachHang;
     private javax.swing.JLabel lblTitleBan;

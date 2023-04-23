@@ -6,6 +6,8 @@ import DAO.DonGoi_DAO;
 import DTO.Ban.CreateDonGoi_DTO;
 import DTO.Ban.DonGoi_DTO;
 import DTO.Ban.UpdateDonGoi_DTO;
+import DTO.KhachHang.KhachHangFull_DTO;
+import DTO.NhanVien.NhanVienFull_DTO;
 import com.itextpdf.io.font.PdfEncodings;
 import com.itextpdf.kernel.font.PdfFont;
 import com.itextpdf.kernel.font.PdfFontFactory;
@@ -82,6 +84,13 @@ public class DonGoi_BUS {
         return result;
     }
     
+    public boolean deleteDonGoi(int idBan) {
+        DonGoi_DAO donGoi_DAO = new DonGoi_DAO();
+        boolean result = donGoi_DAO.deleteAllDonGoiByIdBan(idBan);
+        
+        return result;
+    }
+    
     public boolean chuyenBan(int idBanCu, int idBanMoi){
         DonGoi_DAO donGoi_DAO = new DonGoi_DAO();
         Ban_DAO ban_DAO = new Ban_DAO();
@@ -104,8 +113,14 @@ public class DonGoi_BUS {
         return result;
     }
     
-    public boolean inBillTam(int idBan, String filePath){
+    public boolean inBillTam(int idBan, String maNhanVien, int idKhachHang, String filePath){
         DonGoi_DAO donGoi_DAO = new DonGoi_DAO();
+        NhanVien_BUS nhanVien_BUS = new NhanVien_BUS();
+        KhachHang_BUS khachHang_BUS = new KhachHang_BUS();
+        NhanVienFull_DTO nhanVienFull_DTO = nhanVien_BUS.getNhanVienbyMa(maNhanVien);
+        KhachHangFull_DTO khachHangFull_DTO = null;
+        if(idKhachHang > 0)
+            khachHangFull_DTO = khachHang_BUS.getKhachHangFullById(idKhachHang);
         ArrayList<DonGoi_DTO> listDonGoi = donGoi_DAO.getAllDonGoiByIdBan(idBan);
         
         // tạo một document
@@ -141,11 +156,14 @@ public class DonGoi_BUS {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
             String formatDateTimeNow = now.format(formatter);
             
+            String hoTenKH = khachHangFull_DTO != null ? khachHangFull_DTO.getTen(): "";
+            String sdtKH = khachHangFull_DTO != null ? khachHangFull_DTO.getSdt(): "";
+            
             String infoString = "Bàn 1\n"
-                    + "Mã nhân viên: phngnhatan\n"
-                    + "Tên nhân viên: Phan Hoàng Nhật Tân\n"
-                    + "Tên khách hàng: Lê Anh Quân\n"
-                    + "Số điện thoại khách hàng: 0933608977";
+                    + "Mã nhân viên: " + maNhanVien + "\n"
+                    + "Tên nhân viên: " +  nhanVienFull_DTO.getHoTen() + "\n"
+                    + "Tên khách hàng: " + hoTenKH + "\n"
+                    + "Số điện thoại khách hàng: " + sdtKH;
             Paragraph info = new Paragraph(infoString);
             info.setTextAlignment(TextAlignment.LEFT);
             info.add(new Tab());
@@ -181,10 +199,14 @@ public class DonGoi_BUS {
             }    
                     
             doc.add(table);    
+        
+            double mucUuDai = khachHangFull_DTO != null ? khachHangFull_DTO.getLoaiKhachHang().getMucUuDai() : 0;
+            double tongThanhToanDouble = Math.round(total - total * mucUuDai/100);
+            int tongThanhToanInt = (int) tongThanhToanDouble;
             
             String tongThanhToanString = "Tổng tiền: " + Price.formatPrice(total) + "\n"
-                    + "Ưu đãi khách hàng: 0.0%\n"
-                    + "Tổng thanh toán " + Price.formatPrice(total); 
+                    + "Ưu đãi khách hàng: " + mucUuDai + "%\n"
+                    + "Tổng thanh toán " + Price.formatPrice(tongThanhToanInt); 
             Paragraph tongThanhToan = new Paragraph(tongThanhToanString);
             tongThanhToan.setTextAlignment(TextAlignment.RIGHT);
             doc.add(tongThanhToan);            

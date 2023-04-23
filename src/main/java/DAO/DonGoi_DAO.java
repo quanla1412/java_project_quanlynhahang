@@ -155,7 +155,7 @@ public class DonGoi_DAO {
         Connection con = ConnectDatabase.openConnection();
         boolean result = false;
         try {
-            String sql = "DELETE FROM DonGoi_BTMA WHERE B_ID = ?";
+            String sql = "DELETE FROM DonGoi WHERE B_ID = ?";
             PreparedStatement statement = con.prepareStatement(sql);
                        
             statement.setInt(1, idBan);     

@@ -32,13 +32,11 @@ public class NhanVien_DAO {
         NhanVienFull_DTO result = new NhanVienFull_DTO();
         String sql = "SELECT NV_Ma, NhanVien.TTNV_ID, TinhTrangNhanVien.TTNV_Ten, NhanVien.CV_ID, ChucVu.CV_Ten, NV_HoTen, NV_NgaySinh, NV_GioiTinhNam, NV_Email, NV_SDT, NV_DiaChi, NV_CCCD "
                                             + "FROM NhanVien, TinhTrangNhanVien, ChucVu "
-                                            + "WHERE NhanVien.TTNV_ID = TinhTrangNhanVien.TTNV_ID AND NhanVien.CV_ID = ChucVu.CV_ID AND NV_Ma LIKE '" + ma + "'";
+                                            + "WHERE NhanVien.TTNV_ID = TinhTrangNhanVien.TTNV_ID AND NhanVien.CV_ID = ChucVu.CV_ID AND NV_Ma = '" + ma + "'";
         try {
+            Statement statement = con.createStatement();
+            ResultSet resultSet = statement.executeQuery(sql);
             
-           
-           Statement statement = con.createStatement();
-            ResultSet resultSet = statement.executeQuery(sql   
-                                                        );
             if(resultSet.next()){
                 result.setMa(resultSet.getString("NV_Ma"));
                 result.setHoTen(resultSet.getNString("NV_HoTen"));

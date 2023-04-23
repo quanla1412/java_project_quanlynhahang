@@ -425,4 +425,28 @@ public class KhachHang_DAO {
         }
         return result;
     }
+     
+     public boolean updateDiemTichLuy(int idKhachHang, int diemTichLuy){
+        Connection con = ConnectDatabase.openConnection();
+        boolean result = false;
+        try {
+            
+            String sql = "UPDATE KhachHang SET KH_DiemTichLuy = ? WHERE KH_ID = ?";
+            
+            PreparedStatement preparedStatement = con.prepareStatement(sql);
+            preparedStatement.setInt(1, diemTichLuy);
+            preparedStatement.setInt(2, idKhachHang);
+            
+            
+            if(preparedStatement.executeUpdate() >= 1){
+                result = true;                
+            }
+            
+        } catch (SQLException ex) {
+            System.out.println(ex);
+        } finally {
+            ConnectDatabase.closeConnection(con); 
+        }
+        return result;         
+     }
 }

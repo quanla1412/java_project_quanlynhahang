@@ -34,7 +34,7 @@ public class LoaiKhachHang_DAO {
                 lkh.setId(rs.getInt("LKH_ID"));
                 lkh.setTen(rs.getNString("LKH_Ten"));
                 lkh.setDiemToiThieu(rs.getInt("LKH_DiemToiThieu"));
-                lkh.setMucUuDai(rs.getDouble("LKH_MucUuDai")); 
+                lkh.setMucUuDai(rs.getFloat("LKH_MucUuDai")); 
             }
         } catch (SQLException ex ){
             System.out.println(ex); 
@@ -60,7 +60,7 @@ public class LoaiKhachHang_DAO {
                 lkh.setId(rs.getInt("LKH_ID"));
                 lkh.setTen(rs.getNString("LKH_Ten"));
                 lkh.setDiemToiThieu(rs.getInt("LKH_DiemToiThieu"));
-                lkh.setMucUuDai(rs.getDouble("LKH_MucUuDai"));
+                lkh.setMucUuDai(rs.getFloat("LKH_MucUuDai"));
                 
                 result.add(lkh);
             }            

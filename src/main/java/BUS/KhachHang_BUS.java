@@ -6,6 +6,7 @@ package BUS;
 
 import DAO.KhachHang_DAO;
 import DAO.LoaiKhachHang_DAO;
+import DTO.HoaDon.HoaDonFull_DTO;
 import DTO.KhachHang.CreateKhachHang_DTO;
 import DTO.KhachHang.KhachHangFull_DTO;
 import DTO.KhachHang.KhachHang_DTO;
@@ -359,6 +360,26 @@ public class KhachHang_BUS {
         return true;
     }
     
+    public boolean capNhatLoaiKhachHang(int idKhachHang){
+        LoaiKhachHang_BUS loaiKhachHang_BUS = new LoaiKhachHang_BUS();
+        KhachHang_DAO khachHang_DAO = new KhachHang_DAO();
+        ArrayList<LoaiKhachHang_DTO> listLoaiKhachHang = loaiKhachHang_BUS.getAllLoaiKhachHang();        
+        KhachHangFull_DTO  khachHang = getKhachHangFullById(idKhachHang);
+        
+        for(int i = 1; i < listLoaiKhachHang.size(); i++){
+            if(khachHang.getDiemTichLuy() < listLoaiKhachHang.get(i).getDiemToiThieu()){
+                boolean result = khachHang_DAO.capNhatLoaiKhachHang(khachHang.getId(), listLoaiKhachHang.get(i-1).getId());
+                if (!result) {
+                    return false;
+                }
+                break;
+            }                        
+        }
+            
+        
+        return true;
+    }
+    
     public boolean capNhatLoaiKhachHangSauXoa(int idLoaiKhachHangBiXoa){         
         LoaiKhachHang_BUS loaiKhachHang_BUS = new LoaiKhachHang_BUS();
         KhachHang_DAO khachHang_DAO = new KhachHang_DAO();
@@ -379,6 +400,27 @@ public class KhachHang_BUS {
             }
         } 
         return true;
+    }
+    
+    public boolean capNhatSauThanhToan(int idHoaDon){
+        HoaDon_BUS hoaDon_BUS = new HoaDon_BUS();
+        KhachHang_DAO khachHang_DAO = new KhachHang_DAO();
+        HoaDonFull_DTO hoaDonFull_DTO = hoaDon_BUS.getHoaDonFullById(idHoaDon);
+        
+        if(hoaDonFull_DTO.getIdKhachHang() <= 0)
+            return true;
+        
+        KhachHangFull_DTO khachHangFull_DTO = getKhachHangFullById(hoaDonFull_DTO.getIdKhachHang());
+        
+        int diemTichLuy = khachHangFull_DTO.getDiemTichLuy() + tienThanhDiem(hoaDonFull_DTO.getTongGia());
+        boolean result = khachHang_DAO.updateDiemTichLuy(khachHangFull_DTO.getId(), diemTichLuy);
+        capNhatLoaiKhachHang(khachHangFull_DTO.getId());
+        
+        return result;
+    }
+    
+    private int tienThanhDiem(int tien){
+        return tien/10000;
     }
 }
 
