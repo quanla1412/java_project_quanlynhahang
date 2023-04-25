@@ -4,13 +4,21 @@ import BUS.Ban_BUS;
 import BUS.KhachHang_BUS;
 import BUS.LoaiBan_BUS;
 import BUS.NhanVien_BUS;
+import BUS.ThongKe_BUS;
 import DTO.Ban.Ban_DTO;
 import DTO.Ban.LoaiBan_DTO;
 import DTO.KhachHang.KhachHang_DTO;
 import DTO.NhanVien.NhanVien_DTO;
+import DTO.ThongKe.DoanhThuNgay_DTO;
+import DTO.ThongKe.DoanhThuNguoi_DTO;
+import DTO.ThongKe.DoanhThuThang_DTO;
+import DTO.ThongKe.DoanhThuTheoLoaiMonAn_DTO;
+import DTO.ThongKe.SoLuongTheoMonAn_DTO;
+import java.awt.Font;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.sql.Timestamp;
+import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.time.Period;
 import java.util.ArrayList;
@@ -19,9 +27,18 @@ import java.util.Map;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
+import org.jfree.chart.labels.CategoryItemLabelGenerator;
+import org.jfree.chart.labels.ItemLabelAnchor;
+import org.jfree.chart.labels.ItemLabelPosition;
+import org.jfree.chart.labels.StandardCategoryItemLabelGenerator;
 import org.jfree.chart.labels.StandardPieSectionLabelGenerator;
+import org.jfree.chart.plot.CategoryPlot;
 import org.jfree.chart.plot.PiePlot;
+import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.chart.renderer.category.LineAndShapeRenderer;
+import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.data.general.DefaultPieDataset;
+import org.jfree.ui.TextAnchor;
 
 /**
  *
@@ -33,8 +50,14 @@ public class BaoCaoThongKe_GUI extends javax.swing.JFrame {
     private final Ban_BUS ban_BUS;
     private final KhachHang_BUS khachHang_BUS;
     private final NhanVien_BUS nhanVien_BUS;
+    private final ThongKe_BUS thongKe_BUS;
     
     private ArrayList<Ban_DTO> listBan;
+    private ArrayList<DoanhThuNgay_DTO> listDoanhThuTheoNgay;
+    private ArrayList<DoanhThuThang_DTO> listDoanhThuTheoThang;
+    private ArrayList<DoanhThuNguoi_DTO> listDoanhThuTheoNguoi;
+    private ArrayList<DoanhThuTheoLoaiMonAn_DTO> listDoanhThuTheoLMA;
+    private ArrayList<SoLuongTheoMonAn_DTO> listSoLuongTheoMonAn;
     private ArrayList<LoaiBan_DTO> listLoaiBan;
     private ArrayList<KhachHang_DTO> listKH;
     private ArrayList<NhanVien_DTO> listNV;
@@ -45,6 +68,7 @@ public class BaoCaoThongKe_GUI extends javax.swing.JFrame {
         initComponents();
         this.setLocationRelativeTo(null);
         
+        thongKe_BUS = new ThongKe_BUS();
         loaiBan_BUS = new LoaiBan_BUS();
         ban_BUS = new Ban_BUS();
         khachHang_BUS = new KhachHang_BUS();
@@ -78,11 +102,29 @@ public class BaoCaoThongKe_GUI extends javax.swing.JFrame {
         if(indexLoaiKH == 7){
             showPieChartNhanVienTheoDoTuoi();
         }
+        if(indexLoaiKH == 8){
+            showPieChartDoanhThuTheoNhanVienNamHienTai();
+        }
+        if(indexLoaiKH == 9){
+            showPieChartDoanhThuTheoKhachHangNamHienTai();
+        }
+        if(indexLoaiKH == 10){
+            showPieChartDoanhThuTheo7NgayGanNhat();
+        }
+        if(indexLoaiKH == 11){
+            showPieChartDoanhThuNamHienTai();
+        }
+        if(indexLoaiKH == 12){
+            showPieChartDoanhThuTheoLoaiMonAnNamHienTai();
+        }
+        if(indexLoaiKH == 13){
+            showPieChartTieuThuMonAnThangHienTai();
+        }
      }
     });
     }
    
-     public void showPieChartBanTheoSoLuong(){
+    public void showPieChartBanTheoSoLuong(){
         DefaultPieDataset dataset = new DefaultPieDataset();
         listLoaiBan = loaiBan_BUS.getAllLoaiBan();        
         
@@ -91,7 +133,7 @@ public class BaoCaoThongKe_GUI extends javax.swing.JFrame {
         }
         // Create the chart
         JFreeChart chart = ChartFactory.createPieChart(
-            "Số lượng bàn theo loại bàn",
+            "Thống kê bàn theo số lượng",
             dataset,
             true,
             true,
@@ -114,7 +156,6 @@ public class BaoCaoThongKe_GUI extends javax.swing.JFrame {
         this.pnlBieuDo.validate();
         this.pnlBieuDo.repaint();
      }
-     
     public void showPieChartBanTheoTinhTrang(){
         DefaultPieDataset dataset = new DefaultPieDataset();
         listBan = ban_BUS.getAllBan();        
@@ -132,7 +173,7 @@ public class BaoCaoThongKe_GUI extends javax.swing.JFrame {
         }
         // Create the chart
         JFreeChart chart = ChartFactory.createPieChart(
-            "Số lượng bàn theo tình trạng bàn",
+            "Thống kê số lượng bàn theo tình trạng",
             dataset,
             true,
             true,
@@ -172,7 +213,7 @@ public class BaoCaoThongKe_GUI extends javax.swing.JFrame {
         }
         // Create the chart
         JFreeChart chart = ChartFactory.createPieChart(
-            "Số lượng khách hàng theo bậc",
+            "Thống kê số lượng khách hàng theo bậc",
             dataset,
             true,
             true,
@@ -212,7 +253,7 @@ public class BaoCaoThongKe_GUI extends javax.swing.JFrame {
         }
         // Create the chart
         JFreeChart chart = ChartFactory.createPieChart(
-            "Số lượng khách hàng giới tính",
+            "Thống kê số lượng khách hàng theo giới tính",
             dataset,
             true,
             true,
@@ -264,7 +305,7 @@ public class BaoCaoThongKe_GUI extends javax.swing.JFrame {
         if(uConLai>0) dataset.setValue("Từ 40 trở lên",uConLai );
         // Create the chart
         JFreeChart chart = ChartFactory.createPieChart(
-            "Số lượng khách hàng theo bậc",
+            "Thống kê số lượng khách hàng theo độ tuổi",
             dataset,
             true,
             true,
@@ -293,10 +334,10 @@ public class BaoCaoThongKe_GUI extends javax.swing.JFrame {
         Map<String, Integer> countMap = new HashMap<String, Integer>();
 
         for(NhanVien_DTO nhanVien : listNV){
-            if (countMap.containsKey(nhanVien.getGioiTinhNam())) {
-                countMap.put(nhanVien.getGioiTinhNam(), countMap.get(nhanVien.getGioiTinhNam()) + 1);
+            if (countMap.containsKey(nhanVien.gioiTinh())) {
+                countMap.put(nhanVien.gioiTinh(), countMap.get(nhanVien.gioiTinh()) + 1);
             } else {
-                countMap.put(nhanVien.getGioiTinhNam(), 1);
+                countMap.put(nhanVien.gioiTinh(), 1);
             }
         }
         for (Map.Entry<String, Integer> entry : countMap.entrySet()) {
@@ -304,7 +345,7 @@ public class BaoCaoThongKe_GUI extends javax.swing.JFrame {
         }
         // Create the chart
         JFreeChart chart = ChartFactory.createPieChart(
-            "Số lượng nhân viên theo giới tính",
+            "Thống kê số lượng nhân viên theo giới tính",
             dataset,
             true,
             true,
@@ -333,10 +374,10 @@ public class BaoCaoThongKe_GUI extends javax.swing.JFrame {
         Map<String, Integer> countMap = new HashMap<String, Integer>();
 
         for(NhanVien_DTO nhanVien : listNV){
-            if (countMap.containsKey(nhanVien.getTinhTrangNhanVien())) {
-                countMap.put(nhanVien.getTinhTrangNhanVien(), countMap.get(nhanVien.getTinhTrangNhanVien()) + 1);
+            if (countMap.containsKey(nhanVien.tinhTrangNhanVien())) {
+                countMap.put(nhanVien.tinhTrangNhanVien(), countMap.get(nhanVien.tinhTrangNhanVien()) + 1);
             } else {
-                countMap.put(nhanVien.getTinhTrangNhanVien(), 1);
+                countMap.put(nhanVien.tinhTrangNhanVien(), 1);
             }
         }
         for (Map.Entry<String, Integer> entry : countMap.entrySet()) {
@@ -344,7 +385,7 @@ public class BaoCaoThongKe_GUI extends javax.swing.JFrame {
         }
         // Create the chart
         JFreeChart chart = ChartFactory.createPieChart(
-            "Số lượng nhân viên theo chức vụ",
+            "Thống kê số lượng nhân viên theo tính trạng",
             dataset,
             true,
             true,
@@ -375,7 +416,9 @@ public class BaoCaoThongKe_GUI extends javax.swing.JFrame {
         int u40=0;
         int uConLai=0;
         for(NhanVien_DTO nhanVien : listNV){
-            int tuoi = Period.between(nhanVien.getNgaySinh().toLocalDateTime().toLocalDate(), LocalDate.now()).getYears();
+            Timestamp ngaySinh;
+            ngaySinh = new Timestamp(nhanVien.ngaySinh().getTime());
+            int tuoi = Period.between(ngaySinh.toLocalDateTime().toLocalDate(), LocalDate.now()).getYears();
             if (tuoi < 20) {
                 u20++;
             }
@@ -394,7 +437,7 @@ public class BaoCaoThongKe_GUI extends javax.swing.JFrame {
         if(uConLai>0) dataset.setValue("Từ 40 trở lên",uConLai );
         // Create the chart
         JFreeChart chart = ChartFactory.createPieChart(
-            "Số lượng nhân viên theo độ tuổi",
+            "Thống kê số lượng nhân viên theo độ tuổi",
             dataset,
             true,
             true,
@@ -417,6 +460,165 @@ public class BaoCaoThongKe_GUI extends javax.swing.JFrame {
         this.pnlBieuDo.validate();
         this.pnlBieuDo.repaint();
      }
+    public void showPieChartDoanhThuTheoNhanVienNamHienTai(){
+        DefaultCategoryDataset dataset = new DefaultCategoryDataset();
+        listDoanhThuTheoNguoi = thongKe_BUS.getAllDoanhThuTheoNhanVien();        
+        
+        for(DoanhThuNguoi_DTO doanhThu : listDoanhThuTheoNguoi){
+        dataset.setValue(doanhThu.getTongTien(), "Doanh thu", doanhThu.getHoTen());
+        }
+        // Create the chart
+        JFreeChart chart = ChartFactory.createBarChart(
+            "Thống kê Top 5 nhân viên có doanh thu cao nhất", // Tiêu đề biểu đồ
+            "Tên nhân viên",                           // Tên trục x
+            "Doanh thu (Triệu VNĐ)",                // Tên trục y
+            dataset,                          // Dữ liệu
+            PlotOrientation.HORIZONTAL,         // Hướng biểu đồ
+            true,                             // Legend
+            true,                             // Tooltips
+            false                             // URLs
+        );
+        
+        // Create the chart panel and add it to the main panel
+        ChartPanel chartPanel = new ChartPanel(chart);
+        this.pnlBieuDo.removeAll();
+        this.pnlBieuDo.add(chartPanel);
+        this.pnlBieuDo.validate();
+        this.pnlBieuDo.repaint();
+     }
+    public void showPieChartDoanhThuTheoKhachHangNamHienTai(){
+        DefaultCategoryDataset dataset = new DefaultCategoryDataset();
+        listDoanhThuTheoNguoi = thongKe_BUS.getAllDoanhThuTheoKhachHang();        
+        
+        for(DoanhThuNguoi_DTO doanhThu : listDoanhThuTheoNguoi){
+        dataset.setValue(doanhThu.getTongTien(), "Doanh thu", doanhThu.getHoTen());
+        }
+        // Create the chart
+        JFreeChart chart = ChartFactory.createBarChart(
+            "Thống kê Top 5 khách hàng thân thiết", // Tiêu đề biểu đồ
+            "Tên khách hàng",                           // Tên trục x
+            "Doanh thu (Triệu VNĐ)",                // Tên trục y
+            dataset,                          // Dữ liệu
+            PlotOrientation.HORIZONTAL,         // Hướng biểu đồ
+            true,                             // Legend
+            true,                             // Tooltips
+            false                             // URLs
+        );
+        
+        // Create the chart panel and add it to the main panel
+        ChartPanel chartPanel = new ChartPanel(chart);
+        this.pnlBieuDo.removeAll();
+        this.pnlBieuDo.add(chartPanel);
+        this.pnlBieuDo.validate();
+        this.pnlBieuDo.repaint();
+     }
+    public void showPieChartDoanhThuTheo7NgayGanNhat(){
+        DefaultCategoryDataset dataset = new DefaultCategoryDataset();
+        listDoanhThuTheoNgay = thongKe_BUS.getAllDoanhThuTheo7NgayGanNhat();        
+        
+        for(DoanhThuNgay_DTO doanhThu : listDoanhThuTheoNgay){
+        dataset.setValue(doanhThu.getTongTien(), "Doanh thu", doanhThu.getDate());
+        }
+        // Create the chart
+        JFreeChart chart = ChartFactory.createBarChart(
+            "Thống kê doanh thu theo 7 ngày gần nhất", // Tiêu đề biểu đồ
+            "Ngày",                           // Tên trục x
+            "Doanh thu (Triệu VNĐ)",                // Tên trục y
+            dataset,                          // Dữ liệu
+            PlotOrientation.HORIZONTAL,         // Hướng biểu đồ
+            true,                             // Legend
+            true,                             // Tooltips
+            false                             // URLs
+        );
+        
+        // Create the chart panel and add it to the main panel
+        ChartPanel chartPanel = new ChartPanel(chart);
+        this.pnlBieuDo.removeAll();
+        this.pnlBieuDo.add(chartPanel);
+        this.pnlBieuDo.validate();
+        this.pnlBieuDo.repaint();
+     }
+    public void showPieChartDoanhThuNamHienTai(){
+         DefaultCategoryDataset dataset = new DefaultCategoryDataset( );
+        listDoanhThuTheoThang = thongKe_BUS.getAllDoanhThuTheoThang();        
+        
+        
+        for(DoanhThuThang_DTO doanhThu : listDoanhThuTheoThang){
+            dataset.addValue(doanhThu.getTongTien(), "Sales",doanhThu.getThang());
+        }
+        // Create the chart
+        JFreeChart chart = ChartFactory.createLineChart(
+            "Thống kê doanh thu các tháng của năm hiện tại",  // Tiêu đề biểu đồ
+            "Month",          // Tiêu đề trục hoành
+            "% so với tháng đầu tiên ",      // Tiêu đề trục tung
+            dataset           // Dataset
+        );
+        CategoryPlot plot = (CategoryPlot) chart.getPlot();
+        LineAndShapeRenderer renderer = (LineAndShapeRenderer) plot.getRenderer();
+        renderer.setBaseShapesVisible(true);
+        renderer.setBaseItemLabelGenerator((CategoryItemLabelGenerator) new StandardCategoryItemLabelGenerator("{2}", new DecimalFormat("0.00")));
+        renderer.setBaseItemLabelsVisible(true);
+        renderer.setBaseItemLabelFont(new Font("Tahoma", Font.BOLD, 12));
+        renderer.setBasePositiveItemLabelPosition(new ItemLabelPosition(ItemLabelAnchor.OUTSIDE12, TextAnchor.BASELINE_LEFT));
+        // Create the chart panel and add it to the main panel
+        ChartPanel chartPanel = new ChartPanel(chart);
+        this.pnlBieuDo.removeAll();
+        this.pnlBieuDo.add(chartPanel);
+        this.pnlBieuDo.validate();
+        this.pnlBieuDo.repaint();
+     }
+    public void showPieChartDoanhThuTheoLoaiMonAnNamHienTai(){
+        DefaultCategoryDataset dataset = new DefaultCategoryDataset();
+        listDoanhThuTheoLMA = thongKe_BUS.getAllDoanhThuTheoLoaiMonAn();        
+        
+        for(DoanhThuTheoLoaiMonAn_DTO doanhThu : listDoanhThuTheoLMA){
+        dataset.setValue(doanhThu.getTongTien(), "Doanh thu", doanhThu.getTenLMA());
+        }
+        // Create the chart
+        JFreeChart chart = ChartFactory.createBarChart(
+            "Thống kê doanh thu theo loại món ăn của năm hiện tại", // Tiêu đề biểu đồ
+            "Tên loại món ăn",                           // Tên trục x
+            "Doanh thu (Triệu VNĐ)",                // Tên trục y
+            dataset,                          // Dữ liệu
+            PlotOrientation.HORIZONTAL,         // Hướng biểu đồ
+            true,                             // Legend
+            true,                             // Tooltips
+            false                             // URLs
+        );
+        
+        // Create the chart panel and add it to the main panel
+        ChartPanel chartPanel = new ChartPanel(chart);
+        this.pnlBieuDo.removeAll();
+        this.pnlBieuDo.add(chartPanel);
+        this.pnlBieuDo.validate();
+        this.pnlBieuDo.repaint();
+     }
+    public void showPieChartTieuThuMonAnThangHienTai(){
+        DefaultCategoryDataset dataset = new DefaultCategoryDataset();
+        listSoLuongTheoMonAn = thongKe_BUS.getAllSoLuongTheoMonAnTheoThang();        
+        
+        for(SoLuongTheoMonAn_DTO doanhThu : listSoLuongTheoMonAn){
+        dataset.setValue(doanhThu.getSoLuong(), "Doanh thu", doanhThu.getTenMonAn());
+        }
+        // Create the chart
+        JFreeChart chart = ChartFactory.createBarChart(
+            "Top 5 món ăn bán chạy nhất tháng hiện tại", // Tiêu đề biểu đồ
+            "Tên món ăn",                           // Tên trục x
+            "Số lượng",                // Tên trục y
+            dataset,                          // Dữ liệu
+            PlotOrientation.HORIZONTAL,         // Hướng biểu đồ
+            true,                             // Legend
+            true,                             // Tooltips
+            false                             // URLs
+        );
+        
+        // Create the chart panel and add it to the main panel
+        ChartPanel chartPanel = new ChartPanel(chart);
+        this.pnlBieuDo.removeAll();
+        this.pnlBieuDo.add(chartPanel);
+        this.pnlBieuDo.validate();
+        this.pnlBieuDo.repaint();
+     } 
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -433,7 +635,6 @@ public class BaoCaoThongKe_GUI extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Báo cáo thống kê");
         setMinimumSize(new java.awt.Dimension(800, 550));
-        setPreferredSize(new java.awt.Dimension(800, 550));
         getContentPane().setLayout(new java.awt.GridBagLayout());
 
         pnlBieuDo.setMinimumSize(new java.awt.Dimension(800, 450));
@@ -444,7 +645,7 @@ public class BaoCaoThongKe_GUI extends javax.swing.JFrame {
         gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
         getContentPane().add(pnlBieuDo, gridBagConstraints);
 
-        cmbThongKe.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Thống kê bàn theo số lượng", "Thống kê bàn theo tình trạng bàn", "Thống kê khách hàng theo bậc", "Thống kê khách hàng theo giới tính", "Thống kê khách hàng theo độ tuổi", "Thống kê nhân viên theo giới tính", "Thống kê nhân viên theo tình trạng", "Thống kê nhân viên theo độ tuổi" }));
+        cmbThongKe.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Thống kê bàn theo số lượng", "Thống kê bàn theo tình trạng bàn", "Thống kê khách hàng theo bậc", "Thống kê khách hàng theo giới tính", "Thống kê khách hàng theo độ tuổi", "Thống kê nhân viên theo giới tính", "Thống kê nhân viên theo tình trạng", "Thống kê nhân viên theo độ tuổi", "Thống kê doanh thu theo nhân viên ( năm hiện tại )", "Thống kê khách hàng thân thiết ( năm hiện tại )", "Thống kê doanh thu 7 ngày gần nhất", "Thống kê doanh thu năm hiện tại", "Thống kê doanh thu theo loại món ăn", "Thống kê lượng tiêu thụ theo món ăn ( tháng hiện tại )" }));
         cmbThongKe.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 cmbThongKeMouseClicked(evt);
