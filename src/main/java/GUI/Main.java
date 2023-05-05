@@ -1,7 +1,12 @@
 package GUI;
 
 import com.formdev.flatlaf.themes.FlatMacLightLaf;
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import javax.swing.JPanel;
 import javax.swing.UIManager;
+
 
 /**
  *
@@ -18,8 +23,10 @@ public class Main {
         } catch(Exception ex){
             System.out.println(ex);
         }
-    QuanLyPhucVu_GUI dangNhap_GUI= new QuanLyPhucVu_GUI("quanla");
+        TrangChuNew_GUI dangNhap_GUI= new TrangChuNew_GUI();
         dangNhap_GUI.setVisible(true);
     }
     
 }
+
+
