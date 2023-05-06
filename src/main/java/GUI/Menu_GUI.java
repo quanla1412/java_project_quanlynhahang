@@ -92,9 +92,9 @@ public class Menu_GUI extends javax.swing.JFrame {
 
                 JLabel lblHinhAnh = new JLabel();
                 ImageIcon yourImage = new ImageIcon(monAn.getHinhAnh());
-                Image newImage = yourImage.getImage().getScaledInstance(140, 140, Image.SCALE_DEFAULT);
+                Image newImage = yourImage.getImage().getScaledInstance(200, 200, Image.SCALE_DEFAULT);
                 lblHinhAnh.setIcon(new ImageIcon(newImage));
-                lblHinhAnh.setPreferredSize(new Dimension(140, 140));
+                lblHinhAnh.setPreferredSize(new Dimension(200, 200));
                 c.anchor = GridBagConstraints.CENTER;
                 c.gridx = 0;
                 c.gridy = 0;

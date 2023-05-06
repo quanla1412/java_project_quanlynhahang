@@ -25,7 +25,7 @@ public class HoaDon_DAO {
         Connection con = ConnectDatabase.openConnection();
         ArrayList<HoaDon_DTO> result = new ArrayList<>();
         try {
-            String sql = "SELECT * FROM HoaDon";
+            String sql = "SELECT HD_ID, NV_Ma, KH_ID , HD_NgayGio, HD_TongGia FROM HoaDon";
             Statement statement = con.createStatement();
             
             ResultSet rs = statement.executeQuery(sql);
@@ -45,7 +45,6 @@ public class HoaDon_DAO {
         } finally {
             ConnectDatabase.closeConnection(con);
         }
-        
         return result;
     }
     

@@ -39,15 +39,6 @@ public class QuanLyPhucVu_GUI_PanelForm extends javax.swing.JPanel {
     private DatMon_GUI datMon_GUI;
     private ThanhToan_GUI thanhToan_GUI;
     
-    class jPanelWhite extends JPanel {
-
-        @Override
-        protected void paintComponent(Graphics grphcs) {
-            Graphics2D g2 = (Graphics2D) grphcs;
-            g2.setColor(Color.WHITE);
-            g2.fillRoundRect(0, 0, getWidth(), getHeight(), 20, 20);
-        }
-    }
     
     public QuanLyPhucVu_GUI_PanelForm() {
         initComponents();
@@ -226,9 +217,8 @@ public class QuanLyPhucVu_GUI_PanelForm extends javax.swing.JPanel {
         java.awt.GridBagConstraints gridBagConstraints;
 
         jPanel2 = new javax.swing.JPanel();
-        jLabel2 = new javax.swing.JLabel();
         jScrollPane3 = new javax.swing.JScrollPane();
-        pnlDanhSachBan = new jPanelWhite();
+        pnlDanhSachBan = new javax.swing.JPanel();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
@@ -245,17 +235,15 @@ public class QuanLyPhucVu_GUI_PanelForm extends javax.swing.JPanel {
         jButton15 = new javax.swing.JButton();
         jButton16 = new javax.swing.JButton();
         jButton17 = new javax.swing.JButton();
-        jPanel6 = new javax.swing.JPanel();
-        jLabel6 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
-        jPanel4 = new jPanelWhite();
+        jPanel4 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         lblIdBan = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         lblTinhTrangBan = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         lblLoaiBan = new javax.swing.JLabel();
-        jPanel1 = new jPanelWhite();
+        jPanel1 = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
         btnThemMonMoi = new javax.swing.JButton();
         btnXoa = new javax.swing.JButton();
@@ -274,38 +262,29 @@ public class QuanLyPhucVu_GUI_PanelForm extends javax.swing.JPanel {
         jLabel10 = new javax.swing.JLabel();
         lblTongGia = new javax.swing.JLabel();
         btnResetDonGoi = new javax.swing.JButton();
+        jPanel6 = new javax.swing.JPanel();
 
         setMinimumSize(new java.awt.Dimension(1000, 600));
         setPreferredSize(new java.awt.Dimension(1000, 600));
         setLayout(new javax.swing.BoxLayout(this, javax.swing.BoxLayout.LINE_AXIS));
 
-        jPanel2.setMaximumSize(new java.awt.Dimension(540, 2147483647));
-        jPanel2.setLayout(new java.awt.GridBagLayout());
+        jPanel2.setMaximumSize(new java.awt.Dimension(520, 2147483647));
+        jPanel2.setLayout(new java.awt.BorderLayout());
 
-        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        jLabel2.setText("Danh Sách Bàn");
-        jLabel2.setMaximumSize(new java.awt.Dimension(200, 36));
-        jLabel2.setMinimumSize(new java.awt.Dimension(200, 36));
-        jLabel2.setPreferredSize(new java.awt.Dimension(200, 36));
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.fill = java.awt.GridBagConstraints.VERTICAL;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(4, 0, 4, 0);
-        jPanel2.add(jLabel2, gridBagConstraints);
-
-        jScrollPane3.setBorder(null);
+        jScrollPane3.setBorder(javax.swing.BorderFactory.createTitledBorder("Danh sách bàn"));
         jScrollPane3.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         jScrollPane3.setToolTipText("");
         jScrollPane3.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        jScrollPane3.setMaximumSize(new java.awt.Dimension(540, 32767));
-        jScrollPane3.setMinimumSize(new java.awt.Dimension(540, 600));
-        jScrollPane3.setPreferredSize(new java.awt.Dimension(540, 600));
+        jScrollPane3.setMaximumSize(new java.awt.Dimension(520, 32767));
+        jScrollPane3.setMinimumSize(new java.awt.Dimension(520, 600));
+        jScrollPane3.setPreferredSize(new java.awt.Dimension(520, 600));
         jScrollPane3.setWheelScrollingEnabled(false);
 
-        pnlDanhSachBan.setMaximumSize(new java.awt.Dimension(520, 600));
-        pnlDanhSachBan.setMinimumSize(new java.awt.Dimension(520, 600));
-        pnlDanhSachBan.setPreferredSize(new java.awt.Dimension(520, 600));
-        pnlDanhSachBan.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 10, 10));
+        pnlDanhSachBan.setMaximumSize(new java.awt.Dimension(500, 600));
+        pnlDanhSachBan.setMinimumSize(new java.awt.Dimension(260, 600));
+        pnlDanhSachBan.setName(""); // NOI18N
+        pnlDanhSachBan.setPreferredSize(new java.awt.Dimension(500, 600));
+        pnlDanhSachBan.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 4, 4));
 
         jButton2.setText("<html>\n<p style=\"text-align:center\">Bàn 1</p>\n<p  style=\"text-align:center\">Vuông 2</p>\n<p  style=\"text-align:center\">Đang chuẩn bị</p>\n</html>");
         jButton2.setMinimumSize(new java.awt.Dimension(120, 60));
@@ -389,54 +368,34 @@ public class QuanLyPhucVu_GUI_PanelForm extends javax.swing.JPanel {
 
         jScrollPane3.setViewportView(pnlDanhSachBan);
 
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 1;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.VERTICAL;
-        gridBagConstraints.weighty = 0.2;
-        jPanel2.add(jScrollPane3, gridBagConstraints);
+        jPanel2.add(jScrollPane3, java.awt.BorderLayout.CENTER);
 
         add(jPanel2);
-
-        jPanel6.setLayout(new java.awt.GridBagLayout());
-
-        jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        jLabel6.setText("Thông tin bàn");
-        jLabel6.setMaximumSize(new java.awt.Dimension(200, 36));
-        jLabel6.setMinimumSize(new java.awt.Dimension(200, 36));
-        jLabel6.setPreferredSize(new java.awt.Dimension(200, 36));
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.fill = java.awt.GridBagConstraints.VERTICAL;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(4, 20, 4, 6);
-        jPanel6.add(jLabel6, gridBagConstraints);
 
         jPanel3.setMaximumSize(new java.awt.Dimension(2147483647, 2147483647));
         jPanel3.setMinimumSize(new java.awt.Dimension(480, 120));
         jPanel3.setPreferredSize(new java.awt.Dimension(480, 120));
-        jPanel3.setLayout(new java.awt.GridBagLayout());
+        jPanel3.setLayout(new javax.swing.BoxLayout(jPanel3, javax.swing.BoxLayout.Y_AXIS));
 
+        jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder("Thông tin bàn"));
         jPanel4.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jPanel4.setMaximumSize(new java.awt.Dimension(2147483647, 60));
         jPanel4.setMinimumSize(new java.awt.Dimension(480, 60));
         jPanel4.setPreferredSize(new java.awt.Dimension(480, 60));
         jPanel4.setLayout(new java.awt.GridBagLayout());
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel1.setText("Bàn số:");
-        jLabel1.setMaximumSize(new java.awt.Dimension(60, 24));
-        jLabel1.setMinimumSize(new java.awt.Dimension(60, 24));
-        jLabel1.setPreferredSize(new java.awt.Dimension(60, 24));
+        jLabel1.setMaximumSize(new java.awt.Dimension(52, 24));
+        jLabel1.setMinimumSize(new java.awt.Dimension(52, 24));
+        jLabel1.setPreferredSize(new java.awt.Dimension(52, 24));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.ipadx = -1;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.insets = new java.awt.Insets(2, 20, 2, 0);
+        gridBagConstraints.insets = new java.awt.Insets(2, 8, 2, 0);
         jPanel4.add(jLabel1, gridBagConstraints);
 
-        lblIdBan.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         lblIdBan.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         lblIdBan.setMaximumSize(new java.awt.Dimension(24, 24));
         lblIdBan.setMinimumSize(new java.awt.Dimension(24, 24));
@@ -444,95 +403,82 @@ public class QuanLyPhucVu_GUI_PanelForm extends javax.swing.JPanel {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 0;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.ipadx = -1;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.insets = new java.awt.Insets(2, 0, 2, 8);
         jPanel4.add(lblIdBan, gridBagConstraints);
 
-        jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel3.setText("Loại bàn:");
-        jLabel3.setMaximumSize(new java.awt.Dimension(68, 24));
-        jLabel3.setMinimumSize(new java.awt.Dimension(68, 24));
-        jLabel3.setPreferredSize(new java.awt.Dimension(68, 24));
+        jLabel3.setMaximumSize(new java.awt.Dimension(60, 24));
+        jLabel3.setMinimumSize(new java.awt.Dimension(60, 24));
+        jLabel3.setPreferredSize(new java.awt.Dimension(60, 24));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 0;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.ipadx = -1;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.insets = new java.awt.Insets(2, 8, 2, 0);
         jPanel4.add(jLabel3, gridBagConstraints);
 
-        lblTinhTrangBan.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         lblTinhTrangBan.setMaximumSize(new java.awt.Dimension(88, 24));
         lblTinhTrangBan.setMinimumSize(new java.awt.Dimension(88, 24));
         lblTinhTrangBan.setPreferredSize(new java.awt.Dimension(88, 24));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 5;
         gridBagConstraints.gridy = 0;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.ipadx = -1;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.weightx = 0.1;
-        gridBagConstraints.insets = new java.awt.Insets(2, 0, 2, 20);
+        gridBagConstraints.insets = new java.awt.Insets(2, 0, 2, 8);
         jPanel4.add(lblTinhTrangBan, gridBagConstraints);
 
-        jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel5.setText("Tình trạng bàn:");
-        jLabel5.setMaximumSize(new java.awt.Dimension(112, 24));
-        jLabel5.setMinimumSize(new java.awt.Dimension(112, 24));
-        jLabel5.setPreferredSize(new java.awt.Dimension(112, 24));
+        jLabel5.setMaximumSize(new java.awt.Dimension(100, 24));
+        jLabel5.setMinimumSize(new java.awt.Dimension(100, 24));
+        jLabel5.setPreferredSize(new java.awt.Dimension(100, 24));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 4;
         gridBagConstraints.gridy = 0;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.ipadx = -1;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.insets = new java.awt.Insets(2, 8, 2, 0);
         jPanel4.add(jLabel5, gridBagConstraints);
 
-        lblLoaiBan.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         lblLoaiBan.setMaximumSize(new java.awt.Dimension(60, 24));
         lblLoaiBan.setMinimumSize(new java.awt.Dimension(60, 24));
         lblLoaiBan.setPreferredSize(new java.awt.Dimension(60, 24));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 3;
         gridBagConstraints.gridy = 0;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.ipadx = -1;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.insets = new java.awt.Insets(2, 0, 2, 8);
         jPanel4.add(lblLoaiBan, gridBagConstraints);
 
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.FIRST_LINE_START;
-        gridBagConstraints.insets = new java.awt.Insets(0, 0, 12, 0);
-        jPanel3.add(jPanel4, gridBagConstraints);
+        jPanel3.add(jPanel4);
 
-        jPanel1.setMaximumSize(new java.awt.Dimension(2147483647, 160));
-        jPanel1.setMinimumSize(new java.awt.Dimension(480, 160));
-        jPanel1.setPreferredSize(new java.awt.Dimension(480, 160));
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Chức năng bàn"));
+        jPanel1.setMaximumSize(new java.awt.Dimension(2147483647, 140));
+        jPanel1.setMinimumSize(new java.awt.Dimension(480, 140));
+        jPanel1.setPreferredSize(new java.awt.Dimension(480, 140));
         jPanel1.setLayout(new java.awt.GridBagLayout());
 
-        jLabel7.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel7.setText("Chức năng");
-        jLabel7.setMaximumSize(new java.awt.Dimension(112, 24));
-        jLabel7.setMinimumSize(new java.awt.Dimension(112, 24));
-        jLabel7.setPreferredSize(new java.awt.Dimension(112, 24));
+        jLabel7.setMaximumSize(new java.awt.Dimension(100, 24));
+        jLabel7.setMinimumSize(new java.awt.Dimension(100, 24));
+        jLabel7.setPreferredSize(new java.awt.Dimension(100, 24));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 2;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.insets = new java.awt.Insets(4, 20, 4, 4);
+        gridBagConstraints.insets = new java.awt.Insets(4, 8, 4, 4);
         jPanel1.add(jLabel7, gridBagConstraints);
 
         btnThemMonMoi.setText("Thêm món mới");
         btnThemMonMoi.setEnabled(false);
-        btnThemMonMoi.setMaximumSize(new java.awt.Dimension(120, 40));
-        btnThemMonMoi.setMinimumSize(new java.awt.Dimension(120, 40));
-        btnThemMonMoi.setPreferredSize(new java.awt.Dimension(120, 40));
+        btnThemMonMoi.setMaximumSize(new java.awt.Dimension(132, 28));
+        btnThemMonMoi.setMinimumSize(new java.awt.Dimension(132, 28));
+        btnThemMonMoi.setName(""); // NOI18N
+        btnThemMonMoi.setPreferredSize(new java.awt.Dimension(132, 28));
         btnThemMonMoi.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnThemMonMoiMouseClicked(evt);
@@ -549,9 +495,9 @@ public class QuanLyPhucVu_GUI_PanelForm extends javax.swing.JPanel {
 
         btnXoa.setText("Xóa món ăn");
         btnXoa.setEnabled(false);
-        btnXoa.setMaximumSize(new java.awt.Dimension(120, 40));
-        btnXoa.setMinimumSize(new java.awt.Dimension(120, 40));
-        btnXoa.setPreferredSize(new java.awt.Dimension(120, 40));
+        btnXoa.setMaximumSize(new java.awt.Dimension(132, 28));
+        btnXoa.setMinimumSize(new java.awt.Dimension(132, 28));
+        btnXoa.setPreferredSize(new java.awt.Dimension(132, 28));
         btnXoa.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnXoaMouseClicked(evt);
@@ -563,14 +509,14 @@ public class QuanLyPhucVu_GUI_PanelForm extends javax.swing.JPanel {
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 0.1;
-        gridBagConstraints.insets = new java.awt.Insets(4, 4, 4, 20);
+        gridBagConstraints.insets = new java.awt.Insets(4, 4, 4, 8);
         jPanel1.add(btnXoa, gridBagConstraints);
 
         btnSuaDonGoi.setText("Sửa đơn gọi");
         btnSuaDonGoi.setEnabled(false);
-        btnSuaDonGoi.setMaximumSize(new java.awt.Dimension(120, 40));
-        btnSuaDonGoi.setMinimumSize(new java.awt.Dimension(120, 40));
-        btnSuaDonGoi.setPreferredSize(new java.awt.Dimension(120, 40));
+        btnSuaDonGoi.setMaximumSize(new java.awt.Dimension(132, 28));
+        btnSuaDonGoi.setMinimumSize(new java.awt.Dimension(132, 28));
+        btnSuaDonGoi.setPreferredSize(new java.awt.Dimension(132, 28));
         btnSuaDonGoi.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnSuaDonGoiMouseClicked(evt);
@@ -585,23 +531,22 @@ public class QuanLyPhucVu_GUI_PanelForm extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(4, 4, 4, 4);
         jPanel1.add(btnSuaDonGoi, gridBagConstraints);
 
-        jLabel8.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel8.setText("Chuyển bàn");
-        jLabel8.setMaximumSize(new java.awt.Dimension(112, 24));
-        jLabel8.setMinimumSize(new java.awt.Dimension(112, 24));
-        jLabel8.setPreferredSize(new java.awt.Dimension(112, 24));
+        jLabel8.setMaximumSize(new java.awt.Dimension(100, 24));
+        jLabel8.setMinimumSize(new java.awt.Dimension(100, 24));
+        jLabel8.setPreferredSize(new java.awt.Dimension(100, 24));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 1;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.insets = new java.awt.Insets(0, 20, 0, 4);
+        gridBagConstraints.insets = new java.awt.Insets(0, 8, 0, 4);
         jPanel1.add(jLabel8, gridBagConstraints);
 
         cmbBanSanSang.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         cmbBanSanSang.setEnabled(false);
-        cmbBanSanSang.setMaximumSize(new java.awt.Dimension(120, 40));
-        cmbBanSanSang.setMinimumSize(new java.awt.Dimension(120, 40));
-        cmbBanSanSang.setPreferredSize(new java.awt.Dimension(120, 40));
+        cmbBanSanSang.setMaximumSize(new java.awt.Dimension(132, 28));
+        cmbBanSanSang.setMinimumSize(new java.awt.Dimension(132, 28));
+        cmbBanSanSang.setPreferredSize(new java.awt.Dimension(132, 28));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 1;
@@ -611,23 +556,22 @@ public class QuanLyPhucVu_GUI_PanelForm extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(0, 4, 0, 4);
         jPanel1.add(cmbBanSanSang, gridBagConstraints);
 
-        jLabel9.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel9.setText("Tình trạng bàn");
-        jLabel9.setMaximumSize(new java.awt.Dimension(112, 24));
-        jLabel9.setMinimumSize(new java.awt.Dimension(112, 24));
-        jLabel9.setPreferredSize(new java.awt.Dimension(112, 24));
+        jLabel9.setMaximumSize(new java.awt.Dimension(100, 24));
+        jLabel9.setMinimumSize(new java.awt.Dimension(100, 24));
+        jLabel9.setPreferredSize(new java.awt.Dimension(100, 24));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.insets = new java.awt.Insets(4, 20, 4, 4);
+        gridBagConstraints.insets = new java.awt.Insets(4, 8, 4, 4);
         jPanel1.add(jLabel9, gridBagConstraints);
 
         btnChuyenBan.setText("Đổi");
         btnChuyenBan.setEnabled(false);
-        btnChuyenBan.setMaximumSize(new java.awt.Dimension(120, 40));
-        btnChuyenBan.setMinimumSize(new java.awt.Dimension(120, 40));
-        btnChuyenBan.setPreferredSize(new java.awt.Dimension(120, 40));
+        btnChuyenBan.setMaximumSize(new java.awt.Dimension(132, 28));
+        btnChuyenBan.setMinimumSize(new java.awt.Dimension(132, 28));
+        btnChuyenBan.setPreferredSize(new java.awt.Dimension(132, 28));
         btnChuyenBan.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnChuyenBanMouseClicked(evt);
@@ -644,9 +588,9 @@ public class QuanLyPhucVu_GUI_PanelForm extends javax.swing.JPanel {
 
         btnSanSang.setText("Sẵn sàng");
         btnSanSang.setEnabled(false);
-        btnSanSang.setMaximumSize(new java.awt.Dimension(120, 40));
-        btnSanSang.setMinimumSize(new java.awt.Dimension(120, 40));
-        btnSanSang.setPreferredSize(new java.awt.Dimension(120, 40));
+        btnSanSang.setMaximumSize(new java.awt.Dimension(132, 28));
+        btnSanSang.setMinimumSize(new java.awt.Dimension(132, 28));
+        btnSanSang.setPreferredSize(new java.awt.Dimension(132, 28));
         btnSanSang.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnSanSangMouseClicked(evt);
@@ -663,9 +607,9 @@ public class QuanLyPhucVu_GUI_PanelForm extends javax.swing.JPanel {
 
         btnPhucVu.setText("Phục vụ");
         btnPhucVu.setEnabled(false);
-        btnPhucVu.setMaximumSize(new java.awt.Dimension(120, 40));
-        btnPhucVu.setMinimumSize(new java.awt.Dimension(120, 40));
-        btnPhucVu.setPreferredSize(new java.awt.Dimension(120, 40));
+        btnPhucVu.setMaximumSize(new java.awt.Dimension(132, 28));
+        btnPhucVu.setMinimumSize(new java.awt.Dimension(132, 28));
+        btnPhucVu.setPreferredSize(new java.awt.Dimension(132, 28));
         btnPhucVu.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnPhucVuMouseClicked(evt);
@@ -682,9 +626,10 @@ public class QuanLyPhucVu_GUI_PanelForm extends javax.swing.JPanel {
 
         btnNgungPhucVu.setText("Ngừng phục vụ");
         btnNgungPhucVu.setEnabled(false);
-        btnNgungPhucVu.setMaximumSize(new java.awt.Dimension(120, 40));
-        btnNgungPhucVu.setMinimumSize(new java.awt.Dimension(120, 40));
-        btnNgungPhucVu.setPreferredSize(new java.awt.Dimension(120, 40));
+        btnNgungPhucVu.setMaximumSize(new java.awt.Dimension(132, 28));
+        btnNgungPhucVu.setMinimumSize(new java.awt.Dimension(132, 28));
+        btnNgungPhucVu.setName(""); // NOI18N
+        btnNgungPhucVu.setPreferredSize(new java.awt.Dimension(132, 28));
         btnNgungPhucVu.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnNgungPhucVuMouseClicked(evt);
@@ -696,18 +641,12 @@ public class QuanLyPhucVu_GUI_PanelForm extends javax.swing.JPanel {
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 0.1;
-        gridBagConstraints.insets = new java.awt.Insets(4, 4, 4, 20);
+        gridBagConstraints.insets = new java.awt.Insets(4, 4, 4, 8);
         jPanel1.add(btnNgungPhucVu, gridBagConstraints);
 
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 1;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.FIRST_LINE_START;
-        gridBagConstraints.insets = new java.awt.Insets(0, 0, 12, 0);
-        jPanel3.add(jPanel1, gridBagConstraints);
+        jPanel3.add(jPanel1);
 
-        jScrollPane1.setBorder(null);
+        jScrollPane1.setBorder(javax.swing.BorderFactory.createTitledBorder("Đơn gọi"));
 
         tblDonGoi.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -722,24 +661,18 @@ public class QuanLyPhucVu_GUI_PanelForm extends javax.swing.JPanel {
         ));
         jScrollPane1.setViewportView(tblDonGoi);
 
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 2;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.weightx = 0.1;
-        gridBagConstraints.weighty = 0.1;
-        jPanel3.add(jScrollPane1, gridBagConstraints);
+        jPanel3.add(jScrollPane1);
 
-        jPanel5.setMaximumSize(new java.awt.Dimension(2147483647, 100));
-        jPanel5.setMinimumSize(new java.awt.Dimension(480, 100));
-        jPanel5.setPreferredSize(new java.awt.Dimension(480, 100));
+        jPanel5.setMaximumSize(new java.awt.Dimension(2147483647, 80));
+        jPanel5.setMinimumSize(new java.awt.Dimension(480, 80));
+        jPanel5.setPreferredSize(new java.awt.Dimension(480, 80));
         jPanel5.setLayout(new java.awt.GridBagLayout());
 
         btnThanhToan.setText("Thanh toán");
         btnThanhToan.setEnabled(false);
-        btnThanhToan.setMaximumSize(new java.awt.Dimension(120, 40));
-        btnThanhToan.setMinimumSize(new java.awt.Dimension(120, 40));
-        btnThanhToan.setPreferredSize(new java.awt.Dimension(120, 40));
+        btnThanhToan.setMaximumSize(new java.awt.Dimension(120, 28));
+        btnThanhToan.setMinimumSize(new java.awt.Dimension(120, 28));
+        btnThanhToan.setPreferredSize(new java.awt.Dimension(120, 28));
         btnThanhToan.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnThanhToanMouseClicked(evt);
@@ -757,7 +690,6 @@ public class QuanLyPhucVu_GUI_PanelForm extends javax.swing.JPanel {
         gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
         jPanel5.add(btnThanhToan, gridBagConstraints);
 
-        jLabel10.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel10.setText("Tổng tiền");
         jLabel10.setMaximumSize(new java.awt.Dimension(60, 24));
@@ -785,9 +717,9 @@ public class QuanLyPhucVu_GUI_PanelForm extends javax.swing.JPanel {
 
         btnResetDonGoi.setText("Reset");
         btnResetDonGoi.setEnabled(false);
-        btnResetDonGoi.setMaximumSize(new java.awt.Dimension(120, 40));
-        btnResetDonGoi.setMinimumSize(new java.awt.Dimension(120, 40));
-        btnResetDonGoi.setPreferredSize(new java.awt.Dimension(120, 40));
+        btnResetDonGoi.setMaximumSize(new java.awt.Dimension(120, 28));
+        btnResetDonGoi.setMinimumSize(new java.awt.Dimension(120, 28));
+        btnResetDonGoi.setPreferredSize(new java.awt.Dimension(120, 28));
         btnResetDonGoi.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnResetDonGoiMouseClicked(evt);
@@ -805,22 +737,11 @@ public class QuanLyPhucVu_GUI_PanelForm extends javax.swing.JPanel {
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         jPanel5.add(btnResetDonGoi, gridBagConstraints);
 
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 3;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        jPanel3.add(jPanel5, gridBagConstraints);
+        jPanel3.add(jPanel5);
 
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 1;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.FIRST_LINE_START;
-        gridBagConstraints.weightx = 0.1;
-        gridBagConstraints.weighty = 0.1;
-        gridBagConstraints.insets = new java.awt.Insets(0, 20, 0, 0);
-        jPanel6.add(jPanel3, gridBagConstraints);
+        add(jPanel3);
 
+        jPanel6.setLayout(new javax.swing.BoxLayout(jPanel6, javax.swing.BoxLayout.LINE_AXIS));
         add(jPanel6);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -968,10 +889,8 @@ public class QuanLyPhucVu_GUI_PanelForm extends javax.swing.JPanel {
     private javax.swing.JButton jButton9;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;

@@ -24,7 +24,7 @@ public class QuanLyHoaDon_GUI_PanelForm extends javax.swing.JPanel {
     
     public QuanLyHoaDon_GUI_PanelForm() {
         initComponents();
-         hoaDon_BUS = new HoaDon_BUS();
+        hoaDon_BUS = new HoaDon_BUS();
         
         loadTableHoaDon();
         loadTTHDSearch();
@@ -58,7 +58,7 @@ public class QuanLyHoaDon_GUI_PanelForm extends javax.swing.JPanel {
     
     
     private void loadFromDateToDate(){  
-        LocalDate fromDate = LocalDate.now().minusDays(7);
+        LocalDate fromDate = LocalDate.now().minusDays(30);
         LocalDate toDate = LocalDate.now();
         
         dtcNgayBatDau.setDate(Date.valueOf(fromDate));
@@ -75,7 +75,7 @@ public class QuanLyHoaDon_GUI_PanelForm extends javax.swing.JPanel {
         loadTableHoaDon();
         txtSearchID.setText("");
         
-        LocalDate fromDate = LocalDate.now().minusDays(7);
+        LocalDate fromDate = LocalDate.now().minusDays(30);
         LocalDate toDate = LocalDate.now();
         dtcNgayBatDau.setDate(Date.valueOf(fromDate));
         dtcNgayCuoiCung.setDate(Date.valueOf(toDate));
@@ -158,7 +158,7 @@ public class QuanLyHoaDon_GUI_PanelForm extends javax.swing.JPanel {
         cmbTTMASearch = new javax.swing.JComboBox<>();
         btnTimKiem = new javax.swing.JButton();
         pnlBangDanhSachTaiKhoan = new javax.swing.JPanel();
-        scrDanhSachTaiKhoan = new javax.swing.JScrollPane();
+        jScrollPane1 = new javax.swing.JScrollPane();
         tblDanhSachHoaDon = new javax.swing.JTable();
         jPanel9 = new javax.swing.JPanel();
         pnlThemTaiKhoanMoi = new javax.swing.JPanel();
@@ -369,40 +369,25 @@ public class QuanLyHoaDon_GUI_PanelForm extends javax.swing.JPanel {
 
         pnlBangDanhSachTaiKhoan.setLayout(new java.awt.BorderLayout());
 
-        scrDanhSachTaiKhoan.setBorder(javax.swing.BorderFactory.createTitledBorder("Danh sách hoá đơn"));
-        scrDanhSachTaiKhoan.setMinimumSize(new java.awt.Dimension(200, 320));
-        scrDanhSachTaiKhoan.setPreferredSize(new java.awt.Dimension(200, 320));
-
         tblDanhSachHoaDon.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
             },
             new String [] {
-                "ID", "Mã nhân viên", "Mã khách hàng", "Ngày giờ", "Tổng giá"
+                "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        tblDanhSachHoaDon.setMinimumSize(new java.awt.Dimension(375, 100));
-        tblDanhSachHoaDon.setPreferredSize(new java.awt.Dimension(375, 100));
-        tblDanhSachHoaDon.addAncestorListener(new javax.swing.event.AncestorListener() {
-            public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
-                tblDanhSachHoaDonAncestorAdded(evt);
-            }
-            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
-            }
-            public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
-            }
-        });
         tblDanhSachHoaDon.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tblDanhSachHoaDonMouseClicked(evt);
             }
         });
-        scrDanhSachTaiKhoan.setViewportView(tblDanhSachHoaDon);
+        jScrollPane1.setViewportView(tblDanhSachHoaDon);
 
-        pnlBangDanhSachTaiKhoan.add(scrDanhSachTaiKhoan, java.awt.BorderLayout.CENTER);
+        pnlBangDanhSachTaiKhoan.add(jScrollPane1, java.awt.BorderLayout.CENTER);
 
         jPanel10.add(pnlBangDanhSachTaiKhoan);
 
@@ -692,6 +677,7 @@ public class QuanLyHoaDon_GUI_PanelForm extends javax.swing.JPanel {
 
         if((ngayBatDau.compareTo(ngayCuoiCung)) > 0){
             JOptionPane.showMessageDialog(this,"Ngày bắt đầu không được lớn hơn ngày kết thúc","Error",JOptionPane.ERROR_MESSAGE);
+            return;
         } else {
             searchHoaDon_DTO.setNgayBatDau(ngayBatDau);
             searchHoaDon_DTO.setNgayCuoiCung(ngayCuoiCungTS);
@@ -701,6 +687,7 @@ public class QuanLyHoaDon_GUI_PanelForm extends javax.swing.JPanel {
         int maxPrice = sldMaxPrice.getValue();
         if(minPrice > maxPrice){
             JOptionPane.showMessageDialog(this,"Giá tối thiểu phải nhỏ hơn giá tối đa","Error",JOptionPane.ERROR_MESSAGE);
+            return;
         } else {
             searchHoaDon_DTO.setMinPrice(minPrice);
             searchHoaDon_DTO.setMaxPrice(maxPrice);
@@ -724,19 +711,6 @@ public class QuanLyHoaDon_GUI_PanelForm extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnTimKiemActionPerformed
 
-    private void tblDanhSachHoaDonAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_tblDanhSachHoaDonAncestorAdded
-        // TODO add your handling code here:
-    }//GEN-LAST:event_tblDanhSachHoaDonAncestorAdded
-
-    private void tblDanhSachHoaDonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblDanhSachHoaDonMouseClicked
-        int indexRow = tblDanhSachHoaDon.getSelectedRow();
-        TableModel model = tblDanhSachHoaDon.getModel();
-
-        int idHoaDon = Integer.parseInt(model.getValueAt(indexRow, 0).toString());
-        loadFormWithHoaDon(idHoaDon);
-
-    }//GEN-LAST:event_tblDanhSachHoaDonMouseClicked
-
     private void txtIdNhanVienActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtIdNhanVienActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtIdNhanVienActionPerformed
@@ -754,21 +728,22 @@ public class QuanLyHoaDon_GUI_PanelForm extends javax.swing.JPanel {
     }//GEN-LAST:event_txtThanhTienActionPerformed
 
     private void btnHuyHoaDonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnHuyHoaDonMouseClicked
-        int indexRow = tblDanhSachHoaDon.getSelectedRow();
-        TableModel model = tblDanhSachHoaDon.getModel();
+            if(btnHuyHoaDon.isEnabled()){
+            int indexRow = tblDanhSachHoaDon.getSelectedRow();
+            TableModel model = tblDanhSachHoaDon.getModel();
 
-        int idHoaDon = Integer.parseInt(model.getValueAt(indexRow, 0).toString());
+            int idHoaDon = Integer.parseInt(model.getValueAt(indexRow, 0).toString());
 
-        boolean result = hoaDon_BUS.deleteHoaDon(idHoaDon);
+            boolean result = hoaDon_BUS.deleteHoaDon(idHoaDon);
 
-        if(result){
-            JOptionPane.showMessageDialog(this, "Huỷ hoá đơn thành công","Thông báo", JOptionPane.INFORMATION_MESSAGE);
-            resetTable();
-            loadFormWithHoaDon(idHoaDon);
-        } else{
-            JOptionPane.showMessageDialog(this, "Huỷ hoá đơn không thành công","Error", JOptionPane.ERROR_MESSAGE);
+            if(result){
+                JOptionPane.showMessageDialog(this, "Huỷ hoá đơn thành công","Thông báo", JOptionPane.INFORMATION_MESSAGE);
+                resetTable();
+                loadFormWithHoaDon(idHoaDon);
+            } else{
+                JOptionPane.showMessageDialog(this, "Huỷ hoá đơn không thành công","Error", JOptionPane.ERROR_MESSAGE);
+            }
         }
-
     }//GEN-LAST:event_btnHuyHoaDonMouseClicked
 
     private void btnHuyHoaDonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHuyHoaDonActionPerformed
@@ -782,6 +757,14 @@ public class QuanLyHoaDon_GUI_PanelForm extends javax.swing.JPanel {
     private void txtMaHoaDonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtMaHoaDonActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtMaHoaDonActionPerformed
+
+    private void tblDanhSachHoaDonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblDanhSachHoaDonMouseClicked
+        int indexRow = tblDanhSachHoaDon.getSelectedRow();
+        TableModel model = tblDanhSachHoaDon.getModel();
+        
+        int idHoaDon = Integer.parseInt(model.getValueAt(indexRow, 0).toString());
+        loadFormWithHoaDon(idHoaDon);
+    }//GEN-LAST:event_tblDanhSachHoaDonMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -799,6 +782,7 @@ public class QuanLyHoaDon_GUI_PanelForm extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel9;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JLabel lblID;
     private javax.swing.JLabel lblID1;
@@ -815,7 +799,6 @@ public class QuanLyHoaDon_GUI_PanelForm extends javax.swing.JPanel {
     private javax.swing.JPanel pnlBangDanhSachTaiKhoan;
     private javax.swing.JPanel pnlBoLocTimKiem;
     private javax.swing.JPanel pnlThemTaiKhoanMoi;
-    private javax.swing.JScrollPane scrDanhSachTaiKhoan;
     private javax.swing.JSlider sldMaxPrice;
     private javax.swing.JSlider sldMinPrice;
     private javax.swing.JTable tblDanhSachHoaDon;
