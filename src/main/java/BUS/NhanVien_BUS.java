@@ -157,7 +157,7 @@ public class NhanVien_BUS {
             cell.setCellStyle(cellStyleDate);
             
             cell = row.createCell(4);
-            cell.setCellValue(data.gioITinh());
+            cell.setCellValue(data.gioiTinh());
             
             cell = row.createCell(5);
             cell.setCellValue(data.email());
