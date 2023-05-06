@@ -13,13 +13,20 @@ import DTO.MonAn.UpdateMonAn_DTO;
 import DTO.Search.SearchMonAn_DTO;
 import GUI.QuanLyLoaiMonAn_GUI;
 import com.mycompany.quanlynhahang.Price;
+import java.awt.Component;
+import java.awt.Dimension;
 import java.io.File;
 import java.util.ArrayList;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
+import javax.swing.JTextArea;
+import javax.swing.SwingConstants;
 import javax.swing.border.TitledBorder;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 
@@ -59,8 +66,29 @@ public class QuanLyMonAn_GUI_PanelForm extends javax.swing.JPanel {
             Object[] data = {row.getId(), row.getTen(), row.getLoaiMonAn(), Price.formatPrice(row.getGia()), row.getTinhTrangMonAn()};
             tableModel.addRow(data);
         }
+        tblMonAn.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
+        tblMonAn.getColumnModel().getColumn(0).setPreferredWidth(15);
+        tblMonAn.getColumnModel().getColumn(1).setCellRenderer(new MyRenderer());
     }
-    
+    class MyRenderer extends DefaultTableCellRenderer {
+        public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected,
+                                                        boolean hasFocus, int row, int column) {
+            JTextArea textArea = new JTextArea();
+            textArea.setText(value.toString());
+            textArea.setLineWrap(true);
+            textArea.setWrapStyleWord(true);
+            textArea.setFont(table.getFont());
+
+            int height = table.getRowHeight(row);
+            int width = table.getColumnModel().getColumn(column).getWidth();
+            textArea.setSize(new Dimension(width, height));
+            if (table.getRowHeight(row) != textArea.getPreferredSize().height) {
+                table.setRowHeight(row, textArea.getPreferredSize().height);
+            }
+
+            return textArea;
+        }
+    }
     private void loadTableMonAn(ArrayList<MonAn_DTO> dataTable){
         listMonAn = dataTable;
         
@@ -71,6 +99,9 @@ public class QuanLyMonAn_GUI_PanelForm extends javax.swing.JPanel {
             Object[] data = {row.getId(), row.getTen(), row.getLoaiMonAn(), Price.formatPrice(row.getGia()), row.getTinhTrangMonAn()};
             tableModel.addRow(data);
         }
+        tblMonAn.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
+        tblMonAn.getColumnModel().getColumn(0).setPreferredWidth(15);
+        tblMonAn.getColumnModel().getColumn(1).setCellRenderer(new MyRenderer());
     }
     
     private void loadLoaiMonAnSearchBox(){
@@ -479,6 +510,12 @@ public class QuanLyMonAn_GUI_PanelForm extends javax.swing.JPanel {
             }
         });
         jScrollPane1.setViewportView(tblMonAn);
+        if (tblMonAn.getColumnModel().getColumnCount() > 0) {
+            tblMonAn.getColumnModel().getColumn(0).setMinWidth(0);
+            tblMonAn.getColumnModel().getColumn(0).setMaxWidth(20);
+            tblMonAn.getColumnModel().getColumn(1).setMinWidth(50);
+            tblMonAn.getColumnModel().getColumn(1).setMaxWidth(200);
+        }
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
@@ -712,6 +749,7 @@ public class QuanLyMonAn_GUI_PanelForm extends javax.swing.JPanel {
         btnSua.setEnabled(true);
         btnThem.setEnabled(false);
         pnlThemSuaMonAn.setBorder(new TitledBorder("Thêm món ăn"));
+        clearForm();
     }//GEN-LAST:event_btnThemMouseClicked
 
     private void btnSuaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSuaMouseClicked
