@@ -110,6 +110,7 @@ public class QuanLyNhanVien_GUI_PanelForm extends javax.swing.JPanel {
         txtHoTenNV.setText("");
         txtSDTNV.setText("");
         jdcNgaySinh.getDate();
+        txtCCCD.setText("");
         cmbTinhTrangNV.setSelectedIndex(-1);
         cmbTimKiemChucVu.setSelectedIndex(-1);
         cmbGioiTinhNVThemSua.setSelectedIndex(-1);
@@ -745,6 +746,7 @@ public class QuanLyNhanVien_GUI_PanelForm extends javax.swing.JPanel {
         txtEmailNV.setText(result.getEmail());
         txtSDTNV.setText(result.getSoDienThoai());
         jdcNgaySinh.setDate(result.getNgaySinh());
+        txtCCCD.setText(result.getCCCD());
         if (result.isGioiTinhNam())
         {
             gioitinh = 0;
@@ -959,7 +961,7 @@ public class QuanLyNhanVien_GUI_PanelForm extends javax.swing.JPanel {
 
     private void btnQuanLyChucVuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnQuanLyChucVuMouseClicked
         // TODO add your handling code here:
-        if(quanLyChucVu_GUI == null){
+         if(quanLyChucVu_GUI == null || !quanLyChucVu_GUI.isDisplayable()){
             quanLyChucVu_GUI = new QuanLyChucVu_GUI();
             quanLyChucVu_GUI.setVisible(true);
         } else {

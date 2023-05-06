@@ -619,6 +619,7 @@
               </Constraints>
             </Component>
             <Component class="javax.swing.JButton" name="btnSanSang">
+
               <Properties>
                 <Property name="text" type="java.lang.String" value="S&#x1eb5;n s&#xe0;ng"/>
                 <Property name="enabled" type="boolean" value="false"/>

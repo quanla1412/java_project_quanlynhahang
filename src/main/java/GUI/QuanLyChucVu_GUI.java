@@ -129,6 +129,7 @@ public class QuanLyChucVu_GUI extends javax.swing.JFrame {
         pnlQuanLyChucVu.add(btnThemChucVu, gridBagConstraints);
 
         btnSuaChucVu.setText("Sửa");
+        btnSuaChucVu.setFocusable(false);
         btnSuaChucVu.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnSuaChucVuMouseClicked(evt);
@@ -139,6 +140,7 @@ public class QuanLyChucVu_GUI extends javax.swing.JFrame {
         pnlQuanLyChucVu.add(btnSuaChucVu, gridBagConstraints);
 
         btnXoaChucVu.setText("Xoá");
+        btnXoaChucVu.setFocusable(false);
         btnXoaChucVu.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnXoaChucVuMouseClicked(evt);
@@ -168,6 +170,7 @@ public class QuanLyChucVu_GUI extends javax.swing.JFrame {
         pnlThemSuaChucVu.add(jLabel2, gridBagConstraints);
 
         btnResetChucVu.setText("Reset");
+        btnResetChucVu.setFocusable(false);
         btnResetChucVu.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnResetChucVuMouseClicked(evt);
@@ -180,6 +183,7 @@ public class QuanLyChucVu_GUI extends javax.swing.JFrame {
         pnlThemSuaChucVu.add(btnResetChucVu, gridBagConstraints);
 
         btnLuuChucVu.setText("Lưu");
+        btnLuuChucVu.setFocusable(false);
         btnLuuChucVu.setMaximumSize(new java.awt.Dimension(90, 23));
         btnLuuChucVu.setMinimumSize(new java.awt.Dimension(90, 23));
         btnLuuChucVu.setPreferredSize(new java.awt.Dimension(90, 23));

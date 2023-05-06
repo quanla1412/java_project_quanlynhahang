@@ -76,47 +76,49 @@ public class BaoCaoThongKe_GUI_PanelForm extends javax.swing.JPanel {
         cmbThongKe.addItemListener(new ItemListener() {
         public void itemStateChanged(ItemEvent event) {
             int indexLoaiKH = cmbThongKe.getSelectedIndex();
-            if(indexLoaiKH == 0){
-                showPieChartBanTheoSoLuong();
-            }
-            if(indexLoaiKH == 1){
-                showPieChartBanTheoTinhTrang();
-            }
-            if(indexLoaiKH == 2){
-                showPieChartKhachHangTheoLoaiKhachHang();
-            }
-            if(indexLoaiKH == 3){
-                showPieChartKhachHangTheoGioiTinh();
-            }
-            if(indexLoaiKH == 4){
-                showPieChartKhachHangTheoDoTuoi();
-            }
-            if(indexLoaiKH == 5){
-                showPieChartNhanVienTheoGioiTinh();
-            }
-            if(indexLoaiKH == 6){
-                showPieChartNhanVienTheoTinhTrang();
-            }
-            if(indexLoaiKH == 7){
-                showPieChartNhanVienTheoDoTuoi();
-            }
-            if(indexLoaiKH == 8){
-                showPieChartDoanhThuTheoNhanVienNamHienTai();
-            }
-            if(indexLoaiKH == 9){
-                showPieChartDoanhThuTheoKhachHangNamHienTai();
-            }
-            if(indexLoaiKH == 10){
-                showPieChartDoanhThuTheo7NgayGanNhat();
-            }
-            if(indexLoaiKH == 11){
-                showPieChartDoanhThuNamHienTai();
-            }
-            if(indexLoaiKH == 12){
-                showPieChartDoanhThuTheoLoaiMonAnNamHienTai();
-            }
-            if(indexLoaiKH == 13){
-                showPieChartTieuThuMonAnThangHienTai();
+            switch(indexLoaiKH){
+                case (0):
+                    showPieChartBanTheoSoLuong();
+                    break;
+                case (1):
+                    showPieChartBanTheoTinhTrang();
+                    break;
+                case (2):
+                    showPieChartKhachHangTheoLoaiKhachHang();
+                    break;
+                case (3):
+                    showPieChartKhachHangTheoGioiTinh();
+                    break;
+                case (4):
+                    showPieChartKhachHangTheoDoTuoi();
+                    break;
+                case (5):
+                    showPieChartNhanVienTheoGioiTinh();
+                    break;
+                case (6):
+                    showPieChartNhanVienTheoTinhTrang();
+                    break;
+                case (7):
+                    showPieChartNhanVienTheoDoTuoi();
+                    break;
+                case (8):
+                    showPieChartDoanhThuTheoNhanVienNamHienTai();
+                    break;
+                case (9):
+                    showPieChartDoanhThuTheoKhachHangNamHienTai();
+                    break;
+                case (10):
+                    showPieChartDoanhThuTheo7NgayGanNhat();
+                    break;
+                case (11):
+                    showPieChartDoanhThuNamHienTai();
+                    break;
+                case (12):
+                    showPieChartDoanhThuTheoLoaiMonAnNamHienTai();
+                    break;
+                case (13):
+                    showPieChartTieuThuMonAnThangHienTai();
+                    break;
             }
          }
         });

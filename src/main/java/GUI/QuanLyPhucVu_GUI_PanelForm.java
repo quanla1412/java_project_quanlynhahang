@@ -44,7 +44,7 @@ public class QuanLyPhucVu_GUI_PanelForm extends javax.swing.JPanel {
         initComponents();
         ban_BUS = new Ban_BUS();
         donGoi_BUS = new DonGoi_BUS();
-        this.maNhanVien = maNhanVien;
+        this.maNhanVien = "quanla";
         
         loadDanhSachBan();
     }
@@ -82,6 +82,7 @@ public class QuanLyPhucVu_GUI_PanelForm extends javax.swing.JPanel {
                     banDangChon = ban;
                     loadThongTinBan();
                     loadChucNang();
+                    loadDonGoi();
                     if(banDangChon.getTinhTrangBan().getId() == TinhTrangBanConstraints.DANG_PHUC_VU)
                         loadDonGoi();
                 }
@@ -134,7 +135,7 @@ public class QuanLyPhucVu_GUI_PanelForm extends javax.swing.JPanel {
         
         int total = 0;
         
-        String[] col = {"Id món ăn","Tên món ăn", "Đơn giá", "Số lượng", "Thành tiền"};
+        String[] col = {"ID Món ăn","Tên món ăn", "Đơn giá", "Số lượng", "Thành tiền"};
         DefaultTableModel model = new DefaultTableModel(col, 0);
         tblDonGoi.setModel(model);
         for(DonGoi_DTO donGoi : listDonGoi){
@@ -572,6 +573,7 @@ public class QuanLyPhucVu_GUI_PanelForm extends javax.swing.JPanel {
         btnChuyenBan.setMaximumSize(new java.awt.Dimension(132, 28));
         btnChuyenBan.setMinimumSize(new java.awt.Dimension(132, 28));
         btnChuyenBan.setPreferredSize(new java.awt.Dimension(132, 28));
+
         btnChuyenBan.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnChuyenBanMouseClicked(evt);
@@ -747,87 +749,101 @@ public class QuanLyPhucVu_GUI_PanelForm extends javax.swing.JPanel {
 
     private void btnThemMonMoiMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnThemMonMoiMouseClicked
         // TODO add your handling code here:
-        if(menu_GUI == null || !menu_GUI.isDisplayable()){
-            menu_GUI = new Menu_GUI(banDangChon.getId());
-            menu_GUI.setVisible(true);
-        } else {
-            menu_GUI.setState(JFrame.NORMAL);
-            menu_GUI.toFront();
+        if(btnThemMonMoi.isEnabled()){
+            if(menu_GUI == null || !menu_GUI.isDisplayable()){
+                menu_GUI = new Menu_GUI(banDangChon.getId());
+                menu_GUI.setVisible(true);
+            } else {
+                menu_GUI.setState(JFrame.NORMAL);
+                menu_GUI.toFront();
+            }
         }
     }//GEN-LAST:event_btnThemMonMoiMouseClicked
 
     private void btnXoaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnXoaMouseClicked
         // TODO add your handling code here:
-        int count = tblDonGoi.getSelectedRowCount();
-        if(count < 1)
-        JOptionPane.showMessageDialog(this, "Chưa chọn món ăn","Error", JOptionPane.ERROR_MESSAGE);
-        else if(count > 1)
-        JOptionPane.showMessageDialog(this, "Chỉ chọn 1 món ăn","Error", JOptionPane.ERROR_MESSAGE);
+        if(btnXoa.isEnabled()){
+            int count = tblDonGoi.getSelectedRowCount();
+            if(count < 1)
+            JOptionPane.showMessageDialog(this, "Chưa chọn món ăn","Error", JOptionPane.ERROR_MESSAGE);
+            else if(count > 1)
+            JOptionPane.showMessageDialog(this, "Chỉ chọn 1 món ăn","Error", JOptionPane.ERROR_MESSAGE);
 
-        int indexRow = tblDonGoi.getSelectedRow();
-        TableModel model = tblDonGoi.getModel();
+            int indexRow = tblDonGoi.getSelectedRow();
+            TableModel model = tblDonGoi.getModel();
 
-        int idMonAn = Integer.parseInt(model.getValueAt(indexRow, 0).toString());
-        boolean result = donGoi_BUS.deleteDonGoi(banDangChon.getId(), idMonAn);
-        if(result){
-            JOptionPane.showMessageDialog(this, "Xóa món ăn thành công","Thông báo", JOptionPane.INFORMATION_MESSAGE);
-            loadDonGoi();
-        } else {
-            JOptionPane.showMessageDialog(this, "Xóa món ăn thất bại","Thông báo", JOptionPane.INFORMATION_MESSAGE);
+            int idMonAn = Integer.parseInt(model.getValueAt(indexRow, 0).toString());
+            boolean result = donGoi_BUS.deleteDonGoi(banDangChon.getId(), idMonAn);
+            if(result){
+                JOptionPane.showMessageDialog(this, "Xóa món ăn thành công","Thông báo", JOptionPane.INFORMATION_MESSAGE);
+                loadDonGoi();
+            } else {
+                JOptionPane.showMessageDialog(this, "Xóa món ăn thất bại","Thông báo", JOptionPane.INFORMATION_MESSAGE);
+            }
         }
     }//GEN-LAST:event_btnXoaMouseClicked
 
     private void btnSuaDonGoiMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSuaDonGoiMouseClicked
         // TODO add your handling code here:
-        int count = tblDonGoi.getSelectedRowCount();
-        if(count < 1){
-            JOptionPane.showMessageDialog(this, "Chưa chọn món ăn","Error", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
+        if(btnSuaDonGoi.isEnabled()){
+            int count = tblDonGoi.getSelectedRowCount();
+            if(count < 1){
+                JOptionPane.showMessageDialog(this, "Chưa chọn món ăn","Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
 
-        int indexRow = tblDonGoi.getSelectedRow();
-        TableModel model = tblDonGoi.getModel();
+            int indexRow = tblDonGoi.getSelectedRow();
+            TableModel model = tblDonGoi.getModel();
 
-        int idMonAn = Integer.parseInt(model.getValueAt(indexRow, 0).toString());
-        if(datMon_GUI == null || !datMon_GUI.isDisplayable()){
-            datMon_GUI = new DatMon_GUI(banDangChon.getId(), idMonAn);
-            datMon_GUI.setVisible(true);
-        } else {
-            datMon_GUI.setState(JFrame.NORMAL);
-            datMon_GUI.toFront();
+            int idMonAn = Integer.parseInt(model.getValueAt(indexRow, 0).toString());
+            if(datMon_GUI == null || !datMon_GUI.isDisplayable()){
+                datMon_GUI = new DatMon_GUI(banDangChon.getId(), idMonAn);
+                datMon_GUI.setVisible(true);
+            } else {
+                datMon_GUI.setState(JFrame.NORMAL);
+                datMon_GUI.toFront();
+            }
         }
     }//GEN-LAST:event_btnSuaDonGoiMouseClicked
 
     private void btnChuyenBanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnChuyenBanMouseClicked
         // TODO add your handling code here:
-        int indexBan = cmbBanSanSang.getSelectedIndex();
-        if(indexBan < 0){
-            JOptionPane.showMessageDialog(this, "Vui lòng chọn bàn muốn chuyển","Error", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
+        if(btnChuyenBan.isEnabled()){
+            int indexBan = cmbBanSanSang.getSelectedIndex();
+            if(indexBan < 0){
+                JOptionPane.showMessageDialog(this, "Vui lòng chọn bàn muốn chuyển","Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
 
-        boolean result = donGoi_BUS.chuyenBan(banDangChon.getId(), listBanSanSang.get(indexBan).getId());
-        if(result){
-            JOptionPane.showMessageDialog(this, "Chuyển bàn thành công","Thông báo", JOptionPane.INFORMATION_MESSAGE);
-            chuyenTinhTrangBan(TinhTrangBanConstraints.DANG_CHUAN_BI);
-        } else {
-            JOptionPane.showMessageDialog(this, "Chuyển bàn thất bại","Thông báo", JOptionPane.INFORMATION_MESSAGE);
+            boolean result = donGoi_BUS.chuyenBan(banDangChon.getId(), listBanSanSang.get(indexBan).getId());
+            if(result){
+                JOptionPane.showMessageDialog(this, "Chuyển bàn thành công","Thông báo", JOptionPane.INFORMATION_MESSAGE);
+                chuyenTinhTrangBan(TinhTrangBanConstraints.DANG_CHUAN_BI);
+            } else {
+                JOptionPane.showMessageDialog(this, "Chuyển bàn thất bại","Thông báo", JOptionPane.INFORMATION_MESSAGE);
+            }
         }
     }//GEN-LAST:event_btnChuyenBanMouseClicked
 
     private void btnSanSangMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSanSangMouseClicked
         // TODO add your handling code here:
-        chuyenTinhTrangBan(TinhTrangBanConstraints.SAN_SANG);
+        if(btnSanSang.isEnabled()){
+            chuyenTinhTrangBan(TinhTrangBanConstraints.SAN_SANG);
+        }
     }//GEN-LAST:event_btnSanSangMouseClicked
 
     private void btnPhucVuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnPhucVuMouseClicked
         // TODO add your handling code here:
-        chuyenTinhTrangBan(TinhTrangBanConstraints.DANG_PHUC_VU);
+        if(btnPhucVu.isEnabled()){
+            chuyenTinhTrangBan(TinhTrangBanConstraints.DANG_PHUC_VU);
+        }
     }//GEN-LAST:event_btnPhucVuMouseClicked
 
     private void btnNgungPhucVuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnNgungPhucVuMouseClicked
         // TODO add your handling code here:
-        chuyenTinhTrangBan(TinhTrangBanConstraints.NGUNG_PHUC_VU);
+        if(btnNgungPhucVu.isEnabled()){
+            chuyenTinhTrangBan(TinhTrangBanConstraints.NGUNG_PHUC_VU);
+        }
     }//GEN-LAST:event_btnNgungPhucVuMouseClicked
 
     private void btnResetDonGoiMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnResetDonGoiMouseClicked
@@ -837,17 +853,19 @@ public class QuanLyPhucVu_GUI_PanelForm extends javax.swing.JPanel {
 
     private void btnThanhToanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnThanhToanMouseClicked
         // TODO add your handling code here:
-        if(donGoi_BUS.getAllDonGoiByIdBan(banDangChon.getId()).size() <= 0){
-            JOptionPane.showMessageDialog(this, "Đơn gọi không có món ăn","Error", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
+        if(btnThanhToan.isEnabled()){
+            if(donGoi_BUS.getAllDonGoiByIdBan(banDangChon.getId()).size() <= 0){
+                JOptionPane.showMessageDialog(this, "Đơn gọi không có món ăn","Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
 
-        if(thanhToan_GUI == null || !thanhToan_GUI.isDisplayable()){
-            thanhToan_GUI = new ThanhToan_GUI(banDangChon.getId(), maNhanVien);
-            thanhToan_GUI.setVisible(true);
-        } else {
-            thanhToan_GUI.setState(JFrame.NORMAL);
-            thanhToan_GUI.toFront();
+            if(thanhToan_GUI == null || !thanhToan_GUI.isDisplayable()){
+                thanhToan_GUI = new ThanhToan_GUI(banDangChon.getId(), maNhanVien);
+                thanhToan_GUI.setVisible(true);
+            } else {
+                thanhToan_GUI.setState(JFrame.NORMAL);
+                thanhToan_GUI.toFront();
+            }
         }
     }//GEN-LAST:event_btnThanhToanMouseClicked
 
