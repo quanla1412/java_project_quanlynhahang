@@ -139,9 +139,11 @@ public class QuanLyLoaiBanVaBan_GUI_PanelForm extends javax.swing.JPanel {
 
         setLayout(new javax.swing.BoxLayout(this, javax.swing.BoxLayout.Y_AXIS));
 
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Quản lý loại bàn"));
         jPanel1.setMinimumSize(new java.awt.Dimension(685, 253));
         jPanel1.setLayout(new javax.swing.BoxLayout(jPanel1, javax.swing.BoxLayout.LINE_AXIS));
 
+        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Danh sách loại bàn"));
         jPanel2.setLayout(new javax.swing.BoxLayout(jPanel2, javax.swing.BoxLayout.LINE_AXIS));
 
         jScrollPane2.setMaximumSize(new java.awt.Dimension(2147483647, 2147483647));
@@ -162,6 +164,7 @@ public class QuanLyLoaiBanVaBan_GUI_PanelForm extends javax.swing.JPanel {
 
         jPanel4.setLayout(new javax.swing.BoxLayout(jPanel4, javax.swing.BoxLayout.PAGE_AXIS));
 
+        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("Chức năng cho loại bàn"));
         jPanel3.setMaximumSize(new java.awt.Dimension(32767, 56));
 
         btnThemLoaiBan.setText("Thêm");
@@ -196,6 +199,7 @@ public class QuanLyLoaiBanVaBan_GUI_PanelForm extends javax.swing.JPanel {
 
         jPanel4.add(jPanel3);
 
+        pnlThemSuaLoaiBan.setBorder(javax.swing.BorderFactory.createTitledBorder("Thêm loại bàn mới"));
         pnlThemSuaLoaiBan.setToolTipText("");
         pnlThemSuaLoaiBan.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         pnlThemSuaLoaiBan.setName(""); // NOI18N
@@ -381,7 +385,7 @@ public class QuanLyLoaiBanVaBan_GUI_PanelForm extends javax.swing.JPanel {
 
         jPanel11.add(jPanel12);
 
-        pnlThemSuaBan.setBorder(javax.swing.BorderFactory.createTitledBorder("Thêm loại bàn mới\n"));
+        pnlThemSuaBan.setBorder(javax.swing.BorderFactory.createTitledBorder("Thêm bàn mới "));
         pnlThemSuaBan.setName(""); // NOI18N
         pnlThemSuaBan.setLayout(new java.awt.GridBagLayout());
 
@@ -693,7 +697,7 @@ public class QuanLyLoaiBanVaBan_GUI_PanelForm extends javax.swing.JPanel {
         btnThemBan.setEnabled(false);
         btnSuaBan.setEnabled(true);
         dangThemBan = true;
-        pnlThemSuaBan.setBorder(BorderFactory.createTitledBorder("Thêm loại bàn mới"));
+        pnlThemSuaBan.setBorder(BorderFactory.createTitledBorder("Thêm bàn mới"));
         pnlThemSuaBan.repaint();
         clearTextViewLoaiBan();
     }//GEN-LAST:event_btnThemBanMouseClicked
@@ -703,7 +707,7 @@ public class QuanLyLoaiBanVaBan_GUI_PanelForm extends javax.swing.JPanel {
         btnThemBan.setEnabled(true);
         btnSuaBan.setEnabled(false);
         dangThemBan = false;
-        pnlThemSuaBan.setBorder(BorderFactory.createTitledBorder("Sửa loại bàn"));
+        pnlThemSuaBan.setBorder(BorderFactory.createTitledBorder("Sửa bàn"));
         pnlThemSuaBan.repaint();
         clearTextViewBan();
     }//GEN-LAST:event_btnSuaBanMouseClicked
