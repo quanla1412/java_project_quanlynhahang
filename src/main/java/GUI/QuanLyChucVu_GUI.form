@@ -135,6 +135,7 @@
             <Component class="javax.swing.JButton" name="btnSuaChucVu">
               <Properties>
                 <Property name="text" type="java.lang.String" value="S&#x1eed;a"/>
+                <Property name="focusable" type="boolean" value="false"/>
               </Properties>
               <Events>
                 <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btnSuaChucVuMouseClicked"/>
@@ -148,6 +149,7 @@
             <Component class="javax.swing.JButton" name="btnXoaChucVu">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Xo&#xe1;"/>
+                <Property name="focusable" type="boolean" value="false"/>
               </Properties>
               <Events>
                 <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btnXoaChucVuMouseClicked"/>
@@ -194,6 +196,7 @@
             <Component class="javax.swing.JButton" name="btnResetChucVu">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Reset"/>
+                <Property name="focusable" type="boolean" value="false"/>
               </Properties>
               <Events>
                 <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btnResetChucVuMouseClicked"/>
@@ -207,6 +210,7 @@
             <Component class="javax.swing.JButton" name="btnLuuChucVu">
               <Properties>
                 <Property name="text" type="java.lang.String" value="L&#x1b0;u"/>
+                <Property name="focusable" type="boolean" value="false"/>
                 <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
                   <Dimension value="[90, 23]"/>
                 </Property>

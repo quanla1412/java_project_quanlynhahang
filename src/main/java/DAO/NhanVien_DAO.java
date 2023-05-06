@@ -159,7 +159,7 @@ public class NhanVien_DAO {
         Connection con = ConnectDatabase.openConnection();
         ArrayList<NhanVien_DTO> result = new ArrayList<>();
         try {
-            StringBuilder sql = new StringBuilder("ELECT NV_MA, NV_HoTen, NV_SDT, TTNV_Ten, CV_Ten, NV_NgaySinh, NV_GioiTinhNam, NV_Email, NV_DiaChi, NV_GioiTinhNam, NV_CCCD "
+            StringBuilder sql = new StringBuilder("SELECT NV_MA, NV_HoTen, NV_SDT, TTNV_Ten, CV_Ten, NV_NgaySinh, NV_GioiTinhNam, NV_Email, NV_DiaChi, NV_GioiTinhNam, NV_CCCD "
                         + "FROM NhanVien, TinhTrangNhanVien, ChucVu "
                         + "WHERE NhanVien.TTNV_ID = TinhTrangNhanVien.TTNV_ID AND NhanVien.CV_ID = ChucVu.CV_ID ");
             
