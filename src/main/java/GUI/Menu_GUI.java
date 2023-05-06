@@ -13,6 +13,7 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.Image;
 import java.awt.Insets;
 import java.awt.LayoutManager;
 import java.awt.Panel;
@@ -75,7 +76,9 @@ public class Menu_GUI extends javax.swing.JFrame {
 //                pnlItem.setBorder(BorderFactory.createRaisedBevelBorder());
                         
                 JLabel lblHinhAnh = new JLabel();
-                lblHinhAnh.setIcon(new ImageIcon(monAn.getHinhAnh()));
+                ImageIcon yourImage = new ImageIcon(monAn.getHinhAnh());
+                Image newImage = yourImage.getImage().getScaledInstance(140, 140, Image.SCALE_DEFAULT);
+                lblHinhAnh.setIcon(new ImageIcon(newImage));
                 lblHinhAnh.setPreferredSize(new Dimension(140, 140));
                 c.anchor = GridBagConstraints.CENTER;
                 c.gridx = 0;
