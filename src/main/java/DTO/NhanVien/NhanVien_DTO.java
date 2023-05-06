@@ -19,6 +19,6 @@ public record NhanVien_DTO (
         Date ngaySinh,
         String email,
         String diaChi,
-        String gioITinh,
+        String gioiTinh,
         String CCCD
 ){}

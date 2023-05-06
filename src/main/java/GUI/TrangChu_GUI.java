@@ -145,6 +145,11 @@ public class TrangChu_GUI extends javax.swing.JFrame {
                 btnQuanLyBanMouseClicked(evt);
             }
         });
+        btnQuanLyBan.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnQuanLyBanActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
         jPanel2.add(btnQuanLyBan, gridBagConstraints);
@@ -319,6 +324,10 @@ public class TrangChu_GUI extends javax.swing.JFrame {
             baoCaoThongKe_GUI.toFront();
         }
     }//GEN-LAST:event_btnBaoCaoThongKeMouseClicked
+
+    private void btnQuanLyBanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnQuanLyBanActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnQuanLyBanActionPerformed
 
     /**
      * @param args the command line arguments

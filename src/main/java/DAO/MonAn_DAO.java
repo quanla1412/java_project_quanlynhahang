@@ -134,7 +134,7 @@ public class MonAn_DAO {
             }
             
             if(searchData.getIdTTMA()> 0)
-                sql.append(" AND ( MonAn.TTMA_ID != 3 OR MonAn.TTMA_ID = ").append(searchData.getIdTTMA()).append(") ");
+                sql.append(" AND ( MonAn.TTMA_ID != 3 AND MonAn.TTMA_ID = ").append(searchData.getIdTTMA()).append(") ");
             else 
                 sql.append(" AND MonAn.TTMA_ID != 3 ");
             
