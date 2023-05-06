@@ -281,7 +281,7 @@ public class QuanLyPhucVu_GUI_PanelForm extends javax.swing.JPanel {
         jScrollPane3.setPreferredSize(new java.awt.Dimension(520, 600));
         jScrollPane3.setWheelScrollingEnabled(false);
 
-        pnlDanhSachBan.setMaximumSize(new java.awt.Dimension(500, 600));
+        pnlDanhSachBan.setMaximumSize(new java.awt.Dimension(500, 6000));
         pnlDanhSachBan.setMinimumSize(new java.awt.Dimension(260, 600));
         pnlDanhSachBan.setName(""); // NOI18N
         pnlDanhSachBan.setPreferredSize(new java.awt.Dimension(500, 600));
@@ -573,7 +573,6 @@ public class QuanLyPhucVu_GUI_PanelForm extends javax.swing.JPanel {
         btnChuyenBan.setMaximumSize(new java.awt.Dimension(132, 28));
         btnChuyenBan.setMinimumSize(new java.awt.Dimension(132, 28));
         btnChuyenBan.setPreferredSize(new java.awt.Dimension(132, 28));
-
         btnChuyenBan.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnChuyenBanMouseClicked(evt);

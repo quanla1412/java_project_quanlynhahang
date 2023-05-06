@@ -67,7 +67,7 @@
             <Container class="javax.swing.JPanel" name="pnlDanhSachBan">
               <Properties>
                 <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                  <Dimension value="[500, 600]"/>
+                  <Dimension value="[500, 6000]"/>
                 </Property>
                 <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
                   <Dimension value="[260, 600]"/>
@@ -619,7 +619,6 @@
               </Constraints>
             </Component>
             <Component class="javax.swing.JButton" name="btnSanSang">
-
               <Properties>
                 <Property name="text" type="java.lang.String" value="S&#x1eb5;n s&#xe0;ng"/>
                 <Property name="enabled" type="boolean" value="false"/>
