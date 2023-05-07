@@ -125,31 +125,31 @@ public class TrangChuNew_GUI extends javax.swing.JFrame {
         switch (selectedDefault) {
             case ChucNangConstraints.QUAN_LY_PHUC_VU:
                 btnQuanLyPhucVu.setBackground(new java.awt.Color(0,0,0,100));
-                showForm(new QuanLyPhucVu_GUI_PanelForm(maNhanVien));                
+                showForm(new QuanLyPhucVu_GUI(maNhanVien));                
                 break;
             case ChucNangConstraints.QUAN_LY_BAN:
                 btnQuanLyBan.setBackground(new java.awt.Color(0,0,0,100));
-                showForm(new QuanLyLoaiBanVaBan_GUI_PanelForm());                
+                showForm(new QuanLyLoaiBanVaBan_GUI());                
                 break;
             case ChucNangConstraints.QUAN_LY_MON_AN:
                 btnQuanLyMonAn.setBackground(new java.awt.Color(0,0,0,100));
-                showForm(new QuanLyMonAn_GUI_PanelForm());                
+                showForm(new QuanLyMonAn_GUI());                
                 break;
             case ChucNangConstraints.QUAN_LY_HOA_DON:
                 btnQuanLyHoaDon.setBackground(new java.awt.Color(0,0,0,100));
-                showForm(new QuanLyHoaDon_GUI_PanelForm());                
+                showForm(new QuanLyHoaDon_GUI());                
                 break;
             case ChucNangConstraints.QUAN_LY_NHAN_VIEN:
                 btnQuanLyNhanVien.setBackground(new java.awt.Color(0,0,0,100));
-                showForm(new QuanLyNhanVien_GUI_PanelForm());                
+                showForm(new QuanLyNhanVien_GUI());                
                 break;
             case ChucNangConstraints.QUAN_LY_KHACH_HANG:
                 btnQuanLyKhachHang.setBackground(new java.awt.Color(0,0,0,100));
-                showForm(new QuanLyKhachHang_GUI_PanelForm());                
+                showForm(new QuanLyKhachHang_GUI());                
                 break;
             case ChucNangConstraints.QUAN_LY_THONG_KE:
                 btnBaoCaoThongKe.setBackground(new java.awt.Color(0,0,0,100));
-                showForm(new BaoCaoThongKe_GUI_PanelForm());                
+                showForm(new BaoCaoThongKe_GUI());                
                 break;
             default:
         }
@@ -518,7 +518,7 @@ public class TrangChuNew_GUI extends javax.swing.JFrame {
     private void btnQuanLyPhucVuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnQuanLyPhucVuMouseClicked
         resetColorButton();
         btnQuanLyPhucVu.setBackground(new java.awt.Color(0,0,0,100));
-        showForm(new QuanLyPhucVu_GUI_PanelForm(maNhanVien));
+        showForm(new QuanLyPhucVu_GUI(maNhanVien));
     }//GEN-LAST:event_btnQuanLyPhucVuMouseClicked
 
     private void btnQuanLyPhucVuMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnQuanLyPhucVuMouseEntered
@@ -546,7 +546,7 @@ public class TrangChuNew_GUI extends javax.swing.JFrame {
     private void btnQuanLyBanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnQuanLyBanMouseClicked
         resetColorButton();
         btnQuanLyBan.setBackground(new java.awt.Color(0,0,0,100));
-        showForm(new QuanLyLoaiBanVaBan_GUI_PanelForm());
+        showForm(new QuanLyLoaiBanVaBan_GUI());
     }//GEN-LAST:event_btnQuanLyBanMouseClicked
 
     private void btnQuanLyBanMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnQuanLyBanMouseEntered
@@ -568,7 +568,7 @@ public class TrangChuNew_GUI extends javax.swing.JFrame {
     private void btnQuanLyMonAnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnQuanLyMonAnMouseClicked
         resetColorButton();
         btnQuanLyMonAn.setBackground(new java.awt.Color(0,0,0,100));
-        showForm(new QuanLyMonAn_GUI_PanelForm());
+        showForm(new QuanLyMonAn_GUI());
     }//GEN-LAST:event_btnQuanLyMonAnMouseClicked
 
     private void btnQuanLyMonAnMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnQuanLyMonAnMouseEntered
@@ -590,7 +590,7 @@ public class TrangChuNew_GUI extends javax.swing.JFrame {
     private void btnQuanLyHoaDonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnQuanLyHoaDonMouseClicked
         resetColorButton();
         btnQuanLyHoaDon.setBackground(new java.awt.Color(0,0,0,100));
-        showForm(new QuanLyHoaDon_GUI_PanelForm());
+        showForm(new QuanLyHoaDon_GUI());
     }//GEN-LAST:event_btnQuanLyHoaDonMouseClicked
 
     private void btnQuanLyHoaDonMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnQuanLyHoaDonMouseEntered
@@ -612,7 +612,7 @@ public class TrangChuNew_GUI extends javax.swing.JFrame {
     private void btnQuanLyNhanVienMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnQuanLyNhanVienMouseClicked
         resetColorButton();
         btnQuanLyNhanVien.setBackground(new java.awt.Color(0,0,0,100));
-        showForm(new QuanLyNhanVien_GUI_PanelForm());
+        showForm(new QuanLyNhanVien_GUI());
     }//GEN-LAST:event_btnQuanLyNhanVienMouseClicked
 
     private void btnQuanLyNhanVienMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnQuanLyNhanVienMouseEntered
@@ -634,7 +634,7 @@ public class TrangChuNew_GUI extends javax.swing.JFrame {
     private void btnQuanLyKhachHangMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnQuanLyKhachHangMouseClicked
         resetColorButton();
         btnQuanLyKhachHang.setBackground(new java.awt.Color(0,0,0,100));
-        showForm(new QuanLyKhachHang_GUI_PanelForm());
+        showForm(new QuanLyKhachHang_GUI());
     }//GEN-LAST:event_btnQuanLyKhachHangMouseClicked
 
     private void btnQuanLyKhachHangMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnQuanLyKhachHangMouseEntered
@@ -660,7 +660,7 @@ public class TrangChuNew_GUI extends javax.swing.JFrame {
     private void btnBaoCaoThongKeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBaoCaoThongKeMouseClicked
         resetColorButton();
         btnBaoCaoThongKe.setBackground(new java.awt.Color(0,0,0,100));
-        showForm(new BaoCaoThongKe_GUI_PanelForm());
+        showForm(new BaoCaoThongKe_GUI());
     }//GEN-LAST:event_btnBaoCaoThongKeMouseClicked
 
     private void btnBaoCaoThongKeMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBaoCaoThongKeMouseEntered

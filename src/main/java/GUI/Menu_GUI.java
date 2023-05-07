@@ -15,6 +15,7 @@ import java.awt.FlowLayout;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.GridBagConstraints;
+import static java.awt.GridBagConstraints.CENTER;
 import java.awt.GridBagLayout;
 import java.awt.Image;
 import java.awt.Insets;
@@ -32,6 +33,9 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.event.MouseInputListener;
+import org.kordamp.ikonli.materialdesign.MaterialDesign;
+import org.kordamp.ikonli.materialdesign2.MaterialDesignI;
+import org.kordamp.ikonli.swing.FontIcon;
 
 /**
  *
@@ -49,6 +53,7 @@ public class Menu_GUI extends javax.swing.JFrame {
      */
     public Menu_GUI(int idBan) {
         initComponents();
+        setExtendedState(JFrame.MAXIMIZED_BOTH);
         loaiMonAn_BUS = new LoaiMonAn_BUS();
         monAn_BUS = new MonAn_BUS();
         this.idBan = idBan;
@@ -90,11 +95,16 @@ public class Menu_GUI extends javax.swing.JFrame {
                 pnlItem.setBackground(Color.WHITE);
 //                pnlItem.setBorder(BorderFactory.createRaisedBevelBorder());
 
-                String linkHinhAnh = monAn.getHinhAnh() == null ? "D:\\QuanLyNhaHang\\Icon\\404icon.png" : monAn.getHinhAnh();
                 JLabel lblHinhAnh = new JLabel();
-                ImageIcon yourImage = new ImageIcon(linkHinhAnh);
-                Image newImage = yourImage.getImage().getScaledInstance(200, 200, Image.SCALE_DEFAULT);
-                lblHinhAnh.setIcon(new ImageIcon(newImage));
+                if (monAn.getHinhAnh() == null){
+                    FontIcon iconNoImage = FontIcon.of(MaterialDesignI.IMAGE_OFF,160,Color.GRAY);
+                    lblHinhAnh.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+                    lblHinhAnh.setIcon(iconNoImage);
+                } else {
+                    ImageIcon yourImage = new ImageIcon(monAn.getHinhAnh());
+                    Image newImage = yourImage.getImage().getScaledInstance(200, 200, Image.SCALE_DEFAULT);
+                    lblHinhAnh.setIcon(new ImageIcon(newImage));
+                }
                 lblHinhAnh.setPreferredSize(new Dimension(200, 200));
                 c.anchor = GridBagConstraints.CENTER;
                 c.gridx = 0;
@@ -296,6 +306,7 @@ public class Menu_GUI extends javax.swing.JFrame {
         jPanel3.setLayout(new java.awt.GridBagLayout());
 
         jLabel2.setBackground(new java.awt.Color(204, 153, 255));
+        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setMaximumSize(new java.awt.Dimension(200, 200));
         jLabel2.setMinimumSize(new java.awt.Dimension(200, 200));
         jLabel2.setPreferredSize(new java.awt.Dimension(200, 200));

@@ -353,7 +353,11 @@ public class KhachHang_BUS {
                         return false;
                     }
                     break;
-                }                        
+                }    
+                boolean result = khachHang_DAO.capNhatLoaiKhachHang(khachHangFull_DTO.getId(), listLoaiKhachHang.get(i).getId());                    
+                if (!result) {
+                    return false;
+                }
             }
             
         }
@@ -373,7 +377,11 @@ public class KhachHang_BUS {
                     return false;
                 }
                 break;
-            }                        
+            }   
+            boolean result = khachHang_DAO.capNhatLoaiKhachHang(khachHang.getId(), listLoaiKhachHang.get(i).getId());                    
+            if (!result) {
+                return false;
+            }                     
         }
             
         
