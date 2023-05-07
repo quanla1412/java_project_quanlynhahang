@@ -14,6 +14,12 @@ public class CheckHopLe {
         
         return matcher.find();
     }
+     public static boolean checkCCCD(String cccd){
+        Pattern pattern = Pattern.compile("^0[0-9]{11}$");
+        Matcher matcher = pattern.matcher(cccd);
+        
+        return matcher.find();
+    }
     
     public static boolean checkEmail(String email){
         Pattern pattern = Pattern.compile("^[a-z][a-z0-9_\\.]{5,32}@[a-z0-9]{2,}(\\.[a-z0-9]{2,4}){1,2}$");

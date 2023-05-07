@@ -65,7 +65,7 @@ public class QuanLyHoaDon_GUI extends javax.swing.JFrame {
     
     
     private void loadFromDateToDate(){  
-        LocalDate fromDate = LocalDate.now().minusDays(7);
+        LocalDate fromDate = LocalDate.now().minusDays(30);
         LocalDate toDate = LocalDate.now();
         
         dtcNgayBatDau.setDate(Date.valueOf(fromDate));
@@ -82,7 +82,7 @@ public class QuanLyHoaDon_GUI extends javax.swing.JFrame {
         loadTableHoaDon();
         txtSearchID.setText("");
         
-        LocalDate fromDate = LocalDate.now().minusDays(7);
+        LocalDate fromDate = LocalDate.now().minusDays(30);
         LocalDate toDate = LocalDate.now();
         dtcNgayBatDau.setDate(Date.valueOf(fromDate));
         dtcNgayCuoiCung.setDate(Date.valueOf(toDate));
@@ -731,6 +731,7 @@ public class QuanLyHoaDon_GUI extends javax.swing.JFrame {
         
         if((ngayBatDau.compareTo(ngayCuoiCung)) > 0){
             JOptionPane.showMessageDialog(this,"Ngày bắt đầu không được lớn hơn ngày kết thúc","Error",JOptionPane.ERROR_MESSAGE);
+            return;
         } else {
                 searchHoaDon_DTO.setNgayBatDau(ngayBatDau);
                 searchHoaDon_DTO.setNgayCuoiCung(ngayCuoiCungTS);
@@ -741,6 +742,7 @@ public class QuanLyHoaDon_GUI extends javax.swing.JFrame {
         int maxPrice = sldMaxPrice.getValue();
         if(minPrice > maxPrice){
             JOptionPane.showMessageDialog(this,"Giá tối thiểu phải nhỏ hơn giá tối đa","Error",JOptionPane.ERROR_MESSAGE);
+            return;
         } else {
             searchHoaDon_DTO.setMinPrice(minPrice);
             searchHoaDon_DTO.setMaxPrice(maxPrice);

@@ -92,9 +92,9 @@ public class Menu_GUI extends javax.swing.JFrame {
 
                 JLabel lblHinhAnh = new JLabel();
                 ImageIcon yourImage = new ImageIcon(monAn.getHinhAnh());
-                Image newImage = yourImage.getImage().getScaledInstance(140, 140, Image.SCALE_DEFAULT);
+                Image newImage = yourImage.getImage().getScaledInstance(200, 200, Image.SCALE_DEFAULT);
                 lblHinhAnh.setIcon(new ImageIcon(newImage));
-                lblHinhAnh.setPreferredSize(new Dimension(140, 140));
+                lblHinhAnh.setPreferredSize(new Dimension(200, 200));
                 c.anchor = GridBagConstraints.CENTER;
                 c.gridx = 0;
                 c.gridy = 0;
@@ -274,13 +274,15 @@ public class Menu_GUI extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Menu");
-        setMinimumSize(new java.awt.Dimension(1032, 840));
-        setPreferredSize(new java.awt.Dimension(1032, 840));
+        setMinimumSize(new java.awt.Dimension(1042, 440));
+        setPreferredSize(new java.awt.Dimension(1042, 440));
+
+        tabMenu.setMinimumSize(new java.awt.Dimension(822, 420));
 
         jScrollPane1.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         jScrollPane1.setMaximumSize(new java.awt.Dimension(822, 32767));
         jScrollPane1.setMinimumSize(new java.awt.Dimension(822, 600));
-        jScrollPane1.setPreferredSize(new java.awt.Dimension(822, 600));
+        jScrollPane1.setPreferredSize(new java.awt.Dimension(822, 900));
 
         jPanel1.setMaximumSize(new java.awt.Dimension(822, 600));
         jPanel1.setMinimumSize(new java.awt.Dimension(822, 600));
@@ -959,11 +961,11 @@ public class Menu_GUI extends javax.swing.JFrame {
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1032, Short.MAX_VALUE)
+            .addGap(0, 1065, Short.MAX_VALUE)
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 809, Short.MAX_VALUE)
+            .addGap(0, 586, Short.MAX_VALUE)
         );
 
         tabMenu.addTab("Xôi lạc", jPanel2);

@@ -23,7 +23,7 @@ public class Main {
         } catch(Exception ex){
             System.out.println(ex);
         }
-        TrangChuNew_GUI dangNhap_GUI= new TrangChuNew_GUI();
+        DangNhap_GUI dangNhap_GUI = new DangNhap_GUI();
         dangNhap_GUI.setVisible(true);
     }
     

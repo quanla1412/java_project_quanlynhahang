@@ -5,11 +5,17 @@
 package GUI;
 
 
+import BUS.NhanVien_BUS;
+import BUS.QuyenTaiKhoan_BUS;
+import Constraints.ChucNangConstraints;
+import DTO.NhanVien.NhanVienFull_DTO;
 import java.awt.Color;
 import java.awt.GradientPaint;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
+import java.util.ArrayList;
+import java.util.Collections;
 import javax.swing.JComponent;
 import javax.swing.JPanel;
 import org.kordamp.ikonli.materialdesign.MaterialDesign;
@@ -21,13 +27,28 @@ import org.kordamp.ikonli.swing.FontIcon;
  */
 public class TrangChuNew_GUI extends javax.swing.JFrame {
 
-    boolean over;
+    private final QuyenTaiKhoan_BUS quyenTaiKhoan_BUS;    
+    private final NhanVien_BUS nhanVien_BUS;
+
     
-    public TrangChuNew_GUI() {
+    private final String maNhanVien;
+    private final ArrayList<Integer> listQuyen;
+    private NhanVienFull_DTO nhanVien;
+    
+    public TrangChuNew_GUI(String maNhanVien) {
         initComponents();
+        quyenTaiKhoan_BUS = new QuyenTaiKhoan_BUS();
+        nhanVien_BUS = new NhanVien_BUS();
+        
         prepareIcon();
         btnQuanLyPhucVu.setBackground(new java.awt.Color(0,0,0,100));
-        showForm(new QuanLyPhucVu_GUI_PanelForm());
+        this.maNhanVien = maNhanVien;
+        nhanVien = nhanVien_BUS.getNhanVienbyMa(maNhanVien);
+        listQuyen = quyenTaiKhoan_BUS.getAllQuyenByMaNV(maNhanVien);
+        
+        lblTenNhanVien.setText(nhanVien.getHoTen());
+        
+        checkQuyen();
     }
 
     class jPanelGradient extends JPanel {
@@ -41,8 +62,6 @@ public class TrangChuNew_GUI extends javax.swing.JFrame {
             g2.fillRoundRect(0, 0, getWidth(), getHeight(), 20, 20);
         }
     }
-    
-    
     
     private void showForm(JComponent com){
         pnlForm.removeAll();
@@ -62,17 +81,16 @@ public class TrangChuNew_GUI extends javax.swing.JFrame {
         btnDangXuat.setBackground(new java.awt.Color(0,0,0,0));
     }
     
-    
     private void prepareIcon() {
         FontIcon iconAvatarNhanVien = FontIcon.of(MaterialDesign.MDI_ACCOUNT_CIRCLE,32,Color.WHITE);
-        FontIcon iconQuanLyPhucVu = FontIcon.of(MaterialDesign.MDI_FOOD_FORK_DRINK,40,Color.WHITE);
-        FontIcon iconQuanLyBan = FontIcon.of(MaterialDesign.MDI_TABLE,40,Color.WHITE);
-        FontIcon iconQuanLyMonAn = FontIcon.of(MaterialDesign.MDI_FOOD,40,Color.WHITE);
-        FontIcon iconQuanLyHoaDon = FontIcon.of(MaterialDesign.MDI_LIBRARY_BOOKS,40,Color.WHITE);
-        FontIcon iconQuanLyNhanVien = FontIcon.of(MaterialDesign.MDI_ACCOUNT,40,Color.WHITE);
-        FontIcon iconQuanLyKhachHang = FontIcon.of(MaterialDesign.MDI_ACCOUNT_MULTIPLE,40,Color.WHITE);
-        FontIcon iconBaoCaoThongKe = FontIcon.of(MaterialDesign.MDI_CHART_LINE,40,Color.WHITE);
-        FontIcon iconDangXuat = FontIcon.of(MaterialDesign.MDI_LOGOUT,40,Color.WHITE);
+        FontIcon iconQuanLyPhucVu = FontIcon.of(MaterialDesign.MDI_FOOD_FORK_DRINK,28,Color.WHITE);
+        FontIcon iconQuanLyBan = FontIcon.of(MaterialDesign.MDI_TABLE,28,Color.WHITE);
+        FontIcon iconQuanLyMonAn = FontIcon.of(MaterialDesign.MDI_FOOD,28,Color.WHITE);
+        FontIcon iconQuanLyHoaDon = FontIcon.of(MaterialDesign.MDI_LIBRARY_BOOKS,28,Color.WHITE);
+        FontIcon iconQuanLyNhanVien = FontIcon.of(MaterialDesign.MDI_ACCOUNT,28,Color.WHITE);
+        FontIcon iconQuanLyKhachHang = FontIcon.of(MaterialDesign.MDI_ACCOUNT_MULTIPLE,28,Color.WHITE);
+        FontIcon iconBaoCaoThongKe = FontIcon.of(MaterialDesign.MDI_CHART_LINE,28,Color.WHITE);
+        FontIcon iconDangXuat = FontIcon.of(MaterialDesign.MDI_LOGOUT,28,Color.WHITE);
         
         lblTenNhanVien.setIcon(iconAvatarNhanVien);
         btnQuanLyPhucVu.setIcon(iconQuanLyPhucVu);
@@ -84,6 +102,57 @@ public class TrangChuNew_GUI extends javax.swing.JFrame {
         btnBaoCaoThongKe.setIcon(iconBaoCaoThongKe);
         btnDangXuat.setIcon(iconDangXuat);
 
+    }
+    
+    private void checkQuyen(){
+        if(!listQuyen.contains(ChucNangConstraints.QUAN_LY_PHUC_VU))
+            pnlMenu.remove(btnQuanLyPhucVu);
+        if(!listQuyen.contains(ChucNangConstraints.QUAN_LY_BAN))
+            pnlMenu.remove(btnQuanLyBan);
+        if(!listQuyen.contains(ChucNangConstraints.QUAN_LY_MON_AN))
+            pnlMenu.remove(btnQuanLyMonAn);
+        if(!listQuyen.contains(ChucNangConstraints.QUAN_LY_HOA_DON))
+            pnlMenu.remove(btnQuanLyHoaDon);
+        if(!listQuyen.contains(ChucNangConstraints.QUAN_LY_NHAN_VIEN))
+            pnlMenu.remove(btnQuanLyNhanVien);
+        if(!listQuyen.contains(ChucNangConstraints.QUAN_LY_KHACH_HANG))
+            pnlMenu.remove(btnQuanLyKhachHang);
+        if(!listQuyen.contains(ChucNangConstraints.QUAN_LY_THONG_KE))
+            pnlMenu.remove(btnBaoCaoThongKe);
+        
+        int selectedDefault = !listQuyen.isEmpty() ? Collections.min(listQuyen) : -1;
+        
+        switch (selectedDefault) {
+            case ChucNangConstraints.QUAN_LY_PHUC_VU:
+                btnQuanLyPhucVu.setBackground(new java.awt.Color(0,0,0,100));
+                showForm(new QuanLyPhucVu_GUI_PanelForm(maNhanVien));                
+                break;
+            case ChucNangConstraints.QUAN_LY_BAN:
+                btnQuanLyBan.setBackground(new java.awt.Color(0,0,0,100));
+                showForm(new QuanLyLoaiBanVaBan_GUI_PanelForm());                
+                break;
+            case ChucNangConstraints.QUAN_LY_MON_AN:
+                btnQuanLyMonAn.setBackground(new java.awt.Color(0,0,0,100));
+                showForm(new QuanLyMonAn_GUI_PanelForm());                
+                break;
+            case ChucNangConstraints.QUAN_LY_HOA_DON:
+                btnQuanLyHoaDon.setBackground(new java.awt.Color(0,0,0,100));
+                showForm(new QuanLyHoaDon_GUI_PanelForm());                
+                break;
+            case ChucNangConstraints.QUAN_LY_NHAN_VIEN:
+                btnQuanLyNhanVien.setBackground(new java.awt.Color(0,0,0,100));
+                showForm(new QuanLyNhanVien_GUI_PanelForm());                
+                break;
+            case ChucNangConstraints.QUAN_LY_KHACH_HANG:
+                btnQuanLyKhachHang.setBackground(new java.awt.Color(0,0,0,100));
+                showForm(new QuanLyKhachHang_GUI_PanelForm());                
+                break;
+            case ChucNangConstraints.QUAN_LY_THONG_KE:
+                btnBaoCaoThongKe.setBackground(new java.awt.Color(0,0,0,100));
+                showForm(new BaoCaoThongKe_GUI_PanelForm());                
+                break;
+            default:
+        }
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -110,12 +179,14 @@ public class TrangChuNew_GUI extends javax.swing.JFrame {
         jSeparator2 = new javax.swing.JSeparator();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setMinimumSize(new java.awt.Dimension(1600, 800));
-        setPreferredSize(new java.awt.Dimension(1600, 800));
+        setMinimumSize(new java.awt.Dimension(1300, 720));
 
+        pnlForm.setMinimumSize(new java.awt.Dimension(800, 400));
+        pnlForm.setPreferredSize(new java.awt.Dimension(800, 400));
         pnlForm.setLayout(new java.awt.BorderLayout());
 
-        pnlMenu.setPreferredSize(new java.awt.Dimension(320, 740));
+        pnlMenu.setMinimumSize(new java.awt.Dimension(240, 502));
+        pnlMenu.setPreferredSize(new java.awt.Dimension(240, 502));
 
         lblLogo.setBackground(new java.awt.Color(255, 255, 255));
         lblLogo.setFont(new java.awt.Font("Arial", 1, 20)); // NOI18N
@@ -376,7 +447,6 @@ public class TrangChuNew_GUI extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(pnlMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnQuanLyPhucVu, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(lblLogo, javax.swing.GroupLayout.DEFAULT_SIZE, 308, Short.MAX_VALUE)
                     .addComponent(btnQuanLyBan, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnQuanLyMonAn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnQuanLyHoaDon, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -386,36 +456,37 @@ public class TrangChuNew_GUI extends javax.swing.JFrame {
                     .addComponent(btnDangXuat, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(lblTenNhanVien, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jSeparator2))
+                    .addComponent(jSeparator2)
+                    .addComponent(lblLogo, javax.swing.GroupLayout.DEFAULT_SIZE, 228, Short.MAX_VALUE))
                 .addContainerGap())
         );
         pnlMenuLayout.setVerticalGroup(
             pnlMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlMenuLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(lblLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(lblLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 4, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblTenNhanVien, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 4, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnQuanLyPhucVu, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnQuanLyBan, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnQuanLyPhucVu, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnQuanLyMonAn, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnQuanLyBan, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnQuanLyHoaDon, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnQuanLyMonAn, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnQuanLyNhanVien, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnQuanLyHoaDon, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnQuanLyKhachHang, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnQuanLyNhanVien, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnBaoCaoThongKe, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 166, Short.MAX_VALUE)
-                .addComponent(btnDangXuat, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnQuanLyKhachHang, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnBaoCaoThongKe, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnDangXuat, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
@@ -426,17 +497,17 @@ public class TrangChuNew_GUI extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(pnlMenu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(40, 40, 40)
-                .addComponent(pnlForm, javax.swing.GroupLayout.DEFAULT_SIZE, 1194, Short.MAX_VALUE)
-                .addGap(40, 40, 40))
+                .addGap(20, 20, 20)
+                .addComponent(pnlForm, javax.swing.GroupLayout.DEFAULT_SIZE, 1028, Short.MAX_VALUE)
+                .addGap(6, 6, 6))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(pnlForm, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(pnlMenu, javax.swing.GroupLayout.DEFAULT_SIZE, 788, Short.MAX_VALUE))
+                    .addComponent(pnlMenu, javax.swing.GroupLayout.DEFAULT_SIZE, 708, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -447,7 +518,7 @@ public class TrangChuNew_GUI extends javax.swing.JFrame {
     private void btnQuanLyPhucVuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnQuanLyPhucVuMouseClicked
         resetColorButton();
         btnQuanLyPhucVu.setBackground(new java.awt.Color(0,0,0,100));
-        showForm(new QuanLyPhucVu_GUI_PanelForm());
+        showForm(new QuanLyPhucVu_GUI_PanelForm(maNhanVien));
     }//GEN-LAST:event_btnQuanLyPhucVuMouseClicked
 
     private void btnQuanLyPhucVuMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnQuanLyPhucVuMouseEntered
@@ -609,8 +680,10 @@ public class TrangChuNew_GUI extends javax.swing.JFrame {
     }//GEN-LAST:event_btnBaoCaoThongKeMouseReleased
 
     private void btnDangXuatMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDangXuatMouseClicked
-        resetColorButton();
-        btnDangXuat.setBackground(new java.awt.Color(0,0,0,100));
+        DangNhap_GUI dangNhap_GUI = new DangNhap_GUI();
+        dangNhap_GUI.setVisible(true);
+        
+        this.dispose();
     }//GEN-LAST:event_btnDangXuatMouseClicked
 
     private void btnDangXuatMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDangXuatMouseEntered
@@ -661,11 +734,11 @@ public class TrangChuNew_GUI extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new TrangChuNew_GUI().setVisible(true);
-            }
-        });
+//        java.awt.EventQueue.invokeLater(new Runnable() {
+//            public void run() {
+//                new TrangChuNew_GUI().setVisible(true);
+//            }
+//        });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

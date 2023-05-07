@@ -254,6 +254,7 @@ public class QuanLyMonAn_GUI_PanelForm extends javax.swing.JPanel {
         jScrollPane2 = new javax.swing.JScrollPane();
         txaNoiDung = new javax.swing.JTextArea();
         txtGia = new javax.swing.JTextField();
+        jPanel3 = new javax.swing.JPanel();
         btnQuanLyLoaiMonAn = new javax.swing.JButton();
 
         setPreferredSize(new java.awt.Dimension(820, 533));
@@ -262,33 +263,36 @@ public class QuanLyMonAn_GUI_PanelForm extends javax.swing.JPanel {
         jPanel2.setLayout(new javax.swing.BoxLayout(jPanel2, javax.swing.BoxLayout.Y_AXIS));
 
         jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder("Bộ lọc tìm kiếm món ăn"));
+        jPanel4.setMaximumSize(new java.awt.Dimension(2147483647, 160));
+        jPanel4.setMinimumSize(new java.awt.Dimension(520, 160));
+        jPanel4.setPreferredSize(new java.awt.Dimension(520, 160));
         jPanel4.setRequestFocusEnabled(false);
         jPanel4.setLayout(new java.awt.GridBagLayout());
 
         jLabel1.setText("Nhập id hoặc tên");
-        jLabel1.setMaximumSize(new java.awt.Dimension(88, 24));
-        jLabel1.setMinimumSize(new java.awt.Dimension(88, 24));
-        jLabel1.setPreferredSize(new java.awt.Dimension(88, 24));
+        jLabel1.setMaximumSize(new java.awt.Dimension(104, 24));
+        jLabel1.setMinimumSize(new java.awt.Dimension(104, 24));
+        jLabel1.setPreferredSize(new java.awt.Dimension(104, 24));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 0.1;
-        gridBagConstraints.insets = new java.awt.Insets(4, 4, 4, 4);
+        gridBagConstraints.insets = new java.awt.Insets(4, 20, 4, 0);
         jPanel4.add(jLabel1, gridBagConstraints);
 
         jLabel2.setText("Hiển thị theo loại");
-        jLabel2.setMaximumSize(new java.awt.Dimension(88, 24));
-        jLabel2.setMinimumSize(new java.awt.Dimension(88, 24));
-        jLabel2.setPreferredSize(new java.awt.Dimension(88, 24));
+        jLabel2.setMaximumSize(new java.awt.Dimension(104, 24));
+        jLabel2.setMinimumSize(new java.awt.Dimension(104, 24));
+        jLabel2.setPreferredSize(new java.awt.Dimension(104, 24));
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridx = 4;
         gridBagConstraints.gridy = 1;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 0.1;
-        gridBagConstraints.insets = new java.awt.Insets(4, 4, 4, 4);
+        gridBagConstraints.insets = new java.awt.Insets(4, 12, 4, 0);
         jPanel4.add(jLabel2, gridBagConstraints);
 
         txtSearchIdName.setPreferredSize(new java.awt.Dimension(150, 22));
@@ -300,11 +304,11 @@ public class QuanLyMonAn_GUI_PanelForm extends javax.swing.JPanel {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 0;
-        gridBagConstraints.gridwidth = 3;
+        gridBagConstraints.gridwidth = 5;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 0.1;
-        gridBagConstraints.insets = new java.awt.Insets(4, 0, 4, 0);
+        gridBagConstraints.insets = new java.awt.Insets(4, 0, 4, 20);
         jPanel4.add(txtSearchIdName, gridBagConstraints);
 
         btnTimKiem.setText("Tìm kiếm");
@@ -322,8 +326,10 @@ public class QuanLyMonAn_GUI_PanelForm extends javax.swing.JPanel {
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 3;
-        gridBagConstraints.gridy = 4;
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 3;
+        gridBagConstraints.gridwidth = 3;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 0.1;
         gridBagConstraints.insets = new java.awt.Insets(4, 0, 4, 0);
@@ -333,11 +339,12 @@ public class QuanLyMonAn_GUI_PanelForm extends javax.swing.JPanel {
         cmbLMASearchBox.setMinimumSize(new java.awt.Dimension(140, 24));
         cmbLMASearchBox.setPreferredSize(new java.awt.Dimension(140, 24));
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridx = 5;
         gridBagConstraints.gridy = 1;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 0.1;
-        gridBagConstraints.insets = new java.awt.Insets(4, 0, 4, 0);
+        gridBagConstraints.insets = new java.awt.Insets(4, 0, 4, 20);
         jPanel4.add(cmbLMASearchBox, gridBagConstraints);
 
         jLabel10.setText("Khoảng giá:");
@@ -346,17 +353,17 @@ public class QuanLyMonAn_GUI_PanelForm extends javax.swing.JPanel {
         jLabel10.setPreferredSize(new java.awt.Dimension(88, 24));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 2;
+        gridBagConstraints.gridy = 1;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 0.1;
-        gridBagConstraints.insets = new java.awt.Insets(4, 4, 4, 4);
+        gridBagConstraints.insets = new java.awt.Insets(4, 20, 4, 0);
         jPanel4.add(jLabel10, gridBagConstraints);
 
         sldMinPrice.setMaximum(500000);
         sldMinPrice.setValue(0);
-        sldMinPrice.setMinimumSize(new java.awt.Dimension(120, 24));
-        sldMinPrice.setPreferredSize(new java.awt.Dimension(120, 24));
+        sldMinPrice.setMinimumSize(new java.awt.Dimension(80, 24));
+        sldMinPrice.setPreferredSize(new java.awt.Dimension(80, 24));
         sldMinPrice.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
             public void mouseDragged(java.awt.event.MouseEvent evt) {
                 sldMinPriceMouseDragged(evt);
@@ -364,16 +371,19 @@ public class QuanLyMonAn_GUI_PanelForm extends javax.swing.JPanel {
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 3;
+        gridBagConstraints.gridy = 2;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 0.1;
         gridBagConstraints.insets = new java.awt.Insets(4, 0, 4, 0);
         jPanel4.add(sldMinPrice, gridBagConstraints);
 
         jLabel16.setText("~");
+        jLabel16.setMaximumSize(new java.awt.Dimension(20, 20));
+        jLabel16.setMinimumSize(new java.awt.Dimension(20, 20));
+        jLabel16.setPreferredSize(new java.awt.Dimension(12, 20));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
-        gridBagConstraints.gridy = 3;
+        gridBagConstraints.gridy = 2;
         gridBagConstraints.weightx = 0.1;
         gridBagConstraints.insets = new java.awt.Insets(4, 0, 4, 0);
         jPanel4.add(jLabel16, gridBagConstraints);
@@ -381,8 +391,8 @@ public class QuanLyMonAn_GUI_PanelForm extends javax.swing.JPanel {
         sldMaxPrice.setMaximum(500000);
         sldMaxPrice.setToolTipText("");
         sldMaxPrice.setValue(500000);
-        sldMaxPrice.setMinimumSize(new java.awt.Dimension(120, 24));
-        sldMaxPrice.setPreferredSize(new java.awt.Dimension(120, 24));
+        sldMaxPrice.setMinimumSize(new java.awt.Dimension(80, 24));
+        sldMaxPrice.setPreferredSize(new java.awt.Dimension(80, 24));
         sldMaxPrice.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
             public void mouseDragged(java.awt.event.MouseEvent evt) {
                 sldMaxPriceMouseDragged(evt);
@@ -390,23 +400,23 @@ public class QuanLyMonAn_GUI_PanelForm extends javax.swing.JPanel {
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 3;
-        gridBagConstraints.gridy = 3;
+        gridBagConstraints.gridy = 2;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 0.1;
         gridBagConstraints.insets = new java.awt.Insets(4, 0, 4, 0);
         jPanel4.add(sldMaxPrice, gridBagConstraints);
 
         jLabel17.setText("Tình trạng món ăn");
-        jLabel17.setMaximumSize(new java.awt.Dimension(88, 24));
-        jLabel17.setMinimumSize(new java.awt.Dimension(88, 24));
-        jLabel17.setPreferredSize(new java.awt.Dimension(88, 24));
+        jLabel17.setMaximumSize(new java.awt.Dimension(104, 24));
+        jLabel17.setMinimumSize(new java.awt.Dimension(104, 24));
+        jLabel17.setPreferredSize(new java.awt.Dimension(104, 24));
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 2;
-        gridBagConstraints.gridy = 1;
+        gridBagConstraints.gridx = 4;
+        gridBagConstraints.gridy = 2;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 0.1;
-        gridBagConstraints.insets = new java.awt.Insets(4, 4, 4, 4);
+        gridBagConstraints.insets = new java.awt.Insets(4, 12, 4, 0);
         jPanel4.add(jLabel17, gridBagConstraints);
 
         cmbTTMASearch.setMaximumSize(new java.awt.Dimension(120, 24));
@@ -423,28 +433,32 @@ public class QuanLyMonAn_GUI_PanelForm extends javax.swing.JPanel {
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 3;
-        gridBagConstraints.gridy = 1;
+        gridBagConstraints.gridx = 5;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
         gridBagConstraints.weightx = 0.1;
-        gridBagConstraints.insets = new java.awt.Insets(4, 0, 4, 0);
+        gridBagConstraints.insets = new java.awt.Insets(4, 0, 4, 20);
         jPanel4.add(cmbTTMASearch, gridBagConstraints);
 
         jLabel18.setText("~");
+        jLabel18.setMaximumSize(new java.awt.Dimension(20, 20));
+        jLabel18.setMinimumSize(new java.awt.Dimension(20, 20));
+        jLabel18.setPreferredSize(new java.awt.Dimension(12, 20));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
-        gridBagConstraints.gridy = 2;
+        gridBagConstraints.gridy = 1;
         gridBagConstraints.weightx = 0.1;
         gridBagConstraints.insets = new java.awt.Insets(4, 0, 4, 0);
         jPanel4.add(jLabel18, gridBagConstraints);
 
         lblMaxPrice.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblMaxPrice.setText("500.000 VNĐ");
-        lblMaxPrice.setMinimumSize(new java.awt.Dimension(120, 24));
-        lblMaxPrice.setPreferredSize(new java.awt.Dimension(120, 24));
+        lblMaxPrice.setMinimumSize(new java.awt.Dimension(80, 24));
+        lblMaxPrice.setPreferredSize(new java.awt.Dimension(80, 24));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 3;
-        gridBagConstraints.gridy = 2;
+        gridBagConstraints.gridy = 1;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 0.1;
         gridBagConstraints.insets = new java.awt.Insets(4, 0, 4, 0);
@@ -452,11 +466,11 @@ public class QuanLyMonAn_GUI_PanelForm extends javax.swing.JPanel {
 
         lblMinPrice.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblMinPrice.setText("0 VNĐ");
-        lblMinPrice.setMinimumSize(new java.awt.Dimension(120, 24));
-        lblMinPrice.setPreferredSize(new java.awt.Dimension(120, 24));
+        lblMinPrice.setMinimumSize(new java.awt.Dimension(80, 24));
+        lblMinPrice.setPreferredSize(new java.awt.Dimension(80, 24));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 2;
+        gridBagConstraints.gridy = 1;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 0.1;
         gridBagConstraints.insets = new java.awt.Insets(4, 0, 4, 0);
@@ -478,7 +492,7 @@ public class QuanLyMonAn_GUI_PanelForm extends javax.swing.JPanel {
         gridBagConstraints.gridy = 2;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHEAST;
-        gridBagConstraints.insets = new java.awt.Insets(5, 10, 10, 10);
+        gridBagConstraints.insets = new java.awt.Insets(5, 20, 10, 20);
         jPanel1.add(resetTableButton, gridBagConstraints);
 
         jScrollPane1.setMaximumSize(new java.awt.Dimension(452, 300));
@@ -504,6 +518,7 @@ public class QuanLyMonAn_GUI_PanelForm extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
+        tblMonAn.setMaximumSize(new java.awt.Dimension(2147483647, 2147483647));
         tblMonAn.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tblMonAnMouseClicked(evt);
@@ -513,12 +528,14 @@ public class QuanLyMonAn_GUI_PanelForm extends javax.swing.JPanel {
         if (tblMonAn.getColumnModel().getColumnCount() > 0) {
             tblMonAn.getColumnModel().getColumn(0).setMinWidth(0);
             tblMonAn.getColumnModel().getColumn(0).setMaxWidth(20);
-            tblMonAn.getColumnModel().getColumn(1).setMinWidth(50);
-            tblMonAn.getColumnModel().getColumn(1).setMaxWidth(200);
+            tblMonAn.getColumnModel().getColumn(1).setMinWidth(200);
         }
 
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.weightx = 0.1;
+        gridBagConstraints.weighty = 0.1;
+        gridBagConstraints.insets = new java.awt.Insets(10, 20, 10, 20);
         jPanel1.add(jScrollPane1, gridBagConstraints);
 
         jPanel2.add(jPanel1);
@@ -528,6 +545,9 @@ public class QuanLyMonAn_GUI_PanelForm extends javax.swing.JPanel {
         jPanel5.setLayout(new javax.swing.BoxLayout(jPanel5, javax.swing.BoxLayout.Y_AXIS));
 
         jPanel6.setBorder(javax.swing.BorderFactory.createTitledBorder("Chức năng"));
+        jPanel6.setMaximumSize(new java.awt.Dimension(2147483647, 160));
+        jPanel6.setMinimumSize(new java.awt.Dimension(298, 160));
+        jPanel6.setPreferredSize(new java.awt.Dimension(298, 160));
         jPanel6.setLayout(new java.awt.GridBagLayout());
 
         btnThem.setText("Thêm");
@@ -581,51 +601,74 @@ public class QuanLyMonAn_GUI_PanelForm extends javax.swing.JPanel {
         pnlThemSuaMonAn.setLayout(new java.awt.GridBagLayout());
 
         jLabel3.setText("ID món ăn");
+        jLabel3.setMaximumSize(new java.awt.Dimension(84, 20));
+        jLabel3.setMinimumSize(new java.awt.Dimension(84, 20));
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.insets = new java.awt.Insets(5, 20, 5, 10);
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.insets = new java.awt.Insets(2, 20, 2, 0);
         pnlThemSuaMonAn.add(jLabel3, gridBagConstraints);
 
         jLabel4.setText("Loại món ăn");
+        jLabel4.setMaximumSize(new java.awt.Dimension(84, 20));
+        jLabel4.setMinimumSize(new java.awt.Dimension(84, 20));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 1;
-        gridBagConstraints.insets = new java.awt.Insets(5, 20, 5, 10);
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.insets = new java.awt.Insets(2, 20, 2, 0);
         pnlThemSuaMonAn.add(jLabel4, gridBagConstraints);
 
         jLabel5.setText("Tên món ăn");
+        jLabel5.setMaximumSize(new java.awt.Dimension(84, 20));
+        jLabel5.setMinimumSize(new java.awt.Dimension(84, 20));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 2;
-        gridBagConstraints.insets = new java.awt.Insets(5, 20, 5, 10);
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.insets = new java.awt.Insets(2, 20, 2, 0);
         pnlThemSuaMonAn.add(jLabel5, gridBagConstraints);
 
         jLabel6.setText("Hình ảnh");
+        jLabel6.setMaximumSize(new java.awt.Dimension(84, 20));
+        jLabel6.setMinimumSize(new java.awt.Dimension(84, 20));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 3;
-        gridBagConstraints.insets = new java.awt.Insets(5, 20, 5, 10);
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.insets = new java.awt.Insets(2, 20, 2, 0);
         pnlThemSuaMonAn.add(jLabel6, gridBagConstraints);
 
         txtIdMonAn.setEnabled(false);
+        txtIdMonAn.setMinimumSize(new java.awt.Dimension(100, 22));
         txtIdMonAn.setPreferredSize(new java.awt.Dimension(100, 22));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 0;
         gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.insets = new java.awt.Insets(2, 20, 2, 20);
         pnlThemSuaMonAn.add(txtIdMonAn, gridBagConstraints);
 
+        txtTenMonAn.setMaximumSize(null);
+        txtTenMonAn.setMinimumSize(new java.awt.Dimension(100, 22));
         txtTenMonAn.setPreferredSize(new java.awt.Dimension(100, 22));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 2;
         gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.insets = new java.awt.Insets(2, 20, 2, 20);
         pnlThemSuaMonAn.add(txtTenMonAn, gridBagConstraints);
 
+        cmbLMAForm.setMaximumSize(null);
+        cmbLMAForm.setMinimumSize(new java.awt.Dimension(100, 22));
         cmbLMAForm.setPreferredSize(new java.awt.Dimension(100, 22));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 1;
         gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.insets = new java.awt.Insets(2, 20, 2, 20);
         pnlThemSuaMonAn.add(cmbLMAForm, gridBagConstraints);
 
         btnResetForm.setText("Reset");
@@ -637,7 +680,9 @@ public class QuanLyMonAn_GUI_PanelForm extends javax.swing.JPanel {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 9;
-        gridBagConstraints.insets = new java.awt.Insets(5, 10, 5, 10);
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.weightx = 0.1;
+        gridBagConstraints.insets = new java.awt.Insets(2, 20, 2, 4);
         pnlThemSuaMonAn.add(btnResetForm, gridBagConstraints);
 
         btnLuu.setText("Lưu");
@@ -649,10 +694,15 @@ public class QuanLyMonAn_GUI_PanelForm extends javax.swing.JPanel {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 9;
-        gridBagConstraints.insets = new java.awt.Insets(5, 10, 5, 10);
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.weightx = 0.1;
+        gridBagConstraints.insets = new java.awt.Insets(2, 4, 2, 20);
         pnlThemSuaMonAn.add(btnLuu, gridBagConstraints);
 
         btnHinhAnh.setText("Chọn file");
+        btnHinhAnh.setMaximumSize(null);
+        btnHinhAnh.setMinimumSize(new java.awt.Dimension(100, 22));
+        btnHinhAnh.setPreferredSize(new java.awt.Dimension(100, 22));
         btnHinhAnh.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnHinhAnhMouseClicked(evt);
@@ -662,54 +712,80 @@ public class QuanLyMonAn_GUI_PanelForm extends javax.swing.JPanel {
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 3;
         gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.insets = new java.awt.Insets(2, 20, 2, 20);
         pnlThemSuaMonAn.add(btnHinhAnh, gridBagConstraints);
 
+        lblTenHinhAnh.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblTenHinhAnh.setText("Chưa chọn file");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 4;
         gridBagConstraints.gridwidth = 2;
-        gridBagConstraints.insets = new java.awt.Insets(5, 0, 5, 0);
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.insets = new java.awt.Insets(2, 20, 2, 20);
         pnlThemSuaMonAn.add(lblTenHinhAnh, gridBagConstraints);
 
         jLabel15.setText("Giá");
+        jLabel15.setMaximumSize(new java.awt.Dimension(84, 20));
+        jLabel15.setMinimumSize(new java.awt.Dimension(84, 20));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 5;
-        gridBagConstraints.insets = new java.awt.Insets(5, 10, 5, 5);
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.insets = new java.awt.Insets(2, 20, 2, 0);
         pnlThemSuaMonAn.add(jLabel15, gridBagConstraints);
 
+        txtGiaKhuyenMai.setMaximumSize(null);
+        txtGiaKhuyenMai.setMinimumSize(new java.awt.Dimension(100, 22));
         txtGiaKhuyenMai.setPreferredSize(new java.awt.Dimension(100, 22));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 6;
         gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.insets = new java.awt.Insets(2, 20, 2, 20);
         pnlThemSuaMonAn.add(txtGiaKhuyenMai, gridBagConstraints);
 
+        cmbTTMAForm.setMaximumSize(null);
+        cmbTTMAForm.setMinimumSize(new java.awt.Dimension(100, 22));
         cmbTTMAForm.setPreferredSize(new java.awt.Dimension(100, 22));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 7;
         gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.insets = new java.awt.Insets(2, 20, 2, 20);
         pnlThemSuaMonAn.add(cmbTTMAForm, gridBagConstraints);
 
         jLabel11.setText("Tình trạng");
+        jLabel11.setMaximumSize(new java.awt.Dimension(84, 20));
+        jLabel11.setMinimumSize(new java.awt.Dimension(84, 20));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 7;
-        gridBagConstraints.insets = new java.awt.Insets(5, 20, 5, 10);
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.insets = new java.awt.Insets(2, 20, 2, 0);
         pnlThemSuaMonAn.add(jLabel11, gridBagConstraints);
 
         jLabel7.setText("Giá khuyến mãi");
+        jLabel7.setMaximumSize(new java.awt.Dimension(84, 20));
+        jLabel7.setMinimumSize(new java.awt.Dimension(84, 20));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 6;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.insets = new java.awt.Insets(2, 20, 2, 0);
         pnlThemSuaMonAn.add(jLabel7, gridBagConstraints);
 
         jLabel9.setText("Nội dung");
+        jLabel9.setMaximumSize(new java.awt.Dimension(84, 20));
+        jLabel9.setMinimumSize(new java.awt.Dimension(84, 20));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 8;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.insets = new java.awt.Insets(2, 20, 2, 0);
         pnlThemSuaMonAn.add(jLabel9, gridBagConstraints);
 
         txaNoiDung.setColumns(20);
@@ -721,16 +797,26 @@ public class QuanLyMonAn_GUI_PanelForm extends javax.swing.JPanel {
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 8;
         gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.insets = new java.awt.Insets(2, 20, 2, 20);
         pnlThemSuaMonAn.add(jScrollPane2, gridBagConstraints);
 
+        txtGia.setMaximumSize(null);
+        txtGia.setMinimumSize(new java.awt.Dimension(100, 22));
         txtGia.setPreferredSize(new java.awt.Dimension(100, 22));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 5;
         gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.insets = new java.awt.Insets(2, 20, 2, 20);
         pnlThemSuaMonAn.add(txtGia, gridBagConstraints);
 
         jPanel5.add(pnlThemSuaMonAn);
+
+        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("Chức năng khác"));
+        jPanel3.setMinimumSize(new java.awt.Dimension(157, 60));
+        jPanel3.setPreferredSize(new java.awt.Dimension(157, 60));
 
         btnQuanLyLoaiMonAn.setText("Quản lý loại món ăn");
         btnQuanLyLoaiMonAn.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -738,7 +824,9 @@ public class QuanLyMonAn_GUI_PanelForm extends javax.swing.JPanel {
                 btnQuanLyLoaiMonAnMouseClicked(evt);
             }
         });
-        jPanel5.add(btnQuanLyLoaiMonAn);
+        jPanel3.add(btnQuanLyLoaiMonAn);
+
+        jPanel5.add(jPanel3);
 
         add(jPanel5);
     }// </editor-fold>//GEN-END:initComponents
@@ -750,6 +838,7 @@ public class QuanLyMonAn_GUI_PanelForm extends javax.swing.JPanel {
         btnThem.setEnabled(false);
         pnlThemSuaMonAn.setBorder(new TitledBorder("Thêm món ăn"));
         clearForm();
+        btnLuu.setEnabled(true);
     }//GEN-LAST:event_btnThemMouseClicked
 
     private void btnSuaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSuaMouseClicked
@@ -758,6 +847,7 @@ public class QuanLyMonAn_GUI_PanelForm extends javax.swing.JPanel {
         btnSua.setEnabled(false);
         btnThem.setEnabled(true);
         pnlThemSuaMonAn.setBorder(new TitledBorder("Sửa món ăn"));
+        btnLuu.setEnabled(false);
     }//GEN-LAST:event_btnSuaMouseClicked
 
     private void btnXoaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnXoaMouseClicked
@@ -862,7 +952,7 @@ public class QuanLyMonAn_GUI_PanelForm extends javax.swing.JPanel {
             }
             try {
                 int gia = Integer.parseInt(giaString);
-                if (gia < 1000 && gia % 100 == 0)
+                if (gia < 1000 || gia % 100 != 0)
                 throw new NumberFormatException();
                 else
                 createMonAn_DTO.setGia(gia);
@@ -875,12 +965,13 @@ public class QuanLyMonAn_GUI_PanelForm extends javax.swing.JPanel {
             if(!giaKhuyenMaiString.isEmpty()){
                 try {
                     int giaKhuyenMai = Integer.parseInt(giaKhuyenMaiString);
-                    if (giaKhuyenMai < 1000 && giaKhuyenMai % 100 == 0 && giaKhuyenMai < createMonAn_DTO.getGia())
+                    if (giaKhuyenMai < 1000 || giaKhuyenMai % 100 != 0 || giaKhuyenMai > createMonAn_DTO.getGia())
                     throw new NumberFormatException();
                     else
                     createMonAn_DTO.setGiaKhuyenMai(giaKhuyenMai);
                 } catch (NumberFormatException ex){
                     JOptionPane.showMessageDialog(this, "Nhập giá không đúng định dạng, giá phải từ 1000đ trở lên, nhỏ hơn giá gốc và chia hết cho 100","Error", JOptionPane.ERROR_MESSAGE);
+                    return;
                 }
             }
 
@@ -929,7 +1020,7 @@ public class QuanLyMonAn_GUI_PanelForm extends javax.swing.JPanel {
             }
             try {
                 int gia = Integer.parseInt(giaString);
-                if (gia < 1000 && gia % 100 == 0)
+                if (gia < 1000 || gia % 100 != 0)
                 throw new NumberFormatException();
                 else
                 updateMonAn_DTO.setGia(gia);
@@ -942,12 +1033,13 @@ public class QuanLyMonAn_GUI_PanelForm extends javax.swing.JPanel {
             if(!giaKhuyenMaiString.isEmpty()){
                 try {
                     int giaKhuyenMai = Integer.parseInt(giaKhuyenMaiString);
-                    if (giaKhuyenMai < 1000 && giaKhuyenMai % 100 == 0 && giaKhuyenMai < updateMonAn_DTO.getGia())
+                    if (giaKhuyenMai < 1000 || giaKhuyenMai % 100 != 0 || giaKhuyenMai > updateMonAn_DTO.getGia())
                     throw new NumberFormatException();
                     else
                     updateMonAn_DTO.setGiaKhuyenMai(giaKhuyenMai);
                 } catch (NumberFormatException ex){
                     JOptionPane.showMessageDialog(this, "Nhập giá không đúng định dạng, giá phải từ 1000đ trở lên, nhỏ hơn giá gốc và chia hết cho 100","Error", JOptionPane.ERROR_MESSAGE);
+                    return;
                 }
             }
 
@@ -1055,6 +1147,7 @@ public class QuanLyMonAn_GUI_PanelForm extends javax.swing.JPanel {
 
         int idMonAn = Integer.parseInt(model.getValueAt(indexRow, 0).toString());
         loadFormWithMonAn(idMonAn);
+        btnLuu.setEnabled(true);
     }//GEN-LAST:event_tblMonAnMouseClicked
 
     private void btnQuanLyLoaiMonAnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnQuanLyLoaiMonAnMouseClicked
@@ -1108,6 +1201,7 @@ public class QuanLyMonAn_GUI_PanelForm extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
