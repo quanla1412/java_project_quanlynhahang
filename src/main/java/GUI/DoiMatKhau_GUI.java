@@ -104,15 +104,20 @@ public class DoiMatKhau_GUI extends javax.swing.JFrame {
 
     private void btnSuccessMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSuccessMouseClicked
         // TODO add your handling code here:
-        String password = Arrays.toString(txtPassword.getPassword());
-        String retypePassword = Arrays.toString(txtRetypePassword.getPassword());
+        String password = new String(txtPassword.getPassword());
+        String retypePassword = new String(txtRetypePassword.getPassword());
         if (password.isBlank())
         {
              JOptionPane.showMessageDialog(this, "Mật khẩu không được để trống","Error", JOptionPane.ERROR_MESSAGE);
              return;
-        }
-             
-            if(password.equals(retypePassword)){
+        } 
+        if (retypePassword.isBlank())
+        {
+             JOptionPane.showMessageDialog(this, "Nhập lại mật khẩu không được để trống","Error", JOptionPane.ERROR_MESSAGE);
+             return;
+        } 
+        
+        if(password.equals(retypePassword)){
                 boolean result = nhanVien_BUS.doiMatKhau(maNhanVien, password);
                 if(result){
                     JOptionPane.showMessageDialog(this, "Đổi mật khẩu thành công","Thông báo", JOptionPane.INFORMATION_MESSAGE);
