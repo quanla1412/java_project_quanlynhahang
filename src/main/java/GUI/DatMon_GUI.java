@@ -12,9 +12,13 @@ import DTO.Ban.DonGoi_DTO;
 import DTO.Ban.UpdateDonGoi_DTO;
 import DTO.MonAn.MonAnFull_DTO;
 import com.mycompany.quanlynhahang.Price;
+import java.awt.Color;
 import java.awt.Image;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
+import org.kordamp.ikonli.materialdesign.MaterialDesign;
+import org.kordamp.ikonli.materialdesign2.MaterialDesignI;
+import org.kordamp.ikonli.swing.FontIcon;
 
 /**
  *
@@ -58,9 +62,16 @@ public class DatMon_GUI extends javax.swing.JFrame {
                 
                 lblHinhAnh.setIcon(new ImageIcon(newImage));
         */
-        ImageIcon yourImage = new ImageIcon(monAn.getHinhAnh());
-        Image newImage = yourImage.getImage().getScaledInstance(400, 400, Image.SCALE_DEFAULT);
-        lblHinhAnh.setIcon(new ImageIcon(newImage));
+        
+        if (monAn.getHinhAnh() == null){
+            FontIcon iconNoImage = FontIcon.of(MaterialDesignI.IMAGE_OFF,320,Color.GRAY);
+            lblHinhAnh.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+            lblHinhAnh.setIcon(iconNoImage);
+        } else {
+            ImageIcon yourImage = new ImageIcon(monAn.getHinhAnh());
+            Image newImage = yourImage.getImage().getScaledInstance(400, 400, Image.SCALE_DEFAULT);
+            lblHinhAnh.setIcon(new ImageIcon(newImage));
+        }
         lblTenMonAn.setText(monAn.getTen());
         lblNoiDungMonAn.setText(monAn.getNoiDung());
         lblLoaiMonAn.setText(monAn.getLoaiMonAn().getTen());
@@ -121,6 +132,7 @@ public class DatMon_GUI extends javax.swing.JFrame {
 
         lblHinhAnh.setBackground(new java.awt.Color(255, 102, 102));
         lblHinhAnh.setForeground(new java.awt.Color(153, 255, 255));
+        lblHinhAnh.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblHinhAnh.setMaximumSize(new java.awt.Dimension(400, 400));
         lblHinhAnh.setMinimumSize(new java.awt.Dimension(400, 400));
         lblHinhAnh.setPreferredSize(new java.awt.Dimension(400, 400));
