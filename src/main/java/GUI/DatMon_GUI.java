@@ -71,6 +71,7 @@ public class DatMon_GUI extends javax.swing.JFrame {
             lblGiaKhuyenMai.setText("");
         if(!dangThemMon){
             lblSoLuongHienTai.setText(Integer.toString(donGoi_DTO.getSoLuong()));
+            spnSoLuong.setValue(donGoi_DTO.getSoLuong());
             if(donGoi_DTO.getGhiChu() != null && !donGoi_DTO.getGhiChu().isBlank())
                 txaGhiChu.setText(donGoi_DTO.getGhiChu());
         }
@@ -363,7 +364,7 @@ public class DatMon_GUI extends javax.swing.JFrame {
             int soLuong = 0;
             try {
                 soLuong = Integer.parseInt(spnSoLuong.getValue().toString());
-                if(soLuong < 1 && dangThemMon){
+                if(soLuong < 1){
                     throw new NumberFormatException("Số lượng món nhỏ hơn 1");
                 }
             } catch (NumberFormatException e) {
@@ -372,36 +373,37 @@ public class DatMon_GUI extends javax.swing.JFrame {
                 return;
             }
 
-            String ghiChu = null;
-            if(!txaGhiChu.getText().isBlank())
-                ghiChu = txaGhiChu.getText();
-            if(dangThemMon){
-                CreateDonGoi_DTO createDonGoi_DTO = new CreateDonGoi_DTO();  
 
-                createDonGoi_DTO.setIdMA(idMonAn);
-                createDonGoi_DTO.setIdBan(idBan);
-                createDonGoi_DTO.setSoLuong(soLuong);
-                createDonGoi_DTO.setGhiChu(ghiChu);
+        String ghiChu = null;
+        if(!txaGhiChu.getText().isBlank())
+            ghiChu = txaGhiChu.getText();
+        if(dangThemMon){
+            CreateDonGoi_DTO createDonGoi_DTO = new CreateDonGoi_DTO();  
+            
+            createDonGoi_DTO.setIdMA(idMonAn);
+            createDonGoi_DTO.setIdBan(idBan);
+            createDonGoi_DTO.setSoLuong(soLuong);
+            createDonGoi_DTO.setGhiChu(ghiChu);
 
-                boolean result = donGoi_BUS.createDonGoi(createDonGoi_DTO);
+            boolean result = donGoi_BUS.createDonGoi(createDonGoi_DTO);
 
-                if(result){
-                    JOptionPane.showMessageDialog(this, "Thêm món ăn mới thành công","Thông báo", JOptionPane.INFORMATION_MESSAGE);
-                    this.dispose();
-                } else {            
-                    JOptionPane.showMessageDialog(this, "Thêm món ăn mới thất bại","Thông báo", JOptionPane.INFORMATION_MESSAGE);
-                }
-            } else {
-                UpdateDonGoi_DTO updateDonGoi_DTO = new UpdateDonGoi_DTO(idBan, idMonAn, soLuong + donGoi_DTO.getSoLuong(), ghiChu);
+            if(result){
+                JOptionPane.showMessageDialog(this, "Thêm món ăn mới thành công","Thông báo", JOptionPane.INFORMATION_MESSAGE);
+                this.dispose();
+            } else {            
+                JOptionPane.showMessageDialog(this, "Thêm món ăn mới thất bại","Thông báo", JOptionPane.INFORMATION_MESSAGE);
+            }
+        } else {
+            UpdateDonGoi_DTO updateDonGoi_DTO = new UpdateDonGoi_DTO(idBan, idMonAn, soLuong, ghiChu);
+            
+            boolean result = donGoi_BUS.updateDonGoi(updateDonGoi_DTO);
 
-                boolean result = donGoi_BUS.updateDonGoi(updateDonGoi_DTO);
+            if(result){
+                JOptionPane.showMessageDialog(this, "Sửa món ăn thành công","Thông báo", JOptionPane.INFORMATION_MESSAGE);
+                this.dispose();
+            } else {            
+                JOptionPane.showMessageDialog(this, "Sửa món ăn thất bại","Thông báo", JOptionPane.INFORMATION_MESSAGE);
 
-                if(result){
-                    JOptionPane.showMessageDialog(this, "Sửa món ăn thành công","Thông báo", JOptionPane.INFORMATION_MESSAGE);
-                    this.dispose();
-                } else {            
-                    JOptionPane.showMessageDialog(this, "Sửa món ăn thất bại","Thông báo", JOptionPane.INFORMATION_MESSAGE);
-                }
             }
         }
         

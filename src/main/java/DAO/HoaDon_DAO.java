@@ -234,7 +234,7 @@ public class HoaDon_DAO {
             else
                 statement.setNull(2, Types.INTEGER);
             statement.setTimestamp(3, new Timestamp(data.getNgayGio().getTime()));
-            statement.setInt(4, data.getTongGia());
+            statement.setLong(4, data.getTongGia());
             statement.setFloat(5, data.getUuDai());
             
             if(statement.executeUpdate() >=  1){
@@ -250,7 +250,7 @@ public class HoaDon_DAO {
                         statementCTHD.setInt(1, idHoaDon);
                         statementCTHD.setInt(2, cthd.idMonAn());
                         statementCTHD.setInt(3, cthd.soLuong());
-                        statementCTHD.setInt(4, cthd.donGia());
+                        statementCTHD.setLong(4, cthd.donGia());
                         
                         statementCTHD.executeUpdate();
                     }                    

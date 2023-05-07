@@ -32,13 +32,13 @@ public class ThanhToan_GUI extends javax.swing.JFrame {
     private DonGoi_BUS donGoi_BUS;
     private KhachHang_BUS khachHang_BUS;
     private HoaDon_BUS hoaDon_BUS;
-    private int tongTien;
+    private long tongTien;
     private ArrayList<DonGoi_DTO> listDonGoi;
     private String maNhanVien;
     private NhanVien_BUS nhanVien_BUS;
     private KhachHangFull_DTO khachHang;
     private Ban_BUS ban_BUS;
-    int total = 0;
+    long total = 0;
     /**
      * Creates new form HoaDon_GUI
      */
@@ -72,10 +72,10 @@ public class ThanhToan_GUI extends javax.swing.JFrame {
         tblDonGoi.setModel(model);
         
         for(DonGoi_DTO donGoi : listDonGoi){
-            int gia = donGoi.getMonAn().getGiaKhuyenMai() > 0 ?
+            long gia = donGoi.getMonAn().getGiaKhuyenMai() > 0 ?
                     donGoi.getMonAn().getGiaKhuyenMai() :
                     donGoi.getMonAn().getGia();
-            int tongTien = gia * donGoi.getSoLuong();
+            long tongTien = gia * donGoi.getSoLuong();
             total += tongTien;
             
             Object[] data = {
@@ -409,7 +409,7 @@ public class ThanhToan_GUI extends javax.swing.JFrame {
         
         double mucUuDai = khachHang.getLoaiKhachHang().getMucUuDai();
         double tongThanhToan = Math.round(tongTien - tongTien * mucUuDai/100);
-        int tongThanhToanInt = (int) tongThanhToan;
+        long tongThanhToanInt = (long) tongThanhToan;
         
         lblMucUuDai.setText(mucUuDai + " %");
         lblTongThanhToan.setText(Price.formatPrice(tongThanhToanInt));
@@ -446,7 +446,7 @@ public class ThanhToan_GUI extends javax.swing.JFrame {
         for(DonGoi_DTO donGoi : listDonGoi){
             int idMonAn = donGoi.getMonAn().getId();
             int soLuong = donGoi.getSoLuong();
-            int gia = donGoi.getMonAn().getGiaKhuyenMai() > 0 ? 
+            long gia = donGoi.getMonAn().getGiaKhuyenMai() > 0 ? 
                     donGoi.getMonAn().getGiaKhuyenMai() :
                     donGoi.getMonAn().getGia();
             

@@ -134,8 +134,8 @@ public class QuanLyPhucVu_GUI extends javax.swing.JFrame {
         DefaultTableModel model = new DefaultTableModel(col, 0);
         tblDonGoi.setModel(model);
         for(DonGoi_DTO donGoi : listDonGoi){
-            int gia = donGoi.getMonAn().getGiaKhuyenMai() > 0 ? donGoi.getMonAn().getGiaKhuyenMai() : donGoi.getMonAn().getGia();
-            int thanhTien = gia * donGoi.getSoLuong();
+            long gia = donGoi.getMonAn().getGiaKhuyenMai() > 0 ? donGoi.getMonAn().getGiaKhuyenMai() : donGoi.getMonAn().getGia();
+            long thanhTien = gia * donGoi.getSoLuong();
             Object[] data = {
                 donGoi.getMonAn().getId(),
                 donGoi.getMonAn().getTen(), 

@@ -133,14 +133,14 @@ public class QuanLyPhucVu_GUI_PanelForm extends javax.swing.JPanel {
     private void loadDonGoi(){
         listDonGoi = donGoi_BUS.getAllDonGoiByIdBan(banDangChon.getId());
         
-        int total = 0;
+        long total = 0;
         
         String[] col = {"ID Món ăn","Tên món ăn", "Đơn giá", "Số lượng", "Thành tiền"};
         DefaultTableModel model = new DefaultTableModel(col, 0);
         tblDonGoi.setModel(model);
         for(DonGoi_DTO donGoi : listDonGoi){
-            int gia = donGoi.getMonAn().getGiaKhuyenMai() > 0 ? donGoi.getMonAn().getGiaKhuyenMai() : donGoi.getMonAn().getGia();
-            int thanhTien = gia * donGoi.getSoLuong();
+            long gia = donGoi.getMonAn().getGiaKhuyenMai() > 0 ? donGoi.getMonAn().getGiaKhuyenMai() : donGoi.getMonAn().getGia();
+            long thanhTien = gia * donGoi.getSoLuong();
             Object[] data = {
                 donGoi.getMonAn().getId(),
                 donGoi.getMonAn().getTen(), 
@@ -702,13 +702,14 @@ public class QuanLyPhucVu_GUI_PanelForm extends javax.swing.JPanel {
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
         gridBagConstraints.weightx = 0.1;
+        gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 10);
         jPanel5.add(jLabel10, gridBagConstraints);
 
         lblTongGia.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblTongGia.setText("0 VNĐ");
-        lblTongGia.setMaximumSize(new java.awt.Dimension(120, 40));
-        lblTongGia.setMinimumSize(new java.awt.Dimension(120, 40));
-        lblTongGia.setPreferredSize(new java.awt.Dimension(120, 40));
+        lblTongGia.setMaximumSize(new java.awt.Dimension(150, 40));
+        lblTongGia.setMinimumSize(new java.awt.Dimension(150, 40));
+        lblTongGia.setPreferredSize(new java.awt.Dimension(150, 40));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 0;

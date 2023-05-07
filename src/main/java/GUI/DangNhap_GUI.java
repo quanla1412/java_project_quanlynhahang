@@ -33,9 +33,9 @@ public class DangNhap_GUI extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
         java.awt.GridBagConstraints gridBagConstraints;
-
         btnDangNhap = new javax.swing.JButton();
         chxHienMatKhau = new javax.swing.JCheckBox();
+        
         txtTaiKhoan = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -76,10 +76,12 @@ public class DangNhap_GUI extends javax.swing.JFrame {
                 chxHienMatKhauMouseClicked(evt);
             }
         });
+        
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 3;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
+
         gridBagConstraints.weightx = 0.1;
         gridBagConstraints.insets = new java.awt.Insets(4, 20, 4, 20);
         getContentPane().add(chxHienMatKhau, gridBagConstraints);
@@ -207,6 +209,7 @@ public class DangNhap_GUI extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+
     private javax.swing.JPasswordField txtMatKhau;
     private javax.swing.JTextField txtTaiKhoan;
     // End of variables declaration//GEN-END:variables
