@@ -12,9 +12,13 @@ import DTO.Ban.DonGoi_DTO;
 import DTO.Ban.UpdateDonGoi_DTO;
 import DTO.MonAn.MonAnFull_DTO;
 import com.mycompany.quanlynhahang.Price;
+import java.awt.Color;
 import java.awt.Image;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
+import org.kordamp.ikonli.materialdesign.MaterialDesign;
+import org.kordamp.ikonli.materialdesign2.MaterialDesignI;
+import org.kordamp.ikonli.swing.FontIcon;
 
 /**
  *
@@ -58,9 +62,16 @@ public class DatMon_GUI extends javax.swing.JFrame {
                 
                 lblHinhAnh.setIcon(new ImageIcon(newImage));
         */
-        ImageIcon yourImage = new ImageIcon(monAn.getHinhAnh());
-        Image newImage = yourImage.getImage().getScaledInstance(400, 400, Image.SCALE_DEFAULT);
-        lblHinhAnh.setIcon(new ImageIcon(newImage));
+        
+        if (monAn.getHinhAnh() == null){
+            FontIcon iconNoImage = FontIcon.of(MaterialDesignI.IMAGE_OFF,320,Color.GRAY);
+            lblHinhAnh.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+            lblHinhAnh.setIcon(iconNoImage);
+        } else {
+            ImageIcon yourImage = new ImageIcon(monAn.getHinhAnh());
+            Image newImage = yourImage.getImage().getScaledInstance(400, 400, Image.SCALE_DEFAULT);
+            lblHinhAnh.setIcon(new ImageIcon(newImage));
+        }
         lblTenMonAn.setText(monAn.getTen());
         lblNoiDungMonAn.setText(monAn.getNoiDung());
         lblLoaiMonAn.setText(monAn.getLoaiMonAn().getTen());
@@ -71,6 +82,7 @@ public class DatMon_GUI extends javax.swing.JFrame {
             lblGiaKhuyenMai.setText("");
         if(!dangThemMon){
             lblSoLuongHienTai.setText(Integer.toString(donGoi_DTO.getSoLuong()));
+            spnSoLuong.setValue(donGoi_DTO.getSoLuong());
             if(donGoi_DTO.getGhiChu() != null && !donGoi_DTO.getGhiChu().isBlank())
                 txaGhiChu.setText(donGoi_DTO.getGhiChu());
         }
@@ -120,6 +132,7 @@ public class DatMon_GUI extends javax.swing.JFrame {
 
         lblHinhAnh.setBackground(new java.awt.Color(255, 102, 102));
         lblHinhAnh.setForeground(new java.awt.Color(153, 255, 255));
+        lblHinhAnh.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblHinhAnh.setMaximumSize(new java.awt.Dimension(400, 400));
         lblHinhAnh.setMinimumSize(new java.awt.Dimension(400, 400));
         lblHinhAnh.setPreferredSize(new java.awt.Dimension(400, 400));
@@ -363,7 +376,7 @@ public class DatMon_GUI extends javax.swing.JFrame {
             int soLuong = 0;
             try {
                 soLuong = Integer.parseInt(spnSoLuong.getValue().toString());
-                if(soLuong < 1 && dangThemMon){
+                if(soLuong < 1){
                     throw new NumberFormatException("Số lượng món nhỏ hơn 1");
                 }
             } catch (NumberFormatException e) {
@@ -371,6 +384,7 @@ public class DatMon_GUI extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(this, "Số lượng món ăn không hợp lệ","Error", JOptionPane.ERROR_MESSAGE);   
                 return;
             }
+        
 
             String ghiChu = null;
             if(!txaGhiChu.getText().isBlank())
@@ -392,7 +406,7 @@ public class DatMon_GUI extends javax.swing.JFrame {
                     JOptionPane.showMessageDialog(this, "Thêm món ăn mới thất bại","Thông báo", JOptionPane.INFORMATION_MESSAGE);
                 }
             } else {
-                UpdateDonGoi_DTO updateDonGoi_DTO = new UpdateDonGoi_DTO(idBan, idMonAn, soLuong + donGoi_DTO.getSoLuong(), ghiChu);
+                UpdateDonGoi_DTO updateDonGoi_DTO = new UpdateDonGoi_DTO(idBan, idMonAn, soLuong, ghiChu);
 
                 boolean result = donGoi_BUS.updateDonGoi(updateDonGoi_DTO);
 
@@ -401,6 +415,7 @@ public class DatMon_GUI extends javax.swing.JFrame {
                     this.dispose();
                 } else {            
                     JOptionPane.showMessageDialog(this, "Sửa món ăn thất bại","Thông báo", JOptionPane.INFORMATION_MESSAGE);
+
                 }
             }
         }

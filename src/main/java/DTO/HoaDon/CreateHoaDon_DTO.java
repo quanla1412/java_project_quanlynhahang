@@ -11,7 +11,7 @@ public class CreateHoaDon_DTO {
     private String maNhanVien;
     private int idKhachHang;
     private Timestamp ngayGio;
-    private int tongGia;
+    private long tongGia;
     private float uuDai;
     private ArrayList<CreateChiTietHoaDon_DTO> listMonAn;
 
@@ -42,11 +42,11 @@ public class CreateHoaDon_DTO {
         this.ngayGio = ngayGio;
     }
 
-    public int getTongGia() {
+    public long getTongGia() {
         return tongGia;
     }
 
-    public void setTongGia(int tongGia) {
+    public void setTongGia(long tongGia) {
         this.tongGia = tongGia;
     }
 

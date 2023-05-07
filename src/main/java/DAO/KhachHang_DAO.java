@@ -245,7 +245,7 @@ public class KhachHang_DAO {
             PreparedStatement statement = con.prepareStatement(sql);
             
             
-            while(statement.executeUpdate() >= 1){
+            if(statement.executeUpdate() >= 1){
                 result = true;
             }            
         } catch (SQLException ex) {

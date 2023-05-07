@@ -32,13 +32,13 @@ public class ThanhToan_GUI extends javax.swing.JFrame {
     private DonGoi_BUS donGoi_BUS;
     private KhachHang_BUS khachHang_BUS;
     private HoaDon_BUS hoaDon_BUS;
-    private int tongTien;
+    private long tongTien;
     private ArrayList<DonGoi_DTO> listDonGoi;
     private String maNhanVien;
     private NhanVien_BUS nhanVien_BUS;
     private KhachHangFull_DTO khachHang;
     private Ban_BUS ban_BUS;
-    int total = 0;
+    long total = 0;
     /**
      * Creates new form HoaDon_GUI
      */
@@ -72,10 +72,10 @@ public class ThanhToan_GUI extends javax.swing.JFrame {
         tblDonGoi.setModel(model);
         
         for(DonGoi_DTO donGoi : listDonGoi){
-            int gia = donGoi.getMonAn().getGiaKhuyenMai() > 0 ?
+            long gia = donGoi.getMonAn().getGiaKhuyenMai() > 0 ?
                     donGoi.getMonAn().getGiaKhuyenMai() :
                     donGoi.getMonAn().getGia();
-            int tongTien = gia * donGoi.getSoLuong();
+            long tongTien = gia * donGoi.getSoLuong();
             total += tongTien;
             
             Object[] data = {
@@ -133,7 +133,6 @@ public class ThanhToan_GUI extends javax.swing.JFrame {
         jPanel1.setLayout(new java.awt.GridBagLayout());
 
         lblNhanVien.setText("Nhân viên lập hóa đơn: Phan Hoàng Nhật Tân");
-        lblNhanVien.setMaximumSize(null);
         lblNhanVien.setMinimumSize(new java.awt.Dimension(300, 20));
         lblNhanVien.setPreferredSize(new java.awt.Dimension(300, 20));
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -148,7 +147,6 @@ public class ThanhToan_GUI extends javax.swing.JFrame {
         jPanel1.add(lblNhanVien, gridBagConstraints);
 
         jLabel9.setText("Tìm khách hàng theo số điện thoại:");
-        jLabel9.setMaximumSize(null);
         jLabel9.setMinimumSize(new java.awt.Dimension(192, 20));
         jLabel9.setPreferredSize(new java.awt.Dimension(192, 20));
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -205,7 +203,6 @@ public class ThanhToan_GUI extends javax.swing.JFrame {
         jPanel1.add(btnTimKhachHang, gridBagConstraints);
 
         lblTitleBan.setText("Bàn số 1");
-        lblTitleBan.setMaximumSize(null);
         lblTitleBan.setMinimumSize(new java.awt.Dimension(45, 20));
         lblTitleBan.setPreferredSize(new java.awt.Dimension(45, 20));
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -219,7 +216,6 @@ public class ThanhToan_GUI extends javax.swing.JFrame {
         jPanel1.add(lblTitleBan, gridBagConstraints);
 
         lblTenKhachHang.setText("Tên khách hàng:");
-        lblTenKhachHang.setMaximumSize(null);
         lblTenKhachHang.setMinimumSize(new java.awt.Dimension(85, 20));
         lblTenKhachHang.setPreferredSize(new java.awt.Dimension(85, 20));
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -233,7 +229,6 @@ public class ThanhToan_GUI extends javax.swing.JFrame {
         jPanel1.add(lblTenKhachHang, gridBagConstraints);
 
         lblSDTKhachHang.setText("Số điện thoại:");
-        lblSDTKhachHang.setMaximumSize(null);
         lblSDTKhachHang.setMinimumSize(new java.awt.Dimension(73, 20));
         lblSDTKhachHang.setPreferredSize(new java.awt.Dimension(73, 20));
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -409,7 +404,7 @@ public class ThanhToan_GUI extends javax.swing.JFrame {
         
         double mucUuDai = khachHang.getLoaiKhachHang().getMucUuDai();
         double tongThanhToan = Math.round(tongTien - tongTien * mucUuDai/100);
-        int tongThanhToanInt = (int) tongThanhToan;
+        long tongThanhToanInt = (long) tongThanhToan;
         
         lblMucUuDai.setText(mucUuDai + " %");
         lblTongThanhToan.setText(Price.formatPrice(tongThanhToanInt));
@@ -446,7 +441,7 @@ public class ThanhToan_GUI extends javax.swing.JFrame {
         for(DonGoi_DTO donGoi : listDonGoi){
             int idMonAn = donGoi.getMonAn().getId();
             int soLuong = donGoi.getSoLuong();
-            int gia = donGoi.getMonAn().getGiaKhuyenMai() > 0 ? 
+            long gia = donGoi.getMonAn().getGiaKhuyenMai() > 0 ? 
                     donGoi.getMonAn().getGiaKhuyenMai() :
                     donGoi.getMonAn().getGia();
             
@@ -520,7 +515,7 @@ public class ThanhToan_GUI extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnInBillTam;
-    private javax.swing.JButton btnThanhToan;
+    public javax.swing.JButton btnThanhToan;
     private javax.swing.JButton btnTimKhachHang;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

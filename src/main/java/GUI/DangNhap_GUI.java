@@ -6,6 +6,7 @@ package GUI;
 
 import BUS.NhanVien_BUS;
 import DTO.TaiKhoan_DTO;
+import java.awt.event.KeyEvent;
 import java.util.Arrays;
 import javax.swing.JOptionPane;
 
@@ -23,6 +24,21 @@ public class DangNhap_GUI extends javax.swing.JFrame {
         initComponents();
         nhanVien_BUS = new NhanVien_BUS();
     }
+    
+    private void logIn(){
+        String username = txtTaiKhoan.getText().trim();
+        String password = new String(txtMatKhau.getPassword());
+        
+        TaiKhoan_DTO taiKhoan_DTO = new TaiKhoan_DTO(username, password);
+        
+        if(nhanVien_BUS.dangNhap(taiKhoan_DTO)){
+            TrangChuNew_GUI trangChu_GUI = new TrangChuNew_GUI(username);
+            trangChu_GUI.setVisible(true);
+            this.dispose();
+        } else {
+            JOptionPane.showMessageDialog(this, "Đăng nhập thất bại","Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -35,7 +51,6 @@ public class DangNhap_GUI extends javax.swing.JFrame {
         java.awt.GridBagConstraints gridBagConstraints;
 
         btnDangNhap = new javax.swing.JButton();
-        chxHienMatKhau = new javax.swing.JCheckBox();
         txtTaiKhoan = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -47,6 +62,11 @@ public class DangNhap_GUI extends javax.swing.JFrame {
         setMinimumSize(new java.awt.Dimension(400, 300));
         setPreferredSize(new java.awt.Dimension(400, 300));
         setResizable(false);
+        addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                formKeyPressed(evt);
+            }
+        });
         getContentPane().setLayout(new java.awt.GridBagLayout());
 
         btnDangNhap.setText("Đăng nhập");
@@ -61,6 +81,11 @@ public class DangNhap_GUI extends javax.swing.JFrame {
                 btnDangNhapMouseEntered(evt);
             }
         });
+        btnDangNhap.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                btnDangNhapKeyPressed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 5;
@@ -69,23 +94,13 @@ public class DangNhap_GUI extends javax.swing.JFrame {
         gridBagConstraints.insets = new java.awt.Insets(16, 20, 4, 20);
         getContentPane().add(btnDangNhap, gridBagConstraints);
 
-        chxHienMatKhau.setFont(new java.awt.Font("Segoe UI", 0, 10)); // NOI18N
-        chxHienMatKhau.setText("Hiện mật khẩu");
-        chxHienMatKhau.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                chxHienMatKhauMouseClicked(evt);
-            }
-        });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 3;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
-        gridBagConstraints.weightx = 0.1;
-        gridBagConstraints.insets = new java.awt.Insets(4, 20, 4, 20);
-        getContentPane().add(chxHienMatKhau, gridBagConstraints);
-
         txtTaiKhoan.setMinimumSize(new java.awt.Dimension(250, 22));
         txtTaiKhoan.setPreferredSize(new java.awt.Dimension(250, 22));
+        txtTaiKhoan.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtTaiKhoanKeyPressed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 2;
@@ -126,6 +141,11 @@ public class DangNhap_GUI extends javax.swing.JFrame {
         txtMatKhau.setToolTipText("Nhập mật khẩu");
         txtMatKhau.setMinimumSize(new java.awt.Dimension(250, 22));
         txtMatKhau.setPreferredSize(new java.awt.Dimension(250, 22));
+        txtMatKhau.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtMatKhauKeyPressed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 4;
@@ -140,31 +160,52 @@ public class DangNhap_GUI extends javax.swing.JFrame {
 
     private void btnDangNhapMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDangNhapMouseClicked
         // TODO add your handling code here:
-        String username = txtTaiKhoan.getText().trim();
-        String password = new String(txtMatKhau.getPassword());
-        
-        TaiKhoan_DTO taiKhoan_DTO = new TaiKhoan_DTO(username, password);
-        
-        if(nhanVien_BUS.dangNhap(taiKhoan_DTO)){
-            TrangChuNew_GUI trangChu_GUI = new TrangChuNew_GUI(username);
-            trangChu_GUI.setVisible(true);
-            this.dispose();
-        } else {
-            JOptionPane.showMessageDialog(this, "Đăng nhập thất bại","Error", JOptionPane.ERROR_MESSAGE);
-        }
+        logIn();
     }//GEN-LAST:event_btnDangNhapMouseClicked
 
     private void btnDangNhapMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDangNhapMouseEntered
         // TODO add your handling code here:
     }//GEN-LAST:event_btnDangNhapMouseEntered
 
-    private void chxHienMatKhauMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_chxHienMatKhauMouseClicked
+    private void btnDangNhapKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnDangNhapKeyPressed
         // TODO add your handling code here:
-        if(chxHienMatKhau.isSelected())
-            txtMatKhau.setEchoChar((char) 0);
-        else
-            txtMatKhau.setEchoChar('\u2022');
-    }//GEN-LAST:event_chxHienMatKhauMouseClicked
+        switch (evt.getKeyCode()) {
+            case KeyEvent.VK_ENTER:
+                logIn();
+                break;
+            default:
+        }
+    }//GEN-LAST:event_btnDangNhapKeyPressed
+
+    private void formKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_formKeyPressed
+        // TODO add your handling code here:
+        switch (evt.getKeyCode()) {
+            case KeyEvent.VK_ENTER:
+                logIn();
+                break;
+            default:
+        }
+    }//GEN-LAST:event_formKeyPressed
+
+    private void txtTaiKhoanKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTaiKhoanKeyPressed
+        // TODO add your handling code here:        
+        switch (evt.getKeyCode()) {
+            case KeyEvent.VK_ENTER:
+                logIn();
+                break;
+            default:
+        }
+    }//GEN-LAST:event_txtTaiKhoanKeyPressed
+
+    private void txtMatKhauKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtMatKhauKeyPressed
+        // TODO add your handling code here:        
+        switch (evt.getKeyCode()) {
+            case KeyEvent.VK_ENTER:
+                logIn();
+                break;
+            default:
+        }
+    }//GEN-LAST:event_txtMatKhauKeyPressed
 
     /**
      * @param args the command line arguments
@@ -203,7 +244,6 @@ public class DangNhap_GUI extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnDangNhap;
-    private javax.swing.JCheckBox chxHienMatKhau;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

@@ -1,3 +1,7 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
+ */
 package GUI;
 
 import BUS.Ban_BUS;
@@ -40,11 +44,7 @@ import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.data.general.DefaultPieDataset;
 import org.jfree.ui.TextAnchor;
 
-/**
- *
- * @author LeAnhQuan
- */
-public class BaoCaoThongKe_GUI extends javax.swing.JFrame {
+public class BaoCaoThongKe_GUI extends javax.swing.JPanel {
 
     private final LoaiBan_BUS loaiBan_BUS;
     private final Ban_BUS ban_BUS;
@@ -61,12 +61,10 @@ public class BaoCaoThongKe_GUI extends javax.swing.JFrame {
     private ArrayList<LoaiBan_DTO> listLoaiBan;
     private ArrayList<KhachHang_DTO> listKH;
     private ArrayList<NhanVien_DTO> listNV;
-    /**
-     * Creates new form BaoCaoThongKe_GUI
-     */
+    
     public BaoCaoThongKe_GUI() {
         initComponents();
-        this.setLocationRelativeTo(null);
+//        this.setLocationRelativeTo(null);
         
         thongKe_BUS = new ThongKe_BUS();
         loaiBan_BUS = new LoaiBan_BUS();
@@ -74,56 +72,59 @@ public class BaoCaoThongKe_GUI extends javax.swing.JFrame {
         khachHang_BUS = new KhachHang_BUS();
         nhanVien_BUS = new NhanVien_BUS();
         showPieChartBanTheoSoLuong();
-    
+        
         cmbThongKe.addItemListener(new ItemListener() {
         public void itemStateChanged(ItemEvent event) {
             int indexLoaiKH = cmbThongKe.getSelectedIndex();
-            if(indexLoaiKH == 0){
-                showPieChartBanTheoSoLuong();
-            }
-            if(indexLoaiKH == 1){
-                showPieChartBanTheoTinhTrang();
-            }
-            if(indexLoaiKH == 2){
-                showPieChartKhachHangTheoLoaiKhachHang();
-            }
-            if(indexLoaiKH == 3){
-                showPieChartKhachHangTheoGioiTinh();
-            }
-            if(indexLoaiKH == 4){
-                showPieChartKhachHangTheoDoTuoi();
-            }
-            if(indexLoaiKH == 5){
-                showPieChartNhanVienTheoGioiTinh();
-            }
-            if(indexLoaiKH == 6){
-                showPieChartNhanVienTheoTinhTrang();
-            }
-            if(indexLoaiKH == 7){
-                showPieChartNhanVienTheoDoTuoi();
-            }
-            if(indexLoaiKH == 8){
-                showPieChartDoanhThuTheoNhanVienNamHienTai();
-            }
-            if(indexLoaiKH == 9){
-                showPieChartDoanhThuTheoKhachHangNamHienTai();
-            }
-            if(indexLoaiKH == 10){
-                showPieChartDoanhThuTheo7NgayGanNhat();
-            }
-            if(indexLoaiKH == 11){
-                showPieChartDoanhThuNamHienTai();
-            }
-            if(indexLoaiKH == 12){
-                showPieChartDoanhThuTheoLoaiMonAnNamHienTai();
-            }
-            if(indexLoaiKH == 13){
-                showPieChartTieuThuMonAnThangHienTai();
+            switch(indexLoaiKH){
+                case (0):
+                    showPieChartBanTheoSoLuong();
+                    break;
+                case (1):
+                    showPieChartBanTheoTinhTrang();
+                    break;
+                case (2):
+                    showPieChartKhachHangTheoLoaiKhachHang();
+                    break;
+                case (3):
+                    showPieChartKhachHangTheoGioiTinh();
+                    break;
+                case (4):
+                    showPieChartKhachHangTheoDoTuoi();
+                    break;
+                case (5):
+                    showPieChartNhanVienTheoGioiTinh();
+                    break;
+                case (6):
+                    showPieChartNhanVienTheoTinhTrang();
+                    break;
+                case (7):
+                    showPieChartNhanVienTheoDoTuoi();
+                    break;
+                case (8):
+                    showPieChartDoanhThuTheoNhanVienNamHienTai();
+                    break;
+                case (9):
+                    showPieChartDoanhThuTheoKhachHangNamHienTai();
+                    break;
+                case (10):
+                    showPieChartDoanhThuTheo7NgayGanNhat();
+                    break;
+                case (11):
+                    showPieChartDoanhThuNamHienTai();
+                    break;
+                case (12):
+                    showPieChartDoanhThuTheoLoaiMonAnNamHienTai();
+                    break;
+                case (13):
+                    showPieChartTieuThuMonAnThangHienTai();
+                    break;
             }
          }
         });
-        }
-   
+    }
+
+    
     public void showPieChartBanTheoSoLuong(){
         DefaultPieDataset dataset = new DefaultPieDataset();
         listLoaiBan = loaiBan_BUS.getAllLoaiBan();        
@@ -619,33 +620,21 @@ public class BaoCaoThongKe_GUI extends javax.swing.JFrame {
         this.pnlBieuDo.validate();
         this.pnlBieuDo.repaint();
      } 
-    /**
-     * This method is called from within the constructor to initialize the form.
-     * WARNING: Do NOT modify this code. The content of this method is always
-     * regenerated by the Form Editor.
-     */
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
         java.awt.GridBagConstraints gridBagConstraints;
 
-        pnlBieuDo = new javax.swing.JPanel();
         cmbThongKe = new javax.swing.JComboBox<>();
+        pnlBieuDo = new javax.swing.JPanel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Báo cáo thống kê");
-        setMinimumSize(new java.awt.Dimension(800, 550));
-        getContentPane().setLayout(new java.awt.GridBagLayout());
+        setLayout(new java.awt.GridBagLayout());
 
-        pnlBieuDo.setMinimumSize(new java.awt.Dimension(800, 450));
-        pnlBieuDo.setPreferredSize(new java.awt.Dimension(800, 450));
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 1;
-        gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
-        getContentPane().add(pnlBieuDo, gridBagConstraints);
-
+        cmbThongKe.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         cmbThongKe.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Thống kê bàn theo số lượng", "Thống kê bàn theo tình trạng bàn", "Thống kê khách hàng theo bậc", "Thống kê khách hàng theo giới tính", "Thống kê khách hàng theo độ tuổi", "Thống kê nhân viên theo giới tính", "Thống kê nhân viên theo tình trạng", "Thống kê nhân viên theo độ tuổi", "Thống kê doanh thu theo nhân viên ( năm hiện tại )", "Thống kê khách hàng thân thiết ( năm hiện tại )", "Thống kê doanh thu 7 ngày gần nhất", "Thống kê doanh thu năm hiện tại", "Thống kê doanh thu theo loại món ăn", "Thống kê lượng tiêu thụ theo món ăn ( tháng hiện tại )" }));
+        cmbThongKe.setMinimumSize(new java.awt.Dimension(322, 40));
+        cmbThongKe.setPreferredSize(new java.awt.Dimension(322, 40));
         cmbThongKe.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 cmbThongKeMouseClicked(evt);
@@ -660,58 +649,58 @@ public class BaoCaoThongKe_GUI extends javax.swing.JFrame {
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
-        getContentPane().add(cmbThongKe, gridBagConstraints);
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.insets = new java.awt.Insets(12, 20, 12, 20);
+        add(cmbThongKe, gridBagConstraints);
 
-        pack();
-        setLocationRelativeTo(null);
+        pnlBieuDo.setBackground(new java.awt.Color(102, 102, 255));
+        pnlBieuDo.setMinimumSize(new java.awt.Dimension(800, 450));
+        pnlBieuDo.setPreferredSize(new java.awt.Dimension(800, 450));
+        pnlBieuDo.setLayout(new java.awt.BorderLayout());
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.weightx = 0.1;
+        gridBagConstraints.weighty = 0.1;
+        gridBagConstraints.insets = new java.awt.Insets(0, 20, 0, 20);
+        add(pnlBieuDo, gridBagConstraints);
     }// </editor-fold>//GEN-END:initComponents
 
     private void cmbThongKeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cmbThongKeMouseClicked
         // TODO add your handling code here:
-//        int indexLoaiKH = cmbThongKe.getSelectedIndex();
-//        if(indexLoaiKH == 1){
-//            showPieChartBanTheoSoLuong();
-//        }
-//        if(indexLoaiKH == 0){
-//            showPieChartBanTheoTinhTrang();
-//        }
+        //        int indexLoaiKH = cmbThongKe.getSelectedIndex();
+        //        if(indexLoaiKH == 1){
+            //            showPieChartBanTheoSoLuong();
+            //        }
+        //        if(indexLoaiKH == 0){
+            //            showPieChartBanTheoTinhTrang();
+            //        }
     }//GEN-LAST:event_cmbThongKeMouseClicked
 
-    private void cmbThongKeMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cmbThongKeMouseEntered
-        // TODO add your handling code here:
-        
-    }//GEN-LAST:event_cmbThongKeMouseEntered
-
-    private void cmbThongKeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbThongKeActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cmbThongKeActionPerformed
-
-    /**
-     * @param args the command line arguments
-     */
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
          */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(BaoCaoThongKe_GUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(BaoCaoThongKe_GUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(BaoCaoThongKe_GUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(BaoCaoThongKe_GUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
+//        try {
+//            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+//                if ("Nimbus".equals(info.getName())) {
+//                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+//                    break;
+//                }
+//            }
+//        } catch (ClassNotFoundException ex) {
+//            java.util.logging.Logger.getLogger(BaoCaoThongKe_GUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (InstantiationException ex) {
+//            java.util.logging.Logger.getLogger(BaoCaoThongKe_GUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (IllegalAccessException ex) {
+//            java.util.logging.Logger.getLogger(BaoCaoThongKe_GUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+//            java.util.logging.Logger.getLogger(BaoCaoThongKe_GUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        }
         //</editor-fold>
 
         /* Create and display the form */
@@ -721,6 +710,15 @@ public class BaoCaoThongKe_GUI extends javax.swing.JFrame {
             }
         });
     }
+    
+    private void cmbThongKeMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cmbThongKeMouseEntered
+
+    }//GEN-LAST:event_cmbThongKeMouseEntered
+
+    private void cmbThongKeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbThongKeActionPerformed
+        
+    }//GEN-LAST:event_cmbThongKeActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> cmbThongKe;

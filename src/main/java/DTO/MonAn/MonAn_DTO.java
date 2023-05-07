@@ -58,7 +58,7 @@ public class MonAn_DTO {
         this.loaiMonAn = loaiMonAn;
     }
 
-    public int getGia() {
+    public long getGia() {
         return gia;
     }
 
@@ -66,7 +66,7 @@ public class MonAn_DTO {
         this.gia = gia;
     }
 
-    public int getGiaKhuyenMai() {
+    public long getGiaKhuyenMai() {
         return giaKhuyenMai;
     }
 
