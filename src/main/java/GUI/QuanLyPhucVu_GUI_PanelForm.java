@@ -40,11 +40,11 @@ public class QuanLyPhucVu_GUI_PanelForm extends javax.swing.JPanel {
     private ThanhToan_GUI thanhToan_GUI;
     
     
-    public QuanLyPhucVu_GUI_PanelForm() {
+    public QuanLyPhucVu_GUI_PanelForm(String maNhanvien) {
         initComponents();
         ban_BUS = new Ban_BUS();
         donGoi_BUS = new DonGoi_BUS();
-        this.maNhanVien = "quanla";
+        this.maNhanVien = maNhanvien;
         
         loadDanhSachBan();
     }

@@ -5,11 +5,17 @@
 package GUI;
 
 
+import BUS.NhanVien_BUS;
+import BUS.QuyenTaiKhoan_BUS;
+import Constraints.ChucNangConstraints;
+import DTO.NhanVien.NhanVienFull_DTO;
 import java.awt.Color;
 import java.awt.GradientPaint;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
+import java.util.ArrayList;
+import java.util.Collections;
 import javax.swing.JComponent;
 import javax.swing.JPanel;
 import org.kordamp.ikonli.materialdesign.MaterialDesign;
@@ -21,13 +27,28 @@ import org.kordamp.ikonli.swing.FontIcon;
  */
 public class TrangChuNew_GUI extends javax.swing.JFrame {
 
-    boolean over;
+    private final QuyenTaiKhoan_BUS quyenTaiKhoan_BUS;    
+    private final NhanVien_BUS nhanVien_BUS;
+
     
-    public TrangChuNew_GUI() {
+    private final String maNhanVien;
+    private final ArrayList<Integer> listQuyen;
+    private NhanVienFull_DTO nhanVien;
+    
+    public TrangChuNew_GUI(String maNhanVien) {
         initComponents();
+        quyenTaiKhoan_BUS = new QuyenTaiKhoan_BUS();
+        nhanVien_BUS = new NhanVien_BUS();
+        
         prepareIcon();
         btnQuanLyPhucVu.setBackground(new java.awt.Color(0,0,0,100));
-        showForm(new QuanLyPhucVu_GUI_PanelForm());
+        this.maNhanVien = maNhanVien;
+        nhanVien = nhanVien_BUS.getNhanVienbyMa(maNhanVien);
+        listQuyen = quyenTaiKhoan_BUS.getAllQuyenByMaNV(maNhanVien);
+        
+        lblTenNhanVien.setText(nhanVien.getHoTen());
+        
+        checkQuyen();
     }
 
     class jPanelGradient extends JPanel {
@@ -41,8 +62,6 @@ public class TrangChuNew_GUI extends javax.swing.JFrame {
             g2.fillRoundRect(0, 0, getWidth(), getHeight(), 20, 20);
         }
     }
-    
-    
     
     private void showForm(JComponent com){
         pnlForm.removeAll();
@@ -61,7 +80,6 @@ public class TrangChuNew_GUI extends javax.swing.JFrame {
         btnBaoCaoThongKe.setBackground(new java.awt.Color(0,0,0,0));
         btnDangXuat.setBackground(new java.awt.Color(0,0,0,0));
     }
-    
     
     private void prepareIcon() {
         FontIcon iconAvatarNhanVien = FontIcon.of(MaterialDesign.MDI_ACCOUNT_CIRCLE,32,Color.WHITE);
@@ -84,6 +102,57 @@ public class TrangChuNew_GUI extends javax.swing.JFrame {
         btnBaoCaoThongKe.setIcon(iconBaoCaoThongKe);
         btnDangXuat.setIcon(iconDangXuat);
 
+    }
+    
+    private void checkQuyen(){
+        if(!listQuyen.contains(ChucNangConstraints.QUAN_LY_PHUC_VU))
+            pnlMenu.remove(btnQuanLyPhucVu);
+        if(!listQuyen.contains(ChucNangConstraints.QUAN_LY_BAN))
+            pnlMenu.remove(btnQuanLyBan);
+        if(!listQuyen.contains(ChucNangConstraints.QUAN_LY_MON_AN))
+            pnlMenu.remove(btnQuanLyMonAn);
+        if(!listQuyen.contains(ChucNangConstraints.QUAN_LY_HOA_DON))
+            pnlMenu.remove(btnQuanLyHoaDon);
+        if(!listQuyen.contains(ChucNangConstraints.QUAN_LY_NHAN_VIEN))
+            pnlMenu.remove(btnQuanLyNhanVien);
+        if(!listQuyen.contains(ChucNangConstraints.QUAN_LY_KHACH_HANG))
+            pnlMenu.remove(btnQuanLyKhachHang);
+        if(!listQuyen.contains(ChucNangConstraints.QUAN_LY_THONG_KE))
+            pnlMenu.remove(btnBaoCaoThongKe);
+        
+        int selectedDefault = !listQuyen.isEmpty() ? Collections.min(listQuyen) : -1;
+        
+        switch (selectedDefault) {
+            case ChucNangConstraints.QUAN_LY_PHUC_VU:
+                btnQuanLyPhucVu.setBackground(new java.awt.Color(0,0,0,100));
+                showForm(new QuanLyPhucVu_GUI_PanelForm(maNhanVien));                
+                break;
+            case ChucNangConstraints.QUAN_LY_BAN:
+                btnQuanLyBan.setBackground(new java.awt.Color(0,0,0,100));
+                showForm(new QuanLyLoaiBanVaBan_GUI_PanelForm());                
+                break;
+            case ChucNangConstraints.QUAN_LY_MON_AN:
+                btnQuanLyMonAn.setBackground(new java.awt.Color(0,0,0,100));
+                showForm(new QuanLyMonAn_GUI_PanelForm());                
+                break;
+            case ChucNangConstraints.QUAN_LY_HOA_DON:
+                btnQuanLyHoaDon.setBackground(new java.awt.Color(0,0,0,100));
+                showForm(new QuanLyHoaDon_GUI_PanelForm());                
+                break;
+            case ChucNangConstraints.QUAN_LY_NHAN_VIEN:
+                btnQuanLyNhanVien.setBackground(new java.awt.Color(0,0,0,100));
+                showForm(new QuanLyNhanVien_GUI_PanelForm());                
+                break;
+            case ChucNangConstraints.QUAN_LY_KHACH_HANG:
+                btnQuanLyKhachHang.setBackground(new java.awt.Color(0,0,0,100));
+                showForm(new QuanLyKhachHang_GUI_PanelForm());                
+                break;
+            case ChucNangConstraints.QUAN_LY_THONG_KE:
+                btnBaoCaoThongKe.setBackground(new java.awt.Color(0,0,0,100));
+                showForm(new BaoCaoThongKe_GUI_PanelForm());                
+                break;
+            default:
+        }
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -111,7 +180,6 @@ public class TrangChuNew_GUI extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(1300, 720));
-        setPreferredSize(new java.awt.Dimension(1300, 720));
 
         pnlForm.setMinimumSize(new java.awt.Dimension(800, 400));
         pnlForm.setPreferredSize(new java.awt.Dimension(800, 400));
@@ -444,12 +512,13 @@ public class TrangChuNew_GUI extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnQuanLyPhucVuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnQuanLyPhucVuMouseClicked
         resetColorButton();
         btnQuanLyPhucVu.setBackground(new java.awt.Color(0,0,0,100));
-        showForm(new QuanLyPhucVu_GUI_PanelForm());
+        showForm(new QuanLyPhucVu_GUI_PanelForm(maNhanVien));
     }//GEN-LAST:event_btnQuanLyPhucVuMouseClicked
 
     private void btnQuanLyPhucVuMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnQuanLyPhucVuMouseEntered
@@ -611,8 +680,10 @@ public class TrangChuNew_GUI extends javax.swing.JFrame {
     }//GEN-LAST:event_btnBaoCaoThongKeMouseReleased
 
     private void btnDangXuatMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDangXuatMouseClicked
-        resetColorButton();
-        btnDangXuat.setBackground(new java.awt.Color(0,0,0,100));
+        DangNhap_GUI dangNhap_GUI = new DangNhap_GUI();
+        dangNhap_GUI.setVisible(true);
+        
+        this.dispose();
     }//GEN-LAST:event_btnDangXuatMouseClicked
 
     private void btnDangXuatMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDangXuatMouseEntered
@@ -663,11 +734,11 @@ public class TrangChuNew_GUI extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new TrangChuNew_GUI().setVisible(true);
-            }
-        });
+//        java.awt.EventQueue.invokeLater(new Runnable() {
+//            public void run() {
+//                new TrangChuNew_GUI().setVisible(true);
+//            }
+//        });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

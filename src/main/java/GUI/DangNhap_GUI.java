@@ -4,18 +4,24 @@
  */
 package GUI;
 
+import BUS.NhanVien_BUS;
+import DTO.TaiKhoan_DTO;
+import java.util.Arrays;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author tuant
  */
 public class DangNhap_GUI extends javax.swing.JFrame {
-
+    NhanVien_BUS nhanVien_BUS;
     
     /**
      * Creates new form DangNhap_GUI
      */
     public DangNhap_GUI() {
         initComponents();
+        nhanVien_BUS = new NhanVien_BUS();
     }
 
     /**
@@ -28,8 +34,8 @@ public class DangNhap_GUI extends javax.swing.JFrame {
     private void initComponents() {
         java.awt.GridBagConstraints gridBagConstraints;
 
-        jButton1 = new javax.swing.JButton();
-        jCheckBox1 = new javax.swing.JCheckBox();
+        btnDangNhap = new javax.swing.JButton();
+        chxHienMatKhau = new javax.swing.JCheckBox();
         txtTaiKhoan = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -43,16 +49,16 @@ public class DangNhap_GUI extends javax.swing.JFrame {
         setResizable(false);
         getContentPane().setLayout(new java.awt.GridBagLayout());
 
-        jButton1.setText("Đăng nhập");
-        jButton1.setMaximumSize(new java.awt.Dimension(88, 40));
-        jButton1.setMinimumSize(new java.awt.Dimension(150, 40));
-        jButton1.setPreferredSize(new java.awt.Dimension(150, 40));
-        jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
+        btnDangNhap.setText("Đăng nhập");
+        btnDangNhap.setMaximumSize(new java.awt.Dimension(88, 40));
+        btnDangNhap.setMinimumSize(new java.awt.Dimension(150, 40));
+        btnDangNhap.setPreferredSize(new java.awt.Dimension(150, 40));
+        btnDangNhap.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jButton1MouseClicked(evt);
+                btnDangNhapMouseClicked(evt);
             }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                jButton1MouseEntered(evt);
+                btnDangNhapMouseEntered(evt);
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -61,17 +67,22 @@ public class DangNhap_GUI extends javax.swing.JFrame {
         gridBagConstraints.gridwidth = 2;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.insets = new java.awt.Insets(16, 20, 4, 20);
-        getContentPane().add(jButton1, gridBagConstraints);
+        getContentPane().add(btnDangNhap, gridBagConstraints);
 
-        jCheckBox1.setFont(new java.awt.Font("Segoe UI", 0, 10)); // NOI18N
-        jCheckBox1.setText("Hiện mật khẩu");
+        chxHienMatKhau.setFont(new java.awt.Font("Segoe UI", 0, 10)); // NOI18N
+        chxHienMatKhau.setText("Hiện mật khẩu");
+        chxHienMatKhau.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                chxHienMatKhauMouseClicked(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 3;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
         gridBagConstraints.weightx = 0.1;
         gridBagConstraints.insets = new java.awt.Insets(4, 20, 4, 20);
-        getContentPane().add(jCheckBox1, gridBagConstraints);
+        getContentPane().add(chxHienMatKhau, gridBagConstraints);
 
         txtTaiKhoan.setMinimumSize(new java.awt.Dimension(250, 22));
         txtTaiKhoan.setPreferredSize(new java.awt.Dimension(250, 22));
@@ -112,6 +123,7 @@ public class DangNhap_GUI extends javax.swing.JFrame {
         gridBagConstraints.insets = new java.awt.Insets(4, 20, 4, 20);
         getContentPane().add(jLabel1, gridBagConstraints);
 
+        txtMatKhau.setToolTipText("Nhập mật khẩu");
         txtMatKhau.setMinimumSize(new java.awt.Dimension(250, 22));
         txtMatKhau.setPreferredSize(new java.awt.Dimension(250, 22));
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -126,21 +138,33 @@ public class DangNhap_GUI extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
+    private void btnDangNhapMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDangNhapMouseClicked
         // TODO add your handling code here:
-        String username = txtTaiKhoan.getText();
-        String password = txtMatKhau.getText();
+        String username = txtTaiKhoan.getText().trim();
+        String password = new String(txtMatKhau.getPassword());
         
-        if("admin".equals(username) && "admin".equals(password)){
-            TrangChuNew_GUI trangChu_GUI = new TrangChuNew_GUI();
+        TaiKhoan_DTO taiKhoan_DTO = new TaiKhoan_DTO(username, password);
+        
+        if(nhanVien_BUS.dangNhap(taiKhoan_DTO)){
+            TrangChuNew_GUI trangChu_GUI = new TrangChuNew_GUI(username);
             trangChu_GUI.setVisible(true);
             this.dispose();
+        } else {
+            JOptionPane.showMessageDialog(this, "Đăng nhập thất bại","Error", JOptionPane.ERROR_MESSAGE);
         }
-    }//GEN-LAST:event_jButton1MouseClicked
+    }//GEN-LAST:event_btnDangNhapMouseClicked
 
-    private void jButton1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseEntered
+    private void btnDangNhapMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDangNhapMouseEntered
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1MouseEntered
+    }//GEN-LAST:event_btnDangNhapMouseEntered
+
+    private void chxHienMatKhauMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_chxHienMatKhauMouseClicked
+        // TODO add your handling code here:
+        if(chxHienMatKhau.isSelected())
+            txtMatKhau.setEchoChar((char) 0);
+        else
+            txtMatKhau.setEchoChar('\u2022');
+    }//GEN-LAST:event_chxHienMatKhauMouseClicked
 
     /**
      * @param args the command line arguments
@@ -178,8 +202,8 @@ public class DangNhap_GUI extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JCheckBox jCheckBox1;
+    private javax.swing.JButton btnDangNhap;
+    private javax.swing.JCheckBox chxHienMatKhau;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

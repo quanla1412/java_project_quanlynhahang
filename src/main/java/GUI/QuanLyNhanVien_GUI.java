@@ -865,7 +865,7 @@ public class QuanLyNhanVien_GUI extends javax.swing.JFrame {
             return;            
         }
         
-        String CCCD = txtCCCD.getText();
+        String CCCD = txtCCCD.getText().trim();
         if(CCCD.length() != 12 || CCCD.length() != 10){
             JOptionPane.showMessageDialog(this, "CCCD sai định dạng","Error", JOptionPane.ERROR_MESSAGE);
             return;            

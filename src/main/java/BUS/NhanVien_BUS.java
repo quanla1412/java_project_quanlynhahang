@@ -12,6 +12,7 @@ import DTO.NhanVien.NhanVien_DTO;
 import DTO.NhanVien.SearchNhanVien_DTO;
 import DTO.NhanVien.TinhTrangNhanVien_DTO;
 import DTO.NhanVien.UpdateNhanVien_DTO;
+import DTO.TaiKhoan_DTO;
 import com.mycompany.quanlynhahang.OpenFile;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -442,5 +443,20 @@ public class NhanVien_BUS {
         boolean result = nhanVien_DAO.doiMatKhau(maNhanVien, password);
         
         return result;
+    }
+    
+    public boolean dangNhap(TaiKhoan_DTO taiKhoan_DTO){
+        NhanVien_DAO nhanVien_DAO = new NhanVien_DAO();
+        TaiKhoan_DTO taiKhoan = nhanVien_DAO.getTaiKhoanByMa(taiKhoan_DTO.username());
+        
+        if(taiKhoan==null)
+            return false;
+        
+        String password = taiKhoan_DTO.password().trim();
+        String passwordCheck = taiKhoan.password().trim();
+        
+        if(password.equals(passwordCheck))
+            return true;
+        return false;
     }
 }
