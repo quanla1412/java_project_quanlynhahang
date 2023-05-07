@@ -185,10 +185,10 @@ public class DonGoi_BUS {
             int total = 0;
             for(int i = 0; i < listDonGoi.size(); i++){
                 DonGoi_DTO donGoi = listDonGoi.get(i);
-                int gia = donGoi.getMonAn().getGiaKhuyenMai() > 0 ? 
+                long gia = donGoi.getMonAn().getGiaKhuyenMai() > 0 ? 
                         donGoi.getMonAn().getGiaKhuyenMai() : 
                         donGoi.getMonAn().getGia();
-                int thanhTien = donGoi.getSoLuong() * gia;
+                long thanhTien = donGoi.getSoLuong() * gia;
                 total += thanhTien;
                 
                 table.addCell(Integer.toString(i + 1));

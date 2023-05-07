@@ -9,11 +9,11 @@ public class MonAn_DTO {
     private String ten;
     private String hinhAnh;
     private String loaiMonAn;
-    private int gia;
-    private int giaKhuyenMai;
+    private long gia;
+    private long giaKhuyenMai;
     private String tinhTrangMonAn;
 
-    public MonAn_DTO(int id, String ten, String hinhAnh, String loaiMonAn, int gia, int giaKhuyenMai, String tinhTrangMonAn) {
+    public MonAn_DTO(int id, String ten, String hinhAnh, String loaiMonAn, long gia, long giaKhuyenMai, String tinhTrangMonAn) {
         this.id = id;
         this.ten = ten;
         this.hinhAnh = hinhAnh;
@@ -58,19 +58,19 @@ public class MonAn_DTO {
         this.loaiMonAn = loaiMonAn;
     }
 
-    public int getGia() {
+    public long getGia() {
         return gia;
     }
 
-    public void setGia(int gia) {
+    public void setGia(long gia) {
         this.gia = gia;
     }
 
-    public int getGiaKhuyenMai() {
+    public long getGiaKhuyenMai() {
         return giaKhuyenMai;
     }
 
-    public void setGiaKhuyenMai(int giaKhuyenMai) {
+    public void setGiaKhuyenMai(long giaKhuyenMai) {
         this.giaKhuyenMai = giaKhuyenMai;
     }
 

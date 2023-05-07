@@ -16,6 +16,14 @@ public class DangNhap_GUI extends javax.swing.JFrame {
      */
     public DangNhap_GUI() {
         initComponents();
+        
+        showPassword.addActionListener(e -> {
+    if (showPassword.isSelected()) {
+        txtMatKhau.setEchoChar((char) 0);
+    } else {
+        txtMatKhau.setEchoChar('*');
+    }
+    });
     }
 
     /**
@@ -30,7 +38,7 @@ public class DangNhap_GUI extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
-        jCheckBox1 = new javax.swing.JCheckBox();
+        showPassword = new javax.swing.JCheckBox();
         txtTaiKhoan = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -62,14 +70,14 @@ public class DangNhap_GUI extends javax.swing.JFrame {
         gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
         jPanel1.add(jButton1, gridBagConstraints);
 
-        jCheckBox1.setFont(new java.awt.Font("Segoe UI", 0, 10)); // NOI18N
-        jCheckBox1.setText("Hiện mật khẩu");
+        showPassword.setFont(new java.awt.Font("Segoe UI", 0, 10)); // NOI18N
+        showPassword.setText("Hiện mật khẩu");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 3;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 10);
-        jPanel1.add(jCheckBox1, gridBagConstraints);
+        jPanel1.add(showPassword, gridBagConstraints);
 
         txtTaiKhoan.setMinimumSize(new java.awt.Dimension(250, 22));
         txtTaiKhoan.setPreferredSize(new java.awt.Dimension(250, 22));
@@ -172,11 +180,11 @@ public class DangNhap_GUI extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
-    private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JCheckBox showPassword;
     private javax.swing.JPasswordField txtMatKhau;
     private javax.swing.JTextField txtTaiKhoan;
     // End of variables declaration//GEN-END:variables

@@ -5,8 +5,8 @@ package com.mycompany.quanlynhahang;
  * @author LeAnhQuan
  */
 public class Price {
-    public static String formatPrice(int price){
-        String str = Integer.toString(price);
+    public static String formatPrice(long price){
+        String str = Long.toString(price);
         
         StringBuilder result = new StringBuilder();
         
