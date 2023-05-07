@@ -360,7 +360,8 @@ public class DatMon_GUI extends javax.swing.JFrame {
 
     private void btnDatMonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDatMonMouseClicked
         // TODO add your handling code here:
-        int soLuong = 0;
+        if (btnDatMon.isEnabled()){
+            int soLuong = 0;
             try {
                 soLuong = Integer.parseInt(spnSoLuong.getValue().toString());
                 if(soLuong < 1){
@@ -371,6 +372,7 @@ public class DatMon_GUI extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(this, "Số lượng món ăn không hợp lệ","Error", JOptionPane.ERROR_MESSAGE);   
                 return;
             }
+
 
         String ghiChu = null;
         if(!txaGhiChu.getText().isBlank())
@@ -401,8 +403,10 @@ public class DatMon_GUI extends javax.swing.JFrame {
                 this.dispose();
             } else {            
                 JOptionPane.showMessageDialog(this, "Sửa món ăn thất bại","Thông báo", JOptionPane.INFORMATION_MESSAGE);
+
             }
         }
+        
     }//GEN-LAST:event_btnDatMonMouseClicked
 
     /**

@@ -40,11 +40,11 @@ public class QuanLyPhucVu_GUI_PanelForm extends javax.swing.JPanel {
     private ThanhToan_GUI thanhToan_GUI;
     
     
-    public QuanLyPhucVu_GUI_PanelForm() {
+    public QuanLyPhucVu_GUI_PanelForm(String maNhanvien) {
         initComponents();
         ban_BUS = new Ban_BUS();
         donGoi_BUS = new DonGoi_BUS();
-        this.maNhanVien = "quanla";
+        this.maNhanVien = maNhanvien;
         
         loadDanhSachBan();
     }
@@ -281,7 +281,7 @@ public class QuanLyPhucVu_GUI_PanelForm extends javax.swing.JPanel {
         jScrollPane3.setPreferredSize(new java.awt.Dimension(520, 600));
         jScrollPane3.setWheelScrollingEnabled(false);
 
-        pnlDanhSachBan.setMaximumSize(new java.awt.Dimension(500, 600));
+        pnlDanhSachBan.setMaximumSize(new java.awt.Dimension(500, 6000));
         pnlDanhSachBan.setMinimumSize(new java.awt.Dimension(260, 600));
         pnlDanhSachBan.setName(""); // NOI18N
         pnlDanhSachBan.setPreferredSize(new java.awt.Dimension(500, 600));

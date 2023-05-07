@@ -649,8 +649,8 @@ public class BaoCaoThongKe_GUI_PanelForm extends javax.swing.JPanel {
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.fill = java.awt.GridBagConstraints.VERTICAL;
-        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.insets = new java.awt.Insets(12, 20, 12, 20);
         add(cmbThongKe, gridBagConstraints);
 
         pnlBieuDo.setBackground(new java.awt.Color(102, 102, 255));
@@ -664,7 +664,7 @@ public class BaoCaoThongKe_GUI_PanelForm extends javax.swing.JPanel {
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.weightx = 0.1;
         gridBagConstraints.weighty = 0.1;
-        gridBagConstraints.insets = new java.awt.Insets(16, 16, 0, 16);
+        gridBagConstraints.insets = new java.awt.Insets(0, 20, 0, 20);
         add(pnlBieuDo, gridBagConstraints);
     }// </editor-fold>//GEN-END:initComponents
 

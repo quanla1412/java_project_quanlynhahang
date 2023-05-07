@@ -12,6 +12,7 @@ import DTO.NhanVien.NhanVienFull_DTO;
 import DTO.NhanVien.SearchNhanVien_DTO;
 import DTO.NhanVien.TinhTrangNhanVien_DTO;
 import DTO.NhanVien.UpdateNhanVien_DTO;
+import DTO.TaiKhoan_DTO;
 import com.mycompany.quanlynhahang.ConnectDatabase;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -410,4 +411,22 @@ public class NhanVien_DAO {
         return result;
          
     }
+    
+    public TaiKhoan_DTO getTaiKhoanByMa(String username) {
+        Connection con = ConnectDatabase.openConnection();
+        String sql = "SELECT NV_Ma, NV_Password FROM NhanVien WHERE NhanVien.NV_Ma = '" + username + "'";
+        TaiKhoan_DTO result = null;
+        try {
+            Statement statement = con.createStatement();
+            ResultSet resultSet = statement.executeQuery(sql);
+           
+            if(resultSet.next())
+                result = new TaiKhoan_DTO(resultSet.getString("NV_Ma"), resultSet.getString("NV_Password"));
+        } catch (SQLException ex) {
+            System.out.println(ex);
+        } finally {
+            ConnectDatabase.closeConnection(con); 
+        }
+        return result;
+     }
 }

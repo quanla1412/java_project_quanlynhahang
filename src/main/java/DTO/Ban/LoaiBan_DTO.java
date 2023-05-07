@@ -41,6 +41,4 @@ public class LoaiBan_DTO {
     public void setSoLuongCho(int soLuongCho) {
         this.soLuongCho = soLuongCho;
     }
-    
-    
 }

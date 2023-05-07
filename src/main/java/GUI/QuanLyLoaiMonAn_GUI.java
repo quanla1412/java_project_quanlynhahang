@@ -63,32 +63,42 @@ public class QuanLyLoaiMonAn_GUI extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Quản lý loại món ăn");
+        setResizable(false);
         getContentPane().setLayout(new javax.swing.BoxLayout(getContentPane(), javax.swing.BoxLayout.PAGE_AXIS));
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Thêm loại món ăn mới"));
         jPanel1.setLayout(new java.awt.GridBagLayout());
 
         jLabel1.setText("Tên loại món ăn");
+        jLabel1.setMaximumSize(new java.awt.Dimension(86, 24));
+        jLabel1.setMinimumSize(new java.awt.Dimension(86, 24));
+        jLabel1.setPreferredSize(new java.awt.Dimension(86, 24));
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
+        gridBagConstraints.insets = new java.awt.Insets(10, 20, 10, 10);
         jPanel1.add(jLabel1, gridBagConstraints);
 
-        txtTenLoaiMonAn.setPreferredSize(new java.awt.Dimension(200, 22));
+        txtTenLoaiMonAn.setMinimumSize(new java.awt.Dimension(64, 24));
+        txtTenLoaiMonAn.setPreferredSize(new java.awt.Dimension(200, 24));
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 20);
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.weightx = 0.1;
+        gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 10);
         jPanel1.add(txtTenLoaiMonAn, gridBagConstraints);
 
         btnThemLoaiMonAn.setText("Thêm");
+        btnThemLoaiMonAn.setMaximumSize(new java.awt.Dimension(72, 24));
+        btnThemLoaiMonAn.setMinimumSize(new java.awt.Dimension(72, 24));
+        btnThemLoaiMonAn.setPreferredSize(new java.awt.Dimension(72, 24));
         btnThemLoaiMonAn.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnThemLoaiMonAnMouseClicked(evt);
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 1;
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 0;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
-        gridBagConstraints.insets = new java.awt.Insets(0, 0, 10, 20);
+        gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 20);
         jPanel1.add(btnThemLoaiMonAn, gridBagConstraints);
 
         getContentPane().add(jPanel1);
@@ -108,7 +118,7 @@ public class QuanLyLoaiMonAn_GUI extends javax.swing.JFrame {
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(24, 14, 0, 11);
+        gridBagConstraints.insets = new java.awt.Insets(10, 20, 10, 20);
         jPanel2.add(jScrollPane1, gridBagConstraints);
 
         jButton1.setText("Xóa");
@@ -120,8 +130,9 @@ public class QuanLyLoaiMonAn_GUI extends javax.swing.JFrame {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 1;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_END;
-        gridBagConstraints.insets = new java.awt.Insets(6, 336, 5, 11);
+        gridBagConstraints.insets = new java.awt.Insets(0, 20, 8, 20);
         jPanel2.add(jButton1, gridBagConstraints);
 
         getContentPane().add(jPanel2);
