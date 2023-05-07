@@ -17,6 +17,8 @@ import GUI.DoiMatKhau_GUI;
 import GUI.QuanLyChucVu_GUI;
 import GUI.QuanLyQuyen_GUI;
 import com.mycompany.quanlynhahang.CheckHopLe;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.time.LocalDate;
 import java.time.Period;
 import java.time.ZoneId;
@@ -81,6 +83,7 @@ public class QuanLyNhanVien_GUI_PanelForm extends javax.swing.JPanel {
     
     
     private void loadComboBoxChucVu(){
+        System.out.println("Dô èn");
         listChucVu = chucVu_BUS.getAllChucVu();
         cmbThemChucVu.removeAllItems();
         cmbTimKiemChucVu.removeAllItems();
@@ -1060,6 +1063,7 @@ public class QuanLyNhanVien_GUI_PanelForm extends javax.swing.JPanel {
          if(quanLyChucVu_GUI == null || !quanLyChucVu_GUI.isDisplayable()){
             quanLyChucVu_GUI = new QuanLyChucVu_GUI();
             quanLyChucVu_GUI.setVisible(true);
+            quanLyChucVu_GUI.btnLuuChucVu.addActionListener(e -> loadComboBoxChucVu());
         } else {
             quanLyChucVu_GUI.setState(JFrame.NORMAL);
             quanLyChucVu_GUI.toFront();

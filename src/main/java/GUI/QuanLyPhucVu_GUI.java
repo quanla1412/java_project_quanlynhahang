@@ -1117,6 +1117,9 @@ public class QuanLyPhucVu_GUI extends javax.swing.JFrame {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnResetDonGoiMouseClicked(evt);
             }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnResetDonGoiMouseEntered(evt);
+            }
         });
         jPanel3.add(btnResetDonGoi);
 
@@ -1283,6 +1286,10 @@ public class QuanLyPhucVu_GUI extends javax.swing.JFrame {
         // TODO add your handling code here:
         chuyenTinhTrangBan(TinhTrangBanConstraints.NGUNG_PHUC_VU);
     }//GEN-LAST:event_btnNgungPhucVuMouseClicked
+
+    private void btnResetDonGoiMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnResetDonGoiMouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnResetDonGoiMouseEntered
 
     /**
      * @param args the command line arguments

@@ -380,7 +380,7 @@ public class QuanLyChucVu_GUI extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnLuuChucVu;
+    public javax.swing.JButton btnLuuChucVu;
     private javax.swing.JButton btnResetChucVu;
     private javax.swing.JButton btnSuaChucVu;
     private javax.swing.JButton btnThemChucVu;

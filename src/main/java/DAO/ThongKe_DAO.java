@@ -28,7 +28,7 @@ public class ThongKe_DAO {
         try {
             String sql = "SELECT MONTH(HD_NgayGio) as month, SUM(HD_TongGia)/(SELECT top (1) SUM(HD_TongGia)/1.0 " 
                         +"FROM HoaDon GROUP BY MONTH(HD_NgayGio))*100 as tongGia "
-                        + "FROM HoaDon WHERE YEAR(HD_NgayGio) = YEAR(GETDATE()) GROUP BY MONTH(HD_NgayGio)";
+                        + "FROM HoaDon WHERE YEAR(HD_NgayGio) = YEAR(GETDATE()) AND HD_ID != 1 GROUP BY MONTH(HD_NgayGio)";
             Statement statement = con.createStatement();
             
             ResultSet rs = statement.executeQuery(sql);
@@ -77,7 +77,7 @@ public class ThongKe_DAO {
         
         try {
             String sql = "SELECT TOP (5) NV_HoTen, SUM(HD_TongGia)/1000000.0 as tongGia "
-                    +"FROM HoaDon, NhanVien WHERE NhanVien.NV_Ma=HoaDon.NV_Ma AND YEAR(HD_NgayGio) = YEAR(GETDATE()) GROUP BY NV_HoTen ORDER BY tongGia DESC";
+                    +"FROM HoaDon, NhanVien WHERE NhanVien.NV_Ma=HoaDon.NV_Ma AND YEAR(HD_NgayGio) = YEAR(GETDATE()) AND HD_ID != 1 GROUP BY NV_HoTen ORDER BY tongGia DESC";
             Statement statement = con.createStatement();
             
             ResultSet rs = statement.executeQuery(sql);
@@ -102,7 +102,7 @@ public class ThongKe_DAO {
         
         try {
             String sql = "SELECT TOP (5) KH_Ten, SUM(HD_TongGia)/1000000.0 as tongGia "
-                    +"FROM HoaDon, KhachHang WHERE KhachHang.KH_ID=HoaDon.KH_ID AND YEAR(HD_NgayGio) = YEAR(GETDATE())"
+                    +"FROM HoaDon, KhachHang WHERE KhachHang.KH_ID=HoaDon.KH_ID AND YEAR(HD_NgayGio) = YEAR(GETDATE()) AND HD_ID != 1"
                     +" GROUP BY KH_Ten ORDER BY tongGia DESC";
             Statement statement = con.createStatement();
             
@@ -128,7 +128,7 @@ public class ThongKe_DAO {
         
         try {
             String sql = "SELECT LoaiMonAn.LMA_Ten as tenLMA, SUM(HoaDon.HD_TongGia)/1000000.0 as tongGia "
-                        +"FROM HoaDon, ChiTietHoaDon, MonAn, LoaiMonAn WHERE HoaDon.HD_ID = ChiTietHoaDon.HD_ID "
+                        +"FROM HoaDon, ChiTietHoaDon, MonAn, LoaiMonAn WHERE HoaDon.HD_ID = ChiTietHoaDon.HD_ID  AND HoaDon.HD_ID != 1"
                         +"AND ChiTietHoaDon.MA_ID = MonAn.MA_ID AND MonAn.LMA_ID = LoaiMonAn.LMA_ID "
                         +"AND YEAR(HD_NgayGio) = YEAR(GETDATE()) GROUP BY(LoaiMonAn.LMA_Ten)";
             Statement statement = con.createStatement();
@@ -156,9 +156,9 @@ public class ThongKe_DAO {
         
         try {
             String sql = "SELECT TOP (5) MonAn.MA_Ten as tenMA, SUM(CTHD_SoLuong) as soLuong "
-                        +"FROM HoaDon, ChiTietHoaDon, MonAn WHERE HoaDon.HD_ID = ChiTietHoaDon.HD_ID "
+                        +"FROM HoaDon, ChiTietHoaDon, MonAn WHERE HoaDon.HD_ID = ChiTietHoaDon.HD_ID  AND HoaDon.HD_ID != 1 "
                         +"AND ChiTietHoaDon.MA_ID = MonAn.MA_ID AND MONTH(HD_NgayGio) = MONTH(GETDATE()) "
-                        +"AND YEAR(HD_NgayGio) = YEAR(GETDATE()) GROUP BY(MonAn.MA_Ten) ORDER BY soLuong DESC";
+                        +"AND YEAR(HD_NgayGio) = YEAR(GETDATE())GROUP BY(MonAn.MA_Ten) ORDER BY soLuong DESC";
             Statement statement = con.createStatement();
             
             ResultSet rs = statement.executeQuery(sql);
