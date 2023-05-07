@@ -20,6 +20,9 @@ public class Main {
         // TODO code application logic here
         try{
             UIManager.setLookAndFeel(new FlatMacLightLaf());
+            
+            UIManager.put("PasswordField.showRevealButton", true);
+            UIManager.put("PasswordField.showCapsLock", true);
         } catch(Exception ex){
             System.out.println(ex);
         }
