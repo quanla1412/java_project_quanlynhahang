@@ -372,38 +372,39 @@ public class DatMon_GUI extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(this, "Số lượng món ăn không hợp lệ","Error", JOptionPane.ERROR_MESSAGE);   
                 return;
             }
+        
 
+            String ghiChu = null;
+            if(!txaGhiChu.getText().isBlank())
+                ghiChu = txaGhiChu.getText();
+            if(dangThemMon){
+                CreateDonGoi_DTO createDonGoi_DTO = new CreateDonGoi_DTO();  
 
-        String ghiChu = null;
-        if(!txaGhiChu.getText().isBlank())
-            ghiChu = txaGhiChu.getText();
-        if(dangThemMon){
-            CreateDonGoi_DTO createDonGoi_DTO = new CreateDonGoi_DTO();  
-            
-            createDonGoi_DTO.setIdMA(idMonAn);
-            createDonGoi_DTO.setIdBan(idBan);
-            createDonGoi_DTO.setSoLuong(soLuong);
-            createDonGoi_DTO.setGhiChu(ghiChu);
+                createDonGoi_DTO.setIdMA(idMonAn);
+                createDonGoi_DTO.setIdBan(idBan);
+                createDonGoi_DTO.setSoLuong(soLuong);
+                createDonGoi_DTO.setGhiChu(ghiChu);
 
-            boolean result = donGoi_BUS.createDonGoi(createDonGoi_DTO);
+                boolean result = donGoi_BUS.createDonGoi(createDonGoi_DTO);
 
-            if(result){
-                JOptionPane.showMessageDialog(this, "Thêm món ăn mới thành công","Thông báo", JOptionPane.INFORMATION_MESSAGE);
-                this.dispose();
-            } else {            
-                JOptionPane.showMessageDialog(this, "Thêm món ăn mới thất bại","Thông báo", JOptionPane.INFORMATION_MESSAGE);
-            }
-        } else {
-            UpdateDonGoi_DTO updateDonGoi_DTO = new UpdateDonGoi_DTO(idBan, idMonAn, soLuong, ghiChu);
-            
-            boolean result = donGoi_BUS.updateDonGoi(updateDonGoi_DTO);
+                if(result){
+                    JOptionPane.showMessageDialog(this, "Thêm món ăn mới thành công","Thông báo", JOptionPane.INFORMATION_MESSAGE);
+                    this.dispose();
+                } else {            
+                    JOptionPane.showMessageDialog(this, "Thêm món ăn mới thất bại","Thông báo", JOptionPane.INFORMATION_MESSAGE);
+                }
+            } else {
+                UpdateDonGoi_DTO updateDonGoi_DTO = new UpdateDonGoi_DTO(idBan, idMonAn, soLuong, ghiChu);
 
-            if(result){
-                JOptionPane.showMessageDialog(this, "Sửa món ăn thành công","Thông báo", JOptionPane.INFORMATION_MESSAGE);
-                this.dispose();
-            } else {            
-                JOptionPane.showMessageDialog(this, "Sửa món ăn thất bại","Thông báo", JOptionPane.INFORMATION_MESSAGE);
+                boolean result = donGoi_BUS.updateDonGoi(updateDonGoi_DTO);
 
+                if(result){
+                    JOptionPane.showMessageDialog(this, "Sửa món ăn thành công","Thông báo", JOptionPane.INFORMATION_MESSAGE);
+                    this.dispose();
+                } else {            
+                    JOptionPane.showMessageDialog(this, "Sửa món ăn thất bại","Thông báo", JOptionPane.INFORMATION_MESSAGE);
+
+                }
             }
         }
         
