@@ -90,8 +90,9 @@ public class Menu_GUI extends javax.swing.JFrame {
                 pnlItem.setBackground(Color.WHITE);
 //                pnlItem.setBorder(BorderFactory.createRaisedBevelBorder());
 
+                String linkHinhAnh = monAn.getHinhAnh() == null ? "D:\\QuanLyNhaHang\\Icon\\404icon.png" : monAn.getHinhAnh();
                 JLabel lblHinhAnh = new JLabel();
-                ImageIcon yourImage = new ImageIcon(monAn.getHinhAnh());
+                ImageIcon yourImage = new ImageIcon(linkHinhAnh);
                 Image newImage = yourImage.getImage().getScaledInstance(200, 200, Image.SCALE_DEFAULT);
                 lblHinhAnh.setIcon(new ImageIcon(newImage));
                 lblHinhAnh.setPreferredSize(new Dimension(200, 200));
