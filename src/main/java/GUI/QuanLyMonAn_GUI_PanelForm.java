@@ -950,7 +950,7 @@ public class QuanLyMonAn_GUI_PanelForm extends javax.swing.JPanel {
             }
             try {
                 int gia = Integer.parseInt(giaString);
-                if (gia < 1000 && gia % 100 == 0)
+                if (gia < 1000 || gia % 100 != 0)
                 throw new NumberFormatException();
                 else
                 createMonAn_DTO.setGia(gia);
@@ -963,12 +963,13 @@ public class QuanLyMonAn_GUI_PanelForm extends javax.swing.JPanel {
             if(!giaKhuyenMaiString.isEmpty()){
                 try {
                     int giaKhuyenMai = Integer.parseInt(giaKhuyenMaiString);
-                    if (giaKhuyenMai < 1000 && giaKhuyenMai % 100 == 0 && giaKhuyenMai < createMonAn_DTO.getGia())
+                    if (giaKhuyenMai < 1000 || giaKhuyenMai % 100 != 0 || giaKhuyenMai > createMonAn_DTO.getGia())
                     throw new NumberFormatException();
                     else
                     createMonAn_DTO.setGiaKhuyenMai(giaKhuyenMai);
                 } catch (NumberFormatException ex){
                     JOptionPane.showMessageDialog(this, "Nhập giá không đúng định dạng, giá phải từ 1000đ trở lên, nhỏ hơn giá gốc và chia hết cho 100","Error", JOptionPane.ERROR_MESSAGE);
+                    return;
                 }
             }
 
@@ -1017,7 +1018,7 @@ public class QuanLyMonAn_GUI_PanelForm extends javax.swing.JPanel {
             }
             try {
                 int gia = Integer.parseInt(giaString);
-                if (gia < 1000 && gia % 100 == 0)
+                if (gia < 1000 || gia % 100 != 0)
                 throw new NumberFormatException();
                 else
                 updateMonAn_DTO.setGia(gia);
@@ -1030,12 +1031,13 @@ public class QuanLyMonAn_GUI_PanelForm extends javax.swing.JPanel {
             if(!giaKhuyenMaiString.isEmpty()){
                 try {
                     int giaKhuyenMai = Integer.parseInt(giaKhuyenMaiString);
-                    if (giaKhuyenMai < 1000 && giaKhuyenMai % 100 == 0 && giaKhuyenMai < updateMonAn_DTO.getGia())
+                    if (giaKhuyenMai < 1000 || giaKhuyenMai % 100 != 0 || giaKhuyenMai > updateMonAn_DTO.getGia())
                     throw new NumberFormatException();
                     else
                     updateMonAn_DTO.setGiaKhuyenMai(giaKhuyenMai);
                 } catch (NumberFormatException ex){
                     JOptionPane.showMessageDialog(this, "Nhập giá không đúng định dạng, giá phải từ 1000đ trở lên, nhỏ hơn giá gốc và chia hết cho 100","Error", JOptionPane.ERROR_MESSAGE);
+                    return;
                 }
             }
 

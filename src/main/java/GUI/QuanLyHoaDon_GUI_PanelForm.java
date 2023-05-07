@@ -836,7 +836,7 @@ public class QuanLyHoaDon_GUI_PanelForm extends javax.swing.JPanel {
     }//GEN-LAST:event_txtThanhTienActionPerformed
 
     private void btnHuyHoaDonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnHuyHoaDonMouseClicked
-            if(btnHuyHoaDon.isEnabled()){
+        if(btnHuyHoaDon.isEnabled()){
             int indexRow = tblDanhSachHoaDon.getSelectedRow();
             TableModel model = tblDanhSachHoaDon.getModel();
 
