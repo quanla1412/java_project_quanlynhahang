@@ -36,7 +36,7 @@ public class LoaiBan_BUS {
     }
     
     public boolean updateLoaiBan(LoaiBan_DTO data){
-        if(loaiBan_DAO.alreadyHasName(data.getTen()))
+        if(loaiBan_DAO.alreadyHasName(data.getId(),data.getTen()))
             return false;
         
         boolean result = loaiBan_DAO.updateLoaiBan(data);

@@ -652,7 +652,9 @@ public class QuanLyKhachHang_GUI_PanelForm extends javax.swing.JPanel {
         dangThemKhachHang = true;
         pnlKhachHang.setBorder(BorderFactory.createTitledBorder("Thêm khách hàng"));
         pnlKhachHang.repaint();
+        
         clearThemSuaKhachHang();
+        btnLuu.setEnabled(true);
     }//GEN-LAST:event_btnThemMouseClicked
 
     private void btnSuaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSuaMouseClicked
@@ -663,6 +665,7 @@ public class QuanLyKhachHang_GUI_PanelForm extends javax.swing.JPanel {
         pnlKhachHang.setBorder(BorderFactory.createTitledBorder("Sửa khách hàng"));
         pnlKhachHang.repaint();
         clearThemSuaKhachHang();
+        btnLuu.setEnabled(false);
     }//GEN-LAST:event_btnSuaMouseClicked
 
     private void btnXoaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnXoaMouseClicked
@@ -925,6 +928,7 @@ public class QuanLyKhachHang_GUI_PanelForm extends javax.swing.JPanel {
         cmbGioiTinhKH.setSelectedIndex(0);
         else
         cmbGioiTinhKH.setSelectedIndex(1);
+        btnLuu.setEnabled(true);
 
     }//GEN-LAST:event_tblKhachHangMouseClicked
 

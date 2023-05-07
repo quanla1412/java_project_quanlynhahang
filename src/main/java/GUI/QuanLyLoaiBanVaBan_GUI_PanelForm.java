@@ -64,8 +64,9 @@ public class QuanLyLoaiBanVaBan_GUI_PanelForm extends javax.swing.JPanel {
     
     private void loadComboBoxLoaiBan(){
         listLoaiBan = loaiBan_BUS.getAllLoaiBan();        
-        
+        cmbLoaiBan.removeAllItems();
         for(LoaiBan_DTO loaiBan : listLoaiBan){
+            
             cmbLoaiBan.addItem(loaiBan.getTen());
         }      
         
@@ -513,6 +514,7 @@ public class QuanLyLoaiBanVaBan_GUI_PanelForm extends javax.swing.JPanel {
         txtIDLoaiBan.setText(Integer.toString(result.getId()));
         txtTenLoaiBan.setText(result.getTen());
         txtSoChoNgoi.setText(Integer.toString(result.getSoLuongCho()));
+        btnLuuLoaiBan.setEnabled(true);
     }//GEN-LAST:event_tblLoaiBanMouseClicked
 
     private void btnThemLoaiBanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnThemLoaiBanMouseClicked
@@ -523,6 +525,7 @@ public class QuanLyLoaiBanVaBan_GUI_PanelForm extends javax.swing.JPanel {
         pnlThemSuaLoaiBan.setBorder(BorderFactory.createTitledBorder("Thêm loại bàn mới"));
         pnlThemSuaLoaiBan.repaint();
         clearTextViewLoaiBan();
+        btnLuuLoaiBan.setEnabled(true);
     }//GEN-LAST:event_btnThemLoaiBanMouseClicked
 
     private void btnThemLoaiBanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemLoaiBanActionPerformed
@@ -530,13 +533,14 @@ public class QuanLyLoaiBanVaBan_GUI_PanelForm extends javax.swing.JPanel {
     }//GEN-LAST:event_btnThemLoaiBanActionPerformed
 
     private void btnSuaLoaiBanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSuaLoaiBanMouseClicked
-        // TODO add your handling code here:
+        // TODO add your handling code here: 
         btnThemLoaiBan.setEnabled(true);
         btnSuaLoaiBan.setEnabled(false);
         dangThemLoaiBan = false;
         pnlThemSuaLoaiBan.setBorder(BorderFactory.createTitledBorder("Sửa loại bàn"));
         pnlThemSuaLoaiBan.repaint();
         clearTextViewLoaiBan();
+        btnLuuLoaiBan.setEnabled(false);
     }//GEN-LAST:event_btnSuaLoaiBanMouseClicked
 
     private void btnXoaLoaiBanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnXoaLoaiBanMouseClicked
@@ -561,7 +565,7 @@ public class QuanLyLoaiBanVaBan_GUI_PanelForm extends javax.swing.JPanel {
             boolean result = loaiBan_BUS.deleteLoaiBanById(id);
             if(result){
                 JOptionPane.showMessageDialog(this, "Xóa 1 loại bàn thành công","Thông báo", JOptionPane.INFORMATION_MESSAGE);
-
+                loadComboBoxLoaiBan();
             }
             else{
                 JOptionPane.showMessageDialog(this, "Xóa thất bại","Error", JOptionPane.ERROR_MESSAGE);
@@ -637,6 +641,7 @@ public class QuanLyLoaiBanVaBan_GUI_PanelForm extends javax.swing.JPanel {
             if(result){
                 JOptionPane.showMessageDialog(this, "Thêm loại bàn mới thành công","Thông báo", JOptionPane.INFORMATION_MESSAGE);
                 clearTextViewLoaiBan();
+                loadComboBoxLoaiBan();
             }
             else{
                 JOptionPane.showMessageDialog(this, "Thêm loại bàn mới thất bại","Error", JOptionPane.ERROR_MESSAGE);
@@ -659,6 +664,7 @@ public class QuanLyLoaiBanVaBan_GUI_PanelForm extends javax.swing.JPanel {
             }
         }
         loadTableLoaiBan();
+        
     }//GEN-LAST:event_btnLuuLoaiBanMouseClicked
 
     private void tblBanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblBanMouseClicked
@@ -695,6 +701,7 @@ public class QuanLyLoaiBanVaBan_GUI_PanelForm extends javax.swing.JPanel {
         txtIdBan.setText(Integer.toString(id));
         cmbLoaiBan.setSelectedIndex(indexLoaiBan);
         cmbTinhTrangBan.setSelectedIndex(indexTinhTrangBan);
+        btnLuuBan.setEnabled(true);
     }//GEN-LAST:event_tblBanMouseClicked
 
     private void btnThemBanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnThemBanMouseClicked
@@ -704,7 +711,8 @@ public class QuanLyLoaiBanVaBan_GUI_PanelForm extends javax.swing.JPanel {
         dangThemBan = true;
         pnlThemSuaBan.setBorder(BorderFactory.createTitledBorder("Thêm bàn mới"));
         pnlThemSuaBan.repaint();
-        clearTextViewLoaiBan();
+        clearTextViewBan();
+        btnLuuBan.setEnabled(true);
     }//GEN-LAST:event_btnThemBanMouseClicked
 
     private void btnSuaBanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSuaBanMouseClicked
@@ -715,6 +723,8 @@ public class QuanLyLoaiBanVaBan_GUI_PanelForm extends javax.swing.JPanel {
         pnlThemSuaBan.setBorder(BorderFactory.createTitledBorder("Sửa bàn"));
         pnlThemSuaBan.repaint();
         clearTextViewBan();
+        btnLuuBan.setEnabled(false);
+        
     }//GEN-LAST:event_btnSuaBanMouseClicked
 
     private void btnXoaBanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnXoaBanMouseClicked
@@ -769,9 +779,10 @@ public class QuanLyLoaiBanVaBan_GUI_PanelForm extends javax.swing.JPanel {
 
     private void btnResetBanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnResetBanMouseClicked
         // TODO add your handling code here:
+    
         if(dangThemBan){
-            loadComboBoxLoaiBan();
-            loadComboBoxTinhTrangBan();
+            cmbLoaiBan.setSelectedIndex(-1);
+            cmbTinhTrangBan.setSelectedIndex(-1);
         } else {
             int id = Integer.parseInt(txtIdBan.getText());
             BanFull_DTO result = ban_BUS.getBanFullById(id);
@@ -819,7 +830,7 @@ public class QuanLyLoaiBanVaBan_GUI_PanelForm extends javax.swing.JPanel {
         int idLoaiBan = listLoaiBan.get(indexLoaiBan).getId();
         int idTinhTrangBan = listTinhTrangBan.get(indexTinhTrangBan).getId();
         if (dangThemBan){
-            CreateBan_DTO data = new CreateBan_DTO(idLoaiBan, idTinhTrangBan);
+            CreateBan_DTO data = new CreateBan_DTO(idTinhTrangBan, idLoaiBan);
 
             boolean result = ban_BUS.createBan(data);
             if(result){
