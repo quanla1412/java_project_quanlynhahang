@@ -143,7 +143,6 @@ public class QuanLyKhachHang_GUI extends javax.swing.JPanel {
         jPanel5 = new javax.swing.JPanel();
         btnThem = new javax.swing.JButton();
         btnSua = new javax.swing.JButton();
-        btnXoa = new javax.swing.JButton();
         pnlKhachHang = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
@@ -402,16 +401,6 @@ public class QuanLyKhachHang_GUI extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
         jPanel5.add(btnSua, gridBagConstraints);
 
-        btnXoa.setText("Xóa");
-        btnXoa.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnXoaMouseClicked(evt);
-            }
-        });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
-        jPanel5.add(btnXoa, gridBagConstraints);
-
         jPanel4.add(jPanel5);
 
         pnlKhachHang.setBorder(javax.swing.BorderFactory.createTitledBorder("Thêm khách hàng"));
@@ -668,43 +657,6 @@ public class QuanLyKhachHang_GUI extends javax.swing.JPanel {
         btnLuu.setEnabled(false);
     }//GEN-LAST:event_btnSuaMouseClicked
 
-    private void btnXoaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnXoaMouseClicked
-        // TODO add your handling code here:
-        int total = tblKhachHang.getSelectedRowCount();
-        TableModel model = tblKhachHang.getModel();
-        if(total < 1){
-            JOptionPane.showMessageDialog(this, "Bạn chưa chọn khách hàng muốn xóa","Error", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-
-        int confirm = JOptionPane.showConfirmDialog(null,
-            "Bạn có chắc chắn muốn xóa khách hàng đã chọn không ?", "Xóa dữ liệu khách hàng!", JOptionPane.OK_CANCEL_OPTION);
-
-        if(confirm == JOptionPane.CANCEL_OPTION)
-        return;
-
-        if(total == 1){
-            int index = tblKhachHang.getSelectedRow();
-
-            int id = Integer.parseInt(model.getValueAt(index, 0).toString());
-
-            boolean result = khachHang_BUS.deleteKhachHangById(id);
-            if(result){
-                JOptionPane.showMessageDialog(this, "Xóa khách hàng thành công","Thông báo", JOptionPane.INFORMATION_MESSAGE);
-
-            }
-            else {
-                JOptionPane.showMessageDialog(this, "Xóa thất bại","Error", JOptionPane.ERROR_MESSAGE);
-                return;
-            }
-        } else {
-            JOptionPane.showMessageDialog(this, "Không được xóa nhiều khách hàng 1 thời điểm","Error", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-        clearThemSuaKhachHang();
-        loadTableKhachHang();
-    }//GEN-LAST:event_btnXoaMouseClicked
-
     private void txtIDKHActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtIDKHActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtIDKHActionPerformed
@@ -951,7 +903,6 @@ public class QuanLyKhachHang_GUI extends javax.swing.JPanel {
     private javax.swing.JButton btnSua;
     private javax.swing.JButton btnThem;
     private javax.swing.JButton btnTimKiem;
-    private javax.swing.JButton btnXoa;
     private javax.swing.JComboBox<String> cmbGioiTinhKH;
     private javax.swing.JComboBox<String> cmbThemSuaLoaiKH;
     private javax.swing.JComboBox<String> cmbTimKiemGioiTinh;
