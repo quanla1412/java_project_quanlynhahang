@@ -957,7 +957,7 @@ public class QuanLyMonAn_GUI_PanelForm extends javax.swing.JPanel {
                 else
                 createMonAn_DTO.setGia(gia);
             } catch (NumberFormatException ex){
-                JOptionPane.showMessageDialog(this, "Nhập giá không đúng định dạng, giá phải từ 1000đ trở lên và chia hết cho 100","Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Nhập giá không đúng định dạng, giá phải từ 1000đ trở lên và chia hết cho 100 ","Error", JOptionPane.ERROR_MESSAGE);
                 return;
             }
 
@@ -970,7 +970,7 @@ public class QuanLyMonAn_GUI_PanelForm extends javax.swing.JPanel {
                     else
                     createMonAn_DTO.setGiaKhuyenMai(giaKhuyenMai);
                 } catch (NumberFormatException ex){
-                    JOptionPane.showMessageDialog(this, "Nhập giá không đúng định dạng, giá phải từ 1000đ trở lên, nhỏ hơn giá gốc và chia hết cho 100","Error", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(this, "Nhập giá không đúng định dạng, giá phải từ 1000đ trở lên, nhỏ hơn giá gốc và chia hết cho 100 hoặc giá khuyến mãi phải nhỏ hơn giá mặc định","Error", JOptionPane.ERROR_MESSAGE);
                     return;
                 }
             }
@@ -1038,7 +1038,7 @@ public class QuanLyMonAn_GUI_PanelForm extends javax.swing.JPanel {
                     else
                     updateMonAn_DTO.setGiaKhuyenMai(giaKhuyenMai);
                 } catch (NumberFormatException ex){
-                    JOptionPane.showMessageDialog(this, "Nhập giá không đúng định dạng, giá phải từ 1000đ trở lên, nhỏ hơn giá gốc và chia hết cho 100","Error", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(this, "Nhập giá không đúng định dạng, giá phải từ 1000đ trở lên, nhỏ hơn giá gốc và chia hết cho 100,  hoặc giá khuyến mãi phải nhỏ hơn giá mặc định","Error", JOptionPane.ERROR_MESSAGE);
                     return;
                 }
             }

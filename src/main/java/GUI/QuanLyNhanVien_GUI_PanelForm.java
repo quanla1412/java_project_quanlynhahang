@@ -1106,7 +1106,7 @@ public class QuanLyNhanVien_GUI_PanelForm extends javax.swing.JPanel {
         int total = tblDanhSachNV.getSelectedRowCount();
         TableModel model = tblDanhSachNV.getModel();
         if(total < 1){
-            JOptionPane.showMessageDialog(this, "Bạn chưa chọn nhân viên muốn đổi mật khẩu","Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Bạn chưa chọn nhân viên muốn phân quyền","Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
 
