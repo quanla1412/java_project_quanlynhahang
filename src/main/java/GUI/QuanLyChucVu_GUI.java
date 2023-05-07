@@ -67,13 +67,16 @@ public class QuanLyChucVu_GUI extends javax.swing.JFrame {
         btnLuuChucVu = new javax.swing.JButton();
         txtIDChucVu = new javax.swing.JTextField();
         txtChucVu = new javax.swing.JTextField();
-        filler1 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 150), new java.awt.Dimension(0, 150), new java.awt.Dimension(32767, 300));
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Quản lý chức vụ");
+        setMinimumSize(new java.awt.Dimension(520, 360));
+        setPreferredSize(new java.awt.Dimension(520, 360));
+        setResizable(false);
         getContentPane().setLayout(new javax.swing.BoxLayout(getContentPane(), javax.swing.BoxLayout.LINE_AXIS));
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Danh sách chức vụ"));
+        jPanel1.setLayout(new javax.swing.BoxLayout(jPanel1, javax.swing.BoxLayout.LINE_AXIS));
 
         tblDanhSachChucVu.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -93,26 +96,13 @@ public class QuanLyChucVu_GUI extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(tblDanhSachChucVu);
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 364, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 12, Short.MAX_VALUE))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 272, Short.MAX_VALUE)
-                .addContainerGap())
-        );
+        jPanel1.add(jScrollPane1);
 
         getContentPane().add(jPanel1);
 
-        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("Quản lý chức vụ"));
         jPanel3.setLayout(new javax.swing.BoxLayout(jPanel3, javax.swing.BoxLayout.PAGE_AXIS));
 
+        pnlQuanLyChucVu.setBorder(javax.swing.BorderFactory.createTitledBorder("Chức năng"));
         pnlQuanLyChucVu.setMinimumSize(new java.awt.Dimension(300, 40));
         pnlQuanLyChucVu.setPreferredSize(new java.awt.Dimension(300, 40));
         pnlQuanLyChucVu.setLayout(new java.awt.GridBagLayout());
@@ -157,16 +147,18 @@ public class QuanLyChucVu_GUI extends javax.swing.JFrame {
 
         jLabel1.setText("ID");
         gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
+        gridBagConstraints.insets = new java.awt.Insets(4, 20, 4, 0);
         pnlThemSuaChucVu.add(jLabel1, gridBagConstraints);
 
         jLabel2.setText("Chức vụ");
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 2;
-        gridBagConstraints.gridy = 0;
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
+        gridBagConstraints.insets = new java.awt.Insets(4, 20, 4, 0);
         pnlThemSuaChucVu.add(jLabel2, gridBagConstraints);
 
         btnResetChucVu.setText("Reset");
@@ -177,9 +169,11 @@ public class QuanLyChucVu_GUI extends javax.swing.JFrame {
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 2;
-        gridBagConstraints.gridy = 1;
-        gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 10);
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.weightx = 0.1;
+        gridBagConstraints.insets = new java.awt.Insets(4, 20, 4, 2);
         pnlThemSuaChucVu.add(btnResetChucVu, gridBagConstraints);
 
         btnLuuChucVu.setText("Lưu");
@@ -193,8 +187,11 @@ public class QuanLyChucVu_GUI extends javax.swing.JFrame {
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 3;
-        gridBagConstraints.gridy = 1;
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.weightx = 0.1;
+        gridBagConstraints.insets = new java.awt.Insets(4, 2, 4, 20);
         pnlThemSuaChucVu.add(btnLuuChucVu, gridBagConstraints);
 
         txtIDChucVu.setEnabled(false);
@@ -203,7 +200,9 @@ public class QuanLyChucVu_GUI extends javax.swing.JFrame {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 0;
-        gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
+        gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.insets = new java.awt.Insets(4, 20, 4, 20);
         pnlThemSuaChucVu.add(txtIDChucVu, gridBagConstraints);
         txtIDChucVu.getAccessibleContext().setAccessibleParent(pnlQuanLyChucVu);
 
@@ -215,12 +214,14 @@ public class QuanLyChucVu_GUI extends javax.swing.JFrame {
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 3;
-        gridBagConstraints.gridy = 0;
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.insets = new java.awt.Insets(4, 20, 4, 20);
         pnlThemSuaChucVu.add(txtChucVu, gridBagConstraints);
 
         jPanel3.add(pnlThemSuaChucVu);
-        jPanel3.add(filler1);
 
         getContentPane().add(jPanel3);
 
@@ -384,7 +385,6 @@ public class QuanLyChucVu_GUI extends javax.swing.JFrame {
     private javax.swing.JButton btnSuaChucVu;
     private javax.swing.JButton btnThemChucVu;
     private javax.swing.JButton btnXoaChucVu;
-    private javax.swing.Box.Filler filler1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;

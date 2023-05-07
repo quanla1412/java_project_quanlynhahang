@@ -381,6 +381,11 @@ public class QuanLyLoaiBanVaBan_GUI_PanelForm extends javax.swing.JPanel {
                 btnXoaBanMouseClicked(evt);
             }
         });
+        btnXoaBan.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnXoaBanActionPerformed(evt);
+            }
+        });
         jPanel12.add(btnXoaBan);
 
         jPanel11.add(jPanel12);
@@ -747,7 +752,7 @@ public class QuanLyLoaiBanVaBan_GUI_PanelForm extends javax.swing.JPanel {
 
             int result = ban_BUS.deleteNhieuBanByListId(listID);
             if(result == listID.size())
-            JOptionPane.showMessageDialog(this, "Xóa " + total + " loại bàn thành công","Thông báo", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Xóa " + total + " bàn thành công","Thông báo", JOptionPane.INFORMATION_MESSAGE);
             else if(result > 0)
             JOptionPane.showMessageDialog(this, "Xóa thất bại, chỉ xóa được " + total + " loại bàn","Error", JOptionPane.ERROR_MESSAGE);
             else
@@ -838,6 +843,10 @@ public class QuanLyLoaiBanVaBan_GUI_PanelForm extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(this, "Sửa bàn thất bại","Error", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnLuuBanMouseClicked
+
+    private void btnXoaBanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaBanActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnXoaBanActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
