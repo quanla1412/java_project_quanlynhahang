@@ -106,20 +106,25 @@ public class DoiMatKhau_GUI extends javax.swing.JFrame {
         // TODO add your handling code here:
         String password = Arrays.toString(txtPassword.getPassword());
         String retypePassword = Arrays.toString(txtRetypePassword.getPassword());
+        if (password.isBlank())
+        {
+             JOptionPane.showMessageDialog(this, "Mật khẩu không được để trống","Error", JOptionPane.ERROR_MESSAGE);
+             return;
+        }
+             
+            if(password.equals(retypePassword)){
+                boolean result = nhanVien_BUS.doiMatKhau(maNhanVien, password);
+                if(result){
+                    JOptionPane.showMessageDialog(this, "Đổi mật khẩu thành công","Thông báo", JOptionPane.INFORMATION_MESSAGE);
+                    this.dispose();
+                }            
+                else
+                    JOptionPane.showMessageDialog(this, "Đổi mật khẩu thất bại","Error", JOptionPane.ERROR_MESSAGE);
+            } 
+                else
+                    JOptionPane.showMessageDialog(this, "Nhập lại mật khẩu không đúng","Error", JOptionPane.ERROR_MESSAGE);
 
-        if(password.equals(retypePassword)){
-            boolean result = nhanVien_BUS.doiMatKhau(maNhanVien, password);
-            if(result){
-                JOptionPane.showMessageDialog(this, "Đổi mật khẩu thành công","Thông báo", JOptionPane.INFORMATION_MESSAGE);
-                this.dispose();
-            }            
-            else
-                JOptionPane.showMessageDialog(this, "Đổi mật khẩu thất bại","Error", JOptionPane.ERROR_MESSAGE);
-        } 
-        else
-                JOptionPane.showMessageDialog(this, "Nhập lại mật khẩu không đúng","Error", JOptionPane.ERROR_MESSAGE);
-        
-        
+                  
     }//GEN-LAST:event_btnSuccessMouseClicked
 
     private void btnSuccessMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSuccessMouseEntered
