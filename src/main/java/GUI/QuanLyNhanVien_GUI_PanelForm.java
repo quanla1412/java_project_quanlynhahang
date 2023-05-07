@@ -82,7 +82,8 @@ public class QuanLyNhanVien_GUI_PanelForm extends javax.swing.JPanel {
     
     private void loadComboBoxChucVu(){
         listChucVu = chucVu_BUS.getAllChucVu();
-        
+        cmbThemChucVu.removeAllItems();
+        cmbTimKiemChucVu.removeAllItems();
         for (ChucVu_DTO cv : listChucVu)
         {
             cmbThemChucVu.addItem(cv.getTen());
@@ -114,7 +115,7 @@ public class QuanLyNhanVien_GUI_PanelForm extends javax.swing.JPanel {
         cmbTinhTrangNV.setSelectedIndex(-1);
         cmbTimKiemChucVu.setSelectedIndex(-1);
         cmbGioiTinhNVThemSua.setSelectedIndex(-1);
-        
+        cmbThemChucVu.setSelectedIndex(-1);
     } 
     
     private void clearSearchBox(){
@@ -843,6 +844,7 @@ public class QuanLyNhanVien_GUI_PanelForm extends javax.swing.JPanel {
         cmbGioiTinhNVThemSua.setSelectedIndex(gioitinh);
         cmbThemChucVu.setSelectedIndex(indexChucVu);
         cmbTinhTrangNV.setSelectedIndex(indexTinhTrangNhanVien);
+        btnLuu.setEnabled(true);
 
     }//GEN-LAST:event_tblDanhSachNVMouseClicked
 
@@ -868,6 +870,8 @@ public class QuanLyNhanVien_GUI_PanelForm extends javax.swing.JPanel {
         pnlThemNhanVien.setBorder(BorderFactory.createTitledBorder("Thêm nhân viên mới"));
         pnlThemNhanVien.repaint();
         clearTextViewNhanVien();
+        btnLuu.setEnabled(true);
+        
     }//GEN-LAST:event_btnThemNVMouseClicked
 
     private void btnSuaNVMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSuaNVMouseClicked
@@ -882,6 +886,7 @@ public class QuanLyNhanVien_GUI_PanelForm extends javax.swing.JPanel {
         pnlThemNhanVien.repaint();
         txtMaNV.setEnabled(false);
         clearTextViewNhanVien();
+        btnLuu.setEnabled(false);
     }//GEN-LAST:event_btnSuaNVMouseClicked
 
     private void btnXoaNVMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnXoaNVMouseClicked
@@ -925,9 +930,11 @@ public class QuanLyNhanVien_GUI_PanelForm extends javax.swing.JPanel {
 
     private void btnResetThemNVMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnResetThemNVMouseClicked
         // TODO add your handling code here:
+        loadComboBoxChucVu();
+        
         if(dangThemNhanVien){
-            loadComboBoxChucVu();
-            loadComboBoxTinhTrangNhanVien();
+            cmbGioiTinhNVThemSua.setSelectedIndex(-1);
+            cmbTinhTrangNV.setSelectedIndex(-1);
         } else {
             String ma = txtMaNV.getText();
             NhanVienFull_DTO result = nhanVien_BUS.getNhanVienbyMa(ma);
@@ -1019,7 +1026,7 @@ public class QuanLyNhanVien_GUI_PanelForm extends javax.swing.JPanel {
         }
 
         String CCCD = txtCCCD.getText();
-        if(CCCD.length() != 12 || CCCD.length() != 10){
+        if(!CheckHopLe.checkCCCD(CCCD)){
             JOptionPane.showMessageDialog(this, "CCCD sai định dạng","Error", JOptionPane.ERROR_MESSAGE);
             return;
         }

@@ -177,4 +177,22 @@ public class LoaiBan_DAO {
         
         return result;
     }
+    
+    public boolean alreadyHasName(int idLoaiBan, String name){
+        Connection con = ConnectDatabase.openConnection();
+        boolean result = true;
+        try {
+            String sql = "Select * from LoaiBan where LOWER(LB_Ten) = LOWER(N'" + name + "') AND LB_ID != " + idLoaiBan;
+            Statement statement = con.createStatement();
+            
+            ResultSet rs = statement.executeQuery(sql);
+            result = rs.next();
+        } catch (SQLException ex) {
+            System.out.println(ex);
+        } finally {
+            ConnectDatabase.closeConnection(con);
+        }
+        
+        return result;
+    }
 }

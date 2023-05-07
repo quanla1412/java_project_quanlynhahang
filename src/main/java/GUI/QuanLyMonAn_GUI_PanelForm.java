@@ -838,6 +838,7 @@ public class QuanLyMonAn_GUI_PanelForm extends javax.swing.JPanel {
         btnThem.setEnabled(false);
         pnlThemSuaMonAn.setBorder(new TitledBorder("Thêm món ăn"));
         clearForm();
+        btnLuu.setEnabled(true);
     }//GEN-LAST:event_btnThemMouseClicked
 
     private void btnSuaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSuaMouseClicked
@@ -846,6 +847,7 @@ public class QuanLyMonAn_GUI_PanelForm extends javax.swing.JPanel {
         btnSua.setEnabled(false);
         btnThem.setEnabled(true);
         pnlThemSuaMonAn.setBorder(new TitledBorder("Sửa món ăn"));
+        btnLuu.setEnabled(false);
     }//GEN-LAST:event_btnSuaMouseClicked
 
     private void btnXoaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnXoaMouseClicked
@@ -1143,6 +1145,7 @@ public class QuanLyMonAn_GUI_PanelForm extends javax.swing.JPanel {
 
         int idMonAn = Integer.parseInt(model.getValueAt(indexRow, 0).toString());
         loadFormWithMonAn(idMonAn);
+        btnLuu.setEnabled(true);
     }//GEN-LAST:event_tblMonAnMouseClicked
 
     private void btnQuanLyLoaiMonAnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnQuanLyLoaiMonAnMouseClicked
